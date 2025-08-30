@@ -37,7 +37,7 @@ This version is a command-line application that renders the visualization direct
     ```bash
     python main.py
     ```
-## Development
+#### Development
 
 This project uses `ruff` for linting and formatting.
 
