@@ -1,5 +1,3 @@
-Of course. I've updated the `AGENT.md` to include the `yarn build` step and reordered the sequence to reflect the correct workflow.
-
 # AGENT.md
 
 ## Project Overview
