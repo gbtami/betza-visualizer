@@ -1,0 +1,24 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #333;
+    color: #eee;
+}
+
+#betzaInput {
+    width: 300px;
+    padding: 8px;
+    margin: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: #eee;
+}
+
+#board-container {
+    width: 520px;
+    height: 520px;
+}

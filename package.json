@@ -1,0 +1,19 @@
+{
+  "name": "betza-web-visualizer",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A web app to visualize Betza chess notation.",
+  "scripts": {
+    "clean": "rm -rf dist && find tests -name '*.js' -delete && find src -name '*.js' -delete",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "build": "yarn clean && tsc",
+    "start": "http-server ."
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "http-server": "^14.1.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  }
+}

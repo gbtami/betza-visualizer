@@ -1,0 +1,15 @@
+Screen {
+    align: center middle;
+}
+
+#betza_input {
+    width: 50%;
+    margin: 1 1;
+}
+
+#board {
+    border: thick green;
+    padding: 1;
+    width: auto;
+    height: auto;
+}
