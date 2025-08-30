@@ -95,3 +95,17 @@ The recommended workflow is to install dependencies, run tests, build the projec
     ```bash
     yarn start
     ```
+
+#### Development
+
+For formatting and linting the TypeScript code, we use `prettier` and `eslint`.
+
+- To format the code, run:
+  ```bash
+  yarn format
+  ```
+
+- To lint the code, run:
+  ```bash
+  yarn lint
+  ```
