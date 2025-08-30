@@ -37,6 +37,24 @@ This version is a command-line application that renders the visualization direct
     ```bash
     python main.py
     ```
+## Development
+
+This project uses `ruff` for linting and formatting.
+
+*   **To check for linting errors, run:**
+    ```bash
+    ruff check .
+    ```
+
+*   **To automatically fix linting errors, run:**
+    ```bash
+    ruff check . --fix
+    ```
+
+*   **To format the code, run:**
+    ```bash
+    ruff format .
+    ```
 
 ### 2. TypeScript (Web Version)
 
