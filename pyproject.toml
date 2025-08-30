@@ -20,6 +20,11 @@ dependencies = [
     "textual",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "ruff",
+]
+
 [project.urls]
 "Homepage" = "https://github.com/gbtami/betza-visuaizer"
 "Bug Tracker" = "https://github.com/gbtami/betza-visuaizer/issues"
