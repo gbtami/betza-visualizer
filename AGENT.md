@@ -9,9 +9,30 @@ This project, "betza-visualizer," is a dual implementation of a parser and visua
 1.  A Python application that uses the **Textual TUI framework** to provide a visualization within a terminal.
 2.  A TypeScript application that uses **HTML, CSS, and SVG** to provide a visualization in a web browser.
 
-A core requirement of this project is that the parsing logic, the suite of tests, and the visualization rules remain consistent across both the Python and TypeScript versions.
+## Core Agent Mandate: Maintain Parity
 
-## Implementations
+**This is the most important rule.** The parsing logic, the suite of tests, and the visualization rules **must** remain consistent across both the Python and TypeScript versions. Any change to the core logic in one implementation must be replicated in the other.
+
+## Agent Workflow Example: Adding a New Piece
+
+This example demonstrates the required workflow for adding a new feature.
+
+**Goal**: Add support for the "Ferz" piece (Betza notation "F"), which moves one square diagonally.
+
+**Required Steps:**
+
+1.  **Update Python Parser**:
+    *   Modify `betza_parser.py` to correctly parse the "F" notation and generate its diagonal move vectors.
+2.  **Add Python Test**:
+    *   Add a new test case in the `tests/` directory to verify the Ferz's movement logic in Python.
+3.  **Update TypeScript Parser**:
+    *   Modify the corresponding parser file in `src/` to replicate the exact same parsing logic for "F".
+4.  **Add TypeScript Test**:
+    *   Add a new test case in the `tests/` directory for TypeScript to verify the Ferz's movement, ensuring the test case matches the Python one.
+5.  **Verify Both Implementations**:
+    *   Run the full test suite for both Python and TypeScript to ensure all tests pass.
+
+## Implementation Details
 
 ### 1. Python (TUI Version)
 
