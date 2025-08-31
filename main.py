@@ -2,6 +2,7 @@ import math
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Input, Static, Select
 from textual.containers import Vertical
+from textual.reactive import reactive
 from betza_parser import BetzaParser
 
 
@@ -12,6 +13,9 @@ def sign(n):
 class BetzaChessApp(App):
     CSS_PATH = "style.tcss"
     BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
+
+    board_size = reactive(15)
+    moves = reactive([])
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -27,7 +31,7 @@ class BetzaChessApp(App):
                     ("13x13", 13),
                     ("15x15", 15),
                 ],
-                value=15,
+                value=self.board_size,
                 id="board_size_select",
             ),
             Static(self.render_board(), id="board"),
@@ -38,17 +42,19 @@ class BetzaChessApp(App):
         self.query_one(Input).focus()
 
     def on_input_changed(self, event: Input.Changed) -> None:
-        self.update_board()
+        self.moves = self.parser.parse(event.value)
 
     def on_select_changed(self, event: Select.Changed) -> None:
-        self.update_board()
+        self.board_size = event.value
 
-    def update_board(self) -> None:
-        moves = self.parser.parse(self.query_one(Input).value)
-        board_size = self.query_one("#board_size_select").value
-        self.query_one("#board").update(self.render_board(moves, board_size))
+    def watch_board_size(self, new_size: int) -> None:
+        self.query_one("#board").update(self.render_board())
 
-    def render_board(self, board_size: int = 13) -> str:
+    def watch_moves(self, new_moves: list) -> None:
+        self.query_one("#board").update(self.render_board())
+
+    def render_board(self) -> str:
+        board_size = self.board_size
         moves = self.moves
         center = board_size // 2
         board = [["." for _ in range(board_size)] for _ in range(board_size)]
