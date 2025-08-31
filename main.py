@@ -62,7 +62,7 @@ class BetzaChessApp(App):
         moves = self.moves
         center = board_size // 2
         board = [["." for _ in range(board_size)] for _ in range(board_size)]
-        board[center][center] = "🧚"
+        board[center][center] = "♔"
 
         hurdles = set()
         special_moves = [m for m in moves if m[3] is not None or m[4] != "normal"]
