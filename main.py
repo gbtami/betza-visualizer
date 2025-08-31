@@ -1,5 +1,4 @@
 import math
-from typing import List, Tuple, Optional
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Input, Static, Select
 from textual.containers import Vertical
@@ -49,9 +48,8 @@ class BetzaChessApp(App):
         board_size = self.query_one("#board_size_select").value
         self.query_one("#board").update(self.render_board(moves, board_size))
 
-    def render_board(
-        self, moves: List[Tuple[int, int, str, Optional[str], str, str]] = [], board_size: int = 13
-    ) -> str:
+    def render_board(self, board_size: int = 13) -> str:
+        moves = self.moves
         center = board_size // 2
         board = [["." for _ in range(board_size)] for _ in range(board_size)]
         board[center][center] = "🧚"
