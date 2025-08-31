@@ -10,11 +10,14 @@ def sign(n):
     return int(math.copysign(1, n)) if n != 0 else 0
 
 
+DEFAULT_BOARD_SIZE = 15
+
+
 class BetzaChessApp(App):
     CSS_PATH = "style.tcss"
     BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
 
-    board_size = reactive(15)
+    board_size = reactive(DEFAULT_BOARD_SIZE)
     moves = reactive([])
 
     def compose(self) -> ComposeResult:
@@ -31,14 +34,15 @@ class BetzaChessApp(App):
                     ("13x13", 13),
                     ("15x15", 15),
                 ],
-                value=self.board_size,
+                value=DEFAULT_BOARD_SIZE,
                 id="board_size_select",
             ),
-            Static(self.render_board(), id="board"),
+            Static(id="board"),
         )
 
     def on_mount(self) -> None:
         self.parser = BetzaParser()
+        self.query_one("#board").update(self.render_board())
         self.query_one(Input).focus()
 
     def on_input_changed(self, event: Input.Changed) -> None:
