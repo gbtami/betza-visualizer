@@ -4,8 +4,11 @@ import { Move } from './types.js';
 const parser = new BetzaParser();
 const inputEl = document.getElementById('betzaInput') as HTMLInputElement;
 const boardContainer = document.getElementById('board-container')!;
+const boardSizeSelect = document.getElementById(
+  'boardSizeSelect'
+) as HTMLSelectElement;
 
-const BOARD_SIZE = 13;
+let boardSize = Number(boardSizeSelect.value);
 const CELL_SIZE = 40;
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -25,11 +28,11 @@ function renderBoard(moves: Move[]) {
   svg.setAttribute('height', '100%');
   svg.setAttribute(
     'viewBox',
-    `0 0 ${BOARD_SIZE * CELL_SIZE} ${BOARD_SIZE * CELL_SIZE}`
+    `0 0 ${boardSize * CELL_SIZE} ${boardSize * CELL_SIZE}`
   );
 
-  for (let r = 0; r < BOARD_SIZE; r++) {
-    for (let c = 0; c < BOARD_SIZE; c++) {
+  for (let r = 0; r < boardSize; r++) {
+    for (let c = 0; c < boardSize; c++) {
       const rect = document.createElementNS(SVG_NS, 'rect');
       rect.setAttribute('x', String(c * CELL_SIZE));
       rect.setAttribute('y', String(r * CELL_SIZE));
@@ -40,7 +43,7 @@ function renderBoard(moves: Move[]) {
     }
   }
 
-  const center = Math.floor(BOARD_SIZE / 2);
+  const center = Math.floor(boardSize / 2);
 
   const hurdles = new Set<string>();
   const specialMoves = moves.filter(
@@ -167,7 +170,13 @@ function renderBoard(moves: Move[]) {
 
 renderBoard([]);
 
-inputEl.addEventListener('input', () => {
+function updateBoard() {
   const moves = parser.parse(inputEl.value);
   renderBoard(moves);
+}
+
+inputEl.addEventListener('input', updateBoard);
+boardSizeSelect.addEventListener('change', () => {
+  boardSize = Number(boardSizeSelect.value);
+  updateBoard();
 });

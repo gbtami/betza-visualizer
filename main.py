@@ -1,8 +1,8 @@
 import math
-from typing import List, Tuple, Optional
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Input, Static
+from textual.widgets import Header, Footer, Input, Static, Select
 from textual.containers import Vertical
+from textual.reactive import reactive
 from betza_parser import BetzaParser
 
 
@@ -14,11 +14,26 @@ class BetzaChessApp(App):
     CSS_PATH = "style.tcss"
     BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
 
+    board_size = reactive(15)
+    moves = reactive([])
+
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
         yield Vertical(
             Input(placeholder="Try Xiangqi Horse: nN", id="betza_input"),
+            Select(
+                [
+                    ("5x5", 5),
+                    ("7x7", 7),
+                    ("9x9", 9),
+                    ("11x11", 11),
+                    ("13x13", 13),
+                    ("15x15", 15),
+                ],
+                value=self.board_size,
+                id="board_size_select",
+            ),
             Static(self.render_board(), id="board"),
         )
 
@@ -27,11 +42,20 @@ class BetzaChessApp(App):
         self.query_one(Input).focus()
 
     def on_input_changed(self, event: Input.Changed) -> None:
-        moves = self.parser.parse(event.value)
-        self.query_one("#board").update(self.render_board(moves))
+        self.moves = self.parser.parse(event.value)
 
-    def render_board(self, moves: List[Tuple[int, int, str, Optional[str], str, str]] = []) -> str:
-        board_size = 13
+    def on_select_changed(self, event: Select.Changed) -> None:
+        self.board_size = event.value
+
+    def watch_board_size(self, new_size: int) -> None:
+        self.query_one("#board").update(self.render_board())
+
+    def watch_moves(self, new_moves: list) -> None:
+        self.query_one("#board").update(self.render_board())
+
+    def render_board(self) -> str:
+        board_size = self.board_size
+        moves = self.moves
         center = board_size // 2
         board = [["." for _ in range(board_size)] for _ in range(board_size)]
         board[center][center] = "🧚"
