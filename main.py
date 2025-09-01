@@ -13,6 +13,8 @@ def sign(n):
 
 DEFAULT_BOARD_SIZE = 15
 
+LEGEND_TEXT = "m: Move | x: Capture | X: Move/Capture | ♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
+
 
 class BetzaChessApp(App):
     CSS_PATH = "style.tcss"
@@ -40,6 +42,7 @@ class BetzaChessApp(App):
                 id="board_size_select",
             ),
             Static(id="board"),
+            Static(LEGEND_TEXT, id="legend"),
         )
 
     def on_mount(self) -> None:
