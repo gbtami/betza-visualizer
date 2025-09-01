@@ -17,12 +17,13 @@ const COLORS = {
   move: '#FFD700',
   capture: '#DC143C',
   hop: '#32CD32',
-  hurdle: '#606060',
+  blocker: '#606060',
 };
 
 const sign = (n: number): number => Math.sign(n);
+const blockers = new Set<string>();
 
-function renderBoard(moves: Move[]) {
+function renderBoard(moves: Move[], blockers: Set<string>) {
   const svg = document.createElementNS(SVG_NS, 'svg');
   svg.setAttribute('width', '100%');
   svg.setAttribute('height', '100%');
@@ -30,6 +31,8 @@ function renderBoard(moves: Move[]) {
     'viewBox',
     `0 0 ${boardSize * CELL_SIZE} ${boardSize * CELL_SIZE}`
   );
+
+  const center = Math.floor(boardSize / 2);
 
   for (let r = 0; r < boardSize; r++) {
     for (let c = 0; c < boardSize; c++) {
@@ -43,62 +46,51 @@ function renderBoard(moves: Move[]) {
     }
   }
 
-  const center = Math.floor(boardSize / 2);
+  svg.addEventListener('click', (event) => {
+    const svgPoint = svg.createSVGPoint();
+    svgPoint.x = event.clientX;
+    svgPoint.y = event.clientY;
+    const { x, y } = svgPoint.matrixTransform(
+      (svg.getScreenCTM() as SVGMatrix).inverse()
+    );
 
-  const hurdles = new Set<string>();
-  const specialMoves = moves.filter(
-    (m) => m.hopType !== null || m.jumpType !== 'normal'
-  );
+    const c = Math.floor(x / CELL_SIZE);
+    const r = Math.floor(y / CELL_SIZE);
 
-  if (specialMoves.length > 0) {
-    const hopperMoves = specialMoves.filter((m) => m.hopType !== null);
-    if (hopperMoves.length > 0) {
-      const uniqueDirections = [
-        ...new Set(hopperMoves.map((m) => `${sign(m.x)},${sign(m.y)}`)),
-      ];
-      if (uniqueDirections.length === 4) {
-        const isRookLike = ['0,1', '0,-1', '1,0', '-1,0'].every((d) =>
-          uniqueDirections.includes(d)
-        );
-        const isBishopLike = ['1,1', '1,-1', '-1,1', '-1,-1'].every((d) =>
-          uniqueDirections.includes(d)
-        );
-        if (isRookLike || isBishopLike) uniqueDirections.pop();
-      }
-      uniqueDirections.forEach((dir) =>
-        hurdles.add(
-          `${dir.split(',').map(Number)[0] * 2},${dir.split(',').map(Number)[1] * 2}`
-        )
-      );
+    const blockerX = c - center;
+    const blockerY = center - r;
+
+    if (blockerX === 0 && blockerY === 0) return;
+
+    const blockerCoord = `${blockerX},${blockerY}`;
+    if (blockers.has(blockerCoord)) {
+      blockers.delete(blockerCoord);
+    } else {
+      blockers.add(blockerCoord);
     }
+    updateBoard();
+  });
 
-    const njLeapers = specialMoves.filter((m) => m.jumpType !== 'normal');
-    if (njLeapers.length > 0) {
-      ['0,1', '-1,0'].forEach((dir) => hurdles.add(dir));
-    }
-
-    hurdles.forEach((h) => {
-      const [hx, hy] = h.split(',').map(Number);
-      const cx = (center + hx) * CELL_SIZE + CELL_SIZE / 2;
-      const cy = (center - hy) * CELL_SIZE + CELL_SIZE / 2;
-      const hurdle = document.createElementNS(SVG_NS, 'text');
-      hurdle.textContent = '♙';
-      hurdle.setAttribute('x', String(cx));
-      hurdle.setAttribute('y', String(cy));
-      hurdle.setAttribute('font-size', String(CELL_SIZE * 0.7));
-      hurdle.setAttribute('text-anchor', 'middle');
-      hurdle.setAttribute('dominant-baseline', 'central');
-      hurdle.setAttribute('fill', COLORS.hurdle);
-      hurdle.setAttribute('opacity', '0.8');
-      svg.appendChild(hurdle);
-    });
-  }
+  blockers.forEach((b) => {
+    const [bx, by] = b.split(',').map(Number);
+    const cx = (center + bx) * CELL_SIZE + CELL_SIZE / 2;
+    const cy = (center - by) * CELL_SIZE + CELL_SIZE / 2;
+    const blocker = document.createElementNS(SVG_NS, 'text');
+    blocker.textContent = '♙';
+    blocker.setAttribute('x', String(cx));
+    blocker.setAttribute('y', String(cy));
+    blocker.setAttribute('font-size', String(CELL_SIZE * 0.7));
+    blocker.setAttribute('text-anchor', 'middle');
+    blocker.setAttribute('dominant-baseline', 'central');
+    blocker.setAttribute('fill', COLORS.blocker);
+    blocker.setAttribute('opacity', '0.8');
+    svg.appendChild(blocker);
+  });
 
   moves.forEach((move) => {
     const { x, y, moveType, hopType, jumpType } = move;
     const cx = (center + x) * CELL_SIZE + CELL_SIZE / 2;
     const cy = (center - y) * CELL_SIZE + CELL_SIZE / 2;
-    let color = '';
     let isValid = true;
 
     if (jumpType === 'non-jumping') {
@@ -106,14 +98,14 @@ function renderBoard(moves: Move[]) {
         blockY = 0;
       if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
       else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
-      if (hurdles.has(`${blockX},${blockY}`)) isValid = false;
+      if (blockers.has(`${blockX},${blockY}`)) isValid = false;
     } else if (jumpType === 'jumping') {
       isValid = false;
       let blockX = 0,
         blockY = 0;
       if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
       else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
-      if (hurdles.has(`${blockX},${blockY}`)) isValid = true;
+      if (blockers.has(`${blockX},${blockY}`)) isValid = true;
     } else if (hopType) {
       isValid = false;
       const path: string[] = [];
@@ -122,11 +114,11 @@ function renderBoard(moves: Move[]) {
       for (let i = 1; i < Math.max(Math.abs(x), Math.abs(y)); i++) {
         path.push(`${i * dx},${i * dy}`);
       }
-      const hurdlesOnPath = path.filter((p) => hurdles.has(p));
-      if (hurdlesOnPath.length === 1) {
+      const blockersOnPath = path.filter((p) => blockers.has(p));
+      if (blockersOnPath.length === 1) {
         if (hopType === 'p') isValid = true;
         else if (hopType === 'g') {
-          const [hx, hy] = hurdlesOnPath[0].split(',').map(Number);
+          const [hx, hy] = blockersOnPath[0].split(',').map(Number);
           if (x === hx + dx && y === hy + dy) isValid = true;
         }
       }
@@ -211,15 +203,16 @@ function renderBoard(moves: Move[]) {
   boardContainer.appendChild(svg);
 }
 
-renderBoard([]);
-
 function updateBoard() {
   const moves = parser.parse(inputEl.value);
-  renderBoard(moves);
+  renderBoard(moves, blockers);
 }
+
+renderBoard([], blockers);
 
 inputEl.addEventListener('input', updateBoard);
 boardSizeSelect.addEventListener('change', () => {
   boardSize = Number(boardSizeSelect.value);
+  blockers.clear();
   updateBoard();
 });
