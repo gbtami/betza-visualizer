@@ -91,22 +91,10 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
     const { x, y, moveType, hopType, jumpType } = move;
     const cx = (center + x) * CELL_SIZE + CELL_SIZE / 2;
     const cy = (center - y) * CELL_SIZE + CELL_SIZE / 2;
-    let isValid = true;
+    let isValid: boolean;
 
-    if (jumpType === 'non-jumping') {
-      let blockX = 0,
-        blockY = 0;
-      if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
-      else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
-      if (blockers.has(`${blockX},${blockY}`)) isValid = false;
-    } else if (jumpType === 'jumping') {
-      isValid = false;
-      let blockX = 0,
-        blockY = 0;
-      if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
-      else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
-      if (blockers.has(`${blockX},${blockY}`)) isValid = true;
-    } else if (hopType) {
+    if (hopType) {
+      // Hoppers (e.g., Cannon 'p', Grasshopper 'g')
       isValid = false;
       const path: string[] = [];
       const dx = sign(x);
@@ -116,12 +104,52 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
       }
       const blockersOnPath = path.filter((p) => blockers.has(p));
       if (blockersOnPath.length === 1) {
-        if (hopType === 'p') isValid = true;
-        else if (hopType === 'g') {
+        if (hopType === 'p') {
+          isValid = true;
+        } else if (hopType === 'g') {
           const [hx, hy] = blockersOnPath[0].split(',').map(Number);
-          if (x === hx + dx && y === hy + dy) isValid = true;
+          if (x === hx + dx && y === hy + dy) {
+            isValid = true;
+          }
         }
       }
+    } else if (jumpType === 'jumping') {
+      // Leapers that MUST jump over a piece (e.g., jN)
+      isValid = false;
+      let blockX = 0,
+        blockY = 0;
+      if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
+      else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
+      if (blockers.has(`${blockX},${blockY}`)) {
+        isValid = true;
+      }
+    } else if (jumpType === 'non-jumping') {
+      // Leapers that CANNOT jump over a piece (e.g., nN)
+      isValid = true;
+      let blockX = 0,
+        blockY = 0;
+      if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
+      else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
+      if (blockers.has(`${blockX},${blockY}`)) {
+        isValid = false;
+      }
+    } else {
+      // Normal leapers (e.g., N) and sliders (e.g., R, B)
+      isValid = true;
+      const path: string[] = [];
+      const dx = sign(x);
+      const dy = sign(y);
+      for (let i = 1; i < Math.max(Math.abs(x), Math.abs(y)); i++) {
+        path.push(`${i * dx},${i * dy}`);
+      }
+      if (path.some((p) => blockers.has(p))) {
+        isValid = false;
+      }
+    }
+
+    // Final check for all move types: cannot land on a blocker if it's a 'move' only.
+    if (isValid && blockers.has(`${x},${y}`) && moveType === 'move') {
+      isValid = false;
     }
 
     if (!isValid) return;

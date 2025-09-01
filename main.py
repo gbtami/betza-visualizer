@@ -60,9 +60,10 @@ class BetzaChessApp(App):
             return
 
         center = self.board_size // 2
-        # The board characters are space-separated
-        col = event.x // 2
-        row = event.y
+        # The board characters are space-separated, and we need to account for
+        # padding/border offsets.
+        col = (event.x - 1) // 2
+        row = event.y - 2
 
         blocker_x = col - center
         blocker_y = center - row
@@ -106,29 +107,8 @@ class BetzaChessApp(App):
             if not (0 <= display_y < board_size and 0 <= display_x < board_size):
                 continue
 
-            is_valid = True
-            if jump_type == "non-jumping":
-                block_x, block_y = 0, 0
-                if abs(x) > abs(y):
-                    block_x = sign(x)
-                elif abs(y) > abs(x):
-                    block_y = sign(y)
-
-                if (block_x, block_y) in self.blockers:
-                    is_valid = False
-
-            elif jump_type == "jumping":
-                is_valid = False
-                block_x, block_y = 0, 0
-                if abs(x) > abs(y):
-                    block_x = sign(x)
-                elif abs(y) > abs(x):
-                    block_y = sign(y)
-
-                if (block_x, block_y) in self.blockers:
-                    is_valid = True
-
-            elif hop_type is not None:
+            is_valid = None
+            if hop_type is not None:
                 is_valid = False
                 dx, dy = sign(x), sign(y)
                 path = [(i * dx, i * dy) for i in range(1, max(abs(x), abs(y)))]
@@ -140,6 +120,33 @@ class BetzaChessApp(App):
                         blocker_pos = blockers_on_path[0]
                         if x == blocker_pos[0] + dx and y == blocker_pos[1] + dy:
                             is_valid = True
+            elif jump_type == "jumping":
+                is_valid = False
+                block_x, block_y = 0, 0
+                if abs(x) > abs(y):
+                    block_x = sign(x)
+                elif abs(y) > abs(x):
+                    block_y = sign(y)
+                if (block_x, block_y) in self.blockers:
+                    is_valid = True
+            elif jump_type == "non-jumping":
+                is_valid = True
+                block_x, block_y = 0, 0
+                if abs(x) > abs(y):
+                    block_x = sign(x)
+                elif abs(y) > abs(x):
+                    block_y = sign(y)
+                if (block_x, block_y) in self.blockers:
+                    is_valid = False
+            else:
+                is_valid = True
+                dx, dy = sign(x), sign(y)
+                path = [(i * dx, i * dy) for i in range(1, max(abs(x), abs(y)))]
+                if any(p in self.blockers for p in path):
+                    is_valid = False
+
+            if is_valid and (x, y) in self.blockers and move_type == "move":
+                is_valid = False
 
             if is_valid:
                 is_on_blocker = (x, y) in self.blockers
