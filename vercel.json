@@ -2,10 +2,7 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/**", "index.html", "style.css"]
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
