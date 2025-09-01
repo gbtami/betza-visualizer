@@ -17,7 +17,7 @@ class BetzaParser:
             "H": (3, 0),
             "C": (3, 1),
             "Z": (3, 2),
-            "G": (4, 1),
+            "G": (3, 3),
         }
         self.compound_aliases: Dict[str, str] = {
             "B": "F0",

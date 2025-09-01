@@ -10,7 +10,7 @@ export class BetzaParser {
     ['H', { x: 3, y: 0 }],
     ['C', { x: 3, y: 1 }],
     ['Z', { x: 3, y: 2 }],
-    ['G', { x: 4, y: 1 }],
+    ['G', { x: 3, y: 3 }],
   ]);
 
   private readonly compoundAliases: Map<string, string> = new Map([
