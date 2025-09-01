@@ -13,3 +13,8 @@ Screen {
     width: auto;
     height: auto;
 }
+
+#legend {
+    text-align: center;
+    margin-top: 1;
+}
