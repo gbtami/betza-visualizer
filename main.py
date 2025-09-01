@@ -135,7 +135,14 @@ class BetzaChessApp(App):
                 # This will now draw a move marker even if a hurdle was there before
                 board[display_y][display_x] = move_map.get(move_type, "?")
 
-        return "\n".join(" ".join(row) for row in board)
+        # --- FIX: Adjust spacing for wide characters ---
+        rendered_rows = []
+        for row in board:
+            row_str = " ".join(row)
+            if "🧚" in row_str:
+                row_str = row_str.replace(" 🧚", "🧚")
+            rendered_rows.append(row_str)
+        return "\n".join(rendered_rows)
 
     def action_toggle_dark(self) -> None:
         self.dark = not self.dark
