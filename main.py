@@ -88,7 +88,7 @@ class BetzaChessApp(App):
                 if 0 <= center - hy < board_size and 0 <= center + hx < board_size:
                     board[center - hy][center + hx] = "♙"
 
-        move_map = {"move_capture": "C", "move": "M"}
+        move_map = {"move_capture": "X", "move": "m", "capture": "x"}
 
         # --- FIX: Render moves SECOND, allowing them to overwrite hurdles if necessary ---
         for x, y, move_type, hop_type, jump_type, atom in moves:
