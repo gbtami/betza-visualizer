@@ -76,8 +76,8 @@ class TestFairyStockfishPieces(unittest.TestCase):
     def test_zebra(self):
         self.assertEqual(len(self.parser.parse("Z")), 8)
 
-    def test_giraffe(self):
-        self.assertEqual(len(self.parser.parse("G")), 8)
+    def test_tripper(self):
+        self.assertEqual(len(self.parser.parse("G")), 4)
 
     def test_alibaba(self):
         moves = self.parser.parse("J")

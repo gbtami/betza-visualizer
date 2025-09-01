@@ -92,8 +92,8 @@ describe('BetzaParser', () => {
             expect(parser.parse('Z').length).toBe(8);
         });
 
-        it('should parse a Giraffe (G)', () => {
-            expect(parser.parse('G').length).toBe(8);
+        it('should parse a Tripper (G)', () => {
+            expect(parser.parse('G').length).toBe(4);
         });
 
         it('should parse an Alibaba (J -> AD)', () => {
