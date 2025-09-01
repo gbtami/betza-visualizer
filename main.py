@@ -133,7 +133,16 @@ class BetzaChessApp(App):
 
             if is_valid:
                 # This will now draw a move marker even if a hurdle was there before
-                board[display_y][display_x] = move_map.get(move_type, "?")
+                is_on_hurdle = (x,y) in hurdles
+                char = move_map.get(move_type, "?")
+                if is_on_hurdle:
+                    if char == "m":
+                        char = "M"
+                    elif char == "x":
+                        char = "H"
+                    elif char == "X":
+                        char = "#"
+                board[display_y][display_x] = char
 
         # --- FIX: Adjust spacing for wide characters ---
         rendered_rows = []
