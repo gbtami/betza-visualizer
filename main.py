@@ -88,7 +88,7 @@ class BetzaChessApp(App):
                 if 0 <= center - hy < board_size and 0 <= center + hx < board_size:
                     board[center - hy][center + hx] = "♙"
 
-        move_map = {"move_capture": "C", "move": "M"}
+        move_map = {"move_capture": "X", "move": "m", "capture": "x"}
 
         # --- FIX: Render moves SECOND, allowing them to overwrite hurdles if necessary ---
         for x, y, move_type, hop_type, jump_type, atom in moves:
@@ -133,7 +133,16 @@ class BetzaChessApp(App):
 
             if is_valid:
                 # This will now draw a move marker even if a hurdle was there before
-                board[display_y][display_x] = move_map.get(move_type, "?")
+                is_on_hurdle = (x,y) in hurdles
+                char = move_map.get(move_type, "?")
+                if is_on_hurdle:
+                    if char == "m":
+                        char = "M"
+                    elif char == "x":
+                        char = "H"
+                    elif char == "X":
+                        char = "#"
+                board[display_y][display_x] = char
 
         # --- FIX: Adjust spacing for wide characters ---
         rendered_rows = []

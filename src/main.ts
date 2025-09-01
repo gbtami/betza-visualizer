@@ -134,24 +134,67 @@ function renderBoard(moves: Move[]) {
 
     if (!isValid) return;
 
-    if (hopType || jumpType === 'jumping') {
-      if (moveType === 'move') color = COLORS.move;
-      else if (moveType === 'capture') color = COLORS.capture;
-      else color = COLORS.hop;
-    } else {
-      if (moveType === 'move') color = COLORS.move;
-      else if (moveType === 'capture') color = COLORS.capture;
-      else color = COLORS.standard;
-    }
+    const r = CELL_SIZE * 0.3;
+    const isSpecialMove = hopType || jumpType === 'jumping';
+    const strokeWidth = '4';
+    const opacity = '0.9';
 
-    const circle = document.createElementNS(SVG_NS, 'circle');
-    circle.setAttribute('cx', String(cx));
-    circle.setAttribute('cy', String(cy));
-    circle.setAttribute('r', String(CELL_SIZE * 0.3));
-    circle.setAttribute('fill', color);
-    // --- FIX: Use a lower opacity to make the circles semi-transparent ---
-    circle.setAttribute('opacity', '0.6');
-    svg.appendChild(circle);
+    if (moveType === 'move') {
+      const circle = document.createElementNS(SVG_NS, 'circle');
+      circle.setAttribute('cx', String(cx));
+      circle.setAttribute('cy', String(cy));
+      circle.setAttribute('r', String(r));
+      circle.setAttribute('stroke', COLORS.move);
+      circle.setAttribute('stroke-width', strokeWidth);
+      circle.setAttribute('fill', 'none');
+      circle.setAttribute('opacity', opacity);
+      svg.appendChild(circle);
+    } else if (moveType === 'capture') {
+      const circle = document.createElementNS(SVG_NS, 'circle');
+      circle.setAttribute('cx', String(cx));
+      circle.setAttribute('cy', String(cy));
+      circle.setAttribute('r', String(r));
+      circle.setAttribute('stroke', COLORS.capture);
+      circle.setAttribute('stroke-width', strokeWidth);
+      circle.setAttribute('fill', 'none');
+      circle.setAttribute('opacity', opacity);
+      svg.appendChild(circle);
+    } else if (moveType === 'move_capture') {
+      if (isSpecialMove) {
+        const circle = document.createElementNS(SVG_NS, 'circle');
+        circle.setAttribute('cx', String(cx));
+        circle.setAttribute('cy', String(cy));
+        circle.setAttribute('r', String(r));
+        circle.setAttribute('stroke', COLORS.hop);
+        circle.setAttribute('stroke-width', strokeWidth);
+        circle.setAttribute('fill', 'none');
+        circle.setAttribute('opacity', opacity);
+        svg.appendChild(circle);
+      } else {
+        const moveIndicatorGroup = document.createElementNS(SVG_NS, 'g');
+        moveIndicatorGroup.setAttribute(
+          'transform',
+          `translate(${cx}, ${cy})`
+        );
+        moveIndicatorGroup.setAttribute('opacity', opacity);
+
+        const path1 = document.createElementNS(SVG_NS, 'path');
+        path1.setAttribute('d', `M 0,${-r} A ${r},${r} 0 0 0 0,${r}`);
+        path1.setAttribute('stroke', COLORS.move);
+        path1.setAttribute('stroke-width', strokeWidth);
+        path1.setAttribute('fill', 'none');
+        moveIndicatorGroup.appendChild(path1);
+
+        const path2 = document.createElementNS(SVG_NS, 'path');
+        path2.setAttribute('d', `M 0,${-r} A ${r},${r} 0 0 1 0,${r}`);
+        path2.setAttribute('stroke', COLORS.capture);
+        path2.setAttribute('stroke-width', strokeWidth);
+        path2.setAttribute('fill', 'none');
+        moveIndicatorGroup.appendChild(path2);
+
+        svg.appendChild(moveIndicatorGroup);
+      }
+    }
   });
 
   const piece = document.createElementNS(SVG_NS, 'text');
