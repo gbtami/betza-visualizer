@@ -107,35 +107,40 @@ class BetzaParser:
             mods += "fb"
 
         dir_mods = "".join(c for c in mods if c in "fblr")
-        if not dir_mods:
-            return directions
 
-        constrain_forward = "f" in dir_mods and "b" not in dir_mods
-        constrain_backward = "b" in dir_mods and "f" not in dir_mods
-        constrain_left = "l" in dir_mods and "r" not in dir_mods
-        constrain_right = "r" in dir_mods and "l" not in dir_mods
+        if not dir_mods:
+            filtered = directions
+        else:
+            filtered = set()
+            for x, y in directions:
+                v_valid = True
+                if 'f' in dir_mods or 'b' in dir_mods:
+                    v_valid = ('f' in dir_mods and y > 0) or \
+                              ('b' in dir_mods and y < 0)
+
+                h_valid = True
+                if 'l' in dir_mods or 'r' in dir_mods:
+                    h_valid = ('l' in dir_mods and x < 0) or \
+                              ('r' in dir_mods and x > 0)
+
+                if v_valid and h_valid:
+                    filtered.add((x, y))
 
         constrain_double_vertical = "ff" in mods or "bb" in mods
         constrain_double_horizontal = "ll" in mods or "rr" in mods
 
-        filtered = set()
-        for x, y in directions:
-            is_valid = True
+        if not constrain_double_vertical and not constrain_double_horizontal:
+            return filtered
 
-            if constrain_forward and y <= 0:
-                is_valid = False
-            if constrain_backward and y >= 0:
-                is_valid = False
-            if constrain_left and x >= 0:
-                is_valid = False
-            if constrain_right and x <= 0:
-                is_valid = False
+        final_filtered = set()
+        for x, y in filtered:
+            is_valid = True
             if constrain_double_vertical and abs(y) <= abs(x):
                 is_valid = False
             if constrain_double_horizontal and abs(x) <= abs(y):
                 is_valid = False
 
             if is_valid:
-                filtered.add((x, y))
+                final_filtered.add((x, y))
 
-        return filtered
+        return final_filtered
