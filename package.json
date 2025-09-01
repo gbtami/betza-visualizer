@@ -9,7 +9,6 @@
     "clean": "rm -rf dist && find tests -name '*.js' -delete && find src -name '*.js' -delete",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build": "yarn clean && tsc",
-    "start": "http-server ."
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
