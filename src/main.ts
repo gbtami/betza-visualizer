@@ -76,7 +76,7 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
     const cx = (center + bx) * CELL_SIZE + CELL_SIZE / 2;
     const cy = (center - by) * CELL_SIZE + CELL_SIZE / 2;
     const blocker = document.createElementNS(SVG_NS, 'text');
-    blocker.textContent = '♙';
+    blocker.textContent = '♟️';
     blocker.setAttribute('x', String(cx));
     blocker.setAttribute('y', String(cy));
     blocker.setAttribute('font-size', String(CELL_SIZE * 0.7));
@@ -236,7 +236,74 @@ function updateBoard() {
   renderBoard(moves, blockers);
 }
 
+function createLegendItem(
+  content: string,
+  description: string,
+  isEmoji = false
+): HTMLElement {
+  const item = document.createElement('div');
+  item.classList.add('legend-item');
+
+  const icon = document.createElement('span');
+  icon.classList.add('legend-icon');
+  if (isEmoji) {
+    icon.classList.add('legend-icon-emoji');
+    icon.textContent = content;
+  } else {
+    icon.innerHTML = content;
+  }
+
+  const text = document.createElement('span');
+  text.textContent = description;
+
+  item.appendChild(icon);
+  item.appendChild(text);
+  return item;
+}
+
+function renderLegend() {
+  const legendContainer = document.getElementById('legend-container')!;
+  const r = CELL_SIZE * 0.3;
+  const strokeWidth = '4';
+
+  const moveIcon = `<svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="${
+    r * 0.75
+  }" stroke="${
+    COLORS.move
+  }" stroke-width="${strokeWidth}" fill="none" /></svg>`;
+  const captureIcon = `<svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="${
+    r * 0.75
+  }" stroke="${
+    COLORS.capture
+  }" stroke-width="${strokeWidth}" fill="none" /></svg>`;
+  const moveCaptureIcon = `<svg width="30" height="30" viewBox="0 0 30 30">
+        <path d="M 15,${15 - r * 0.75} A ${r * 0.75},${r * 0.75} 0 0 0 15,${
+          15 + r * 0.75
+        }" stroke="${COLORS.move}" stroke-width="${strokeWidth}" fill="none" />
+        <path d="M 15,${15 - r * 0.75} A ${r * 0.75},${r * 0.75} 0 0 1 15,${
+          15 + r * 0.75
+        }" stroke="${
+          COLORS.capture
+        }" stroke-width="${strokeWidth}" fill="none" />
+    </svg>`;
+  const hopIcon = `<svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="${
+    r * 0.75
+  }" stroke="${
+    COLORS.hop
+  }" stroke-width="${strokeWidth}" fill="none" /></svg>`;
+
+  legendContainer.appendChild(createLegendItem('🧚', 'Piece', true));
+  legendContainer.appendChild(createLegendItem('♟️', 'Blocker', true));
+  legendContainer.appendChild(createLegendItem(moveIcon, 'Move'));
+  legendContainer.appendChild(createLegendItem(captureIcon, 'Capture'));
+  legendContainer.appendChild(
+    createLegendItem(moveCaptureIcon, 'Move or Capture')
+  );
+  legendContainer.appendChild(createLegendItem(hopIcon, 'Special Move / Hop'));
+}
+
 renderBoard([], blockers);
+renderLegend();
 
 inputEl.addEventListener('input', updateBoard);
 boardSizeSelect.addEventListener('change', () => {
