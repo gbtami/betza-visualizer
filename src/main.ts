@@ -344,6 +344,7 @@ document
     const item = target.closest('.piece-catalog-item') as HTMLElement | null;
     if (item && item.dataset.betza) {
       inputEl.value = item.dataset.betza;
+      blockers.clear();
       // Manually trigger the input event to update the board
       inputEl.dispatchEvent(new Event('input'));
     }

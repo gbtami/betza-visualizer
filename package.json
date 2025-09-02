@@ -8,7 +8,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "clean": "rm -rf dist && find tests -name '*.js' -delete && find src -name '*.js' -delete",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-   "build": "yarn clean && tsc && cp index.html style.css dist/"
+   "build": "yarn clean && tsc && cp index.html style.css piece_catalog.json dist/"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
