@@ -1,0 +1,192 @@
+[
+  {
+    "name": "Advisor",
+    "variant": "Xiangqi",
+    "betza": "F"
+  },
+  {
+    "name": "Alfil",
+    "variant": "Shatranj, Courier Chess",
+    "betza": "A"
+  },
+  {
+    "name": "Amazon",
+    "variant": "Capablanca Chess",
+    "betza": "QN"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "Capablanca Chess",
+    "betza": "BN"
+  },
+  {
+    "name": "Berolina Pawn",
+    "variant": "Berolina Chess",
+    "betza": "mfFcefWimfnA"
+  },
+  {
+    "name": "Cannon",
+    "variant": "Xiangqi",
+    "betza": "mRcpR"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "Capablanca Chess",
+    "betza": "RN"
+  },
+  {
+    "name": "Chariot",
+    "variant": "Xiangqi",
+    "betza": "R"
+  },
+  {
+    "name": "Copper General",
+    "variant": "Chu Shogi",
+    "betza": "fFvW"
+  },
+  {
+    "name": "Courier",
+    "variant": "Courier Chess",
+    "betza": "B"
+  },
+  {
+    "name": "Dabbaba",
+    "variant": "Tamerlane Chess",
+    "betza": "D"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "Shogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Dragon King",
+    "variant": "Shogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Drunk Elephant",
+    "variant": "Chu Shogi",
+    "betza": "FsfW"
+  },
+  {
+    "name": "Elephant",
+    "variant": "Xiangqi, Makruk",
+    "betza": "nA"
+  },
+  {
+    "name": "Ferocious Leopard",
+    "variant": "Chu Shogi",
+    "betza": "FvW"
+  },
+  {
+    "name": "Ferz",
+    "variant": "Shatranj, Tamerlane Chess",
+    "betza": "F"
+  },
+  {
+    "name": "Flying Cock",
+    "variant": "Tori Shogi",
+    "betza": "sWfF"
+  },
+  {
+    "name": "Flying Ox",
+    "variant": "Chu Shogi",
+    "betza": "vRB"
+  },
+  {
+    "name": "Go-Between",
+    "variant": "Chu Shogi",
+    "betza": "vW"
+  },
+  {
+    "name": "Gold General",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "Horse",
+    "variant": "Xiangqi, Janggi",
+    "betza": "nN"
+  },
+  {
+    "name": "Iron General",
+    "variant": "Tori Shogi",
+    "betza": "fK"
+  },
+  {
+    "name": "Kirin",
+    "variant": "Chu Shogi",
+    "betza": "FD"
+  },
+  {
+    "name": "Lance",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "fR"
+  },
+  {
+    "name": "Lion",
+    "variant": "Chu Shogi",
+    "betza": "KANDcaKmabK"
+  },
+  {
+    "name": "Pawn (Shatranj)",
+    "variant": "Shatranj",
+    "betza": "mfWcfF"
+  },
+  {
+    "name": "Pawn (Japanese)",
+    "variant": "Shogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Pawn (Korean)",
+    "variant": "Janggi",
+    "betza": "sfW"
+  },
+  {
+    "name": "Phoenix",
+    "variant": "Chu Shogi",
+    "betza": "WA"
+  },
+  {
+    "name": "Queen (Shatranj)",
+    "variant": "Shatranj",
+    "betza": "F"
+  },
+  {
+    "name": "Reverse Chariot",
+    "variant": "Chu Shogi",
+    "betza": "vR"
+  },
+  {
+    "name": "Side Mover",
+    "variant": "Chu Shogi",
+    "betza": "WsR"
+  },
+  {
+    "name": "Silver General",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Soldier",
+    "variant": "Janggi",
+    "betza": "fW"
+  },
+  {
+    "name": "Vertical Mover",
+    "variant": "Chu Shogi",
+    "betza": "WfbR"
+  },
+  {
+    "name": "Wazir",
+    "variant": "Tamerlane Chess",
+    "betza": "W"
+  },
+  {
+    "name": "White Horse",
+    "variant": "Chu Shogi",
+    "betza": "vRfB"
+  }
+]

@@ -18,6 +18,40 @@ body {
     color: #eee;
 }
 
+.main-container {
+    display: flex;
+    gap: 20px;
+}
+
+#piece-catalog-container {
+    width: 250px;
+    height: 520px;
+    overflow-y: auto;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #444;
+}
+
+.piece-catalog-item {
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.piece-catalog-item:hover {
+    background-color: #555;
+}
+
+.piece-catalog-item .name {
+    font-weight: bold;
+}
+
+.piece-catalog-item .variant {
+    font-size: 0.9em;
+    color: #ccc;
+}
+
 #board-container {
     width: 520px;
     height: 520px;

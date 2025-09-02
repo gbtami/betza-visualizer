@@ -1,7 +1,8 @@
 import math
+import json
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Input, Static, Select
-from textual.containers import Vertical
+from textual.containers import Vertical, Horizontal
 from textual.reactive import reactive
 from textual.events import Click
 from betza_parser import BetzaParser
@@ -27,6 +28,11 @@ class BetzaChessApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
+        with open("piece_catalog.json", "r") as f:
+            piece_catalog = json.load(f)
+        piece_options = [
+            (f"{p['name']} ({p['variant']})", p["betza"]) for p in piece_catalog
+        ]
         yield Vertical(
             Input(placeholder="Try Xiangqi Horse: nN", id="betza_input"),
             Select(
@@ -41,7 +47,14 @@ class BetzaChessApp(App):
                 value=DEFAULT_BOARD_SIZE,
                 id="board_size_select",
             ),
-            Static(id="board"),
+            Horizontal(
+                Static(id="board"),
+                Select(
+                    piece_options,
+                    prompt="Select a piece",
+                    id="piece_catalog_select",
+                ),
+            ),
             Static(LEGEND_TEXT, id="legend"),
         )
 
@@ -54,7 +67,10 @@ class BetzaChessApp(App):
         self.moves = self.parser.parse(event.value)
 
     def on_select_changed(self, event: Select.Changed) -> None:
-        self.board_size = event.value
+        if event.select.id == "board_size_select":
+            self.board_size = event.value
+        elif event.select.id == "piece_catalog_select":
+            self.query_one("#betza_input").value = event.value
 
     def on_click(self, event: Click) -> None:
         if event.button != 1:

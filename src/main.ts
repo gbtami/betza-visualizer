@@ -297,8 +297,38 @@ function renderLegend() {
   legendContainer.appendChild(createLegendItem(hopIcon, 'Special Move / Hop'));
 }
 
+async function renderPieceCatalog() {
+  const catalogContainer = document.getElementById('piece-catalog-container')!;
+  try {
+    const response = await fetch('/piece_catalog.json');
+    const pieceCatalog = await response.json();
+
+    pieceCatalog.forEach((piece: { name: string; variant: string; betza: string }) => {
+      const item = document.createElement('div');
+      item.classList.add('piece-catalog-item');
+      item.dataset.betza = piece.betza;
+
+      const nameEl = document.createElement('div');
+      nameEl.classList.add('name');
+      nameEl.textContent = piece.name;
+
+      const variantEl = document.createElement('div');
+      variantEl.classList.add('variant');
+      variantEl.textContent = piece.variant;
+
+      item.appendChild(nameEl);
+      item.appendChild(variantEl);
+      catalogContainer.appendChild(item);
+    });
+  } catch (error) {
+    console.error('Error loading piece catalog:', error);
+    catalogContainer.textContent = 'Error loading piece catalog.';
+  }
+}
+
 renderBoard([], blockers);
 renderLegend();
+renderPieceCatalog();
 
 inputEl.addEventListener('input', updateBoard);
 boardSizeSelect.addEventListener('change', () => {
@@ -306,3 +336,15 @@ boardSizeSelect.addEventListener('change', () => {
   blockers.clear();
   updateBoard();
 });
+
+document
+  .getElementById('piece-catalog-container')!
+  .addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    const item = target.closest('.piece-catalog-item') as HTMLElement | null;
+    if (item && item.dataset.betza) {
+      inputEl.value = item.dataset.betza;
+      // Manually trigger the input event to update the board
+      inputEl.dispatchEvent(new Event('input'));
+    }
+  });
