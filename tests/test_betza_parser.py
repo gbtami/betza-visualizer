@@ -197,6 +197,19 @@ class TestMultiDirectionalModifiers(unittest.TestCase):
             expected.add((-i, 0))  # Left
         self.assertSetEqual(move_coords, expected)
 
+    def test_fibnif_fbNF(self):
+        """Tests the Fibnif 'fbNF', which moves as a Ferz or the 4 most vertical Knight moves."""
+        moves = self.parser.parse("fbNF")
+        move_coords = {m[:2] for m in moves}
+        expected = {
+            # Ferz moves
+            (1, 1), (1, -1), (-1, 1), (-1, -1),
+            # Vertically longest Knight moves (ffN + bbN)
+            (1, 2), (-1, 2), (1, -2), (-1, -2)
+        }
+        self.assertEqual(len(move_coords), 8)
+        self.assertSetEqual(move_coords, expected)
+
     def test_charging_rook_part_2_rlbK(self):
         """Tests 'rlbK', sideways and backward King moves."""
         moves = self.parser.parse("rlbK")

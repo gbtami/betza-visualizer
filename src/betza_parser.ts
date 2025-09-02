@@ -132,6 +132,13 @@ export class BetzaParser {
     mods: string,
     atom: string
   ): Set<{ dx: number; dy: number }> {
+    // Fibnif special case: fbN should be treated as ffN union bbN
+    if (mods === 'fb' && atom === 'N') {
+      const ffDirs = this._filterDirections(directions, 'ff', atom);
+      const bbDirs = this._filterDirections(directions, 'bb', atom);
+      return new Set([...ffDirs, ...bbDirs]);
+    }
+
     if (mods.includes('s')) mods += 'lr';
     if (mods.includes('v')) mods += 'fb';
 

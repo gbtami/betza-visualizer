@@ -222,5 +222,18 @@ describe('BetzaParser', () => {
             ]);
             expect(moveCoords).toEqual(expected);
         });
+
+        it("should correctly parse the Fibnif 'fbNF'", () => {
+            const moves = parser.parse('fbNF');
+            const moveCoords = toCoordSet(moves);
+            const expected = new Set([
+                // Ferz moves
+                '1,1', '1,-1', '-1,1', '-1,-1',
+                // Vertically longest Knight moves (ffN + bbN)
+                '1,2', '-1,2', '1,-2', '-1,-2'
+            ]);
+            expect(moveCoords.size).toBe(8);
+            expect(moveCoords).toEqual(expected);
+        });
     });
 });

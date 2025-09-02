@@ -105,6 +105,12 @@ class BetzaParser:
     def _filter_directions(
         self, directions: Set[Tuple[int, int]], mods: str, atom: str
     ) -> Set[Tuple[int, int]]:
+        # Fibnif special case: fbN should be treated as ffN union bbN
+        if mods == "fb" and atom == "N":
+            ff_dirs = self._filter_directions(directions, "ff", atom)
+            bb_dirs = self._filter_directions(directions, "bb", atom)
+            return ff_dirs.union(bb_dirs)
+
         if "s" in mods:
             mods += "lr"
         if "v" in mods:
