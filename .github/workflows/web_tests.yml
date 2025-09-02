@@ -49,11 +49,10 @@ jobs:
       - name: Build application
         run: yarn build
 
-      - name: Install Playwright Browsers
-        run: python -m playwright install --with-deps
-
       - name: Run web server
         run: python -m http.server 8080 --directory dist &
 
       - name: Run Playwright tests
-        run: python -m pytest tests/test_web_app.py
+        uses: microsoft/playwright-python-action@v1
+        with:
+          run: pytest -m e2e

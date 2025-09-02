@@ -4,6 +4,7 @@ from playwright.sync_api import Page, expect
 XIANGQI_ELEPHANT_NAME = 'Elephant (Chinese)'
 XIANGQI_ELEPHANT_BETZA = 'nA'
 
+@pytest.mark.e2e
 def test_xiangqi_elephant_empty_board(page: Page):
     """
     Tests that the Xiangqi Elephant has 4 moves on an empty board.
@@ -20,6 +21,7 @@ def test_xiangqi_elephant_empty_board(page: Page):
     # So, for 4 moves, we expect 8 path elements.
     expect(page.locator('g > path')).to_have_count(4 * 2)
 
+@pytest.mark.e2e
 def test_xiangqi_elephant_blocked(page: Page):
     """
     Tests that the Xiangqi Elephant's moves are correctly blocked.
