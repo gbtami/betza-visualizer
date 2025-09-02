@@ -84,7 +84,9 @@ class BetzaParser:
             max_steps = 1 if count_str == "" else self.infinity_cap if count_str == "0" else int(count_str)
             x_atom, y_atom = self.atoms[atom]
             base_directions = self._get_directions(x_atom, y_atom)
-            allowed_directions = self._filter_directions(base_directions, current_mods)
+            allowed_directions = self._filter_directions(
+                base_directions, current_mods, atom
+            )
 
             for i in range(1, max_steps + 1):
                 for dx, dy in allowed_directions:
@@ -100,31 +102,40 @@ class BetzaParser:
                 directions.add((y * sx, x * sy))
         return directions
 
-    def _filter_directions(self, directions: Set[Tuple[int, int]], mods: str) -> Set[Tuple[int, int]]:
+    def _filter_directions(
+        self, directions: Set[Tuple[int, int]], mods: str, atom: str
+    ) -> Set[Tuple[int, int]]:
         if "s" in mods:
             mods += "lr"
         if "v" in mods:
             mods += "fb"
 
         dir_mods = "".join(c for c in mods if c in "fblr")
+        x_atom, y_atom = self.atoms[atom]
+        is_orthogonal = x_atom * y_atom == 0
 
         if not dir_mods:
             filtered = directions
         else:
             filtered = set()
+            has_v_mod = any(c in "fb" for c in dir_mods)
+            has_h_mod = any(c in "lr" for c in dir_mods)
+
             for x, y in directions:
-                v_valid = True
-                if 'f' in dir_mods or 'b' in dir_mods:
-                    v_valid = ('f' in dir_mods and y > 0) or \
-                              ('b' in dir_mods and y < 0)
+                v_valid = (not has_v_mod) or (
+                    ("f" in dir_mods and y > 0) or ("b" in dir_mods and y < 0)
+                )
+                h_valid = (not has_h_mod) or (
+                    ("l" in dir_mods and x < 0) or ("r" in dir_mods and x > 0)
+                )
 
-                h_valid = True
-                if 'l' in dir_mods or 'r' in dir_mods:
-                    h_valid = ('l' in dir_mods and x < 0) or \
-                              ('r' in dir_mods and x > 0)
-
-                if v_valid and h_valid:
-                    filtered.add((x, y))
+                is_union = is_orthogonal and has_v_mod and has_h_mod
+                if is_union:
+                    if v_valid or h_valid:
+                        filtered.add((x, y))
+                else:
+                    if v_valid and h_valid:
+                        filtered.add((x, y))
 
         constrain_double_vertical = "ff" in mods or "bb" in mods
         constrain_double_horizontal = "ll" in mods or "rr" in mods

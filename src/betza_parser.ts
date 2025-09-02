@@ -87,7 +87,8 @@ export class BetzaParser {
       const baseDirections = this._getDirections(atomX, atomY);
       const allowedDirections = this._filterDirections(
         baseDirections,
-        currentMods
+        currentMods,
+        atom
       );
 
       for (let i = 1; i <= maxSteps; i++) {
@@ -128,7 +129,8 @@ export class BetzaParser {
 
   private _filterDirections(
     directions: Set<{ dx: number; dy: number }>,
-    mods: string
+    mods: string,
+    atom: string
   ): Set<{ dx: number; dy: number }> {
     if (mods.includes('s')) mods += 'lr';
     if (mods.includes('v')) mods += 'fb';
@@ -138,29 +140,37 @@ export class BetzaParser {
       .filter((c) => 'fblr'.includes(c))
       .join('');
 
+    const { x: atomX, y: atomY } = this.atoms.get(atom)!;
+    const isOrthogonal = atomX * atomY === 0;
+
     let filtered: Set<{ dx: number; dy: number }>;
 
     if (!dirMods) {
       filtered = directions;
     } else {
       filtered = new Set();
+      const hasVMod = dirMods.includes('f') || dirMods.includes('b');
+      const hasHMod = dirMods.includes('l') || dirMods.includes('r');
+
       for (const { dx, dy } of directions) {
-        let vValid = true;
-        if (dirMods.includes('f') || dirMods.includes('b')) {
-          vValid =
-            (dirMods.includes('f') && dy > 0) ||
-            (dirMods.includes('b') && dy < 0);
-        }
+        const vValid =
+          !hasVMod ||
+          (dirMods.includes('f') && dy > 0) ||
+          (dirMods.includes('b') && dy < 0);
+        const hValid =
+          !hasHMod ||
+          (dirMods.includes('l') && dx < 0) ||
+          (dirMods.includes('r') && dx > 0);
 
-        let hValid = true;
-        if (dirMods.includes('l') || dirMods.includes('r')) {
-          hValid =
-            (dirMods.includes('l') && dx < 0) ||
-            (dirMods.includes('r') && dx > 0);
-        }
-
-        if (vValid && hValid) {
-          filtered.add({ dx, dy });
+        const isUnion = isOrthogonal && hasVMod && hasHMod;
+        if (isUnion) {
+          if (vValid || hValid) {
+            filtered.add({ dx, dy });
+          }
+        } else {
+          if (vValid && hValid) {
+            filtered.add({ dx, dy });
+          }
         }
       }
     }
