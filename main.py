@@ -1,10 +1,23 @@
 import math
+import json
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Input, Static, Select
-from textual.containers import Vertical
+from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
+from textual.containers import Vertical, Horizontal
 from textual.reactive import reactive
 from textual.events import Click
 from betza_parser import BetzaParser
+
+
+class PieceListItem(ListItem):
+    def __init__(self, piece_name: str, piece_variant: str, piece_betza: str) -> None:
+        super().__init__()
+        self.piece_name = piece_name
+        self.piece_variant = piece_variant
+        self.piece_betza = piece_betza
+
+    def compose(self) -> ComposeResult:
+        yield Label(self.piece_name, classes="name")
+        yield Label(self.piece_variant, classes="variant")
 
 
 def sign(n):
@@ -27,6 +40,9 @@ class BetzaChessApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
+        with open("piece_catalog.json", "r") as f:
+            piece_catalog = json.load(f)
+
         yield Vertical(
             Input(placeholder="Try Xiangqi Horse: nN", id="betza_input"),
             Select(
@@ -41,7 +57,10 @@ class BetzaChessApp(App):
                 value=DEFAULT_BOARD_SIZE,
                 id="board_size_select",
             ),
-            Static(id="board"),
+            Horizontal(
+                Static(id="board"),
+                ListView(id="piece_catalog_list"),
+            ),
             Static(LEGEND_TEXT, id="legend"),
         )
 
@@ -50,11 +69,28 @@ class BetzaChessApp(App):
         self.query_one("#board").update(self.render_board())
         self.query_one(Input).focus()
 
+        list_view = self.query_one(ListView)
+        with open("piece_catalog.json", "r") as f:
+            piece_catalog = json.load(f)
+        for piece in piece_catalog:
+            list_view.append(
+                PieceListItem(
+                    piece_name=piece["name"],
+                    piece_variant=piece["variant"],
+                    piece_betza=piece["betza"],
+                )
+            )
+
+    def on_list_view_selected(self, event: ListView.Selected) -> None:
+        if isinstance(event.item, PieceListItem):
+            self.query_one("#betza_input").value = event.item.piece_betza
+
     def on_input_changed(self, event: Input.Changed) -> None:
         self.moves = self.parser.parse(event.value)
 
     def on_select_changed(self, event: Select.Changed) -> None:
-        self.board_size = event.value
+        if event.select.id == "board_size_select":
+            self.board_size = event.value
 
     def on_click(self, event: Click) -> None:
         if event.button != 1:

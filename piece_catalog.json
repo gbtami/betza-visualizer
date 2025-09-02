@@ -1,0 +1,362 @@
+[
+  {
+    "name": "Advisor",
+    "variant": "Xiangqi",
+    "betza": "F"
+  },
+  {
+    "name": "Alfil",
+    "variant": "Shatranj, Courier Chess",
+    "betza": "A"
+  },
+  {
+    "name": "Amazon",
+    "variant": "Capablanca Chess",
+    "betza": "QN"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "Capablanca Chess",
+    "betza": "BN"
+  },
+  {
+    "name": "Berolina Pawn",
+    "variant": "Berolina Chess",
+    "betza": "mfFcefWimfnA"
+  },
+  {
+    "name": "Cannon",
+    "variant": "Xiangqi",
+    "betza": "mRcpR"
+  },
+  {
+    "name": "Cannon (Korean)",
+    "variant": "Janggi",
+    "betza": "pR"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "Capablanca Chess",
+    "betza": "RN"
+  },
+  {
+    "name": "Chariot",
+    "variant": "Xiangqi",
+    "betza": "R"
+  },
+  {
+    "name": "Copper General",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "fFvW"
+  },
+  {
+    "name": "Courier",
+    "variant": "Courier Chess",
+    "betza": "B"
+  },
+  {
+    "name": "Crane",
+    "variant": "Tori Shogi",
+    "betza": "FvW"
+  },
+  {
+    "name": "Dabbaba",
+    "variant": "Tamerlane Chess",
+    "betza": "D"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Dragon King",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Drunk Elephant",
+    "variant": "Chu Shogi, Tori Shogi",
+    "betza": "FsfW"
+  },
+  {
+    "name": "Eagle",
+    "variant": "Tori Shogi",
+    "betza": "fBbRWbB2"
+  },
+  {
+    "name": "Elephant (Chinese)",
+    "variant": "Xiangqi",
+    "betza": "nA"
+  },
+  {
+    "name": "Elephant (Korean)",
+    "variant": "Janggi",
+    "betza": "nZ"
+  },
+  {
+    "name": "Falcon",
+    "variant": "Tori Shogi",
+    "betza": "FsfW"
+  },
+  {
+    "name": "Ferocious Leopard",
+    "variant": "Chu Shogi",
+    "betza": "FvW"
+  },
+  {
+    "name": "Ferz",
+    "variant": "Shatranj, Tamerlane Chess",
+    "betza": "F"
+  },
+  {
+    "name": "Flying Cock",
+    "variant": "Tori Shogi",
+    "betza": "sWfF"
+  },
+  {
+    "name": "Flying Ox",
+    "variant": "Chu Shogi",
+    "betza": "vRB"
+  },
+  {
+    "name": "Go-Between",
+    "variant": "Chu Shogi",
+    "betza": "vW"
+  },
+  {
+    "name": "Gold General",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "Goose",
+    "variant": "Tori Shogi",
+    "betza": "fAbD"
+  },
+  {
+    "name": "Horse",
+    "variant": "Xiangqi, Janggi",
+    "betza": "nN"
+  },
+  {
+    "name": "Iron General",
+    "variant": "Tori Shogi",
+    "betza": "fK"
+  },
+  {
+    "name": "Kirin",
+    "variant": "Chu Shogi",
+    "betza": "FD"
+  },
+  {
+    "name": "Lance",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "fR"
+  },
+  {
+    "name": "Left Quail",
+    "variant": "Tori Shogi",
+    "betza": "fRbrBblF"
+  },
+  {
+    "name": "Lion",
+    "variant": "Chu Shogi",
+    "betza": "KANDcaKmabK"
+  },
+  {
+    "name": "Nightrider",
+    "variant": "Fairy Chess",
+    "betza": "NN"
+  },
+  {
+    "name": "Pawn (Shatranj)",
+    "variant": "Shatranj",
+    "betza": "mfWcfF"
+  },
+  {
+    "name": "Pawn (Japanese)",
+    "variant": "Shogi, Tori Shogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Pawn (Korean)",
+    "variant": "Janggi",
+    "betza": "sfW"
+  },
+  {
+    "name": "Pheasant",
+    "variant": "Tori Shogi",
+    "betza": "fDbF"
+  },
+  {
+    "name": "Phoenix",
+    "variant": "Chu Shogi, Tori Shogi",
+    "betza": "WA"
+  },
+  {
+    "name": "Queen (Shatranj)",
+    "variant": "Shatranj",
+    "betza": "F"
+  },
+  {
+    "name": "Reverse Chariot",
+    "variant": "Chu Shogi",
+    "betza": "vR"
+  },
+  {
+    "name": "Right Quail",
+    "variant": "Tori Shogi",
+    "betza": "fRblBbrF"
+  },
+  {
+    "name": "Side Mover",
+    "variant": "Chu Shogi",
+    "betza": "WsR"
+  },
+  {
+    "name": "Silver General",
+    "variant": "Shogi, Chu Shogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Soldier",
+    "variant": "Janggi",
+    "betza": "fW"
+  },
+  {
+    "name": "Swallow",
+    "variant": "Tori Shogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Vertical Mover",
+    "variant": "Chu Shogi",
+    "betza": "WfbR"
+  },
+  {
+    "name": "Wazir",
+    "variant": "Tamerlane Chess",
+    "betza": "W"
+  },
+  {
+    "name": "White Horse",
+    "variant": "Chu Shogi",
+    "betza": "vRfB"
+  },
+  {
+    "name": "B4nD",
+    "variant": "Chess with different armies",
+    "betza": "B4nD"
+  },
+  {
+    "name": "Bede",
+    "variant": "Chess with different armies",
+    "betza": "BD"
+  },
+  {
+    "name": "Bishight",
+    "variant": "Chess with different armies",
+    "betza": "fBbN"
+  },
+  {
+    "name": "Charging Knight",
+    "variant": "Chess with different armies",
+    "betza": "fhNsbK"
+  },
+  {
+    "name": "Charging Rook",
+    "variant": "Chess with different armies",
+    "betza": "frlRrlbK"
+  },
+  {
+    "name": "Colonel",
+    "variant": "Chess with different armies",
+    "betza": "KfsRfhN"
+  },
+  {
+    "name": "Commoner",
+    "variant": "Chess with different armies",
+    "betza": "K"
+  },
+  {
+    "name": "Crab",
+    "variant": "Chess with different armies",
+    "betza": "ffNbsN"
+  },
+  {
+    "name": "FAD",
+    "variant": "Chess with different armies",
+    "betza": "FAD"
+  },
+  {
+    "name": "Fibnif",
+    "variant": "Chess with different armies",
+    "betza": "fbNF"
+  },
+  {
+    "name": "Flying Kingfisher",
+    "variant": "Chess with different armies",
+    "betza": "WFAADD"
+  },
+  {
+    "name": "Forequeen",
+    "variant": "Chess with different armies",
+    "betza": "fsQbhNbK"
+  },
+  {
+    "name": "Forfer",
+    "variant": "Chess with different armies",
+    "betza": "FR4"
+  },
+  {
+    "name": "Half-Duck",
+    "variant": "Chess with different armies",
+    "betza": "HFD"
+  },
+  {
+    "name": "Knishop",
+    "variant": "Chess with different armies",
+    "betza": "fNbB"
+  },
+  {
+    "name": "N2R4",
+    "variant": "Chess with different armies",
+    "betza": "N2R4"
+  },
+  {
+    "name": "Pancake",
+    "variant": "Chess with different armies",
+    "betza": "pNNK"
+  },
+  {
+    "name": "Phoenix",
+    "variant": "Chess with different armies",
+    "betza": "WA"
+  },
+  {
+    "name": "Rhubarb",
+    "variant": "Chess with different armies",
+    "betza": "RF3"
+  },
+  {
+    "name": "Rutabaga",
+    "variant": "Chess with different armies",
+    "betza": "W2B"
+  },
+  {
+    "name": "Short Rook",
+    "variant": "Chess with different armies",
+    "betza": "R4"
+  },
+  {
+    "name": "Waffle",
+    "variant": "Chess with different armies",
+    "betza": "WA"
+  },
+  {
+    "name": "Woody Rook",
+    "variant": "Chess with different armies",
+    "betza": "WD"
+  }
+]

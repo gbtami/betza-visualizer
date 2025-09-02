@@ -1,1 +1,3 @@
 textual
+pytest
+pytest-asyncio

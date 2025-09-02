@@ -14,6 +14,25 @@ Screen {
     height: auto;
 }
 
+#piece_catalog_list {
+    width: 30;
+    height: 100%;
+    border: thick blue;
+    margin: 0 1;
+}
+
+PieceListItem {
+    padding: 1;
+}
+
+PieceListItem > .name {
+    text-style: bold;
+}
+
+PieceListItem > .variant {
+    color: #888;
+}
+
 #legend {
     text-align: center;
     margin-top: 1;
