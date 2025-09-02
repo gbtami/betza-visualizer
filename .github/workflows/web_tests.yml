@@ -50,7 +50,7 @@ jobs:
         run: yarn build
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: python -m playwright install --with-deps
 
       - name: Run web server
         run: python -m http.server 8080 --directory dist &
