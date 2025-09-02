@@ -170,14 +170,26 @@ class BetzaChessApp(App):
                 if (block_x, block_y) in self.blockers:
                     is_valid = True
             elif jump_type == "non-jumping":
-                is_valid = True
-                block_x, block_y = 0, 0
-                if abs(x) > abs(y):
-                    block_x = sign(x)
-                elif abs(y) > abs(x):
-                    block_y = sign(y)
-                if (block_x, block_y) in self.blockers:
-                    is_valid = False
+                is_linear_move = (x == 0) or (y == 0) or (abs(x) == abs(y))
+                if is_linear_move:
+                    # Path-checking for linear non-jumpers (e.g., nA, nD)
+                    is_valid = True
+                    dx, dy = sign(x), sign(y)
+                    path = [(i * dx, i * dy) for i in range(1, max(abs(x), abs(y)))]
+                    if any(p in self.blockers for p in path):
+                        is_valid = False
+                else:
+                    # Adjacent-checking for oblique non-jumpers (e.g., nN, nZ)
+                    is_valid = True
+                    block_x, block_y = 0, 0
+                    # For a move like (1, 2), the blocker is at (0, 1)
+                    # For a move like (2, 1), the blocker is at (1, 0)
+                    if abs(x) > abs(y):
+                        block_x = sign(x)
+                    elif abs(y) > abs(x):
+                        block_y = sign(y)
+                    if (block_x, block_y) in self.blockers:
+                        is_valid = False
             else:
                 is_valid = True
                 dx, dy = sign(x), sign(y)

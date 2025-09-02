@@ -27,8 +27,10 @@ This example demonstrates the required workflow for adding a new feature.
     *   Modify the corresponding parser file in `src/` to replicate the exact same parsing logic for "F".
 4.  **Add TypeScript Test**:
     *   Add a new test case in the `tests/` directory for TypeScript to verify the Ferz's movement, ensuring the test case matches the Python one.
-5.  **Verify Both Implementations**:
-    *   Run the full test suite for both Python and TypeScript to ensure all tests pass.
+5.  **Add Web E2E Test**:
+    *   If the change affects web app behavior, add a Python Playwright test to `tests/test_web_app.py` to verify the visual and interactive correctness of the change.
+6.  **Verify All Implementations**:
+    *   Run the full test suite for both Python (TUI) and the Web (Jest and Playwright) to ensure all tests pass.
 
 ## Implementation Details
 
@@ -128,3 +130,31 @@ For formatting and linting the TypeScript code, we use `prettier` and `eslint`.
   ```bash
   yarn lint
   ```
+
+#### End-to-End Testing (Python + Playwright)
+
+In addition to the Jest unit tests, the web application has a suite of end-to-end (E2E) tests written in Python using the Playwright framework. These tests verify the application's behavior in a real browser environment.
+
+1.  **Install Python Dependencies:**
+    Ensure you have installed the Python dependencies, including `pytest-playwright`:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2.  **Build the Web App:**
+    The E2E tests run against the built version of the application. Make sure you have a recent build in the `dist/` directory:
+    ```bash
+    yarn build
+    ```
+
+3.  **Run the Web Server:**
+    Before running the tests, you must serve the built application. A simple Python web server can be used:
+    ```bash
+    python -m http.server 8080 --directory dist &
+    ```
+
+4.  **Run E2E Tests:**
+    Execute the Playwright tests using `pytest`:
+    ```bash
+    python -m pytest tests/test_web_app.py
+    ```

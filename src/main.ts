@@ -124,14 +124,32 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
         isValid = true;
       }
     } else if (jumpType === 'non-jumping') {
-      // Leapers that CANNOT jump over a piece (e.g., nN)
-      isValid = true;
-      let blockX = 0,
-        blockY = 0;
-      if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
-      else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
-      if (blockers.has(`${blockX},${blockY}`)) {
-        isValid = false;
+      const isLinearMove = x === 0 || y === 0 || Math.abs(x) === Math.abs(y);
+      if (isLinearMove) {
+        // Path-checking for linear non-jumpers (e.g., nA, nD)
+        isValid = true;
+        const path: string[] = [];
+        const dx = sign(x);
+        const dy = sign(y);
+        console.log(`Checking move (${x},${y}) with blockers:`, Array.from(blockers));
+        for (let i = 1; i < Math.max(Math.abs(x), Math.abs(y)); i++) {
+          path.push(`${i * dx},${i * dy}`);
+        }
+        console.log(`Path for (${x},${y}):`, path);
+        if (path.some((p) => blockers.has(p))) {
+          console.log(`Blocker found in path for (${x},${y})`);
+          isValid = false;
+        }
+      } else {
+        // Adjacent-checking for oblique non-jumpers (e.g., nN, nZ)
+        isValid = true;
+        let blockX = 0,
+          blockY = 0;
+        if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
+        else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
+        if (blockers.has(`${blockX},${blockY}`)) {
+          isValid = false;
+        }
       }
     } else {
       // Normal leapers (e.g., N) and sliders (e.g., R, B)

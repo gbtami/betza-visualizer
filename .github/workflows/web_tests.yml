@@ -7,9 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  unit-tests:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
 
@@ -24,3 +23,36 @@ jobs:
 
     - name: Run tests
       run: yarn test
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+          cache: 'yarn'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Node.js dependencies
+        run: yarn install
+
+      - name: Build application
+        run: yarn build
+
+      - name: Run web server
+        run: python -m http.server 8080 --directory dist &
+
+      - name: Install Playwright Browsers and Run Tests
+        run: |
+          python -m playwright install --with-deps
+          python -m pytest -m "e2e"
