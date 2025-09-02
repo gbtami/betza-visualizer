@@ -192,10 +192,7 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
         svg.appendChild(circle);
       } else {
         const moveIndicatorGroup = document.createElementNS(SVG_NS, 'g');
-        moveIndicatorGroup.setAttribute(
-          'transform',
-          `translate(${cx}, ${cy})`
-        );
+        moveIndicatorGroup.setAttribute('transform', `translate(${cx}, ${cy})`);
         moveIndicatorGroup.setAttribute('opacity', opacity);
 
         const path1 = document.createElementNS(SVG_NS, 'path');
@@ -288,9 +285,7 @@ function renderLegend() {
     </svg>`;
   const hopIcon = `<svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="${
     r * 0.75
-  }" stroke="${
-    COLORS.hop
-  }" stroke-width="${strokeWidth}" fill="none" /></svg>`;
+  }" stroke="${COLORS.hop}" stroke-width="${strokeWidth}" fill="none" /></svg>`;
 
   legendContainer.appendChild(createLegendItem('🧚', 'Piece', true));
   legendContainer.appendChild(createLegendItem('♟️', 'Blocker', true));

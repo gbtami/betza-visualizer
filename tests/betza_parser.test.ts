@@ -190,4 +190,50 @@ describe('BetzaParser', () => {
             expect(moveCoords).toEqual(expectedCoords);
         });
     });
+
+    describe('Multi-Directional Modifiers', () => {
+        it("should correctly parse the Janggi pawn 'sfW'", () => {
+            const moves = parser.parse('sfW');
+            const moveCoords = toCoordSet(moves);
+            const expected = new Set(['0,1', '-1,0', '1,0']);
+            expect(moveCoords).toEqual(expected);
+        });
+
+        it("should correctly parse 'frlR' (forward and sideways Rook)", () => {
+            const moves = parser.parse('frlR');
+            const moveCoords = toCoordSet(moves);
+            const expected = new Set<string>();
+            for (let i = 1; i <= parser.infinityCap; i++) {
+                expected.add(`0,${i}`);   // Forward
+                expected.add(`${i},0`);   // Right
+                expected.add(`${-i},0`);  // Left
+            }
+            expect(moveCoords).toEqual(expected);
+        });
+
+        it("should correctly parse 'rlbK' (sideways and backward King)", () => {
+            const moves = parser.parse('rlbK');
+            const moveCoords = toCoordSet(moves);
+            const expected = new Set([
+                // Sideways King
+                '1,0', '-1,0', '1,-1', '-1,-1',
+                // Backward King
+                '0,-1', '1,-1', '-1,-1'
+            ]);
+            expect(moveCoords).toEqual(expected);
+        });
+
+        it("should correctly parse the Fibnif 'fbNF'", () => {
+            const moves = parser.parse('fbNF');
+            const moveCoords = toCoordSet(moves);
+            const expected = new Set([
+                // Ferz moves
+                '1,1', '1,-1', '-1,1', '-1,-1',
+                // Vertically longest Knight moves (ffN + bbN)
+                '1,2', '-1,2', '1,-2', '-1,-2'
+            ]);
+            expect(moveCoords.size).toBe(8);
+            expect(moveCoords).toEqual(expected);
+        });
+    });
 });

@@ -171,3 +171,53 @@ class TestDirectionalShorthand(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestMultiDirectionalModifiers(unittest.TestCase):
+    """Tests for multiple, non-intersecting directional modifiers."""
+
+    def setUp(self):
+        self.parser = BetzaParser()
+
+    def test_janggi_pawn_sfW(self):
+        """Tests the Janggi pawn 'sfW', which should move forward or sideways."""
+        moves = self.parser.parse("sfW")
+        move_coords = {m[:2] for m in moves}
+        # Should have forward (0,1), left (-1,0), and right (1,0) moves.
+        self.assertSetEqual(move_coords, {(0, 1), (-1, 0), (1, 0)})
+
+    def test_charging_rook_frlR(self):
+        """Tests 'frlR', forward and sideways Rook moves."""
+        moves = self.parser.parse("frlR")
+        move_coords = {m[:2] for m in moves}
+        expected = set()
+        for i in range(1, self.parser.infinity_cap + 1):
+            expected.add((0, i))  # Forward
+            expected.add((i, 0))  # Right
+            expected.add((-i, 0))  # Left
+        self.assertSetEqual(move_coords, expected)
+
+    def test_fibnif_fbNF(self):
+        """Tests the Fibnif 'fbNF', which moves as a Ferz or the 4 most vertical Knight moves."""
+        moves = self.parser.parse("fbNF")
+        move_coords = {m[:2] for m in moves}
+        expected = {
+            # Ferz moves
+            (1, 1), (1, -1), (-1, 1), (-1, -1),
+            # Vertically longest Knight moves (ffN + bbN)
+            (1, 2), (-1, 2), (1, -2), (-1, -2)
+        }
+        self.assertEqual(len(move_coords), 8)
+        self.assertSetEqual(move_coords, expected)
+
+    def test_charging_rook_part_2_rlbK(self):
+        """Tests 'rlbK', sideways and backward King moves."""
+        moves = self.parser.parse("rlbK")
+        move_coords = {m[:2] for m in moves}
+        expected = {
+            # Sideways King
+            (1, 0), (-1, 0), (1, -1), (-1, -1),
+            # Backward King
+            (0, -1), (1, -1), (-1, -1)
+        }
+        self.assertSetEqual(move_coords, expected)
