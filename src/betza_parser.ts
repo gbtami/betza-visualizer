@@ -132,35 +132,62 @@ export class BetzaParser {
   ): Set<{ dx: number; dy: number }> {
     if (mods.includes('s')) mods += 'lr';
     if (mods.includes('v')) mods += 'fb';
+
     const dirMods = mods
       .split('')
       .filter((c) => 'fblr'.includes(c))
       .join('');
-    if (!dirMods) return directions;
 
-    const constrainF = dirMods.includes('f') && !dirMods.includes('b');
-    const constrainB = dirMods.includes('b') && !dirMods.includes('f');
-    const constrainL = dirMods.includes('l') && !dirMods.includes('r');
-    const constrainR = dirMods.includes('r') && !dirMods.includes('l');
+    let filtered: Set<{ dx: number; dy: number }>;
+
+    if (!dirMods) {
+      filtered = directions;
+    } else {
+      filtered = new Set();
+      for (const { dx, dy } of directions) {
+        let vValid = true;
+        if (dirMods.includes('f') || dirMods.includes('b')) {
+          vValid =
+            (dirMods.includes('f') && dy > 0) ||
+            (dirMods.includes('b') && dy < 0);
+        }
+
+        let hValid = true;
+        if (dirMods.includes('l') || dirMods.includes('r')) {
+          hValid =
+            (dirMods.includes('l') && dx < 0) ||
+            (dirMods.includes('r') && dx > 0);
+        }
+
+        if (vValid && hValid) {
+          filtered.add({ dx, dy });
+        }
+      }
+    }
 
     const constrainDoubleVertical = mods.includes('ff') || mods.includes('bb');
     const constrainDoubleHorizontal =
       mods.includes('ll') || mods.includes('rr');
 
-    const filtered = new Set<{ dx: number; dy: number }>();
-    for (const { dx, dy } of directions) {
-      let isValid = true;
-      if (constrainF && dy <= 0) isValid = false;
-      if (constrainB && dy >= 0) isValid = false;
-      if (constrainL && dx >= 0) isValid = false;
-      if (constrainR && dx <= 0) isValid = false;
-      if (constrainDoubleVertical && Math.abs(dy) <= Math.abs(dx))
-        isValid = false;
-      if (constrainDoubleHorizontal && Math.abs(dx) <= Math.abs(dy))
-        isValid = false;
-
-      if (isValid) filtered.add({ dx, dy });
+    if (!constrainDoubleVertical && !constrainDoubleHorizontal) {
+      return filtered;
     }
-    return filtered;
+
+    const finalFiltered = new Set<{ dx: number; dy: number }>();
+    for (const { dx, dy } of filtered) {
+      let isValid = true;
+      if (constrainDoubleVertical && Math.abs(dy) <= Math.abs(dx)) {
+        isValid = false;
+      }
+      if (constrainDoubleHorizontal && Math.abs(dx) <= Math.abs(dy)) {
+        isValid = false;
+      }
+
+      if (isValid) {
+        finalFiltered.add({ dx, dy });
+      }
+    }
+
+    return finalFiltered;
   }
 }

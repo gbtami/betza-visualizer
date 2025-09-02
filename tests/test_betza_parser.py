@@ -142,5 +142,32 @@ class TestAdvancedModifiers(unittest.TestCase):
         self.assertTrue(all(move[4] == "jumping" for move in moves))
 
 
+class TestDirectionalShorthand(unittest.TestCase):
+    """Tests for the 'v' (vertical) and 's' (sideways) shorthand modifiers."""
+
+    def setUp(self):
+        self.parser = BetzaParser()
+
+    def test_vertical_modifier_vR(self):
+        """Tests that 'vR' produces only vertical moves for a Rook."""
+        moves = self.parser.parse("vR")
+        move_coords = {m[:2] for m in moves}
+        expected_coords = set()
+        for i in range(1, self.parser.infinity_cap + 1):
+            expected_coords.add((0, i))
+            expected_coords.add((0, -i))
+        self.assertSetEqual(move_coords, expected_coords)
+
+    def test_sideways_modifier_sR(self):
+        """Tests that 'sR' produces only horizontal moves for a Rook."""
+        moves = self.parser.parse("sR")
+        move_coords = {m[:2] for m in moves}
+        expected_coords = set()
+        for i in range(1, self.parser.infinity_cap + 1):
+            expected_coords.add((i, 0))
+            expected_coords.add((-i, 0))
+        self.assertSetEqual(move_coords, expected_coords)
+
+
 if __name__ == "__main__":
     unittest.main()

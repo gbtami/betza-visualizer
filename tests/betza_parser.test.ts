@@ -166,4 +166,28 @@ describe('BetzaParser', () => {
             expect(moves.every(m => m.jumpType === 'jumping')).toBe(true);
         });
     });
+
+    describe('Directional Shorthand Modifiers', () => {
+        it("should correctly handle the vertical 'v' modifier on a Rook", () => {
+            const moves = parser.parse('vR');
+            const moveCoords = toCoordSet(moves);
+            const expectedCoords = new Set<string>();
+            for (let i = 1; i <= parser.infinityCap; i++) {
+                expectedCoords.add(`0,${i}`);
+                expectedCoords.add(`0,${-i}`);
+            }
+            expect(moveCoords).toEqual(expectedCoords);
+        });
+
+        it("should correctly handle the sideways 's' modifier on a Rook", () => {
+            const moves = parser.parse('sR');
+            const moveCoords = toCoordSet(moves);
+            const expectedCoords = new Set<string>();
+            for (let i = 1; i <= parser.infinityCap; i++) {
+                expectedCoords.add(`${i},0`);
+                expectedCoords.add(`${-i},0`);
+            }
+            expect(moveCoords).toEqual(expectedCoords);
+        });
+    });
 });
