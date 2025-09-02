@@ -55,6 +55,11 @@
     "betza": "B"
   },
   {
+    "name": "Crane",
+    "variant": "Tori Shogi",
+    "betza": "FvW"
+  },
+  {
     "name": "Dabbaba",
     "variant": "Tamerlane Chess",
     "betza": "D"
@@ -71,8 +76,13 @@
   },
   {
     "name": "Drunk Elephant",
-    "variant": "Chu Shogi",
+    "variant": "Chu Shogi, Tori Shogi",
     "betza": "FsfW"
+  },
+  {
+    "name": "Eagle",
+    "variant": "Tori Shogi",
+    "betza": "fBbRWbB2"
   },
   {
     "name": "Elephant (Chinese)",
@@ -83,6 +93,11 @@
     "name": "Elephant (Korean)",
     "variant": "Janggi",
     "betza": "nZ"
+  },
+  {
+    "name": "Falcon",
+    "variant": "Tori Shogi",
+    "betza": "FsfW"
   },
   {
     "name": "Ferocious Leopard",
@@ -115,6 +130,11 @@
     "betza": "WfF"
   },
   {
+    "name": "Goose",
+    "variant": "Tori Shogi",
+    "betza": "fAbD"
+  },
+  {
     "name": "Horse",
     "variant": "Xiangqi, Janggi",
     "betza": "nN"
@@ -135,9 +155,19 @@
     "betza": "fR"
   },
   {
+    "name": "Left Quail",
+    "variant": "Tori Shogi",
+    "betza": "fRbrBblF"
+  },
+  {
     "name": "Lion",
     "variant": "Chu Shogi",
     "betza": "KANDcaKmabK"
+  },
+  {
+    "name": "Nightrider",
+    "variant": "Fairy Chess",
+    "betza": "NN"
   },
   {
     "name": "Pawn (Shatranj)",
@@ -146,7 +176,7 @@
   },
   {
     "name": "Pawn (Japanese)",
-    "variant": "Shogi",
+    "variant": "Shogi, Tori Shogi",
     "betza": "fW"
   },
   {
@@ -155,8 +185,13 @@
     "betza": "sfW"
   },
   {
+    "name": "Pheasant",
+    "variant": "Tori Shogi",
+    "betza": "fDbF"
+  },
+  {
     "name": "Phoenix",
-    "variant": "Chu Shogi",
+    "variant": "Chu Shogi, Tori Shogi",
     "betza": "WA"
   },
   {
@@ -168,6 +203,11 @@
     "name": "Reverse Chariot",
     "variant": "Chu Shogi",
     "betza": "vR"
+  },
+  {
+    "name": "Right Quail",
+    "variant": "Tori Shogi",
+    "betza": "fRblBbrF"
   },
   {
     "name": "Side Mover",
@@ -182,6 +222,11 @@
   {
     "name": "Soldier",
     "variant": "Janggi",
+    "betza": "fW"
+  },
+  {
+    "name": "Swallow",
+    "variant": "Tori Shogi",
     "betza": "fW"
   },
   {

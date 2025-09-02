@@ -1,7 +1,7 @@
 import math
 import json
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label
+from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
 from textual.containers import Vertical, Horizontal
 from textual.reactive import reactive
 from textual.events import Click
@@ -9,15 +9,15 @@ from betza_parser import BetzaParser
 
 
 class PieceListItem(ListItem):
-    def __init__(self, name: str, variant: str, betza: str) -> None:
+    def __init__(self, piece_name: str, piece_variant: str, piece_betza: str) -> None:
         super().__init__()
-        self.name = name
-        self.variant = variant
-        self.betza = betza
+        self.piece_name = piece_name
+        self.piece_variant = piece_variant
+        self.piece_betza = piece_betza
 
     def compose(self) -> ComposeResult:
-        yield Label(self.name, classes="name")
-        yield Label(self.variant, classes="variant")
+        yield Label(self.piece_name, classes="name")
+        yield Label(self.piece_variant, classes="variant")
 
 
 def sign(n):
@@ -75,15 +75,15 @@ class BetzaChessApp(App):
         for piece in piece_catalog:
             list_view.append(
                 PieceListItem(
-                    name=piece["name"],
-                    variant=piece["variant"],
-                    betza=piece["betza"],
+                    piece_name=piece["name"],
+                    piece_variant=piece["variant"],
+                    piece_betza=piece["betza"],
                 )
             )
 
     def on_list_view_selected(self, event: ListView.Selected) -> None:
         if isinstance(event.item, PieceListItem):
-            self.query_one("#betza_input").value = event.item.betza
+            self.query_one("#betza_input").value = event.item.piece_betza
 
     def on_input_changed(self, event: Input.Changed) -> None:
         self.moves = self.parser.parse(event.value)
