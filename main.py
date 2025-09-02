@@ -58,8 +58,8 @@ class BetzaChessApp(App):
                 id="board_size_select",
             ),
             Horizontal(
-                Static(id="board"),
                 ListView(id="piece_catalog_list"),
+                Static(id="board"),
             ),
             Static(LEGEND_TEXT, id="legend"),
         )
@@ -84,6 +84,7 @@ class BetzaChessApp(App):
     def on_list_view_selected(self, event: ListView.Selected) -> None:
         if isinstance(event.item, PieceListItem):
             self.query_one("#betza_input").value = event.item.piece_betza
+            self.blockers = set()
 
     def on_input_changed(self, event: Input.Changed) -> None:
         self.moves = self.parser.parse(event.value)
