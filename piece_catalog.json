@@ -30,6 +30,11 @@
     "betza": "mRcpR"
   },
   {
+    "name": "Cannon (Korean)",
+    "variant": "Janggi",
+    "betza": "pR"
+  },
+  {
     "name": "Chancellor",
     "variant": "Capablanca Chess",
     "betza": "RN"
@@ -41,7 +46,7 @@
   },
   {
     "name": "Copper General",
-    "variant": "Chu Shogi",
+    "variant": "Shogi, Chu Shogi",
     "betza": "fFvW"
   },
   {
@@ -56,12 +61,12 @@
   },
   {
     "name": "Dragon Horse",
-    "variant": "Shogi",
+    "variant": "Shogi, Chu Shogi",
     "betza": "BW"
   },
   {
     "name": "Dragon King",
-    "variant": "Shogi",
+    "variant": "Shogi, Chu Shogi",
     "betza": "RF"
   },
   {
@@ -70,9 +75,14 @@
     "betza": "FsfW"
   },
   {
-    "name": "Elephant",
-    "variant": "Xiangqi, Makruk",
+    "name": "Elephant (Chinese)",
+    "variant": "Xiangqi",
     "betza": "nA"
+  },
+  {
+    "name": "Elephant (Korean)",
+    "variant": "Janggi",
+    "betza": "nZ"
   },
   {
     "name": "Ferocious Leopard",
@@ -188,5 +198,120 @@
     "name": "White Horse",
     "variant": "Chu Shogi",
     "betza": "vRfB"
+  },
+  {
+    "name": "B4nD",
+    "variant": "Chess with different armies",
+    "betza": "B4nD"
+  },
+  {
+    "name": "Bede",
+    "variant": "Chess with different armies",
+    "betza": "BD"
+  },
+  {
+    "name": "Bishight",
+    "variant": "Chess with different armies",
+    "betza": "fBbN"
+  },
+  {
+    "name": "Charging Knight",
+    "variant": "Chess with different armies",
+    "betza": "fhNsbK"
+  },
+  {
+    "name": "Charging Rook",
+    "variant": "Chess with different armies",
+    "betza": "frlRrlbK"
+  },
+  {
+    "name": "Colonel",
+    "variant": "Chess with different armies",
+    "betza": "KfsRfhN"
+  },
+  {
+    "name": "Commoner",
+    "variant": "Chess with different armies",
+    "betza": "K"
+  },
+  {
+    "name": "Crab",
+    "variant": "Chess with different armies",
+    "betza": "ffNbsN"
+  },
+  {
+    "name": "FAD",
+    "variant": "Chess with different armies",
+    "betza": "FAD"
+  },
+  {
+    "name": "Fibnif",
+    "variant": "Chess with different armies",
+    "betza": "fbNF"
+  },
+  {
+    "name": "Flying Kingfisher",
+    "variant": "Chess with different armies",
+    "betza": "WFAADD"
+  },
+  {
+    "name": "Forequeen",
+    "variant": "Chess with different armies",
+    "betza": "fsQbhNbK"
+  },
+  {
+    "name": "Forfer",
+    "variant": "Chess with different armies",
+    "betza": "FR4"
+  },
+  {
+    "name": "Half-Duck",
+    "variant": "Chess with different armies",
+    "betza": "HFD"
+  },
+  {
+    "name": "Knishop",
+    "variant": "Chess with different armies",
+    "betza": "fNbB"
+  },
+  {
+    "name": "N2R4",
+    "variant": "Chess with different armies",
+    "betza": "N2R4"
+  },
+  {
+    "name": "Pancake",
+    "variant": "Chess with different armies",
+    "betza": "pNNK"
+  },
+  {
+    "name": "Phoenix",
+    "variant": "Chess with different armies",
+    "betza": "WA"
+  },
+  {
+    "name": "Rhubarb",
+    "variant": "Chess with different armies",
+    "betza": "RF3"
+  },
+  {
+    "name": "Rutabaga",
+    "variant": "Chess with different armies",
+    "betza": "W2B"
+  },
+  {
+    "name": "Short Rook",
+    "variant": "Chess with different armies",
+    "betza": "R4"
+  },
+  {
+    "name": "Waffle",
+    "variant": "Chess with different armies",
+    "betza": "WA"
+  },
+  {
+    "name": "Woody Rook",
+    "variant": "Chess with different armies",
+    "betza": "WD"
   }
 ]
