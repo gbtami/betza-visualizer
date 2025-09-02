@@ -52,7 +52,7 @@ jobs:
       - name: Run web server
         run: python -m http.server 8080 --directory dist &
 
-      - name: Run Playwright tests
-        uses: microsoft/playwright-python-action@v1
-        with:
-          run: pytest -m e2e
+      - name: Install Playwright Browsers and Run Tests
+        run: |
+          python -m playwright install --with-deps
+          python -m pytest -m "e2e"
