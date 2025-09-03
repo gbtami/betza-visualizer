@@ -362,7 +362,7 @@ async function renderPieceCatalog(filterVariant = 'All') {
       filterVariant === 'All'
         ? pieceCatalog
         : pieceCatalog.filter((p: { variant: string }) =>
-            p.variant.includes(filterVariant)
+            p.variant.split(', ').map(v => v.trim()).includes(filterVariant)
           );
 
     filteredPieces.forEach(
