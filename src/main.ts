@@ -7,6 +7,9 @@ const boardContainer = document.getElementById('board-container')!;
 const boardSizeSelect = document.getElementById(
   'boardSizeSelect'
 ) as HTMLSelectElement;
+const variantSelect = document.getElementById(
+  'variant-select'
+) as HTMLSelectElement;
 
 let boardSize = Number(boardSizeSelect.value);
 const CELL_SIZE = 40;
@@ -315,55 +318,112 @@ function renderLegend() {
   legendContainer.appendChild(createLegendItem(hopIcon, 'Special Move / Hop'));
 }
 
-async function renderPieceCatalog() {
+async function populateVariantFilter() {
+  try {
+    const response = await fetch('/piece_catalog.json');
+    const pieceCatalog: { name: string; variant: string; betza: string }[] =
+      await response.json();
+    const variants = [
+      ...new Set(pieceCatalog.map((p) => p.variant).join(', ').split(', ')),
+    ].sort();
+
+    variantSelect.innerHTML = '';
+    const allOption = document.createElement('option');
+    allOption.value = 'All';
+    allOption.textContent = 'All';
+    variantSelect.appendChild(allOption);
+
+    variants.forEach((variant) => {
+      if (variant) {
+        const option = document.createElement('option');
+        option.value = variant;
+        option.textContent = variant;
+        variantSelect.appendChild(option);
+      }
+    });
+  } catch (error) {
+    console.error('Error populating variant filter:', error);
+  }
+}
+
+async function renderPieceCatalog(filterVariant = 'All') {
   const catalogContainer = document.getElementById('piece-catalog-container')!;
+  const catalogContent =
+    document.getElementById('piece-catalog-content') ||
+    document.createElement('div');
+  catalogContent.id = 'piece-catalog-content';
+  catalogContent.innerHTML = '';
+
   try {
     const response = await fetch('/piece_catalog.json');
     const pieceCatalog = await response.json();
 
-    pieceCatalog.forEach((piece: { name: string; variant: string; betza: string }) => {
-      const item = document.createElement('div');
-      item.classList.add('piece-catalog-item');
-      item.dataset.betza = piece.betza;
+    const filteredPieces =
+      filterVariant === 'All'
+        ? pieceCatalog
+        : pieceCatalog.filter((p: { variant: string }) =>
+            p.variant.includes(filterVariant)
+          );
 
-      const nameEl = document.createElement('div');
-      nameEl.classList.add('name');
-      nameEl.textContent = piece.name;
+    filteredPieces.forEach(
+      (piece: { name: string; variant: string; betza: string }) => {
+        const item = document.createElement('div');
+        item.classList.add('piece-catalog-item');
+        item.dataset.betza = piece.betza;
 
-      const variantEl = document.createElement('div');
-      variantEl.classList.add('variant');
-      variantEl.textContent = piece.variant;
+        const nameEl = document.createElement('div');
+        nameEl.classList.add('name');
+        nameEl.textContent = piece.name;
 
-      item.appendChild(nameEl);
-      item.appendChild(variantEl);
-      catalogContainer.appendChild(item);
-    });
+        const variantEl = document.createElement('div');
+        variantEl.classList.add('variant');
+        variantEl.textContent = piece.variant;
+
+        item.appendChild(nameEl);
+        item.appendChild(variantEl);
+        catalogContent.appendChild(item);
+      }
+    );
+    if (!document.getElementById('piece-catalog-content')) {
+      catalogContainer.appendChild(catalogContent);
+    }
   } catch (error) {
     console.error('Error loading piece catalog:', error);
-    catalogContainer.textContent = 'Error loading piece catalog.';
+    catalogContent.textContent = 'Error loading piece catalog.';
   }
 }
 
-renderBoard([], blockers);
-renderLegend();
-renderPieceCatalog();
+async function initialize() {
+  renderBoard([], blockers);
+  renderLegend();
+  await populateVariantFilter();
+  await renderPieceCatalog();
 
-inputEl.addEventListener('input', updateBoard);
-boardSizeSelect.addEventListener('change', () => {
-  boardSize = Number(boardSizeSelect.value);
-  blockers.clear();
-  updateBoard();
-});
-
-document
-  .getElementById('piece-catalog-container')!
-  .addEventListener('click', (event) => {
-    const target = event.target as HTMLElement;
-    const item = target.closest('.piece-catalog-item') as HTMLElement | null;
-    if (item && item.dataset.betza) {
-      inputEl.value = item.dataset.betza;
-      blockers.clear();
-      // Manually trigger the input event to update the board
-      inputEl.dispatchEvent(new Event('input'));
-    }
+  inputEl.addEventListener('input', updateBoard);
+  boardSizeSelect.addEventListener('change', () => {
+    boardSize = Number(boardSizeSelect.value);
+    blockers.clear();
+    updateBoard();
   });
+
+  variantSelect.addEventListener('change', () => {
+    inputEl.value = '';
+    blockers.clear();
+    updateBoard();
+    renderPieceCatalog(variantSelect.value);
+  });
+
+  document
+    .getElementById('piece-catalog-container')!
+    .addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      const item = target.closest('.piece-catalog-item') as HTMLElement | null;
+      if (item && item.dataset.betza) {
+        inputEl.value = item.dataset.betza;
+        blockers.clear();
+        inputEl.dispatchEvent(new Event('input'));
+      }
+    });
+}
+
+initialize();

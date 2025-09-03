@@ -1,4 +1,5 @@
 import pytest
+import json
 from textual.pilot import Pilot
 from main import BetzaChessApp
 
@@ -25,7 +26,7 @@ async def test_piece_catalog_selection(pilot: Pilot):
     # Press down arrow 3 times to highlight the third item (Amazon)
     await pilot.press("down", "down", "down")
     await pilot.press("enter")
-    await pilot.pause()
+    await pilot.pause(0.5)
 
     # Check that the input field has been updated
     input_widget = pilot.app.query_one("#betza_input")
@@ -34,7 +35,7 @@ async def test_piece_catalog_selection(pilot: Pilot):
     # Press down arrow 2 more times to highlight the fifth item (Berolina Pawn)
     await pilot.press("down", "down")
     await pilot.press("enter")
-    await pilot.pause()
+    await pilot.pause(0.5)
     assert input_widget.value == "mfFcefWimfnA"
 
 
@@ -55,20 +56,22 @@ async def test_janggi_cannon_moves(pilot: Pilot):
     list_view.focus()
     await pilot.pause()
 
-    # Select Janggi Cannon (index 6)
-    for _ in range(7):
-        await pilot.press("down")
+    # Find and select Janggi Cannon
+    for i, item in enumerate(list_view.children):
+        if item.piece_name == "Cannon (Korean)":
+            list_view.index = i
+            break
     await pilot.press("enter")
-    await pilot.pause()
+    await pilot.pause(0.5)
 
-    assert count_moves_on_board(pilot.app.render_board()) == 0
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 0
 
     # Place a blocker 2 squares forward (y = 2)
     center = pilot.app.board_size // 2
     await pilot.click("#board", offset=(center * 2 + 1, center - 2 + 2))
-    await pilot.pause()
+    await pilot.pause(0.5)
 
-    assert count_moves_on_board(pilot.app.render_board()) > 0
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) > 0
 
 
 async def test_xiangqi_horse_moves(pilot: Pilot):
@@ -80,17 +83,65 @@ async def test_xiangqi_horse_moves(pilot: Pilot):
     list_view.focus()
     await pilot.pause()
 
-    # Select Xiangqi Horse (index 27)
-    for _ in range(28):
-        await pilot.press("down")
+    # Find and select Xiangqi Horse
+    for i, item in enumerate(list_view.children):
+        if item.piece_name == "Horse":
+            list_view.index = i
+            break
     await pilot.press("enter")
-    await pilot.pause()
+    await pilot.pause(0.5)
 
-    assert count_moves_on_board(pilot.app.render_board()) == 8
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 8
 
     # Place a blocker 1 square forward (y = 1)
     center = pilot.app.board_size // 2
     await pilot.click("#board", offset=(center * 2 + 1, center - 1 + 2))
-    await pilot.pause()
+    await pilot.pause(0.5)
 
-    assert count_moves_on_board(pilot.app.render_board()) == 6
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 6
+
+
+def get_catalog_data():
+    with open("piece_catalog.json", "r") as f:
+        return json.load(f)
+
+def get_variant_count():
+    catalog = get_catalog_data()
+    variants = set()
+    for p in catalog:
+        for v in p["variant"].split(","):
+            variants.add(v.strip())
+    return len(variants)
+
+def get_piece_count_for_variant(variant):
+    catalog = get_catalog_data()
+    if variant == "All":
+        return len(catalog)
+    count = 0
+    for p in catalog:
+        if variant in [v.strip() for v in p["variant"].split(",")]:
+            count += 1
+    return count
+
+async def test_variant_filter(pilot: Pilot):
+    """Test the variant filter functionality."""
+    await pilot.pause(0.5)
+    variant_select = pilot.app.query_one("#variant_select")
+    # +1 for "All", +1 for blank
+    expected_variant_count = get_variant_count() + 2
+    assert len(variant_select._options) == expected_variant_count
+
+    # Filter by "Orthodox"
+    variant_select.value = "Orthodox"
+    await pilot.pause(0.5)
+    list_view = pilot.app.query_one("#piece_catalog_list")
+    expected_piece_count = get_piece_count_for_variant("Orthodox")
+    assert len(list_view.children) == expected_piece_count
+    assert pilot.app.query_one("#betza_input").value == ""
+
+    # Filter by "All"
+    variant_select.value = "All"
+    await pilot.pause(0.5)
+    list_view = pilot.app.query_one("#piece_catalog_list")
+    expected_piece_count_all = get_piece_count_for_variant("All")
+    assert len(list_view.children) == expected_piece_count_all

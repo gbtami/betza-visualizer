@@ -45,17 +45,20 @@ class BetzaChessApp(App):
 
         yield Vertical(
             Input(placeholder="Try Xiangqi Horse: nN", id="betza_input"),
-            Select(
-                [
-                    ("5x5", 5),
-                    ("7x7", 7),
-                    ("9x9", 9),
-                    ("11x11", 11),
-                    ("13x13", 13),
-                    ("15x15", 15),
-                ],
-                value=DEFAULT_BOARD_SIZE,
-                id="board_size_select",
+            Horizontal(
+                Select(
+                    [
+                        ("5x5", 5),
+                        ("7x7", 7),
+                        ("9x9", 9),
+                        ("11x11", 11),
+                        ("13x13", 13),
+                        ("15x15", 15),
+                    ],
+                    value=DEFAULT_BOARD_SIZE,
+                    id="board_size_select",
+                ),
+                Select([], id="variant_select"),
             ),
             Horizontal(
                 ListView(id="piece_catalog_list"),
@@ -68,10 +71,33 @@ class BetzaChessApp(App):
         self.parser = BetzaParser()
         self.query_one("#board").update(self.render_board())
         self.query_one(Input).focus()
+        self.populate_variant_select()
+        self.populate_piece_list()
 
-        list_view = self.query_one(ListView)
+    def populate_variant_select(self) -> None:
         with open("piece_catalog.json", "r") as f:
             piece_catalog = json.load(f)
+        variants = set()
+        for p in piece_catalog:
+            for v in p["variant"].split(","):
+                variants.add(v.strip())
+        variant_select = self.query_one("#variant_select", Select)
+        variant_select.set_options([("All", "All")] + [(v, v) for v in sorted(list(variants))])
+
+    def populate_piece_list(self, filter_variant: str = "All") -> None:
+        list_view = self.query_one(ListView)
+        list_view.clear()
+        with open("piece_catalog.json", "r") as f:
+            piece_catalog = json.load(f)
+
+        if filter_variant != "All":
+            filtered_catalog = []
+            for p in piece_catalog:
+                variants = [v.strip() for v in p["variant"].split(",")]
+                if filter_variant in variants:
+                    filtered_catalog.append(p)
+            piece_catalog = filtered_catalog
+
         for piece in piece_catalog:
             list_view.append(
                 PieceListItem(
@@ -83,7 +109,9 @@ class BetzaChessApp(App):
 
     def on_list_view_selected(self, event: ListView.Selected) -> None:
         if isinstance(event.item, PieceListItem):
-            self.query_one("#betza_input").value = event.item.piece_betza
+            input_widget = self.query_one("#betza_input")
+            input_widget.value = event.item.piece_betza
+            self.moves = self.parser.parse(input_widget.value)
             self.blockers = set()
 
     def on_input_changed(self, event: Input.Changed) -> None:
@@ -92,6 +120,10 @@ class BetzaChessApp(App):
     def on_select_changed(self, event: Select.Changed) -> None:
         if event.select.id == "board_size_select":
             self.board_size = event.value
+        elif event.select.id == "variant_select":
+            self.query_one("#betza_input").value = ""
+            self.blockers = set()
+            self.populate_piece_list(str(event.value))
 
     def on_click(self, event: Click) -> None:
         if event.button != 1:
