@@ -16,12 +16,14 @@ Screen {
     column-span: 2;
     width: 80%;
     margin: 1 0;
+    height: 3;
 }
 
 #board_size_select {
     column-span: 2;
     width: 50%;
     margin: 1 0;
+    height: 3;
 }
 
 #board {
@@ -40,6 +42,7 @@ Screen {
 #variant_select {
     width: 100%;
     margin: 1 0;
+    height: 3;
 }
 
 PieceListItem {
