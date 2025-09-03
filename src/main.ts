@@ -250,7 +250,7 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
 }
 
 function updateBoard() {
-  const moves = parser.parse(inputEl.value);
+  const moves = parser.parse(inputEl.value, boardSize);
   renderBoard(moves, blockers);
 }
 

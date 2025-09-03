@@ -106,11 +106,13 @@ class BetzaChessApp(App):
         if isinstance(event.item, PieceListItem):
             input_widget = self.query_one("#betza_input")
             input_widget.value = event.item.piece_betza
-            self.moves = self.parser.parse(input_widget.value)
+            self.moves = self.parser.parse(
+                input_widget.value, board_size=self.board_size
+            )
             self.blockers = set()
 
     def on_input_changed(self, event: Input.Changed) -> None:
-        self.moves = self.parser.parse(event.value)
+        self.moves = self.parser.parse(event.value, board_size=self.board_size)
 
     def on_select_changed(self, event: Select.Changed) -> None:
         if event.select.id == "board_size_select":
