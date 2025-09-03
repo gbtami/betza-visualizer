@@ -30,7 +30,7 @@ class BetzaParser:
         }
         self.infinity_cap = 12
 
-    def parse(self, notation: str) -> List[Tuple[int, int, str, Optional[str], str, str]]:
+    def parse(self, notation: str, board_size: Optional[int] = None) -> List[Tuple[int, int, str, Optional[str], str, str]]:
         """
         Parses notation. Returns a list of 6-element tuples:
         (x, y, move_type, hop_type, jump_type, base_atom)
@@ -81,7 +81,12 @@ class BetzaParser:
             elif "j" in current_mods:
                 jump_type = "jumping"
 
-            max_steps = 1 if count_str == "" else self.infinity_cap if count_str == "0" else int(count_str)
+            if count_str == "0":
+                max_steps = board_size // 2 if board_size is not None else self.infinity_cap
+            elif count_str == "":
+                max_steps = 1
+            else:
+                max_steps = int(count_str)
             x_atom, y_atom = self.atoms[atom]
             base_directions = self._get_directions(x_atom, y_atom)
             allowed_directions = self._filter_directions(

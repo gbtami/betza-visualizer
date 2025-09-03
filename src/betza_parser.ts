@@ -24,7 +24,7 @@ export class BetzaParser {
   ]);
   public readonly infinityCap = 12;
 
-  public parse(notation: string): Move[] {
+  public parse(notation: string, boardSize?: number): Move[] {
     const moves: Move[] = [];
     const tokenWorklist: string[] = notation.match(/[a-z]+|[A-Z]\d*/g) || [];
     let currentMods = '';
@@ -76,12 +76,14 @@ export class BetzaParser {
       if (currentMods.includes('n')) jumpType = 'non-jumping';
       else if (currentMods.includes('j')) jumpType = 'jumping';
 
-      const maxSteps =
-        countStr === ''
-          ? 1
-          : countStr === '0'
-            ? this.infinityCap
-            : parseInt(countStr);
+      let maxSteps: number;
+      if (countStr === '0') {
+        maxSteps = boardSize ? Math.floor(boardSize / 2) : this.infinityCap;
+      } else if (countStr === '') {
+        maxSteps = 1;
+      } else {
+        maxSteps = parseInt(countStr);
+      }
       const { x: atomX, y: atomY } = this.atoms.get(atom)!;
 
       const baseDirections = this._getDirections(atomX, atomY);
