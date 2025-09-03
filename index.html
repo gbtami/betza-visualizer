@@ -8,23 +8,20 @@
 </head>
 <body>
     <h1>Betza Notation Visualizer</h1>
-    <input type="text" id="betzaInput" placeholder="Enter Betza string (e.g., pR0, BN, Q)">
-    <select id="boardSizeSelect">
-        <option value="5">5x5</option>
-        <option value="7">7x7</option>
-        <option value="9">9x9</option>
-        <option value="11">11x11</option>
-        <option value="13">13x13</option>
-        <option value="15" selected>15x15</option>
-    </select>
-    <div class="main-container">
-        <div id="piece-catalog-container">
-            <select id="variant-select"></select>
-        </div>
-        <div class="board-and-legend-container">
-            <div id="board-container"></div>
-            <div id="legend-container"></div>
-        </div>
+    <div id="grid-container">
+        <input type="text" id="betzaInput" placeholder="Enter Betza string (e.g., pR0, BN, Q)">
+        <select id="boardSizeSelect">
+            <option value="5">5x5</option>
+            <option value="7">7x7</option>
+            <option value="9">9x9</option>
+            <option value="11">11x11</option>
+            <option value="13">13x13</option>
+            <option value="15" selected>15x15</option>
+        </select>
+        <div id="piece-catalog-container"></div>
+        <div id="board-container"></div>
+        <select id="variant-select"></select>
+        <div id="legend-container"></div>
     </div>
 
     <!-- FIX: Added type="module" to the script tag -->

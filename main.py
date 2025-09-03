@@ -2,7 +2,7 @@ import math
 import json
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
-from textual.containers import Vertical, Horizontal
+from textual.containers import Container
 from textual.reactive import reactive
 from textual.events import Click
 from betza_parser import BetzaParser
@@ -43,9 +43,9 @@ class BetzaChessApp(App):
         with open("piece_catalog.json", "r") as f:
             piece_catalog = json.load(f)
 
-        yield Vertical(
-            Input(placeholder="Try Xiangqi Horse: nN", id="betza_input"),
-            Select(
+        with Container(id="main-container"):
+            yield Input(placeholder="Try Xiangqi Horse: nN", id="betza_input")
+            yield Select(
                 [
                     ("5x5", 5),
                     ("7x7", 7),
@@ -56,16 +56,11 @@ class BetzaChessApp(App):
                 ],
                 value=DEFAULT_BOARD_SIZE,
                 id="board_size_select",
-            ),
-            Horizontal(
-                Vertical(
-                    Select([], id="variant_select"),
-                    ListView(id="piece_catalog_list"),
-                ),
-                Static(id="board"),
-            ),
-            Static(LEGEND_TEXT, id="legend"),
-        )
+            )
+            yield ListView(id="piece_catalog_list")
+            yield Static(id="board")
+            yield Select([], id="variant_select")
+            yield Static(LEGEND_TEXT, id="legend")
 
     def on_mount(self) -> None:
         self.parser = BetzaParser()

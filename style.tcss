@@ -1,10 +1,29 @@
 Screen {
-    align: center middle;
+    overflow: auto;
+}
+
+#main-container {
+    layout: grid;
+    grid-size: 2 4;
+    grid-columns: 1fr 3fr;
+    grid-rows: auto auto 1fr auto;
+    height: 100%;
+    width: 100%;
+    align: center top;
 }
 
 #betza_input {
+    column-span: 2;
+    width: 80%;
+    margin: 1 0;
+    height: 3;
+}
+
+#board_size_select {
+    column-span: 2;
     width: 50%;
-    margin: 1 1;
+    margin: 1 0;
+    height: 3;
 }
 
 #board {
@@ -15,10 +34,15 @@ Screen {
 }
 
 #piece_catalog_list {
-    width: 30;
     height: 100%;
     border: thick blue;
     margin: 0 1;
+}
+
+#variant_select {
+    width: 100%;
+    margin: 1 0;
+    height: 3;
 }
 
 PieceListItem {

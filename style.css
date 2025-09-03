@@ -1,16 +1,28 @@
 body {
     font-family: sans-serif;
+    background-color: #333;
+    color: #eee;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #333;
-    color: #eee;
+}
+
+h1 {
+    text-align: center;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 10px;
 }
 
 #betzaInput {
-    width: 300px;
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 80%;
     padding: 8px;
-    margin: 20px;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #555;
@@ -18,13 +30,13 @@ body {
     color: #eee;
 }
 
-.main-container {
-    display: flex;
-    gap: 20px;
+#boardSizeSelect {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 50%;
 }
 
 #piece-catalog-container {
-    width: 250px;
     height: 520px;
     overflow-y: auto;
     border: 1px solid #555;
@@ -53,12 +65,14 @@ body {
 }
 
 #board-container {
-    width: 520px;
     height: 520px;
 }
 
+#variant-select {
+    width: 100%;
+}
+
 #legend-container {
-    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
