@@ -1,4 +1,5 @@
 import pytest
+import json
 from textual.pilot import Pilot
 from main import BetzaChessApp
 
@@ -46,6 +47,48 @@ def count_moves_on_board(board_text: str) -> int:
     return sum(1 for char in board_text if char in move_chars)
 
 
+def get_catalog_data():
+    with open("piece_catalog.json", "r") as f:
+        return json.load(f)
+
+def get_variant_count():
+    catalog = get_catalog_data()
+    variants = set()
+    for p in catalog:
+        for v in p["variant"].split(","):
+            variants.add(v.strip())
+    return len(variants)
+
+def get_piece_count_for_variant(variant):
+    catalog = get_catalog_data()
+    if variant == "All":
+        return len(catalog)
+    count = 0
+    for p in catalog:
+        if variant in [v.strip() for v in p["variant"].split(",")]:
+            count += 1
+    return count
+
+async def test_orthodox_knight_moves(pilot: Pilot):
+    """
+    Tests that the Orthodox Knight has 8 moves on an empty board.
+    """
+    await pilot.pause()
+    list_view = pilot.app.query_one("#piece_catalog_list")
+    list_view.focus()
+    await pilot.pause()
+
+    # Find and select Orthodox Knight
+    for i, item in enumerate(list_view.children):
+        if item.piece_name == "Knight" and item.piece_variant == "Orthodox":
+            list_view.index = i
+            break
+    await pilot.press("enter")
+    await pilot.pause()
+
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 8
+
+
 async def test_janggi_cannon_moves(pilot: Pilot):
     """
     Test move calculation for the Janggi Cannon with blocker placement.
@@ -55,20 +98,22 @@ async def test_janggi_cannon_moves(pilot: Pilot):
     list_view.focus()
     await pilot.pause()
 
-    # Select Janggi Cannon (index 6)
-    for _ in range(7):
-        await pilot.press("down")
+    # Find and select Janggi Cannon
+    for i, item in enumerate(list_view.children):
+        if item.piece_name == "Cannon (Korean)":
+            list_view.index = i
+            break
     await pilot.press("enter")
     await pilot.pause()
 
-    assert count_moves_on_board(pilot.app.render_board()) == 0
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 0
 
     # Place a blocker 2 squares forward (y = 2)
     center = pilot.app.board_size // 2
-    await pilot.click("#board", offset=(center * 2 + 1, center - 2 + 2))
+    await pilot.click("#board", offset=(center * 2 + 1, center - 1))
     await pilot.pause()
 
-    assert count_moves_on_board(pilot.app.render_board()) > 0
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) > 0
 
 
 async def test_xiangqi_horse_moves(pilot: Pilot):
@@ -80,17 +125,19 @@ async def test_xiangqi_horse_moves(pilot: Pilot):
     list_view.focus()
     await pilot.pause()
 
-    # Select Xiangqi Horse (index 27)
-    for _ in range(28):
-        await pilot.press("down")
+    # Find and select Xiangqi Horse
+    for i, item in enumerate(list_view.children):
+        if item.piece_name == "Horse" and "Xiangqi" in item.piece_variant:
+            list_view.index = i
+            break
     await pilot.press("enter")
     await pilot.pause()
 
-    assert count_moves_on_board(pilot.app.render_board()) == 8
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 8
 
     # Place a blocker 1 square forward (y = 1)
     center = pilot.app.board_size // 2
-    await pilot.click("#board", offset=(center * 2 + 1, center - 1 + 2))
+    await pilot.click("#board", offset=(center * 2 + 1, center + 1))
     await pilot.pause()
 
-    assert count_moves_on_board(pilot.app.render_board()) == 6
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 6

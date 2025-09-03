@@ -358,5 +358,30 @@
     "name": "Woody Rook",
     "variant": "Chess with different armies",
     "betza": "WD"
+  },
+  {
+    "name": "King",
+    "variant": "Orthodox",
+    "betza": "K"
+  },
+  {
+    "name": "Queen",
+    "variant": "Orthodox",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "Orthodox",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "Orthodox",
+    "betza": "B"
+  },
+  {
+    "name": "Knight",
+    "variant": "Orthodox",
+    "betza": "N"
   }
 ]
