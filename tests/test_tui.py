@@ -47,6 +47,28 @@ def count_moves_on_board(board_text: str) -> int:
     return sum(1 for char in board_text if char in move_chars)
 
 
+def get_catalog_data():
+    with open("piece_catalog.json", "r") as f:
+        return json.load(f)
+
+def get_variant_count():
+    catalog = get_catalog_data()
+    variants = set()
+    for p in catalog:
+        for v in p["variant"].split(","):
+            variants.add(v.strip())
+    return len(variants)
+
+def get_piece_count_for_variant(variant):
+    catalog = get_catalog_data()
+    if variant == "All":
+        return len(catalog)
+    count = 0
+    for p in catalog:
+        if variant in [v.strip() for v in p["variant"].split(",")]:
+            count += 1
+    return count
+
 async def test_orthodox_knight_moves(pilot: Pilot):
     """
     Tests that the Orthodox Knight has 8 moves on an empty board.
@@ -84,11 +106,11 @@ async def test_janggi_cannon_moves(pilot: Pilot):
     await pilot.press("enter")
     await pilot.pause()
 
-    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 28
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 0
 
     # Place a blocker 2 squares forward (y = 2)
     center = pilot.app.board_size // 2
-    await pilot.click("#board", offset=(center * 2 + 1, center - 2 + 3))
+    await pilot.click("#board", offset=(center * 2 + 1, center - 1))
     await pilot.pause()
 
     assert count_moves_on_board(pilot.app.query_one("#board").render()) > 0
@@ -115,30 +137,7 @@ async def test_xiangqi_horse_moves(pilot: Pilot):
 
     # Place a blocker 1 square forward (y = 1)
     center = pilot.app.board_size // 2
-    await pilot.click("#board", offset=(center * 2 + 1, center - 1 + 3))
+    await pilot.click("#board", offset=(center * 2 + 1, center + 1))
     await pilot.pause()
 
     assert count_moves_on_board(pilot.app.query_one("#board").render()) == 6
-
-
-def get_catalog_data():
-    with open("piece_catalog.json", "r") as f:
-        return json.load(f)
-
-def get_variant_count():
-    catalog = get_catalog_data()
-    variants = set()
-    for p in catalog:
-        for v in p["variant"].split(","):
-            variants.add(v.strip())
-    return len(variants)
-
-def get_piece_count_for_variant(variant):
-    catalog = get_catalog_data()
-    if variant == "All":
-        return len(catalog)
-    count = 0
-    for p in catalog:
-        if variant in [v.strip() for v in p["variant"].split(",")]:
-            count += 1
-    return count

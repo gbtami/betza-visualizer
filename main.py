@@ -45,23 +45,23 @@ class BetzaChessApp(App):
 
         yield Vertical(
             Input(placeholder="Try Xiangqi Horse: nN", id="betza_input"),
-            Horizontal(
-                Select(
-                    [
-                        ("5x5", 5),
-                        ("7x7", 7),
-                        ("9x9", 9),
-                        ("11x11", 11),
-                        ("13x13", 13),
-                        ("15x15", 15),
-                    ],
-                    value=DEFAULT_BOARD_SIZE,
-                    id="board_size_select",
-                ),
-                Select([], id="variant_select"),
+            Select(
+                [
+                    ("5x5", 5),
+                    ("7x7", 7),
+                    ("9x9", 9),
+                    ("11x11", 11),
+                    ("13x13", 13),
+                    ("15x15", 15),
+                ],
+                value=DEFAULT_BOARD_SIZE,
+                id="board_size_select",
             ),
             Horizontal(
-                ListView(id="piece_catalog_list"),
+                Vertical(
+                    Select([], id="variant_select"),
+                    ListView(id="piece_catalog_list"),
+                ),
                 Static(id="board"),
             ),
             Static(LEGEND_TEXT, id="legend"),
