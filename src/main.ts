@@ -92,6 +92,19 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
 
   moves.forEach((move) => {
     const { x, y, moveType, hopType, jumpType } = move;
+
+    // Check if the move is within the board boundaries
+    const boardX = center + x;
+    const boardY = center - y;
+    if (
+      boardX < 0 ||
+      boardX >= boardSize ||
+      boardY < 0 ||
+      boardY >= boardSize
+    ) {
+      return; // Skip rendering for off-board moves
+    }
+
     const cx = (center + x) * CELL_SIZE + CELL_SIZE / 2;
     const cy = (center - y) * CELL_SIZE + CELL_SIZE / 2;
     let isValid: boolean;
