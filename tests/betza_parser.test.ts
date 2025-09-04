@@ -120,6 +120,14 @@ describe('BetzaParser', () => {
             const moves = parser.parse('M');
             expect(moves.length).toBe(12);
         });
+
+        it('should parse a Nightrider shorthand (NN)', () => {
+            const moves = parser.parse('NN');
+            expect(moves.length).toBe(8 * parser.infinityCap);
+            const moveCoords = toCoordSet(moves);
+            expect(moveCoords).toContain('4,2');
+            expect(moveCoords).toContain('-4,-2');
+        });
     });
 
     describe('Advanced Betza Modifier Rules', () => {

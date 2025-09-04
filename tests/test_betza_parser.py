@@ -99,6 +99,14 @@ class TestFairyStockfishPieces(unittest.TestCase):
         moves = self.parser.parse("M")
         self.assertEqual(len(moves), 12)
 
+    def test_nightrider_shorthand_NN(self):
+        """Tests that 'NN' is parsed as a Nightrider (N0)."""
+        moves = self.parser.parse("NN")
+        move_coords = {m[:2] for m in moves}
+        self.assertEqual(len(moves), 8 * self.parser.infinity_cap)
+        self.assertIn((4, 2), move_coords)
+        self.assertIn((-4, -2), move_coords)
+
 
 class TestAdvancedModifiers(unittest.TestCase):
     """Tests for nuanced modifier rules like quadrants and doubled letters."""

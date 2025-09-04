@@ -51,6 +51,12 @@ class BetzaParser:
             match = re.match(r"([A-Z])(\d*)", token)
             letter, suffix = match.groups()
 
+            # Nightrider shorthand: 'NN' -> 'N0'
+            if suffix == "" and token_worklist and token_worklist[0] == letter:
+                token_worklist.pop(0)
+                token_worklist.insert(0, f"{letter}0")
+                continue
+
             if letter in self.compound_aliases:
                 expansion = self.compound_aliases[letter]
                 if suffix:
