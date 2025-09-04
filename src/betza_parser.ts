@@ -39,6 +39,13 @@ export class BetzaParser {
       if (!match) continue;
       const [, letter, suffix] = match;
 
+      // Nightrider shorthand: 'NN' -> treat as rider 'N0'
+      if (suffix === '' && tokenWorklist[0] === letter) {
+        tokenWorklist.shift(); // consume the second 'N'
+        tokenWorklist.unshift(`${letter}0`); // push rider form
+        continue;
+      }
+
       if (this.compoundAliases.has(letter)) {
         let expansion = this.compoundAliases.get(letter)!;
         if (suffix) {
