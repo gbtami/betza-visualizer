@@ -101,3 +101,24 @@ def test_leaper_unblocked(page: Page):
 
     # The knight should not be blocked, so there should still be 8 moves.
     expect(page.locator("#board-container circle")).to_have_count(8)
+
+
+@pytest.mark.e2e
+def test_slider_moves_are_on_board(page: Page):
+    """
+    Tests that a slider piece (e.g., Nightrider N0) does not render moves
+    that are off the board.
+    """
+    page.goto("http://localhost:8080")
+
+    # Select a small board size to make it easy to have off-board moves
+    page.locator("#boardSizeSelect").select_option("5")
+
+    # Set the input to N0 (Nightrider)
+    page.locator("#betzaInput").fill("N0")
+
+    # On a 5x5 board, a Nightrider from the center has 8 on-board moves.
+    # The parser will generate more moves that are off-board.
+    # We expect that only the 8 on-board moves are rendered.
+    # Nightrider moves are jumping, so they are rendered as circles.
+    expect(page.locator("#board-container circle")).to_have_count(8)
