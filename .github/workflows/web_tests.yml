@@ -55,4 +55,4 @@ jobs:
       - name: Install Playwright Browsers and Run Tests
         run: |
           python -m playwright install --with-deps
-          python -m pytest -m "e2e"
+          python -m pytest tests/pytest_tests/

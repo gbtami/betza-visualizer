@@ -5,7 +5,6 @@ XIANGQI_ELEPHANT_NAME = "Elephant (Chinese)"
 XIANGQI_ELEPHANT_BETZA = "nA"
 
 
-@pytest.mark.e2e
 def test_xiangqi_elephant_empty_board(page: Page):
     """
     Tests that the Xiangqi Elephant has 4 moves on an empty board.
@@ -23,7 +22,6 @@ def test_xiangqi_elephant_empty_board(page: Page):
     expect(page.locator("g > path")).to_have_count(4 * 2)
 
 
-@pytest.mark.e2e
 def test_xiangqi_elephant_blocked(page: Page):
     """
     Tests that the Xiangqi Elephant's moves are correctly blocked.
@@ -63,7 +61,6 @@ def test_xiangqi_elephant_blocked(page: Page):
     expect(page.locator("g > path")).to_have_count(3 * 2)
 
 
-@pytest.mark.e2e
 def test_leaper_unblocked(page: Page):
     """
     Tests that a standard leaper (Knight) is not blocked by an adjacent piece.
@@ -103,7 +100,6 @@ def test_leaper_unblocked(page: Page):
     expect(page.locator("#board-container circle")).to_have_count(8)
 
 
-@pytest.mark.e2e
 def test_slider_moves_are_on_board(page: Page):
     """
     Tests that a slider piece (e.g., Nightrider N0) does not render moves
