@@ -117,15 +117,8 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
         }
       }
     } else if (jumpType === 'jumping') {
-      // Leapers that MUST jump over a piece (e.g., jN)
-      isValid = false;
-      let blockX = 0,
-        blockY = 0;
-      if (Math.abs(x) > Math.abs(y)) blockX = sign(x);
-      else if (Math.abs(y) > Math.abs(x)) blockY = sign(y);
-      if (blockers.has(`${blockX},${blockY}`)) {
-        isValid = true;
-      }
+      // Leapers are not blocked by pieces on their path.
+      isValid = true;
     } else if (jumpType === 'non-jumping') {
       const isLinearMove = x === 0 || y === 0 || Math.abs(x) === Math.abs(y);
       if (isLinearMove) {
