@@ -23,6 +23,7 @@ export class BetzaParser {
     ['M', 'FC'],
   ]);
   public readonly infinityCap = 12;
+  private readonly jumpingAtoms: Set<string> = new Set(['N', 'C', 'Z']);
 
   public parse(notation: string, boardSize?: number): Move[] {
     const moves: Move[] = [];
@@ -79,9 +80,23 @@ export class BetzaParser {
           ? 'g'
           : null;
 
-      // Leapers are jumping by default, unless they are lame (n)
-      let jumpType: Move['jumpType'] = 'jumping';
-      if (currentMods.includes('n')) jumpType = 'non-jumping';
+      // Determine jump_type based on whether it's a rider or a leaper
+      const isRider = countStr === '0';
+      let jumpType: Move['jumpType'];
+      if (isRider) {
+        // Rider type depends on the base atom
+        if (this.jumpingAtoms.has(atom)) {
+          jumpType = 'jumping';
+        } else {
+          jumpType = 'non-jumping';
+        }
+      } else {
+        // Leapers are jumping by default, unless they are lame (n)
+        jumpType = 'jumping';
+        if (currentMods.includes('n')) {
+          jumpType = 'non-jumping';
+        }
+      }
 
       let maxSteps: number;
       if (countStr === '0') {

@@ -179,6 +179,18 @@ describe('BetzaParser', () => {
             expect(moves.length).toBe(8);
             expect(moves.every(m => m.jumpType === 'jumping')).toBe(true);
         });
+
+        it('should default to "non-jumping" for a sliding rider', () => {
+            const moves = parser.parse('R'); // R is an alias for W0
+            expect(moves.length).toBeGreaterThan(0);
+            expect(moves.every(m => m.jumpType === 'non-jumping')).toBe(true);
+        });
+
+        it('should default to "jumping" for a jumping rider', () => {
+            const moves = parser.parse('NN'); // NN is an alias for N0
+            expect(moves.length).toBeGreaterThan(0);
+            expect(moves.every(m => m.jumpType === 'jumping')).toBe(true);
+        });
     });
 
     describe('Directional Shorthand Modifiers', () => {
