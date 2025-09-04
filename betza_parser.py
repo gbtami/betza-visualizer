@@ -29,6 +29,7 @@ class BetzaParser:
             "M": "FC",
         }
         self.infinity_cap = 12
+        self.jumping_atoms = {"N", "C", "Z"}
 
     def parse(
         self, notation: str, board_size: Optional[int] = None
@@ -85,8 +86,11 @@ class BetzaParser:
             # Determine jump_type based on whether it's a rider or a leaper
             is_rider = count_str == "0"
             if is_rider:
-                # Riders are non-jumping by default
-                jump_type = "non-jumping"
+                # Rider type depends on the base atom
+                if atom in self.jumping_atoms:
+                    jump_type = "jumping"
+                else:
+                    jump_type = "non-jumping"
             else:
                 # Leapers are jumping by default, unless they are lame (n)
                 jump_type = "jumping"

@@ -156,12 +156,19 @@ class TestAdvancedModifiers(unittest.TestCase):
         # move[4] is the jump_type
         self.assertTrue(all(move[4] == "jumping" for move in moves))
 
-    def test_default_rider_is_non_jumping(self):
-        """Tests that a rider with no modifiers defaults to non-jumping."""
+    def test_default_sliding_rider_is_non_jumping(self):
+        """Tests that a sliding rider (e.g., Rook) defaults to non-jumping."""
         moves = self.parser.parse("R")  # R is an alias for W0
         self.assertGreater(len(moves), 0)
         # move[4] is the jump_type
         self.assertTrue(all(move[4] == "non-jumping" for move in moves))
+
+    def test_default_jumping_rider_is_jumping(self):
+        """Tests that a jumping rider (e.g., Nightrider) defaults to jumping."""
+        moves = self.parser.parse("NN")  # NN is an alias for N0
+        self.assertGreater(len(moves), 0)
+        # move[4] is the jump_type
+        self.assertTrue(all(move[4] == "jumping" for move in moves))
 
 
 class TestDirectionalShorthand(unittest.TestCase):
