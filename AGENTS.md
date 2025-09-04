@@ -22,13 +22,13 @@ This example demonstrates the required workflow for adding a new feature.
 1.  **Update Python Parser**:
     *   Modify `betza_parser.py` to correctly parse the "F" notation and generate its diagonal move vectors.
 2.  **Add Python Test**:
-    *   Add a new test case in the `tests/` directory to verify the Ferz's movement logic in Python.
+    *   Add a new test case in the `tests/python_unittests/` directory to verify the Ferz's movement logic in Python.
 3.  **Update TypeScript Parser**:
     *   Modify the corresponding parser file in `src/` to replicate the exact same parsing logic for "F".
 4.  **Add TypeScript Test**:
-    *   Add a new test case in the `tests/` directory for TypeScript to verify the Ferz's movement, ensuring the test case matches the Python one.
+    *   Add a new test case in the `tests/yarn_tests/` directory for TypeScript to verify the Ferz's movement, ensuring the test case matches the Python one.
 5.  **Add Web E2E Test**:
-    *   If the change affects web app behavior, add a Python Playwright test to `tests/test_web_app.py` to verify the visual and interactive correctness of the change.
+    *   If the change affects web app behavior, add a Python Playwright test to `tests/pytest_tests/test_web_app.py` to verify the visual and interactive correctness of the change.
 6.  **Verify All Implementations**:
     *   Run the full test suite for both Python (TUI) and the Web (Jest and Playwright) to ensure all tests pass.
 
@@ -42,7 +42,8 @@ This version is a command-line application that renders the visualization direct
 *   **Core Files:**
     *   `main.py`: The entry point for the Textual TUI application.
     *   `betza_parser.py`: The Python implementation of the Betza notation parser.
-    *   `tests/`: Contains the unit tests for the Python implementation.
+    *   `tests/python_unittests`: Contains the `unittest` tests for the Python implementation.
+    *   `tests/pytest_tests`: Contains the `pytest` tests for the TUI.
 
 #### Setup and Execution
 
@@ -52,7 +53,11 @@ This version is a command-line application that renders the visualization direct
     ```
 2.  **Run Tests:**
     ```bash
-    python -m unittest discover -s tests
+    # Run unittest tests
+    python -m unittest discover -s tests/python_unittests/
+
+    # Run pytest tests for the TUI
+    python -m pytest tests/pytest_tests/test_tui.py
     ```
 3.  **Run the Application:**
     ```bash
@@ -87,7 +92,7 @@ This version is a client-side web application that renders the visualization in 
     *   **Package Management:** Yarn
 *   **Core Files:**
     *   `src/`: Contains the TypeScript source code for the parser and visualization logic.
-    *   `tests/`: Contains the Jest test suite for the TypeScript implementation.
+    *   `tests/yarn_tests`: Contains the Jest test suite for the TypeScript implementation.
     *   `index.html`: The main HTML file for the web interface.
     *   `package.json`: Defines Node.js dependencies and scripts.
     *   `tsconfig.json`: TypeScript compiler configuration.
@@ -156,5 +161,5 @@ In addition to the Jest unit tests, the web application has a suite of end-to-en
 4.  **Run E2E Tests:**
     Execute the Playwright tests using `pytest`:
     ```bash
-    python -m pytest tests/test_web_app.py
+    python -m pytest tests/pytest_tests/test_web_app.py
     ```

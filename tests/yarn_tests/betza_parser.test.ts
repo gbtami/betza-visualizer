@@ -1,5 +1,5 @@
-import { BetzaParser } from '../src/betza_parser';
-import { Move } from '../src/types';
+import { BetzaParser } from '../../src/betza_parser';
+import { Move } from '../../src/types';
 
 // Helper to convert a set of moves to a set of coordinate strings for easy comparison
 const toCoordSet = (moves: Move[]): Set<string> => {
