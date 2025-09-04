@@ -42,7 +42,8 @@ This version is a command-line application that renders the visualization direct
 *   **Core Files:**
     *   `main.py`: The entry point for the Textual TUI application.
     *   `betza_parser.py`: The Python implementation of the Betza notation parser.
-    *   `tests/python_unittests`: Contains the unit tests for the Python implementation.
+    *   `tests/python_unittests`: Contains the `unittest` tests for the Python implementation.
+    *   `tests/pytest_tests`: Contains the `pytest` tests for the TUI.
 
 #### Setup and Execution
 
@@ -52,7 +53,11 @@ This version is a command-line application that renders the visualization direct
     ```
 2.  **Run Tests:**
     ```bash
+    # Run unittest tests
     python -m unittest discover -s tests/python_unittests/
+
+    # Run pytest tests for the TUI
+    python -m pytest tests/pytest_tests/test_tui.py
     ```
 3.  **Run the Application:**
     ```bash
@@ -156,5 +161,5 @@ In addition to the Jest unit tests, the web application has a suite of end-to-en
 4.  **Run E2E Tests:**
     Execute the Playwright tests using `pytest`:
     ```bash
-    python -m pytest tests/pytest_tests/
+    python -m pytest tests/pytest_tests/test_web_app.py
     ```
