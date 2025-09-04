@@ -131,6 +131,9 @@ class BetzaChessApp(App):
         col = (event.x - 1) // 2
         row = event.y - 2
 
+        if not (0 <= col < self.board_size and 0 <= row < self.board_size):
+            return
+
         blocker_x = col - center
         blocker_y = center - row
 

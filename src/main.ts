@@ -50,15 +50,15 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
   }
 
   svg.addEventListener('click', (event) => {
-    const svgPoint = svg.createSVGPoint();
-    svgPoint.x = event.clientX;
-    svgPoint.y = event.clientY;
-    const { x, y } = svgPoint.matrixTransform(
-      (svg.getScreenCTM() as SVGMatrix).inverse()
-    );
+    const x = event.offsetX;
+    const y = event.offsetY;
 
     const c = Math.floor(x / CELL_SIZE);
     const r = Math.floor(y / CELL_SIZE);
+
+    if (c < 0 || c >= boardSize || r < 0 || r >= boardSize) {
+      return;
+    }
 
     const blockerX = c - center;
     const blockerY = center - r;
