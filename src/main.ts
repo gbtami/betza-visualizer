@@ -45,6 +45,8 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
       rect.setAttribute('width', String(CELL_SIZE));
       rect.setAttribute('height', String(CELL_SIZE));
       rect.setAttribute('fill', (r + c) % 2 === 0 ? '#769656' : '#eeeed2');
+      rect.dataset.x = String(c);
+      rect.dataset.y = String(r);
       svg.appendChild(rect);
     }
   }

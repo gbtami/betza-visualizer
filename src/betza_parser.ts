@@ -79,9 +79,19 @@ export class BetzaParser {
           ? 'g'
           : null;
 
-      // Leapers are jumping by default, unless they are lame (n)
-      let jumpType: Move['jumpType'] = 'jumping';
-      if (currentMods.includes('n')) jumpType = 'non-jumping';
+      // Determine jump_type based on whether it's a rider or a leaper
+      const isRider = countStr === '0';
+      let jumpType: Move['jumpType'];
+      if (isRider) {
+        // Riders are non-jumping by default
+        jumpType = 'non-jumping';
+      } else {
+        // Leapers are jumping by default, unless they are lame (n)
+        jumpType = 'jumping';
+        if (currentMods.includes('n')) {
+          jumpType = 'non-jumping';
+        }
+      }
 
       let maxSteps: number;
       if (countStr === '0') {

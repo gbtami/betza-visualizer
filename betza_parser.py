@@ -82,10 +82,16 @@ class BetzaParser:
             # Determine hop_type for riders
             hop_type = "p" if "p" in current_mods else "g" if "g" in current_mods else None
 
-            # Leapers are jumping by default, unless they are lame (n)
-            jump_type = "jumping"
-            if "n" in current_mods:
+            # Determine jump_type based on whether it's a rider or a leaper
+            is_rider = count_str == "0"
+            if is_rider:
+                # Riders are non-jumping by default
                 jump_type = "non-jumping"
+            else:
+                # Leapers are jumping by default, unless they are lame (n)
+                jump_type = "jumping"
+                if "n" in current_mods:
+                    jump_type = "non-jumping"
 
             if count_str == "0":
                 max_steps = board_size // 2 if board_size is not None else self.infinity_cap

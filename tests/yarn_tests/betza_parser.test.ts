@@ -179,6 +179,12 @@ describe('BetzaParser', () => {
             expect(moves.length).toBe(8);
             expect(moves.every(m => m.jumpType === 'jumping')).toBe(true);
         });
+
+        it('should default to "non-jumping" for a rider without modifiers', () => {
+            const moves = parser.parse('R'); // R is an alias for W0
+            expect(moves.length).toBeGreaterThan(0);
+            expect(moves.every(m => m.jumpType === 'non-jumping')).toBe(true);
+        });
     });
 
     describe('Directional Shorthand Modifiers', () => {
