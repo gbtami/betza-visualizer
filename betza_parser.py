@@ -62,8 +62,22 @@ class BetzaParser:
                 expansion = self.compound_aliases[letter]
                 if suffix:
                     expansion = re.sub(r"([A-Z])\d*", rf"\g<1>{suffix}", expansion)
+
                 new_tokens = re.findall(r"[A-Z]\d*", expansion)
+
+                # If there are current modifiers, they need to be applied to each component
+                # of the expanded alias. We do this by inserting them back into the token stream.
+                if current_mods:
+                    prefixed_tokens = []
+                    for t in new_tokens:
+                        prefixed_tokens.append(current_mods)
+                        prefixed_tokens.append(t)
+                    new_tokens = prefixed_tokens
+
                 token_worklist[0:0] = new_tokens
+
+                # The modifiers have been "distributed" to the sub-components, so we can clear them.
+                current_mods = ""
                 continue
 
             if letter not in self.atoms:

@@ -52,8 +52,22 @@ export class BetzaParser {
         if (suffix) {
           expansion = expansion.replace(/([A-Z])\d*/g, `$1${suffix}`);
         }
-        const newTokens = expansion.match(/[A-Z]\d*/g) || [];
+        let newTokens: string[] = expansion.match(/[A-Z]\d*/g) || [];
+
+        // If there are current modifiers, they need to be applied to each component
+        // of the expanded alias. We do this by inserting them back into the token stream.
+        if (currentMods) {
+          const prefixedTokens: string[] = [];
+          for (const t of newTokens) {
+            prefixedTokens.push(currentMods, t);
+          }
+          newTokens = prefixedTokens;
+        }
+
         tokenWorklist.unshift(...newTokens);
+
+        // The modifiers have been "distributed" to the sub-components, so we can clear them.
+        currentMods = '';
         continue;
       }
 
