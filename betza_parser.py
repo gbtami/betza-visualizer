@@ -65,8 +65,6 @@ class BetzaParser:
 
                 new_tokens = re.findall(r"[A-Z]\d*", expansion)
 
-                # If there are current modifiers, they need to be applied to each component
-                # of the expanded alias. We do this by inserting them back into the token stream.
                 if current_mods:
                     prefixed_tokens = []
                     for t in new_tokens:
@@ -75,27 +73,28 @@ class BetzaParser:
                     new_tokens = prefixed_tokens
 
                 token_worklist[0:0] = new_tokens
-
-                # The modifiers have been "distributed" to the sub-components, so we can clear them.
                 current_mods = ""
                 continue
 
             if letter not in self.atoms:
                 continue
 
+            mods_for_this_atom = current_mods
+            current_mods = ""
+
             atom, count_str = letter, suffix
 
             # Determine move_type
             move_type = "move_capture"
-            if "m" in current_mods and "c" not in current_mods:
+            if "m" in mods_for_this_atom and "c" not in mods_for_this_atom:
                 move_type = "move"
-            elif "c" in current_mods and "m" not in current_mods:
+            elif "c" in mods_for_this_atom and "m" not in mods_for_this_atom:
                 move_type = "capture"
-            elif "m" in current_mods and "c" in current_mods:
-                move_type = "capture" if current_mods.rfind("c") > current_mods.rfind("m") else "move"
+            elif "m" in mods_for_this_atom and "c" in mods_for_this_atom:
+                move_type = "capture" if mods_for_this_atom.rfind("c") > mods_for_this_atom.rfind("m") else "move"
 
             # Determine hop_type for riders
-            hop_type = "p" if "p" in current_mods else "g" if "g" in current_mods else None
+            hop_type = "p" if "p" in mods_for_this_atom else "g" if "g" in mods_for_this_atom else None
 
             # Determine jump_type based on whether it's a rider or a leaper
             is_rider = count_str == "0"
@@ -108,7 +107,7 @@ class BetzaParser:
             else:
                 # Leapers are jumping by default, unless they are lame (n)
                 jump_type = "jumping"
-                if "n" in current_mods:
+                if "n" in mods_for_this_atom:
                     jump_type = "non-jumping"
 
             if count_str == "0":
@@ -119,7 +118,7 @@ class BetzaParser:
                 max_steps = int(count_str)
             x_atom, y_atom = self.atoms[atom]
             base_directions = self._get_directions(x_atom, y_atom)
-            allowed_directions = self._filter_directions(base_directions, current_mods, atom)
+            allowed_directions = self._filter_directions(base_directions, mods_for_this_atom, atom)
 
             for i in range(1, max_steps + 1):
                 for dx, dy in allowed_directions:
