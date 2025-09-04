@@ -116,6 +116,34 @@ async def test_janggi_cannon_moves(pilot: Pilot):
     assert count_moves_on_board(pilot.app.query_one("#board").render()) > 0
 
 
+async def test_leaper_unblocked(pilot: Pilot):
+    """
+    Tests that a standard leaper (Knight) is not blocked by an adjacent piece.
+    """
+    await pilot.pause()
+    list_view = pilot.app.query_one("#piece_catalog_list")
+    list_view.focus()
+    await pilot.pause()
+
+    # Find and select Orthodox Knight
+    for i, item in enumerate(list_view.children):
+        if item.piece_name == "Knight" and item.piece_variant == "Orthodox":
+            list_view.index = i
+            break
+    await pilot.press("enter")
+    await pilot.pause()
+
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 8
+
+    # Place a blocker 1 square forward (y = 1)
+    center = pilot.app.board_size // 2
+    await pilot.click("#board", offset=(center * 2 + 1, center + 1))
+    await pilot.pause()
+
+    # The knight should not be blocked, so there should still be 8 moves.
+    assert count_moves_on_board(pilot.app.query_one("#board").render()) == 8
+
+
 async def test_xiangqi_horse_moves(pilot: Pilot):
     """
     Test move calculation for the Xiangqi Horse with blocker placement.

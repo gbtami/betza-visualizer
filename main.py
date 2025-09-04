@@ -190,14 +190,8 @@ class BetzaChessApp(App):
                         if x == blocker_pos[0] + dx and y == blocker_pos[1] + dy:
                             is_valid = True
             elif jump_type == "jumping":
-                is_valid = False
-                block_x, block_y = 0, 0
-                if abs(x) > abs(y):
-                    block_x = sign(x)
-                elif abs(y) > abs(x):
-                    block_y = sign(y)
-                if (block_x, block_y) in self.blockers:
-                    is_valid = True
+                # Leapers are not blocked by pieces on their path.
+                is_valid = True
             elif jump_type == "non-jumping":
                 is_linear_move = (x == 0) or (y == 0) or (abs(x) == abs(y))
                 if is_linear_move:

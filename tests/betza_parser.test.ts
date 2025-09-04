@@ -165,6 +165,12 @@ describe('BetzaParser', () => {
             expect(moves.length).toBe(4);
             expect(moves.every(m => m.jumpType === 'jumping')).toBe(true);
         });
+
+        it('should default to "jumping" for a leaper without modifiers', () => {
+            const moves = parser.parse('N');
+            expect(moves.length).toBe(8);
+            expect(moves.every(m => m.jumpType === 'jumping')).toBe(true);
+        });
     });
 
     describe('Directional Shorthand Modifiers', () => {

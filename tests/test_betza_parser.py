@@ -141,6 +141,13 @@ class TestAdvancedModifiers(unittest.TestCase):
         # move[4] is the jump_type
         self.assertTrue(all(move[4] == "jumping" for move in moves))
 
+    def test_default_leaper_is_jumping(self):
+        """Tests that a leaper with no modifiers defaults to jumping."""
+        moves = self.parser.parse("N")
+        self.assertEqual(len(moves), 8)
+        # move[4] is the jump_type
+        self.assertTrue(all(move[4] == "jumping" for move in moves))
+
 
 class TestDirectionalShorthand(unittest.TestCase):
     """Tests for the 'v' (vertical) and 's' (sideways) shorthand modifiers."""
