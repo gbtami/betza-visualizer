@@ -210,9 +210,15 @@ class TestMultiDirectionalModifiers(unittest.TestCase):
         move_coords = {m[:2] for m in moves}
         expected = {
             # Ferz moves
-            (1, 1), (1, -1), (-1, 1), (-1, -1),
+            (1, 1),
+            (1, -1),
+            (-1, 1),
+            (-1, -1),
             # Vertically longest Knight moves (ffN + bbN)
-            (1, 2), (-1, 2), (1, -2), (-1, -2)
+            (1, 2),
+            (-1, 2),
+            (1, -2),
+            (-1, -2),
         }
         self.assertEqual(len(move_coords), 8)
         self.assertSetEqual(move_coords, expected)
@@ -223,8 +229,13 @@ class TestMultiDirectionalModifiers(unittest.TestCase):
         move_coords = {m[:2] for m in moves}
         expected = {
             # Sideways King
-            (1, 0), (-1, 0), (1, -1), (-1, -1),
+            (1, 0),
+            (-1, 0),
+            (1, -1),
+            (-1, -1),
             # Backward King
-            (0, -1), (1, -1), (-1, -1)
+            (0, -1),
+            (1, -1),
+            (-1, -1),
         }
         self.assertSetEqual(move_coords, expected)

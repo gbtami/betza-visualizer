@@ -2,11 +2,13 @@ import pytest
 from textual.pilot import Pilot
 from main import BetzaChessApp
 
+
 @pytest.fixture
 async def pilot():
     app = BetzaChessApp()
     async with app.run_test() as pilot:
         yield pilot
+
 
 def count_moves_on_board(board_text: str) -> int:
     """

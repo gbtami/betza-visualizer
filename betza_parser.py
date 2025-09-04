@@ -30,7 +30,9 @@ class BetzaParser:
         }
         self.infinity_cap = 12
 
-    def parse(self, notation: str, board_size: Optional[int] = None) -> List[Tuple[int, int, str, Optional[str], str, str]]:
+    def parse(
+        self, notation: str, board_size: Optional[int] = None
+    ) -> List[Tuple[int, int, str, Optional[str], str, str]]:
         """
         Parses notation. Returns a list of 6-element tuples:
         (x, y, move_type, hop_type, jump_type, base_atom)
@@ -87,9 +89,7 @@ class BetzaParser:
                 max_steps = int(count_str)
             x_atom, y_atom = self.atoms[atom]
             base_directions = self._get_directions(x_atom, y_atom)
-            allowed_directions = self._filter_directions(
-                base_directions, current_mods, atom
-            )
+            allowed_directions = self._filter_directions(base_directions, current_mods, atom)
 
             for i in range(1, max_steps + 1):
                 for dx, dy in allowed_directions:
@@ -105,9 +105,7 @@ class BetzaParser:
                 directions.add((y * sx, x * sy))
         return directions
 
-    def _filter_directions(
-        self, directions: Set[Tuple[int, int]], mods: str, atom: str
-    ) -> Set[Tuple[int, int]]:
+    def _filter_directions(self, directions: Set[Tuple[int, int]], mods: str, atom: str) -> Set[Tuple[int, int]]:
         # Fibnif special case: fbN should be treated as ffN union bbN
         if mods == "fb" and atom == "N":
             ff_dirs = self._filter_directions(directions, "ff", atom)
@@ -131,12 +129,8 @@ class BetzaParser:
             has_h_mod = any(c in "lr" for c in dir_mods)
 
             for x, y in directions:
-                v_valid = (not has_v_mod) or (
-                    ("f" in dir_mods and y > 0) or ("b" in dir_mods and y < 0)
-                )
-                h_valid = (not has_h_mod) or (
-                    ("l" in dir_mods and x < 0) or ("r" in dir_mods and x > 0)
-                )
+                v_valid = (not has_v_mod) or (("f" in dir_mods and y > 0) or ("b" in dir_mods and y < 0))
+                h_valid = (not has_h_mod) or (("l" in dir_mods and x < 0) or ("r" in dir_mods and x > 0))
 
                 is_union = is_orthogonal and has_v_mod and has_h_mod
                 if is_union:
