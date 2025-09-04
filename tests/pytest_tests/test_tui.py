@@ -210,3 +210,38 @@ async def test_click_inside_board_toggles_blocker(pilot: Pilot):
     await pilot.pause()
 
     assert len(pilot.app.blockers) == initial_blocker_count
+
+
+async def test_xiangqi_cannon_cannot_jump_two_blockers(pilot: Pilot):
+    """
+    Tests that the Xiangqi Cannon cannot jump over two blockers.
+    """
+    await pilot.pause()
+    list_view = pilot.app.query_one("#piece_catalog_list")
+    list_view.focus()
+    await pilot.pause()
+
+    # Find and select Xiangqi Cannon
+    for i, item in enumerate(list_view.children):
+        if item.piece_name == "Cannon" and item.piece_variant == "Xiangqi":
+            list_view.index = i
+            break
+    await pilot.press("enter")
+    await pilot.pause()
+
+    center = pilot.app.board_size // 2
+
+    # Place blockers at (0, 2) and (0, 3)
+    # The click offset formula is: y_offset = center - by + 2
+    await pilot.click("#board", offset=(center * 2 + 1, center - 2 + 2))
+    await pilot.click("#board", offset=(center * 2 + 1, center - 3 + 2))
+    await pilot.pause()
+
+    board_text = pilot.app.query_one("#board").render()
+    rows = board_text.split('\n')
+
+    # The cannon should not be able to jump over two blockers to capture at (0,4).
+    # The character at that position should be an empty square '.'.
+    # Board display coordinate: display_y = center - y
+    # Screen coordinate for column: screen_x = center * 2 (due to spaces)
+    assert rows[center - 4][center * 2] == '.'
