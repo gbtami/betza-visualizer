@@ -118,3 +118,49 @@ def test_slider_moves_are_on_board(page: Page):
     # We expect that only the 8 on-board moves are rendered.
     # Nightrider moves are jumping, so they are rendered as circles.
     expect(page.locator("#board-container circle")).to_have_count(8)
+
+
+def test_xiangqi_cannon_two_blockers(page: Page):
+    """
+    Tests that the Xiangqi Cannon cannot jump over two blockers.
+    """
+    page.goto("http://localhost:8080")
+
+    # Select the Cannon from the catalog. We need to find the one for Xiangqi.
+    # There are two "Cannon" pieces, one for Xiangqi and one for Janggi (Korean).
+    # We can identify it by looking for its parent that contains the variant name.
+    page.locator(".piece-catalog-item", has=page.get_by_text("Xiangqi")).get_by_text("Cannon", exact=True).click()
+
+    # Get board dimensions
+    board = page.locator("#board-container svg")
+    view_box_str = board.get_attribute("viewBox")
+    _, _, width, _ = view_box_str.split(" ")
+
+    board_size = int(width) / 40
+    center = board_size // 2
+    cell_size = 40
+
+    # Place a blocker at (0, 2)
+    target_c = center + 0
+    target_r = center - 2
+    target_rect_x = int(target_c * cell_size)
+    target_rect_y = int(target_r * cell_size)
+    page.locator(f'rect[x="{target_rect_x}"][y="{target_rect_y}"]').click()
+
+    # Place another blocker at (0, 3)
+    target_c = center + 0
+    target_r = center - 3
+    target_rect_x = int(target_c * cell_size)
+    target_rect_y = int(target_r * cell_size)
+    page.locator(f'rect[x="{target_rect_x}"][y="{target_rect_y}"]').click()
+
+    # Wait for the blockers to appear
+    expect(page.locator('text[fill="#606060"]')).to_have_count(2)
+
+    # The cannon should not be able to jump over two blockers.
+    # So there should be no move indicator at (0, 4).
+    target_cx = (center + 0) * cell_size + cell_size / 2
+    target_cy = (center - 4) * cell_size + cell_size / 2
+
+    # There should be no circle at this position.
+    expect(page.locator(f'circle[cx="{target_cx}"][cy="{target_cy}"]')).to_have_count(0)
