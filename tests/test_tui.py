@@ -3,11 +3,13 @@ import json
 from textual.pilot import Pilot
 from main import BetzaChessApp
 
+
 @pytest.fixture
 async def pilot():
     app = BetzaChessApp()
     async with app.run_test() as pilot:
         yield pilot
+
 
 async def test_piece_catalog_selection(pilot: Pilot):
     """
@@ -51,6 +53,7 @@ def get_catalog_data():
     with open("piece_catalog.json", "r") as f:
         return json.load(f)
 
+
 def get_variant_count():
     catalog = get_catalog_data()
     variants = set()
@@ -58,6 +61,7 @@ def get_variant_count():
         for v in p["variant"].split(","):
             variants.add(v.strip())
     return len(variants)
+
 
 def get_piece_count_for_variant(variant):
     catalog = get_catalog_data()
@@ -68,6 +72,7 @@ def get_piece_count_for_variant(variant):
         if variant in [v.strip() for v in p["variant"].split(",")]:
             count += 1
     return count
+
 
 async def test_orthodox_knight_moves(pilot: Pilot):
     """
@@ -169,3 +174,39 @@ async def test_xiangqi_horse_moves(pilot: Pilot):
     await pilot.pause()
 
     assert count_moves_on_board(pilot.app.query_one("#board").render()) == 6
+
+
+async def test_click_outside_board_does_nothing(pilot: Pilot):
+    """
+    Test that clicking outside the board does not add a blocker.
+    """
+    await pilot.pause()
+    initial_blockers = pilot.app.blockers.copy()
+
+    # Click on the legend, which is outside the board
+    await pilot.click("#legend")
+    await pilot.pause()
+
+    assert pilot.app.blockers == initial_blockers
+
+
+async def test_click_inside_board_toggles_blocker(pilot: Pilot):
+    """
+    Test that clicking inside the board adds and then removes a blocker.
+    """
+    await pilot.pause()
+    initial_blocker_count = len(pilot.app.blockers)
+
+    # Click on a cell to add a blocker
+    center = pilot.app.board_size // 2
+    click_offset = (center * 2 + 1, center + 1)
+    await pilot.click("#board", offset=click_offset)
+    await pilot.pause()
+
+    assert len(pilot.app.blockers) == initial_blocker_count + 1
+
+    # Click on the same cell to remove the blocker
+    await pilot.click("#board", offset=click_offset)
+    await pilot.pause()
+
+    assert len(pilot.app.blockers) == initial_blocker_count

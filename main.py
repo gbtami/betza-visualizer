@@ -40,9 +40,6 @@ class BetzaChessApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
-        with open("piece_catalog.json", "r") as f:
-            piece_catalog = json.load(f)
-
         with Container(id="main-container"):
             yield Input(placeholder="Try Xiangqi Horse: nN", id="betza_input")
             yield Select(
@@ -106,9 +103,7 @@ class BetzaChessApp(App):
         if isinstance(event.item, PieceListItem):
             input_widget = self.query_one("#betza_input")
             input_widget.value = event.item.piece_betza
-            self.moves = self.parser.parse(
-                input_widget.value, board_size=self.board_size
-            )
+            self.moves = self.parser.parse(input_widget.value, board_size=self.board_size)
             self.blockers = set()
 
     def on_input_changed(self, event: Input.Changed) -> None:
@@ -125,7 +120,9 @@ class BetzaChessApp(App):
     def on_click(self, event: Click) -> None:
         if event.button != 1:
             return
-        if self.query_one("#board").id != "board":
+
+        board = self.query_one("#board")
+        if event.control is not board:
             return
 
         center = self.board_size // 2
