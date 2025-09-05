@@ -262,4 +262,26 @@ describe('BetzaParser', () => {
             expect(moveCoords).toEqual(expected);
         });
     });
+
+  describe('Modifier Scope', () => {
+    test('modifier does not leak to the next atom', () => {
+      const moves = parser.parse('fBW');
+      const moveCoords = new Set(moves.map((m) => `${m.x},${m.y}`));
+
+      // Check Wazir moves
+      expect(moveCoords).toContain('0,-1'); // backward
+      expect(moveCoords).toContain('1,0'); // sideways
+      expect(moveCoords).toContain('-1,0'); // sideways
+
+      // Check Bishop moves
+      expect(moveCoords).not.toContain('1,-1'); // backward
+    });
+
+    test('modifiers apply to all parts of a compound piece', () => {
+      const moves = parser.parse('fK');
+      const moveCoords = new Set(moves.map((m) => `${m.x},${m.y}`));
+      const expected = new Set(['0,1', '1,1', '-1,1']);
+      expect(moveCoords).toEqual(expected);
+    });
+  });
 });

@@ -202,6 +202,41 @@ if __name__ == "__main__":
     unittest.main()
 
 
+class TestModifierScope(unittest.TestCase):
+    """Tests that modifiers are correctly scoped to their respective atoms."""
+
+    def setUp(self):
+        self.parser = BetzaParser()
+
+    def test_modifier_does_not_leak_to_next_atom(self):
+        """
+        Tests that a modifier for one atom does not affect a subsequent, unmodified atom.
+        In 'fBW', the 'f' should only apply to 'B', not to 'W'.
+        """
+        moves = self.parser.parse("fBW")
+        move_coords = {m[:2] for m in moves}
+
+        # Check that 'W' moves are not restricted by the 'f' modifier
+        self.assertIn((0, -1), move_coords)  # Backward Wazir move
+        self.assertIn((1, 0), move_coords)  # Sideways Wazir move
+        self.assertIn((-1, 0), move_coords)  # Sideways Wazir move
+
+        # Check that 'B' moves are restricted by taking a sample
+        self.assertNotIn((1, -1), move_coords)  # Backward Bishop move
+
+    def test_modifiers_apply_to_all_parts_of_compound_piece(self):
+        """
+        Tests that a modifier preceding a compound piece (like 'K') applies
+        to all of its components (W and F).
+        """
+        moves = self.parser.parse("fK")
+        move_coords = {m[:2] for m in moves}
+
+        # King moves: (0,1), (1,1), (-1,1)
+        expected = {(0, 1), (1, 1), (-1, 1)}
+        self.assertSetEqual(move_coords, expected)
+
+
 class TestMultiDirectionalModifiers(unittest.TestCase):
     """Tests for multiple, non-intersecting directional modifiers."""
 

@@ -52,31 +52,44 @@ export class BetzaParser {
         if (suffix) {
           expansion = expansion.replace(/([A-Z])\d*/g, `$1${suffix}`);
         }
-        const newTokens = expansion.match(/[A-Z]\d*/g) || [];
+        let newTokens: string[] = expansion.match(/[A-Z]\d*/g) || [];
+
+        if (currentMods) {
+          const prefixedTokens: string[] = [];
+          for (const t of newTokens) {
+            prefixedTokens.push(currentMods, t);
+          }
+          newTokens = prefixedTokens;
+        }
+
         tokenWorklist.unshift(...newTokens);
+        currentMods = '';
         continue;
       }
 
       if (!this.atoms.has(letter)) continue;
 
+      const modsForThisAtom = currentMods;
+      currentMods = '';
+
       const atom = letter;
       const countStr = suffix;
 
       let moveType: Move['moveType'] = 'move_capture';
-      if (currentMods.includes('m') && !currentMods.includes('c'))
+      if (modsForThisAtom.includes('m') && !modsForThisAtom.includes('c'))
         moveType = 'move';
-      else if (currentMods.includes('c') && !currentMods.includes('m'))
+      else if (modsForThisAtom.includes('c') && !modsForThisAtom.includes('m'))
         moveType = 'capture';
-      else if (currentMods.includes('m') && currentMods.includes('c')) {
+      else if (modsForThisAtom.includes('m') && modsForThisAtom.includes('c')) {
         moveType =
-          currentMods.lastIndexOf('c') > currentMods.lastIndexOf('m')
+          modsForThisAtom.lastIndexOf('c') > modsForThisAtom.lastIndexOf('m')
             ? 'capture'
             : 'move';
       }
 
-      const hopType: Move['hopType'] = currentMods.includes('p')
+      const hopType: Move['hopType'] = modsForThisAtom.includes('p')
         ? 'p'
-        : currentMods.includes('g')
+        : modsForThisAtom.includes('g')
           ? 'g'
           : null;
 
@@ -93,7 +106,7 @@ export class BetzaParser {
       } else {
         // Leapers are jumping by default, unless they are lame (n)
         jumpType = 'jumping';
-        if (currentMods.includes('n')) {
+        if (modsForThisAtom.includes('n')) {
           jumpType = 'non-jumping';
         }
       }
@@ -111,7 +124,7 @@ export class BetzaParser {
       const baseDirections = this._getDirections(atomX, atomY);
       const allowedDirections = this._filterDirections(
         baseDirections,
-        currentMods,
+        modsForThisAtom,
         atom
       );
 
