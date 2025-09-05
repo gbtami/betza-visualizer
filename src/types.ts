@@ -7,3 +7,9 @@ export interface Move {
   atom: string;
   atomCoords: { x: number; y: number };
 }
+
+export interface Piece {
+  name: string;
+  variant: string;
+  betza: string;
+}

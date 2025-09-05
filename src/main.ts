@@ -1,5 +1,6 @@
+import { VariantIniParser } from './variant_ini_parser.js';
 import { BetzaParser } from './betza_parser.js';
-import { Move } from './types.js';
+import { Move, Piece } from './types.js';
 import {
   CELL_SIZE,
   SVG_NS,
@@ -16,7 +17,10 @@ const boardSizeSelect = document.getElementById(
 const variantSelect = document.getElementById(
   'variant-select'
 ) as HTMLSelectElement;
+const loadButton = document.getElementById('loadButton') as HTMLButtonElement;
+const fileInput = document.getElementById('fileInput') as HTMLInputElement;
 
+let pieceCatalog: Piece[] = [];
 let boardSize = Number(boardSizeSelect.value);
 
 const sign = (n: number): number => Math.sign(n);
@@ -315,35 +319,28 @@ function renderLegend() {
   legendContainer.appendChild(createLegendItem(hopIcon, 'Hop'));
 }
 
-async function populateVariantFilter() {
-  try {
-    const response = await fetch('/piece_catalog.json');
-    const pieceCatalog: { name: string; variant: string; betza: string }[] =
-      await response.json();
-    const variants = [
-      ...new Set(pieceCatalog.map((p) => p.variant).join(', ').split(', ')),
-    ].sort();
+function populateVariantFilter() {
+  const variants = [
+    ...new Set(pieceCatalog.map((p) => p.variant).join(', ').split(', ')),
+  ].sort();
 
-    variantSelect.innerHTML = '';
-    const allOption = document.createElement('option');
-    allOption.value = 'All';
-    allOption.textContent = 'All';
-    variantSelect.appendChild(allOption);
+  variantSelect.innerHTML = '';
+  const allOption = document.createElement('option');
+  allOption.value = 'All';
+  allOption.textContent = 'All';
+  variantSelect.appendChild(allOption);
 
-    variants.forEach((variant) => {
-      if (variant) {
-        const option = document.createElement('option');
-        option.value = variant;
-        option.textContent = variant;
-        variantSelect.appendChild(option);
-      }
-    });
-  } catch (error) {
-    console.error('Error populating variant filter:', error);
-  }
+  variants.forEach((variant) => {
+    if (variant) {
+      const option = document.createElement('option');
+      option.value = variant;
+      option.textContent = variant;
+      variantSelect.appendChild(option);
+    }
+  });
 }
 
-async function renderPieceCatalog(filterVariant = 'All') {
+function renderPieceCatalog(filterVariant = 'All') {
   const catalogContainer = document.getElementById('piece-catalog-container')!;
   const catalogContent =
     document.getElementById('piece-catalog-content') ||
@@ -351,50 +348,51 @@ async function renderPieceCatalog(filterVariant = 'All') {
   catalogContent.id = 'piece-catalog-content';
   catalogContent.innerHTML = '';
 
-  try {
-    const response = await fetch('/piece_catalog.json');
-    const pieceCatalog = await response.json();
+  const filteredPieces =
+    filterVariant === 'All'
+      ? pieceCatalog
+      : pieceCatalog.filter((p: Piece) =>
+          p.variant.split(', ').map(v => v.trim()).includes(filterVariant)
+        );
 
-    const filteredPieces =
-      filterVariant === 'All'
-        ? pieceCatalog
-        : pieceCatalog.filter((p: { variant: string }) =>
-            p.variant.split(', ').map(v => v.trim()).includes(filterVariant)
-          );
+  filteredPieces.forEach(
+    (piece: Piece) => {
+      const item = document.createElement('div');
+      item.classList.add('piece-catalog-item');
+      item.dataset.betza = piece.betza;
 
-    filteredPieces.forEach(
-      (piece: { name: string; variant: string; betza: string }) => {
-        const item = document.createElement('div');
-        item.classList.add('piece-catalog-item');
-        item.dataset.betza = piece.betza;
+      const nameEl = document.createElement('div');
+      nameEl.classList.add('name');
+      nameEl.textContent = piece.name;
 
-        const nameEl = document.createElement('div');
-        nameEl.classList.add('name');
-        nameEl.textContent = piece.name;
+      const variantEl = document.createElement('div');
+      variantEl.classList.add('variant');
+      variantEl.textContent = piece.variant;
 
-        const variantEl = document.createElement('div');
-        variantEl.classList.add('variant');
-        variantEl.textContent = piece.variant;
-
-        item.appendChild(nameEl);
-        item.appendChild(variantEl);
-        catalogContent.appendChild(item);
-      }
-    );
-    if (!document.getElementById('piece-catalog-content')) {
-      catalogContainer.appendChild(catalogContent);
+      item.appendChild(nameEl);
+      item.appendChild(variantEl);
+      catalogContent.appendChild(item);
     }
-  } catch (error) {
-    console.error('Error loading piece catalog:', error);
-    catalogContent.textContent = 'Error loading piece catalog.';
+  );
+
+  if (!document.getElementById('piece-catalog-content')) {
+    catalogContainer.appendChild(catalogContent);
   }
 }
 
 async function initialize() {
   renderBoard([], blockers);
   renderLegend();
-  await populateVariantFilter();
-  await renderPieceCatalog();
+
+  try {
+    const response = await fetch('/piece_catalog.json');
+    pieceCatalog = await response.json();
+  } catch (error) {
+    console.error('Error loading initial piece catalog:', error);
+  }
+
+  populateVariantFilter();
+  renderPieceCatalog();
 
   inputEl.addEventListener('input', updateBoard);
   boardSizeSelect.addEventListener('change', () => {
@@ -421,6 +419,41 @@ async function initialize() {
         inputEl.dispatchEvent(new Event('input'));
       }
     });
+
+  loadButton.addEventListener('click', () => {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', (event) => {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target?.result as string;
+        if (content) {
+          try {
+            const parser = new VariantIniParser(content);
+            const newPieces = parser.parse();
+
+            const existingPieceIdentifiers = new Set(pieceCatalog.map(p => `${p.name}|${p.variant}`));
+            for (const piece of newPieces) {
+                const identifier = `${piece.name}|${piece.variant}`;
+                if (!existingPieceIdentifiers.has(identifier)) {
+                    pieceCatalog.push(piece);
+                    existingPieceIdentifiers.add(identifier);
+                }
+            }
+
+            populateVariantFilter();
+            renderPieceCatalog();
+          } catch (error) {
+            console.error('Error parsing variants.ini file:', error);
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+  });
 }
 
 initialize();
