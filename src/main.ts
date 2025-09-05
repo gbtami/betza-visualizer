@@ -1,5 +1,11 @@
 import { BetzaParser } from './betza_parser.js';
 import { Move } from './types.js';
+import {
+  CELL_SIZE,
+  SVG_NS,
+  COLORS,
+  createMoveIndicator,
+} from './svg_utils.js';
 
 const parser = new BetzaParser();
 const inputEl = document.getElementById('betzaInput') as HTMLInputElement;
@@ -12,16 +18,6 @@ const variantSelect = document.getElementById(
 ) as HTMLSelectElement;
 
 let boardSize = Number(boardSizeSelect.value);
-const CELL_SIZE = 40;
-const SVG_NS = 'http://www.w3.org/2000/svg';
-
-const COLORS = {
-  standard: '#4169E1',
-  move: '#FFD700',
-  capture: '#DC143C',
-  hop: '#32CD32',
-  blocker: '#606060',
-};
 
 const sign = (n: number): number => Math.sign(n);
 const blockers = new Set<string>();
@@ -183,64 +179,10 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
 
     if (!isValid) return;
 
-    const r = CELL_SIZE * 0.3;
     const isSpecialMove = hopType !== null;
-    const strokeWidth = '4';
-    const opacity = '0.9';
-
-    if (moveType === 'move') {
-      const circle = document.createElementNS(SVG_NS, 'circle');
-      circle.setAttribute('cx', String(cx));
-      circle.setAttribute('cy', String(cy));
-      circle.setAttribute('r', String(r));
-      circle.setAttribute('stroke', COLORS.move);
-      circle.setAttribute('stroke-width', strokeWidth);
-      circle.setAttribute('fill', 'none');
-      circle.setAttribute('opacity', opacity);
-      svg.appendChild(circle);
-    } else if (moveType === 'capture') {
-      const circle = document.createElementNS(SVG_NS, 'circle');
-      circle.setAttribute('cx', String(cx));
-      circle.setAttribute('cy', String(cy));
-      circle.setAttribute('r', String(r));
-      circle.setAttribute('stroke', COLORS.capture);
-      circle.setAttribute('stroke-width', strokeWidth);
-      circle.setAttribute('fill', 'none');
-      circle.setAttribute('opacity', opacity);
-      svg.appendChild(circle);
-    } else if (moveType === 'move_capture') {
-      if (isSpecialMove) {
-        const circle = document.createElementNS(SVG_NS, 'circle');
-        circle.setAttribute('cx', String(cx));
-        circle.setAttribute('cy', String(cy));
-        circle.setAttribute('r', String(r));
-        circle.setAttribute('stroke', COLORS.hop);
-        circle.setAttribute('stroke-width', strokeWidth);
-        circle.setAttribute('fill', 'none');
-        circle.setAttribute('opacity', opacity);
-        svg.appendChild(circle);
-      } else {
-        const moveIndicatorGroup = document.createElementNS(SVG_NS, 'g');
-        moveIndicatorGroup.setAttribute('transform', `translate(${cx}, ${cy})`);
-        moveIndicatorGroup.setAttribute('opacity', opacity);
-
-        const path1 = document.createElementNS(SVG_NS, 'path');
-        path1.setAttribute('d', `M 0,${-r} A ${r},${r} 0 0 0 0,${r}`);
-        path1.setAttribute('stroke', COLORS.move);
-        path1.setAttribute('stroke-width', strokeWidth);
-        path1.setAttribute('fill', 'none');
-        moveIndicatorGroup.appendChild(path1);
-
-        const path2 = document.createElementNS(SVG_NS, 'path');
-        path2.setAttribute('d', `M 0,${-r} A ${r},${r} 0 0 1 0,${r}`);
-        path2.setAttribute('stroke', COLORS.capture);
-        path2.setAttribute('stroke-width', strokeWidth);
-        path2.setAttribute('fill', 'none');
-        moveIndicatorGroup.appendChild(path2);
-
-        svg.appendChild(moveIndicatorGroup);
-      }
-    }
+    const moveIndicator = createMoveIndicator(moveType, isSpecialMove);
+    moveIndicator.setAttribute('transform', `translate(${cx}, ${cy})`);
+    svg.appendChild(moveIndicator);
   });
 
   const piece = document.createElementNS(SVG_NS, 'text');
