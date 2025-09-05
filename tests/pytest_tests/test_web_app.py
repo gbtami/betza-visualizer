@@ -74,8 +74,8 @@ def test_leaper_unblocked(page: Page):
     expect(page.locator("#betzaInput")).to_have_value("N")
 
     # A Knight has 8 moves, which are all move/capture.
-    # The move indicators for 'jumping' pieces are circles.
-    expect(page.locator("#board-container circle")).to_have_count(8)
+    # Each move/capture indicator is composed of two path elements.
+    expect(page.locator("g > path")).to_have_count(8 * 2)
 
     # Get board dimensions
     board = page.locator("#board-container svg")
@@ -97,7 +97,7 @@ def test_leaper_unblocked(page: Page):
     expect(page.locator('text[fill="#606060"]')).to_have_count(1)
 
     # The knight should not be blocked, so there should still be 8 moves.
-    expect(page.locator("#board-container circle")).to_have_count(8)
+    expect(page.locator("g > path")).to_have_count(8 * 2)
 
 
 def test_slider_moves_are_on_board(page: Page):
@@ -116,8 +116,8 @@ def test_slider_moves_are_on_board(page: Page):
     # On a 5x5 board, a Nightrider from the center has 8 on-board moves.
     # The parser will generate more moves that are off-board.
     # We expect that only the 8 on-board moves are rendered.
-    # Nightrider moves are jumping, so they are rendered as circles.
-    expect(page.locator("#board-container circle")).to_have_count(8)
+    # Nightrider moves are move/capture, so they are composed of two paths.
+    expect(page.locator("g > path")).to_have_count(8 * 2)
 
 
 def test_xiangqi_cannon_two_blockers(page: Page):
@@ -162,5 +162,5 @@ def test_xiangqi_cannon_two_blockers(page: Page):
     target_cx = (center + 0) * cell_size + cell_size / 2
     target_cy = (center - 4) * cell_size + cell_size / 2
 
-    # There should be no circle at this position.
-    expect(page.locator(f'circle[cx="{target_cx}"][cy="{target_cy}"]')).to_have_count(0)
+    # There should be no move indicator group at this position.
+    expect(page.locator(f'g[transform="translate({target_cx}, {target_cy})"]')).to_have_count(0)
