@@ -1,5 +1,11 @@
 import { BetzaParser } from './betza_parser.js';
 import { Move } from './types.js';
+import {
+  CELL_SIZE,
+  SVG_NS,
+  COLORS,
+  createMoveIndicator,
+} from './svg_utils.js';
 
 const parser = new BetzaParser();
 const inputEl = document.getElementById('betzaInput') as HTMLInputElement;
@@ -12,67 +18,9 @@ const variantSelect = document.getElementById(
 ) as HTMLSelectElement;
 
 let boardSize = Number(boardSizeSelect.value);
-const CELL_SIZE = 40;
-const SVG_NS = 'http://www.w3.org/2000/svg';
-
-const COLORS = {
-  standard: '#4169E1',
-  move: '#FFD700',
-  capture: '#DC143C',
-  hop: '#32CD32',
-  blocker: '#606060',
-};
 
 const sign = (n: number): number => Math.sign(n);
 const blockers = new Set<string>();
-
-/**
- * Creates an SVG group element containing the move indicator path(s).
- * This approach ensures that all move indicators have a consistent DOM structure.
- * @param moveType - The type of move ('move', 'capture', 'move_capture').
- * @param isSpecialMove - Flag for special moves like hops, which get a different color.
- * @returns An SVGElement representing the move indicator.
- */
-function createMoveIndicator(
-  moveType: Move['moveType'],
-  isSpecialMove: boolean
-): SVGElement {
-  const r = CELL_SIZE * 0.3;
-  const strokeWidth = '4';
-  const opacity = '0.9';
-
-  const moveIndicatorGroup = document.createElementNS(SVG_NS, 'g');
-  moveIndicatorGroup.setAttribute('opacity', opacity);
-
-  if (isSpecialMove) {
-    const path = document.createElementNS(SVG_NS, 'path');
-    path.setAttribute('d', `M 0,${-r} A ${r},${r} 0 1 1 0,${r} A ${r},${r} 0 1 1 0,${-r}`);
-    path.setAttribute('stroke', COLORS.hop);
-    path.setAttribute('stroke-width', strokeWidth);
-    path.setAttribute('fill', 'none');
-    moveIndicatorGroup.appendChild(path);
-  } else {
-    if (moveType === 'move' || moveType === 'move_capture') {
-      const path = document.createElementNS(SVG_NS, 'path');
-      path.setAttribute('d', `M 0,${-r} A ${r},${r} 0 0 0 0,${r}`);
-      path.setAttribute('stroke', COLORS.move);
-      path.setAttribute('stroke-width', strokeWidth);
-      path.setAttribute('fill', 'none');
-      moveIndicatorGroup.appendChild(path);
-    }
-    if (moveType === 'capture' || moveType === 'move_capture') {
-      const path = document.createElementNS(SVG_NS, 'path');
-      const arc = moveType === 'capture' ? `A ${r},${r} 0 1 1 0,${-r}` : `A ${r},${r} 0 0 1 0,${r}`;
-      path.setAttribute('d', `M 0,${-r} ${arc}`);
-      path.setAttribute('stroke', COLORS.capture);
-      path.setAttribute('stroke-width', strokeWidth);
-      path.setAttribute('fill', 'none');
-      moveIndicatorGroup.appendChild(path);
-    }
-  }
-
-  return moveIndicatorGroup;
-}
 
 function renderBoard(moves: Move[], blockers: Set<string>) {
   const svg = document.createElementNS(SVG_NS, 'svg');
