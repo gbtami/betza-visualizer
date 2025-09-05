@@ -191,6 +191,13 @@ describe('BetzaParser', () => {
             expect(moves.length).toBeGreaterThan(0);
             expect(moves.every(m => m.jumpType === 'jumping')).toBe(true);
         });
+
+        it('should correctly handle the pawn "p" modifier on a rider', () => {
+            const moves = parser.parse('pNN');
+            expect(moves.length).toBeGreaterThan(0);
+            expect(moves.every(m => m.moveType === 'move_capture')).toBe(true);
+            expect(moves.every(m => m.hopType === 'p')).toBe(true);
+        });
     });
 
     describe('Directional Shorthand Modifiers', () => {

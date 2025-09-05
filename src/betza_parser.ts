@@ -137,6 +137,7 @@ export class BetzaParser {
             hopType,
             jumpType,
             atom,
+            atomCoords: { x: atomX, y: atomY },
           };
           moves.push(move);
         }

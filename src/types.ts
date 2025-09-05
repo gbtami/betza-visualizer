@@ -5,4 +5,5 @@ export interface Move {
   hopType: 'p' | 'g' | null;
   jumpType: 'normal' | 'non-jumping' | 'jumping';
   atom: string;
+  atomCoords: { x: number; y: number };
 }

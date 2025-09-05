@@ -89,7 +89,7 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
   });
 
   moves.forEach((move) => {
-    const { x, y, moveType, hopType, jumpType } = move;
+    const { x, y, moveType, hopType, jumpType, atomCoords } = move;
 
     // Check if the move is within the board boundaries
     const boardX = center + x;
@@ -110,17 +110,64 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
     if (hopType) {
       // Hoppers (e.g., Cannon 'p', Grasshopper 'g')
       isValid = false;
+      let dx: number, dy: number;
+      const isLinearMove = x === 0 || y === 0 || Math.abs(x) === Math.abs(y);
+
+      if (isLinearMove) {
+        // This is a simplified gcd function for positive integers.
+        const gcd = (a: number, b: number): number =>
+          b === 0 ? a : gcd(b, a % b);
+        const commonDivisor = gcd(Math.abs(x), Math.abs(y));
+        dx = x === 0 ? 0 : x / commonDivisor;
+        dy = y === 0 ? 0 : y / commonDivisor;
+      } else {
+        // For non-linear moves (e.g., Knight), the step is the atom itself.
+        const { x: atomX, y: atomY } = atomCoords;
+        const possibleSteps = [
+          { dx: atomX, dy: atomY },
+          { dx: -atomX, dy: atomY },
+          { dx: atomX, dy: -atomY },
+          { dx: -atomX, dy: -atomY },
+          { dx: atomY, dy: atomX },
+          { dx: -atomY, dy: atomX },
+          { dx: atomY, dy: -atomX },
+          { dx: -atomY, dy: -atomX },
+        ];
+        const step = possibleSteps.find(
+          (s) => x % s.dx === 0 && y % s.dy === 0 && x / s.dx === y / s.dy
+        );
+        if (step) {
+          dx = step.dx;
+          dy = step.dy;
+        } else {
+          // Should not happen for valid Betza
+          dx = 0;
+          dy = 0;
+        }
+      }
+
+      let path_len: number;
+      if (dx === 0 && dy === 0) {
+        path_len = 0;
+      } else if (dx !== 0) {
+        path_len = Math.abs(x / dx);
+      } else {
+        // dy !== 0
+        path_len = Math.abs(y / dy);
+      }
+
       const path: string[] = [];
-      const dx = sign(x);
-      const dy = sign(y);
-      for (let i = 1; i < Math.max(Math.abs(x), Math.abs(y)); i++) {
+      for (let i = 1; i < path_len; i++) {
         path.push(`${i * dx},${i * dy}`);
       }
       const blockersOnPath = path.filter((p) => blockers.has(p));
-      if (blockersOnPath.length === 1) {
-        if (hopType === 'p') {
+
+      if (hopType === 'p') {
+        if (blockersOnPath.length === 1) {
           isValid = true;
-        } else if (hopType === 'g') {
+        }
+      } else if (hopType === 'g') {
+        if (blockersOnPath.length === 1) {
           const [hx, hy] = blockersOnPath[0].split(',').map(Number);
           if (x === hx + dx && y === hy + dy) {
             isValid = true;

@@ -33,10 +33,9 @@ class BetzaParser:
 
     def parse(
         self, notation: str, board_size: Optional[int] = None
-    ) -> List[Tuple[int, int, str, Optional[str], str, str]]:
+    ) -> List[Dict]:
         """
-        Parses notation. Returns a list of 6-element tuples:
-        (x, y, move_type, hop_type, jump_type, base_atom)
+        Parses notation. Returns a list of move dictionaries.
         """
         moves = []
         token_worklist = re.findall(r"[a-z]+|[A-Z]\d*", notation)
@@ -122,7 +121,17 @@ class BetzaParser:
 
             for i in range(1, max_steps + 1):
                 for dx, dy in allowed_directions:
-                    moves.append((dx * i, dy * i, move_type, hop_type, jump_type, atom))
+                    moves.append(
+                        {
+                            "x": dx * i,
+                            "y": dy * i,
+                            "move_type": move_type,
+                            "hop_type": hop_type,
+                            "jump_type": jump_type,
+                            "atom": atom,
+                            "atom_coords": {"x": x_atom, "y": y_atom},
+                        }
+                    )
 
         return moves
 
