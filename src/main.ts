@@ -184,7 +184,7 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
     if (!isValid) return;
 
     const r = CELL_SIZE * 0.3;
-    const isSpecialMove = hopType || jumpType === 'jumping';
+    const isSpecialMove = hopType !== null;
     const strokeWidth = '4';
     const opacity = '0.9';
 
@@ -323,7 +323,7 @@ function renderLegend() {
   legendContainer.appendChild(
     createLegendItem(moveCaptureIcon, 'Move or Capture')
   );
-  legendContainer.appendChild(createLegendItem(hopIcon, 'Special Move / Hop'));
+  legendContainer.appendChild(createLegendItem(hopIcon, 'Hop'));
 }
 
 async function populateVariantFilter() {
