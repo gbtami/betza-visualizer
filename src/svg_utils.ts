@@ -11,6 +11,15 @@ export const COLORS = {
   blocker: '#606060',
 };
 
+function createPath(d: string, color: string, strokeWidth: string): SVGPathElement {
+  const path = document.createElementNS(SVG_NS, 'path');
+  path.setAttribute('d', d);
+  path.setAttribute('stroke', color);
+  path.setAttribute('stroke-width', strokeWidth);
+  path.setAttribute('fill', 'none');
+  return path;
+}
+
 /**
  * Creates an SVG group element containing the move indicator path(s).
  * This approach ensures that all move indicators have a consistent DOM structure.
@@ -29,30 +38,20 @@ export function createMoveIndicator(
   const moveIndicatorGroup = document.createElementNS(SVG_NS, 'g');
   moveIndicatorGroup.setAttribute('opacity', opacity);
 
+  const fullCircleD = `M 0,${-r} A ${r},${r} 0 1 1 0,${r} A ${r},${r} 0 1 1 0,${-r}`;
+  const leftSemiCircleD = `M 0,${-r} A ${r},${r} 0 0 0 0,${r}`;
+  const rightSemiCircleD = `M 0,${-r} A ${r},${r} 0 0 1 0,${r}`;
+
   if (isSpecialMove) {
-    const path = document.createElementNS(SVG_NS, 'path');
-    path.setAttribute('d', `M 0,${-r} A ${r},${r} 0 1 1 0,${r} A ${r},${r} 0 1 1 0,${-r}`);
-    path.setAttribute('stroke', COLORS.hop);
-    path.setAttribute('stroke-width', strokeWidth);
-    path.setAttribute('fill', 'none');
-    moveIndicatorGroup.appendChild(path);
+    moveIndicatorGroup.appendChild(createPath(fullCircleD, COLORS.hop, strokeWidth));
   } else {
-    if (moveType === 'move' || moveType === 'move_capture') {
-      const path = document.createElementNS(SVG_NS, 'path');
-      path.setAttribute('d', `M 0,${-r} A ${r},${r} 0 0 0 0,${r}`);
-      path.setAttribute('stroke', COLORS.move);
-      path.setAttribute('stroke-width', strokeWidth);
-      path.setAttribute('fill', 'none');
-      moveIndicatorGroup.appendChild(path);
-    }
-    if (moveType === 'capture' || moveType === 'move_capture') {
-      const path = document.createElementNS(SVG_NS, 'path');
-      const arc = moveType === 'capture' ? `A ${r},${r} 0 1 1 0,${-r}` : `A ${r},${r} 0 0 1 0,${r}`;
-      path.setAttribute('d', `M 0,${-r} ${arc}`);
-      path.setAttribute('stroke', COLORS.capture);
-      path.setAttribute('stroke-width', strokeWidth);
-      path.setAttribute('fill', 'none');
-      moveIndicatorGroup.appendChild(path);
+    if (moveType === 'move') {
+      moveIndicatorGroup.appendChild(createPath(leftSemiCircleD, COLORS.move, strokeWidth));
+    } else if (moveType === 'capture') {
+      moveIndicatorGroup.appendChild(createPath(fullCircleD, COLORS.capture, strokeWidth));
+    } else if (moveType === 'move_capture') {
+      moveIndicatorGroup.appendChild(createPath(leftSemiCircleD, COLORS.move, strokeWidth));
+      moveIndicatorGroup.appendChild(createPath(rightSemiCircleD, COLORS.capture, strokeWidth));
     }
   }
 
