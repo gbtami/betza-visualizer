@@ -168,7 +168,14 @@ class BetzaChessApp(App):
 
         move_map = {"move_capture": "X", "move": "m", "capture": "x"}
 
-        for x, y, move_type, hop_type, jump_type, atom in moves:
+        for move in moves:
+            x = move["x"]
+            y = move["y"]
+            move_type = move["move_type"]
+            hop_type = move["hop_type"]
+            jump_type = move["jump_type"]
+            atom_coords = move["atom_coords"]
+
             display_y, display_x = center - y, center + x
             if not (0 <= display_y < board_size and 0 <= display_x < board_size):
                 continue
@@ -176,13 +183,47 @@ class BetzaChessApp(App):
             is_valid = None
             if hop_type is not None:
                 is_valid = False
-                dx, dy = sign(x), sign(y)
-                path = [(i * dx, i * dy) for i in range(1, max(abs(x), abs(y)))]
+                is_linear_move = x == 0 or y == 0 or abs(x) == abs(y)
+
+                if is_linear_move:
+                    common_divisor = math.gcd(abs(x), abs(y))
+                    dx = x // common_divisor if common_divisor != 0 else 0
+                    dy = y // common_divisor if common_divisor != 0 else 0
+                else:
+                    atom_x, atom_y = atom_coords["x"], atom_coords["y"]
+                    possible_steps = [
+                        (atom_x, atom_y),
+                        (-atom_x, atom_y),
+                        (atom_x, -atom_y),
+                        (-atom_x, -atom_y),
+                        (atom_y, atom_x),
+                        (-atom_y, atom_x),
+                        (atom_y, -atom_x),
+                        (-atom_y, -atom_x),
+                    ]
+
+                    step = next((s for s in possible_steps if s[0] != 0 and s[1] != 0 and x % s[0] == 0 and y % s[1] == 0 and x // s[0] == y // s[1]), None)
+
+                    if step:
+                        dx, dy = step
+                    else:
+                        dx, dy = 0, 0
+
+                if dx == 0 and dy == 0:
+                    path_len = 0
+                elif dx != 0:
+                    path_len = abs(x // dx)
+                else:  # dy != 0
+                    path_len = abs(y // dy)
+
+                path = [(i * dx, i * dy) for i in range(1, path_len)]
                 blockers_on_path = [p for p in path if p in self.blockers]
-                if len(blockers_on_path) == 1:
-                    if hop_type == "p":
+
+                if hop_type == "p":
+                    if len(blockers_on_path) == 1:
                         is_valid = True
-                    elif hop_type == "g":
+                elif hop_type == "g":
+                    if len(blockers_on_path) == 1:
                         blocker_pos = blockers_on_path[0]
                         if x == blocker_pos[0] + dx and y == blocker_pos[1] + dy:
                             is_valid = True
