@@ -1,7 +1,7 @@
-import { createMoveIndicator, COLORS } from '../../src/svg_utils.js';
+import { createMoveIndicator, COLORS, CELL_SIZE } from '../../src/svg_utils.js';
 
 describe('createMoveIndicator', () => {
-  it('should create a move indicator for a "move" type', () => {
+  it('should create a full circle for a "move" type', () => {
     const indicator = createMoveIndicator('move', false);
     expect(indicator.tagName).toBe('g');
     expect(indicator.childNodes.length).toBe(1);
@@ -9,6 +9,10 @@ describe('createMoveIndicator', () => {
     const path = indicator.childNodes[0] as SVGPathElement;
     expect(path.tagName).toBe('path');
     expect(path.getAttribute('stroke')).toBe(COLORS.move);
+
+    const r = CELL_SIZE * 0.3;
+    const expectedD = `M 0,${-r} A ${r},${r} 0 1 1 0,${r} A ${r},${r} 0 1 1 0,${-r}`;
+    expect(path.getAttribute('d')).toBe(expectedD);
   });
 
   it('should create a move indicator for a "capture" type', () => {

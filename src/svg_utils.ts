@@ -46,7 +46,7 @@ export function createMoveIndicator(
     moveIndicatorGroup.appendChild(createPath(fullCircleD, COLORS.hop, strokeWidth));
   } else {
     if (moveType === 'move') {
-      moveIndicatorGroup.appendChild(createPath(leftSemiCircleD, COLORS.move, strokeWidth));
+      moveIndicatorGroup.appendChild(createPath(fullCircleD, COLORS.move, strokeWidth));
     } else if (moveType === 'capture') {
       moveIndicatorGroup.appendChild(createPath(fullCircleD, COLORS.capture, strokeWidth));
     } else if (moveType === 'move_capture') {
