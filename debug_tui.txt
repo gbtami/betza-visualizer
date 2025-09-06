@@ -1,0 +1,1619 @@
+Piece: Bishop, Variant: 3check
+Piece: King, Variant: 3check
+Piece: Knight, Variant: 3check
+Piece: Pawn, Variant: 3check
+Piece: Queen, Variant: 3check
+Piece: Rook, Variant: 3check
+Piece: Bishop, Variant: 5check
+Piece: King, Variant: 5check
+Piece: Knight, Variant: 5check
+Piece: Pawn, Variant: 5check
+Piece: Queen, Variant: 5check
+Piece: Rook, Variant: 5check
+Piece: Aiwok, Variant: ai-wok
+Piece: Khon, Variant: ai-wok
+Piece: King, Variant: ai-wok
+Piece: Knight, Variant: ai-wok
+Piece: Pawn, Variant: ai-wok
+Piece: Rook, Variant: ai-wok
+Piece: Bishop, Variant: almost
+Piece: Chancellor, Variant: almost
+Piece: King, Variant: almost
+Piece: Knight, Variant: almost
+Piece: Pawn, Variant: almost
+Piece: Rook, Variant: almost
+Piece: Amazon, Variant: amazon
+Piece: Bishop, Variant: amazon
+Piece: King, Variant: amazon
+Piece: Knight, Variant: amazon
+Piece: Pawn, Variant: amazon
+Piece: Rook, Variant: amazon
+Piece: Amazons Queen, Variant: amazons
+Piece: Bishop, Variant: antichess
+Piece: Commoner, Variant: antichess
+Piece: Knight, Variant: antichess
+Piece: Pawn, Variant: antichess
+Piece: Queen, Variant: antichess
+Piece: Rook, Variant: antichess
+Piece: Bishop, Variant: armageddon
+Piece: King, Variant: armageddon
+Piece: Knight, Variant: armageddon
+Piece: Pawn, Variant: armageddon
+Piece: Queen, Variant: armageddon
+Piece: Rook, Variant: armageddon
+Piece: Khon, Variant: asean
+Piece: King, Variant: asean
+Piece: Knight, Variant: asean
+Piece: Met, Variant: asean
+Piece: Pawn, Variant: asean
+Piece: Rook, Variant: asean
+Piece: Ataxx Pawn, Variant: ataxx
+Piece: Bishop, Variant: atomar
+Piece: Commoner, Variant: atomar
+Piece: Knight, Variant: atomar
+Piece: Pawn, Variant: atomar
+Piece: Queen, Variant: atomar
+Piece: Rook, Variant: atomar
+Piece: Bishop, Variant: atomic
+Piece: Commoner, Variant: atomic
+Piece: Knight, Variant: atomic
+Piece: Pawn, Variant: atomic
+Piece: Queen, Variant: atomic
+Piece: Rook, Variant: atomic
+Piece: Berolina Pawn, Variant: berolina
+Piece: Bishop, Variant: berolina
+Piece: King, Variant: berolina
+Piece: Knight, Variant: berolina
+Piece: Queen, Variant: berolina
+Piece: Rook, Variant: berolina
+Piece: Breakthrough, Variant: breakthrough
+Piece: Bishop, Variant: bughouse
+Piece: King, Variant: bughouse
+Piece: Knight, Variant: bughouse
+Piece: Pawn, Variant: bughouse
+Piece: Queen, Variant: bughouse
+Piece: Rook, Variant: bughouse
+Piece: Khon, Variant: cambodian
+Piece: King, Variant: cambodian
+Piece: Knight, Variant: cambodian
+Piece: Met, Variant: cambodian
+Piece: Pawn, Variant: cambodian
+Piece: Rook, Variant: cambodian
+Piece: Archbishop, Variant: capablanca
+Piece: Bishop, Variant: capablanca
+Piece: Chancellor, Variant: capablanca
+Piece: King, Variant: capablanca
+Piece: Knight, Variant: capablanca
+Piece: Pawn, Variant: capablanca
+Piece: Queen, Variant: capablanca
+Piece: Rook, Variant: capablanca
+Piece: Archbishop, Variant: capahouse
+Piece: Bishop, Variant: capahouse
+Piece: Chancellor, Variant: capahouse
+Piece: King, Variant: capahouse
+Piece: Knight, Variant: capahouse
+Piece: Pawn, Variant: capahouse
+Piece: Queen, Variant: capahouse
+Piece: Rook, Variant: capahouse
+Piece: Archbishop, Variant: caparandom
+Piece: Bishop, Variant: caparandom
+Piece: Chancellor, Variant: caparandom
+Piece: King, Variant: caparandom
+Piece: Knight, Variant: caparandom
+Piece: Pawn, Variant: caparandom
+Piece: Queen, Variant: caparandom
+Piece: Rook, Variant: caparandom
+Piece: Bishop, Variant: centaur
+Piece: Centaur, Variant: centaur
+Piece: King, Variant: centaur
+Piece: Knight, Variant: centaur
+Piece: Pawn, Variant: centaur
+Piece: Queen, Variant: centaur
+Piece: Rook, Variant: centaur
+Piece: Bishop, Variant: chancellor
+Piece: Chancellor, Variant: chancellor
+Piece: King, Variant: chancellor
+Piece: Knight, Variant: chancellor
+Piece: Pawn, Variant: chancellor
+Piece: Queen, Variant: chancellor
+Piece: Rook, Variant: chancellor
+Piece: Alfil, Variant: chaturanga
+Piece: Fers, Variant: chaturanga
+Piece: King, Variant: chaturanga
+Piece: Knight, Variant: chaturanga
+Piece: Pawn, Variant: chaturanga
+Piece: Rook, Variant: chaturanga
+Piece: Bishop, Variant: checkshogi
+Piece: Dragon, Variant: checkshogi
+Piece: Dragon Horse, Variant: checkshogi
+Piece: Gold, Variant: checkshogi
+Piece: King, Variant: checkshogi
+Piece: Lance, Variant: checkshogi
+Piece: Rook, Variant: checkshogi
+Piece: Shogi Knight, Variant: checkshogi
+Piece: Shogi Pawn, Variant: checkshogi
+Piece: Silver, Variant: checkshogi
+Piece: Bishop, Variant: chess
+Piece: King, Variant: chess
+Piece: Knight, Variant: chess
+Piece: Pawn, Variant: chess
+Piece: Queen, Variant: chess
+Piece: Rook, Variant: chess
+Piece: Bishop, Variant: chessgi
+Piece: King, Variant: chessgi
+Piece: Knight, Variant: chessgi
+Piece: Pawn, Variant: chessgi
+Piece: Queen, Variant: chessgi
+Piece: Rook, Variant: chessgi
+Piece: Bishop, Variant: chigorin
+Piece: Chancellor, Variant: chigorin
+Piece: King, Variant: chigorin
+Piece: Knight, Variant: chigorin
+Piece: Pawn, Variant: chigorin
+Piece: Queen, Variant: chigorin
+Piece: Rook, Variant: chigorin
+Piece: Clobber, Variant: clobber
+Piece: Clobber, Variant: clobber10
+Piece: Bishop, Variant: codrus
+Piece: Commoner, Variant: codrus
+Piece: Knight, Variant: codrus
+Piece: Pawn, Variant: codrus
+Piece: Queen, Variant: codrus
+Piece: Rook, Variant: codrus
+Piece: Bishop, Variant: coregal
+Piece: King, Variant: coregal
+Piece: Knight, Variant: coregal
+Piece: Pawn, Variant: coregal
+Piece: Queen, Variant: coregal
+Piece: Rook, Variant: coregal
+Piece: Alfil, Variant: courier
+Piece: Bishop, Variant: courier
+Piece: Commoner, Variant: courier
+Piece: Fers, Variant: courier
+Piece: King, Variant: courier
+Piece: Knight, Variant: courier
+Piece: Pawn, Variant: courier
+Piece: Rook, Variant: courier
+Piece: Wazir, Variant: courier
+Piece: Bishop, Variant: crazyhouse
+Piece: King, Variant: crazyhouse
+Piece: Knight, Variant: crazyhouse
+Piece: Pawn, Variant: crazyhouse
+Piece: Queen, Variant: crazyhouse
+Piece: Rook, Variant: crazyhouse
+Piece: Fers, Variant: dobutsu
+Piece: Gold, Variant: dobutsu
+Piece: King, Variant: dobutsu
+Piece: Shogi Pawn, Variant: dobutsu
+Piece: Wazir, Variant: dobutsu
+Piece: Archbishop, Variant: dragon
+Piece: Bishop, Variant: dragon
+Piece: King, Variant: dragon
+Piece: Knight, Variant: dragon
+Piece: Pawn, Variant: dragon
+Piece: Queen, Variant: dragon
+Piece: Rook, Variant: dragon
+Piece: Bishop, Variant: duck
+Piece: Commoner, Variant: duck
+Piece: Knight, Variant: duck
+Piece: Pawn, Variant: duck
+Piece: Queen, Variant: duck
+Piece: Rook, Variant: duck
+Piece: Archbishop, Variant: embassy
+Piece: Bishop, Variant: embassy
+Piece: Chancellor, Variant: embassy
+Piece: King, Variant: embassy
+Piece: Knight, Variant: embassy
+Piece: Pawn, Variant: embassy
+Piece: Queen, Variant: embassy
+Piece: Rook, Variant: embassy
+Piece: Bishop, Variant: euroshogi
+Piece: Dragon, Variant: euroshogi
+Piece: Dragon Horse, Variant: euroshogi
+Piece: Euroshogi Knight, Variant: euroshogi
+Piece: Gold, Variant: euroshogi
+Piece: King, Variant: euroshogi
+Piece: Rook, Variant: euroshogi
+Piece: Shogi Pawn, Variant: euroshogi
+Piece: Silver, Variant: euroshogi
+Piece: Bishop, Variant: extinction
+Piece: Commoner, Variant: extinction
+Piece: Knight, Variant: extinction
+Piece: Pawn, Variant: extinction
+Piece: Queen, Variant: extinction
+Piece: Rook, Variant: extinction
+Piece: Archbishop, Variant: fairy
+Piece: Bishop, Variant: fairy
+Piece: Chancellor, Variant: fairy
+Piece: Commoner, Variant: fairy
+Piece: Fers, Variant: fairy
+Piece: King, Variant: fairy
+Piece: Knight, Variant: fairy
+Piece: Pawn, Variant: fairy
+Piece: Queen, Variant: fairy
+Piece: Rook, Variant: fairy
+Piece: Silver, Variant: fairy
+Piece: Bishop, Variant: fischerandom
+Piece: King, Variant: fischerandom
+Piece: Knight, Variant: fischerandom
+Piece: Pawn, Variant: fischerandom
+Piece: Queen, Variant: fischerandom
+Piece: Rook, Variant: fischerandom
+Piece: Immobile, Variant: flipello
+Piece: Immobile, Variant: flipello10
+Piece: Immobile, Variant: flipersi
+Piece: Fox And Hounds Fers, Variant: fox-and-hounds
+Piece: Fox And Hounds Horse, Variant: fox-and-hounds
+Piece: Bishop, Variant: gardner
+Piece: King, Variant: gardner
+Piece: Knight, Variant: gardner
+Piece: Pawn, Variant: gardner
+Piece: Queen, Variant: gardner
+Piece: Rook, Variant: gardner
+Piece: Bishop, Variant: giveaway
+Piece: Commoner, Variant: giveaway
+Piece: Knight, Variant: giveaway
+Piece: Pawn, Variant: giveaway
+Piece: Queen, Variant: giveaway
+Piece: Rook, Variant: giveaway
+Piece: Bishop, Variant: gorogoro
+Piece: Dragon, Variant: gorogoro
+Piece: Dragon Horse, Variant: gorogoro
+Piece: Gold, Variant: gorogoro
+Piece: King, Variant: gorogoro
+Piece: Rook, Variant: gorogoro
+Piece: Shogi Pawn, Variant: gorogoro
+Piece: Silver, Variant: gorogoro
+Piece: Archbishop, Variant: gothic
+Piece: Bishop, Variant: gothic
+Piece: Chancellor, Variant: gothic
+Piece: King, Variant: gothic
+Piece: Knight, Variant: gothic
+Piece: Pawn, Variant: gothic
+Piece: Queen, Variant: gothic
+Piece: Rook, Variant: gothic
+Piece: Archbishop, Variant: grand
+Piece: Bishop, Variant: grand
+Piece: Chancellor, Variant: grand
+Piece: King, Variant: grand
+Piece: Knight, Variant: grand
+Piece: Pawn, Variant: grand
+Piece: Queen, Variant: grand
+Piece: Rook, Variant: grand
+Piece: Bishop, Variant: grasshopper
+Piece: Grasshopper Gold, Variant: grasshopper
+Piece: King, Variant: grasshopper
+Piece: Knight, Variant: grasshopper
+Piece: Pawn, Variant: grasshopper
+Piece: Queen, Variant: grasshopper
+Piece: Rook, Variant: grasshopper
+Piece: Amazon, Variant: gustav3
+Piece: Bishop, Variant: gustav3
+Piece: King, Variant: gustav3
+Piece: Knight, Variant: gustav3
+Piece: Pawn, Variant: gustav3
+Piece: Queen, Variant: gustav3
+Piece: Rook, Variant: gustav3
+Piece: Biskni, Variant: hoppelpoppel
+Piece: King, Variant: hoppelpoppel
+Piece: Knibis, Variant: hoppelpoppel
+Piece: Pawn, Variant: hoppelpoppel
+Piece: Queen, Variant: hoppelpoppel
+Piece: Rook, Variant: hoppelpoppel
+Piece: Bishop, Variant: horde
+Piece: King, Variant: horde
+Piece: Knight, Variant: horde
+Piece: Pawn, Variant: horde
+Piece: Queen, Variant: horde
+Piece: Rook, Variant: horde
+Piece: Isolation Pawn, Variant: isolation
+Piece: Isolation Pawn, Variant: isolation7x7
+Piece: Janggi Cannon, Variant: janggi
+Piece: King, Variant: janggi
+Piece: Rook, Variant: janggi
+Piece: Soldier, Variant: janggi
+Piece: Wazir, Variant: janggi
+Piece: Janggi Cannon, Variant: janggicasual
+Piece: King, Variant: janggicasual
+Piece: Rook, Variant: janggicasual
+Piece: Soldier, Variant: janggicasual
+Piece: Wazir, Variant: janggicasual
+Piece: Janggi Cannon, Variant: janggimodern
+Piece: King, Variant: janggimodern
+Piece: Rook, Variant: janggimodern
+Piece: Soldier, Variant: janggimodern
+Piece: Wazir, Variant: janggimodern
+Piece: Janggi Cannon, Variant: janggitraditional
+Piece: King, Variant: janggitraditional
+Piece: Rook, Variant: janggitraditional
+Piece: Soldier, Variant: janggitraditional
+Piece: Wazir, Variant: janggitraditional
+Piece: Archbishop, Variant: janus
+Piece: Bishop, Variant: janus
+Piece: King, Variant: janus
+Piece: Knight, Variant: janus
+Piece: Pawn, Variant: janus
+Piece: Queen, Variant: janus
+Piece: Rook, Variant: janus
+Piece: Knight, Variant: jesonmor
+Piece: Joust Knight, Variant: joust
+Piece: Bishop, Variant: judkins
+Piece: Dragon, Variant: judkins
+Piece: Dragon Horse, Variant: judkins
+Piece: Gold, Variant: judkins
+Piece: King, Variant: judkins
+Piece: Rook, Variant: judkins
+Piece: Shogi Knight, Variant: judkins
+Piece: Shogi Pawn, Variant: judkins
+Piece: Silver, Variant: judkins
+Piece: Khon, Variant: karouk
+Piece: King, Variant: karouk
+Piece: Knight, Variant: karouk
+Piece: Met, Variant: karouk
+Piece: Pawn, Variant: karouk
+Piece: Rook, Variant: karouk
+Piece: Bishop, Variant: kinglet
+Piece: Commoner, Variant: kinglet
+Piece: Knight, Variant: kinglet
+Piece: Pawn, Variant: kinglet
+Piece: Queen, Variant: kinglet
+Piece: Rook, Variant: kinglet
+Piece: Bishop, Variant: kingofthehill
+Piece: King, Variant: kingofthehill
+Piece: Knight, Variant: kingofthehill
+Piece: Pawn, Variant: kingofthehill
+Piece: Queen, Variant: kingofthehill
+Piece: Rook, Variant: kingofthehill
+Piece: Bishop, Variant: knightmate
+Piece: Commoner, Variant: knightmate
+Piece: King, Variant: knightmate
+Piece: Pawn, Variant: knightmate
+Piece: Queen, Variant: knightmate
+Piece: Rook, Variant: knightmate
+Piece: Bishop, Variant: koedem
+Piece: Commoner, Variant: koedem
+Piece: Knight, Variant: koedem
+Piece: Pawn, Variant: koedem
+Piece: Queen, Variant: koedem
+Piece: Rook, Variant: koedem
+Piece: Bishop, Variant: kyotoshogi
+Piece: Dragon, Variant: kyotoshogi
+Piece: Dragon Horse, Variant: kyotoshogi
+Piece: Gold, Variant: kyotoshogi
+Piece: King, Variant: kyotoshogi
+Piece: Lance, Variant: kyotoshogi
+Piece: Rook, Variant: kyotoshogi
+Piece: Shogi Knight, Variant: kyotoshogi
+Piece: Shogi Pawn, Variant: kyotoshogi
+Piece: Silver, Variant: kyotoshogi
+Piece: Bishop, Variant: legan
+Piece: King, Variant: legan
+Piece: Knight, Variant: legan
+Piece: Legan Pawn, Variant: legan
+Piece: Queen, Variant: legan
+Piece: Rook, Variant: legan
+Piece: Bishop, Variant: loop
+Piece: King, Variant: loop
+Piece: Knight, Variant: loop
+Piece: Pawn, Variant: loop
+Piece: Queen, Variant: loop
+Piece: Rook, Variant: loop
+Piece: King, Variant: losalamos
+Piece: Knight, Variant: losalamos
+Piece: Pawn, Variant: losalamos
+Piece: Queen, Variant: losalamos
+Piece: Rook, Variant: losalamos
+Piece: Bishop, Variant: losers
+Piece: King, Variant: losers
+Piece: Knight, Variant: losers
+Piece: Pawn, Variant: losers
+Piece: Queen, Variant: losers
+Piece: Rook, Variant: losers
+Piece: Khon, Variant: makpong
+Piece: King, Variant: makpong
+Piece: Knight, Variant: makpong
+Piece: Met, Variant: makpong
+Piece: Pawn, Variant: makpong
+Piece: Rook, Variant: makpong
+Piece: Khon, Variant: makruk
+Piece: King, Variant: makruk
+Piece: Knight, Variant: makruk
+Piece: Met, Variant: makruk
+Piece: Pawn, Variant: makruk
+Piece: Rook, Variant: makruk
+Piece: Banner, Variant: manchu
+Piece: Cannon, Variant: manchu
+Piece: Fers, Variant: manchu
+Piece: King, Variant: manchu
+Piece: Rook, Variant: manchu
+Piece: Soldier, Variant: manchu
+Piece: Bishop, Variant: micro
+Piece: Dragon, Variant: micro
+Piece: Dragon Horse, Variant: micro
+Piece: Gold, Variant: micro
+Piece: King, Variant: micro
+Piece: Lance, Variant: micro
+Piece: Rook, Variant: micro
+Piece: Shogi Knight, Variant: micro
+Piece: Shogi Pawn, Variant: micro
+Piece: Silver, Variant: micro
+Piece: Bishop, Variant: mini
+Piece: Dragon, Variant: mini
+Piece: Dragon Horse, Variant: mini
+Piece: Gold, Variant: mini
+Piece: King, Variant: mini
+Piece: Rook, Variant: mini
+Piece: Shogi Pawn, Variant: mini
+Piece: Silver, Variant: mini
+Piece: Bishop, Variant: minishogi
+Piece: Dragon, Variant: minishogi
+Piece: Dragon Horse, Variant: minishogi
+Piece: Gold, Variant: minishogi
+Piece: King, Variant: minishogi
+Piece: Rook, Variant: minishogi
+Piece: Shogi Pawn, Variant: minishogi
+Piece: Silver, Variant: minishogi
+Piece: Cannon, Variant: minixiangqi
+Piece: King, Variant: minixiangqi
+Piece: Rook, Variant: minixiangqi
+Piece: Soldier, Variant: minixiangqi
+Piece: Bishop, Variant: misere
+Piece: King, Variant: misere
+Piece: Knight, Variant: misere
+Piece: Pawn, Variant: misere
+Piece: Queen, Variant: misere
+Piece: Rook, Variant: misere
+Piece: Archbishop, Variant: modern
+Piece: Bishop, Variant: modern
+Piece: King, Variant: modern
+Piece: Knight, Variant: modern
+Piece: Pawn, Variant: modern
+Piece: Queen, Variant: modern
+Piece: Rook, Variant: modern
+Piece: Bishop, Variant: newzealand
+Piece: King, Variant: newzealand
+Piece: Kniroo, Variant: newzealand
+Piece: Pawn, Variant: newzealand
+Piece: Queen, Variant: newzealand
+Piece: Rookni, Variant: newzealand
+Piece: Bishop, Variant: nightrider
+Piece: King, Variant: nightrider
+Piece: Nightrider Knight, Variant: nightrider
+Piece: Pawn, Variant: nightrider
+Piece: Queen, Variant: nightrider
+Piece: Rook, Variant: nightrider
+Piece: Bishop, Variant: nocastle
+Piece: King, Variant: nocastle
+Piece: Knight, Variant: nocastle
+Piece: Pawn, Variant: nocastle
+Piece: Queen, Variant: nocastle
+Piece: Rook, Variant: nocastle
+Piece: Bishop, Variant: nocheckatomic
+Piece: Commoner, Variant: nocheckatomic
+Piece: Knight, Variant: nocheckatomic
+Piece: Pawn, Variant: nocheckatomic
+Piece: Queen, Variant: nocheckatomic
+Piece: Rook, Variant: nocheckatomic
+Piece: Bishop, Variant: normal
+Piece: King, Variant: normal
+Piece: Knight, Variant: normal
+Piece: Pawn, Variant: normal
+Piece: Queen, Variant: normal
+Piece: Rook, Variant: normal
+Piece: Bishop, Variant: okisakishogi
+Piece: Dragon, Variant: okisakishogi
+Piece: Dragon Horse, Variant: okisakishogi
+Piece: Gold, Variant: okisakishogi
+Piece: King, Variant: okisakishogi
+Piece: Knight, Variant: okisakishogi
+Piece: Okisakishogi Lance, Variant: okisakishogi
+Piece: Queen, Variant: okisakishogi
+Piece: Rook, Variant: okisakishogi
+Piece: Shogi Pawn, Variant: okisakishogi
+Piece: Silver, Variant: okisakishogi
+Piece: Bishop, Variant: omicron
+Piece: King, Variant: omicron
+Piece: Knight, Variant: omicron
+Piece: Omicron Chancellor, Variant: omicron
+Piece: Omicron Wazir, Variant: omicron
+Piece: Pawn, Variant: omicron
+Piece: Queen, Variant: omicron
+Piece: Rook, Variant: omicron
+Piece: Archbishop, Variant: opulent
+Piece: Bishop, Variant: opulent
+Piece: Chancellor, Variant: opulent
+Piece: King, Variant: opulent
+Piece: Opulent Knight, Variant: opulent
+Piece: Opulent Lance, Variant: opulent
+Piece: Opulent Wazir, Variant: opulent
+Piece: Pawn, Variant: opulent
+Piece: Queen, Variant: opulent
+Piece: Rook, Variant: opulent
+Piece: King, Variant: paradigm
+Piece: Knight, Variant: paradigm
+Piece: Paradigm Bishop, Variant: paradigm
+Piece: Pawn, Variant: paradigm
+Piece: Queen, Variant: paradigm
+Piece: Rook, Variant: paradigm
+Piece: Bishop, Variant: pawnback
+Piece: King, Variant: pawnback
+Piece: Knight, Variant: pawnback
+Piece: Pawnback Pawn, Variant: pawnback
+Piece: Queen, Variant: pawnback
+Piece: Rook, Variant: pawnback
+Piece: Bishop, Variant: pawnsideways
+Piece: King, Variant: pawnsideways
+Piece: Knight, Variant: pawnsideways
+Piece: Pawnsideways Pawn, Variant: pawnsideways
+Piece: Queen, Variant: pawnsideways
+Piece: Rook, Variant: pawnsideways
+Piece: Amazon, Variant: perfect
+Piece: Archbishop, Variant: perfect
+Piece: Bishop, Variant: perfect
+Piece: Chancellor, Variant: perfect
+Piece: King, Variant: perfect
+Piece: Knight, Variant: perfect
+Piece: Pawn, Variant: perfect
+Piece: Queen, Variant: perfect
+Piece: Rook, Variant: perfect
+Piece: Bishop, Variant: petrified
+Piece: Commoner, Variant: petrified
+Piece: Knight, Variant: petrified
+Piece: Pawnsideways Pawn, Variant: petrified
+Piece: Queen, Variant: petrified
+Piece: Rook, Variant: petrified
+Piece: Bishop, Variant: placement
+Piece: King, Variant: placement
+Piece: Knight, Variant: placement
+Piece: Pawn, Variant: placement
+Piece: Queen, Variant: placement
+Piece: Rook, Variant: placement
+Piece: Bishop, Variant: pocketknight
+Piece: King, Variant: pocketknight
+Piece: Knight, Variant: pocketknight
+Piece: Pawn, Variant: pocketknight
+Piece: Queen, Variant: pocketknight
+Piece: Rook, Variant: pocketknight
+Piece: Bishop, Variant: raazuvaa
+Piece: King, Variant: raazuvaa
+Piece: Knight, Variant: raazuvaa
+Piece: Pawn, Variant: raazuvaa
+Piece: Queen, Variant: raazuvaa
+Piece: Rook, Variant: raazuvaa
+Piece: Bishop, Variant: racingkings
+Piece: King, Variant: racingkings
+Piece: Knight, Variant: racingkings
+Piece: Pawn, Variant: racingkings
+Piece: Queen, Variant: racingkings
+Piece: Rook, Variant: racingkings
+Piece: Archbishop, Variant: seirawan
+Piece: Bishop, Variant: seirawan
+Piece: Chancellor, Variant: seirawan
+Piece: King, Variant: seirawan
+Piece: Knight, Variant: seirawan
+Piece: Pawn, Variant: seirawan
+Piece: Queen, Variant: seirawan
+Piece: Rook, Variant: seirawan
+Piece: Bishop, Variant: shako
+Piece: Cannon, Variant: shako
+Piece: Fers Alfil, Variant: shako
+Piece: King, Variant: shako
+Piece: Knight, Variant: shako
+Piece: Pawn, Variant: shako
+Piece: Queen, Variant: shako
+Piece: Rook, Variant: shako
+Piece: Bers, Variant: shatar
+Piece: Bishop, Variant: shatar
+Piece: King, Variant: shatar
+Piece: Knight, Variant: shatar
+Piece: Pawn, Variant: shatar
+Piece: Rook, Variant: shatar
+Piece: Alfil, Variant: shatranj
+Piece: Fers, Variant: shatranj
+Piece: King, Variant: shatranj
+Piece: Knight, Variant: shatranj
+Piece: Pawn, Variant: shatranj
+Piece: Rook, Variant: shatranj
+Piece: Bishop, Variant: shogi
+Piece: Dragon, Variant: shogi
+Piece: Dragon Horse, Variant: shogi
+Piece: Gold, Variant: shogi
+Piece: King, Variant: shogi
+Piece: Lance, Variant: shogi
+Piece: Rook, Variant: shogi
+Piece: Shogi Knight, Variant: shogi
+Piece: Shogi Pawn, Variant: shogi
+Piece: Silver, Variant: shogi
+Piece: Bishop, Variant: shoshogi
+Piece: Commoner, Variant: shoshogi
+Piece: Dragon, Variant: shoshogi
+Piece: Dragon Horse, Variant: shoshogi
+Piece: Gold, Variant: shoshogi
+Piece: Lance, Variant: shoshogi
+Piece: Rook, Variant: shoshogi
+Piece: Shogi Knight, Variant: shoshogi
+Piece: Shogi Pawn, Variant: shoshogi
+Piece: Shoshogi Elephant, Variant: shoshogi
+Piece: Silver, Variant: shoshogi
+Piece: Archbishop, Variant: shouse
+Piece: Bishop, Variant: shouse
+Piece: Chancellor, Variant: shouse
+Piece: King, Variant: shouse
+Piece: Knight, Variant: shouse
+Piece: Pawn, Variant: shouse
+Piece: Queen, Variant: shouse
+Piece: Rook, Variant: shouse
+Piece: Khon, Variant: sittuyin
+Piece: King, Variant: sittuyin
+Piece: Knight, Variant: sittuyin
+Piece: Met, Variant: sittuyin
+Piece: Pawn, Variant: sittuyin
+Piece: Rook, Variant: sittuyin
+Piece: Snailtrail Pawn, Variant: snailtrail
+Piece: Chancellor, Variant: sortofalmost
+Piece: Archbishop, Variant: spartan
+Piece: Bishop, Variant: spartan
+Piece: Commoner, Variant: spartan
+Piece: Dragon, Variant: spartan
+Piece: Knight, Variant: spartan
+Piece: Pawn, Variant: spartan
+Piece: Queen, Variant: spartan
+Piece: Rook, Variant: spartan
+Piece: Spartan Chancellor, Variant: spartan
+Piece: Spartan Horse, Variant: spartan
+Piece: Spartan Lance, Variant: spartan
+Piece: Bishop, Variant: suicide
+Piece: Commoner, Variant: suicide
+Piece: Knight, Variant: suicide
+Piece: Pawn, Variant: suicide
+Piece: Queen, Variant: suicide
+Piece: Rook, Variant: suicide
+Piece: Cannon, Variant: supply
+Piece: Fers, Variant: supply
+Piece: King, Variant: supply
+Piece: Rook, Variant: supply
+Piece: Soldier, Variant: supply
+Piece: Archbishop, Variant: tencubed
+Piece: Bishop, Variant: tencubed
+Piece: Chancellor, Variant: tencubed
+Piece: King, Variant: tencubed
+Piece: Knight, Variant: tencubed
+Piece: Pawn, Variant: tencubed
+Piece: Queen, Variant: tencubed
+Piece: Rook, Variant: tencubed
+Piece: Tencubed Chancellor, Variant: tencubed
+Piece: Tencubed Wazir, Variant: tencubed
+Piece: Bishop, Variant: threekings
+Piece: Commoner, Variant: threekings
+Piece: Knight, Variant: threekings
+Piece: Pawn, Variant: threekings
+Piece: Queen, Variant: threekings
+Piece: Rook, Variant: threekings
+Piece: King, Variant: torishogi
+Piece: Shogi Pawn, Variant: torishogi
+Piece: Torishogi Chancellor, Variant: torishogi
+Piece: Torishogi Elephant, Variant: torishogi
+Piece: Torishogi Fers, Variant: torishogi
+Piece: Torishogi Gold, Variant: torishogi
+Piece: Torishogi Lance, Variant: torishogi
+Piece: Torishogi Pawn, Variant: torishogi
+Piece: Torishogi Rook, Variant: torishogi
+Piece: Bishop, Variant: torpedo
+Piece: King, Variant: torpedo
+Piece: Knight, Variant: torpedo
+Piece: Pawn, Variant: torpedo
+Piece: Queen, Variant: torpedo
+Piece: Rook, Variant: torpedo
+Piece: Bishop, Variant: troitzky
+Piece: King, Variant: troitzky
+Piece: Knight, Variant: troitzky
+Piece: Pawn, Variant: troitzky
+Piece: Queen, Variant: troitzky
+Piece: Rook, Variant: troitzky
+Piece: Archbishop, Variant: wolf
+Piece: Bishop, Variant: wolf
+Piece: Chancellor, Variant: wolf
+Piece: King, Variant: wolf
+Piece: Pawn, Variant: wolf
+Piece: Queen, Variant: wolf
+Piece: Rook, Variant: wolf
+Piece: Wolf Elephant, Variant: wolf
+Piece: Wolf Knight, Variant: wolf
+Piece: Wolf Silver, Variant: wolf
+Piece: Cannon, Variant: xiangqi
+Piece: Fers, Variant: xiangqi
+Piece: King, Variant: xiangqi
+Piece: Rook, Variant: xiangqi
+Piece: Soldier, Variant: xiangqi
+Piece: King, Variant: yarishogi
+Piece: Rook, Variant: yarishogi
+Piece: Shogi Pawn, Variant: yarishogi
+Piece: Yarishogi Bishop, Variant: yarishogi
+Piece: Yarishogi Gold, Variant: yarishogi
+Piece: Yarishogi Knight, Variant: yarishogi
+Piece: Yarishogi Rook, Variant: yarishogi
+Piece: Yarishogi Silver, Variant: yarishogi
+Piece: Bishop, Variant: allwayspawns
+Piece: King, Variant: allwayspawns
+Piece: Knight, Variant: allwayspawns
+Piece: Pawn, Variant: allwayspawns
+Piece: Queen, Variant: allwayspawns
+Piece: Rook, Variant: allwayspawns
+Piece: Custom Piece 1, Variant: allwayspawns
+Piece: Bishop, Variant: 3check-crazyhouse
+Piece: King, Variant: 3check-crazyhouse
+Piece: Knight, Variant: 3check-crazyhouse
+Piece: Pawn, Variant: 3check-crazyhouse
+Piece: Queen, Variant: 3check-crazyhouse
+Piece: Rook, Variant: 3check-crazyhouse
+Piece: Bishop, Variant: atomic-giveaway
+Piece: Commoner, Variant: atomic-giveaway
+Piece: Knight, Variant: atomic-giveaway
+Piece: Pawn, Variant: atomic-giveaway
+Piece: Queen, Variant: atomic-giveaway
+Piece: Rook, Variant: atomic-giveaway
+Piece: Bishop, Variant: atomic-giveaway-hill
+Piece: Commoner, Variant: atomic-giveaway-hill
+Piece: Knight, Variant: atomic-giveaway-hill
+Piece: Pawn, Variant: atomic-giveaway-hill
+Piece: Queen, Variant: atomic-giveaway-hill
+Piece: Rook, Variant: atomic-giveaway-hill
+Piece: King, Variant: atomic-giveaway-hill
+Piece: Bishop, Variant: coffeehouse
+Piece: King, Variant: coffeehouse
+Piece: Knight, Variant: coffeehouse
+Piece: Pawn, Variant: coffeehouse
+Piece: Queen, Variant: coffeehouse
+Piece: Rook, Variant: coffeehouse
+Piece: Khon, Variant: makhouse
+Piece: King, Variant: makhouse
+Piece: Knight, Variant: makhouse
+Piece: Met, Variant: makhouse
+Piece: Pawn, Variant: makhouse
+Piece: Rook, Variant: makhouse
+Piece: Cannon, Variant: xiangqihouse
+Piece: Fers, Variant: xiangqihouse
+Piece: King, Variant: xiangqihouse
+Piece: Rook, Variant: xiangqihouse
+Piece: Soldier, Variant: xiangqihouse
+Piece: Janggi Cannon, Variant: janggihouse
+Piece: King, Variant: janggihouse
+Piece: Rook, Variant: janggihouse
+Piece: Soldier, Variant: janggihouse
+Piece: Wazir, Variant: janggihouse
+Piece: Knight, Variant: anti-losalamos
+Piece: Pawn, Variant: anti-losalamos
+Piece: Queen, Variant: anti-losalamos
+Piece: Rook, Variant: anti-losalamos
+Piece: King, Variant: anti-losalamos
+Piece: Pawn, Variant: indiangreat
+Piece: Knight, Variant: indiangreat
+Piece: Bishop, Variant: indiangreat
+Piece: Rook, Variant: indiangreat
+Piece: Queen, Variant: indiangreat
+Piece: King, Variant: indiangreat
+Piece: Archbishop, Variant: indiangreat
+Piece: Wazir, Variant: indiangreat
+Piece: Gold, Variant: indiangreat
+Piece: Bishop, Variant: centaurking
+Piece: King, Variant: centaurking
+Piece: Knight, Variant: centaurking
+Piece: Pawn, Variant: centaurking
+Piece: Queen, Variant: centaurking
+Piece: Rook, Variant: centaurking
+Piece: Pawn, Variant: maharajah
+Piece: Knight, Variant: maharajah
+Piece: Bishop, Variant: maharajah
+Piece: Rook, Variant: maharajah
+Piece: Queen, Variant: maharajah
+Piece: King, Variant: maharajah
+Piece: Chancellor, Variant: maharajah
+Piece: Pawn, Variant: maharajah2
+Piece: Knight, Variant: maharajah2
+Piece: Bishop, Variant: maharajah2
+Piece: Rook, Variant: maharajah2
+Piece: Queen, Variant: maharajah2
+Piece: King, Variant: maharajah2
+Piece: Chancellor, Variant: maharajah2
+Piece: Custom Piece 1, Variant: maharajah2
+Piece: Bishop, Variant: upsidedown
+Piece: King, Variant: upsidedown
+Piece: Knight, Variant: upsidedown
+Piece: Pawn, Variant: upsidedown
+Piece: Queen, Variant: upsidedown
+Piece: Rook, Variant: upsidedown
+Piece: Bishop, Variant: peasant
+Piece: King, Variant: peasant
+Piece: Knight, Variant: peasant
+Piece: Pawn, Variant: peasant
+Piece: Queen, Variant: peasant
+Piece: Rook, Variant: peasant
+Piece: Bishop, Variant: weak
+Piece: King, Variant: weak
+Piece: Knight, Variant: weak
+Piece: Pawn, Variant: weak
+Piece: Queen, Variant: weak
+Piece: Rook, Variant: weak
+Piece: Bishop, Variant: semitorpedo
+Piece: King, Variant: semitorpedo
+Piece: Knight, Variant: semitorpedo
+Piece: Pawn, Variant: semitorpedo
+Piece: Queen, Variant: semitorpedo
+Piece: Rook, Variant: semitorpedo
+Piece: Archbishop, Variant: gemini
+Piece: Bishop, Variant: gemini
+Piece: King, Variant: gemini
+Piece: Knight, Variant: gemini
+Piece: Pawn, Variant: gemini
+Piece: Queen, Variant: gemini
+Piece: Rook, Variant: gemini
+Piece: Alfil, Variant: gemini
+Piece: Cannon, Variant: gemini
+Piece: Pawn, Variant: pawnsonly
+Piece: Queen, Variant: pawnsonly
+Piece: Pawn, Variant: pawnsking
+Piece: Queen, Variant: pawnsking
+Piece: King, Variant: pawnsking
+Piece: Pawn, Variant: tictactoe
+Piece: Pawn, Variant: cfour
+Piece: Immobile, Variant: flipello6
+Piece: Archbishop, Variant: grandhouse
+Piece: Bishop, Variant: grandhouse
+Piece: Chancellor, Variant: grandhouse
+Piece: King, Variant: grandhouse
+Piece: Knight, Variant: grandhouse
+Piece: Pawn, Variant: grandhouse
+Piece: Queen, Variant: grandhouse
+Piece: Rook, Variant: grandhouse
+Piece: Bishop, Variant: shogun
+Piece: King, Variant: shogun
+Piece: Knight, Variant: shogun
+Piece: Pawn, Variant: shogun
+Piece: Queen, Variant: shogun
+Piece: Rook, Variant: shogun
+Piece: Cannon, Variant: shogun
+Piece: Gold, Variant: shogun
+Piece: Alfil, Variant: shogun
+Piece: Chancellor, Variant: shogun
+Piece: Fers, Variant: shogun
+Piece: promotionLimit, Variant: shogun
+Piece: promotedPieceType, Variant: shogun
+Piece: Bishop, Variant: caught-in-a-snag
+Piece: King, Variant: caught-in-a-snag
+Piece: Knight, Variant: caught-in-a-snag
+Piece: Pawn, Variant: caught-in-a-snag
+Piece: Queen, Variant: caught-in-a-snag
+Piece: Rook, Variant: caught-in-a-snag
+Piece: Fers, Variant: caught-in-a-snag
+Piece: Janggi Cannon, Variant: caught-in-a-snag
+Piece: Wazir, Variant: caught-in-a-snag
+Piece: Chancellor, Variant: caught-in-a-snag
+Piece: Custom Piece 1, Variant: caught-in-a-snag
+Piece: Bishop, Variant: minihouse
+Piece: King, Variant: minihouse
+Piece: Knight, Variant: minihouse
+Piece: Pawn, Variant: minihouse
+Piece: Queen, Variant: minihouse
+Piece: Rook, Variant: minihouse
+Piece: Bishop, Variant: rookmate
+Piece: King, Variant: rookmate
+Piece: Knight, Variant: rookmate
+Piece: Pawn, Variant: rookmate
+Piece: Queen, Variant: rookmate
+Piece: Rook, Variant: rookmate
+Piece: Cannon, Variant: rookmate
+Piece: Bishop, Variant: orda
+Piece: King, Variant: orda
+Piece: Knight, Variant: orda
+Piece: Pawn, Variant: orda
+Piece: Queen, Variant: orda
+Piece: Rook, Variant: orda
+Piece: Horse, Variant: orda
+Piece: Alfil, Variant: orda
+Piece: Lance, Variant: orda
+Piece: Bishop, Variant: ordamirror
+Piece: King, Variant: ordamirror
+Piece: Knight, Variant: ordamirror
+Piece: Pawn, Variant: ordamirror
+Piece: Queen, Variant: ordamirror
+Piece: Rook, Variant: ordamirror
+Piece: Horse, Variant: ordamirror
+Piece: Alfil, Variant: ordamirror
+Piece: Lance, Variant: ordamirror
+Piece: Custom Piece 1, Variant: ordamirror
+Piece: Archbishop, Variant: gothhouse
+Piece: Bishop, Variant: gothhouse
+Piece: Chancellor, Variant: gothhouse
+Piece: King, Variant: gothhouse
+Piece: Knight, Variant: gothhouse
+Piece: Pawn, Variant: gothhouse
+Piece: Queen, Variant: gothhouse
+Piece: Rook, Variant: gothhouse
+Piece: Bishop, Variant: synochess
+Piece: King, Variant: synochess
+Piece: Knight, Variant: synochess
+Piece: Pawn, Variant: synochess
+Piece: Queen, Variant: synochess
+Piece: Rook, Variant: synochess
+Piece: Cannon, Variant: synochess
+Piece: Silver, Variant: synochess
+Piece: Horse, Variant: synochess
+Piece: Elephant, Variant: synochess
+Piece: Alfil, Variant: synochess
+Piece: Bishop, Variant: capture
+Piece: King, Variant: capture
+Piece: Knight, Variant: capture
+Piece: Pawn, Variant: capture
+Piece: Queen, Variant: capture
+Piece: Rook, Variant: capture
+Piece: Bishop, Variant: doublearmy
+Piece: King, Variant: doublearmy
+Piece: Knight, Variant: doublearmy
+Piece: Pawn, Variant: doublearmy
+Piece: Queen, Variant: doublearmy
+Piece: Rook, Variant: doublearmy
+Piece: Cannon, Variant: doublearmy
+Piece: Bishop, Variant: pawnsmassacre
+Piece: King, Variant: pawnsmassacre
+Piece: Knight, Variant: pawnsmassacre
+Piece: Pawn, Variant: pawnsmassacre
+Piece: Queen, Variant: pawnsmassacre
+Piece: Rook, Variant: pawnsmassacre
+Piece: Bishop, Variant: screen
+Piece: King, Variant: screen
+Piece: Knight, Variant: screen
+Piece: Pawn, Variant: screen
+Piece: Queen, Variant: screen
+Piece: Rook, Variant: screen
+Piece: Bishop, Variant: crossing
+Piece: King, Variant: crossing
+Piece: Knight, Variant: crossing
+Piece: Pawn, Variant: crossing
+Piece: Queen, Variant: crossing
+Piece: Rook, Variant: crossing
+Piece: Bishop, Variant: 4x5chess
+Piece: King, Variant: 4x5chess
+Piece: Knight, Variant: 4x5chess
+Piece: Pawn, Variant: 4x5chess
+Piece: Queen, Variant: 4x5chess
+Piece: Rook, Variant: 4x5chess
+Piece: Dragon, Variant: 4x5chess
+Piece: Bishop, Variant: 4x6chess
+Piece: King, Variant: 4x6chess
+Piece: Knight, Variant: 4x6chess
+Piece: Pawn, Variant: 4x6chess
+Piece: Queen, Variant: 4x6chess
+Piece: Rook, Variant: 4x6chess
+Piece: Dragon, Variant: 4x6chess
+Piece: Bishop, Variant: 5x6chess
+Piece: King, Variant: 5x6chess
+Piece: Knight, Variant: 5x6chess
+Piece: Pawn, Variant: 5x6chess
+Piece: Queen, Variant: 5x6chess
+Piece: Rook, Variant: 5x6chess
+Piece: Elephant, Variant: 5x6chess
+Piece: Bishop, Variant: active
+Piece: King, Variant: active
+Piece: Knight, Variant: active
+Piece: Pawn, Variant: active
+Piece: Queen, Variant: active
+Piece: Rook, Variant: active
+Piece: Bishop, Variant: 6x6atom
+Piece: Commoner, Variant: 6x6atom
+Piece: Knight, Variant: 6x6atom
+Piece: Pawn, Variant: 6x6atom
+Piece: Queen, Variant: 6x6atom
+Piece: Rook, Variant: 6x6atom
+Piece: Fers, Variant: 6x6atom
+Piece: Bishop, Variant: advancedpawn
+Piece: King, Variant: advancedpawn
+Piece: Knight, Variant: advancedpawn
+Piece: Pawn, Variant: advancedpawn
+Piece: Queen, Variant: advancedpawn
+Piece: Rook, Variant: advancedpawn
+Piece: Bishop, Variant: captureall
+Piece: Commoner, Variant: captureall
+Piece: Knight, Variant: captureall
+Piece: Pawn, Variant: captureall
+Piece: Queen, Variant: captureall
+Piece: Rook, Variant: captureall
+Piece: Bishop, Variant: cornerrook
+Piece: King, Variant: cornerrook
+Piece: Knight, Variant: cornerrook
+Piece: Pawn, Variant: cornerrook
+Piece: Queen, Variant: cornerrook
+Piece: Rook, Variant: cornerrook
+Piece: King, Variant: diana
+Piece: Knight, Variant: diana
+Piece: Pawn, Variant: diana
+Piece: Queen, Variant: diana
+Piece: Rook, Variant: diana
+Piece: Bishop, Variant: diana
+Piece: Elephant, Variant: diana
+Piece: Bishop, Variant: microchess
+Piece: King, Variant: microchess
+Piece: Knight, Variant: microchess
+Piece: Pawn, Variant: microchess
+Piece: Queen, Variant: microchess
+Piece: Rook, Variant: microchess
+Piece: Dragon, Variant: microchess
+Piece: Bishop, Variant: empire
+Piece: King, Variant: empire
+Piece: Knight, Variant: empire
+Piece: Pawn, Variant: empire
+Piece: Queen, Variant: empire
+Piece: Rook, Variant: empire
+Piece: Custom Piece 1, Variant: empire
+Piece: Custom Piece 2, Variant: empire
+Piece: Custom Piece 3, Variant: empire
+Piece: Custom Piece 4, Variant: empire
+Piece: Silver, Variant: empire
+Piece: Bishop, Variant: shinobi
+Piece: King, Variant: shinobi
+Piece: Knight, Variant: shinobi
+Piece: Pawn, Variant: shinobi
+Piece: Queen, Variant: shinobi
+Piece: Rook, Variant: shinobi
+Piece: Cannon, Variant: shinobi
+Piece: Dragon, Variant: shinobi
+Piece: Chancellor, Variant: shinobi
+Piece: Horse, Variant: shinobi
+Piece: Lance, Variant: shinobi
+Piece: promotedPieceType, Variant: shinobi
+Piece: Bishop, Variant: wildebeest
+Piece: King, Variant: wildebeest
+Piece: Knight, Variant: wildebeest
+Piece: Pawn, Variant: wildebeest
+Piece: Queen, Variant: wildebeest
+Piece: Rook, Variant: wildebeest
+Piece: Custom Piece 1, Variant: wildebeest
+Piece: Custom Piece 2, Variant: wildebeest
+Piece: Custom Piece 1, Variant: pandemonium
+Piece: Custom Piece 2, Variant: pandemonium
+Piece: Custom Piece 3, Variant: pandemonium
+Piece: Custom Piece 4, Variant: pandemonium
+Piece: Pawn, Variant: pandemonium
+Piece: Knight, Variant: pandemonium
+Piece: Bishop, Variant: pandemonium
+Piece: Rook, Variant: pandemonium
+Piece: King, Variant: pandemonium
+Piece: Queen, Variant: pandemonium
+Piece: Gold, Variant: pandemonium
+Piece: Horse, Variant: pandemonium
+Piece: Dragon, Variant: pandemonium
+Piece: Alfil, Variant: pandemonium
+Piece: Cannon, Variant: pandemonium
+Piece: Chancellor, Variant: pandemonium
+Piece: Fers, Variant: pandemonium
+Piece: Archbishop, Variant: pandemonium
+Piece: Soldier, Variant: pandemonium
+Piece: promotedPieceType, Variant: pandemonium
+Piece: Breakthrough, Variant: breakthrough5
+Piece: Breakthrough, Variant: breakthrough6
+Piece: Breakthrough, Variant: breakthrough7
+Piece: Pawn, Variant: mansindam
+Piece: Knight, Variant: mansindam
+Piece: Bishop, Variant: mansindam
+Piece: Rook, Variant: mansindam
+Piece: Queen, Variant: mansindam
+Piece: Cannon, Variant: mansindam
+Piece: Chancellor, Variant: mansindam
+Piece: Alfil, Variant: mansindam
+Piece: King, Variant: mansindam
+Piece: Gold, Variant: mansindam
+Piece: Elephant, Variant: mansindam
+Piece: Horse, Variant: mansindam
+Piece: Soldier, Variant: mansindam
+Piece: Custom Piece 1, Variant: mansindam
+Piece: Custom Piece 2, Variant: mansindam
+Piece: promotedPieceType, Variant: mansindam
+Piece: King, Variant: crossderby
+Piece: Knight, Variant: crossderby
+Piece: Pawn, Variant: crossderby
+Piece: Bishop, Variant: elimination
+Piece: Commoner, Variant: elimination
+Piece: Knight, Variant: elimination
+Piece: Pawn, Variant: elimination
+Piece: Queen, Variant: elimination
+Piece: Rook, Variant: elimination
+Piece: Bishop, Variant: antiatomic
+Piece: Commoner, Variant: antiatomic
+Piece: Knight, Variant: antiatomic
+Piece: Pawn, Variant: antiatomic
+Piece: Queen, Variant: antiatomic
+Piece: Rook, Variant: antiatomic
+Piece: Bishop, Variant: atomiczh
+Piece: Commoner, Variant: atomiczh
+Piece: Knight, Variant: atomiczh
+Piece: Pawn, Variant: atomiczh
+Piece: Queen, Variant: atomiczh
+Piece: Rook, Variant: atomiczh
+Piece: Rook, Variant: chak
+Piece: Archbishop, Variant: chak
+Piece: Custom Piece 1, Variant: chak
+Piece: Custom Piece 2, Variant: chak
+Piece: Custom Piece 3, Variant: chak
+Piece: Custom Piece 4, Variant: chak
+Piece: Custom Piece 5, Variant: chak
+Piece: Custom Piece 6, Variant: chak
+Piece: promotedPieceType, Variant: chak
+Piece: Dragon, Variant: chak
+Piece: Custom Piece 1, Variant: chennis
+Piece: Cannon, Variant: chennis
+Piece: Chancellor, Variant: chennis
+Piece: Fers, Variant: chennis
+Piece: Silver, Variant: chennis
+Piece: King, Variant: chennis
+Piece: Bishop, Variant: chennis
+Piece: Knight, Variant: chennis
+Piece: Rook, Variant: chennis
+Piece: promotedPieceType, Variant: chennis
+Piece: Bishop, Variant: gorogoroplus
+Piece: Dragon, Variant: gorogoroplus
+Piece: Dragon Horse, Variant: gorogoroplus
+Piece: Gold, Variant: gorogoroplus
+Piece: King, Variant: gorogoroplus
+Piece: Rook, Variant: gorogoroplus
+Piece: Shogi Pawn, Variant: gorogoroplus
+Piece: Silver, Variant: gorogoroplus
+Piece: Lance, Variant: gorogoroplus
+Piece: Knight, Variant: gorogoroplus
+Piece: promotedPieceType, Variant: gorogoroplus
+Piece: Bishop, Variant: dragonfly
+Piece: King, Variant: dragonfly
+Piece: Knight, Variant: dragonfly
+Piece: Pawn, Variant: dragonfly
+Piece: Queen, Variant: dragonfly
+Piece: Rook, Variant: dragonfly
+Piece: Fers, Variant: dragonfly
+Piece: Bishop, Variant: kamikazerooks
+Piece: King, Variant: kamikazerooks
+Piece: Knight, Variant: kamikazerooks
+Piece: Pawn, Variant: kamikazerooks
+Piece: Queen, Variant: kamikazerooks
+Piece: Rook, Variant: kamikazerooks
+Piece: King, Variant: mounted
+Piece: Bishop, Variant: mounted
+Piece: Rook, Variant: mounted
+Piece: Cannon, Variant: mounted
+Piece: Custom Piece 1, Variant: mounted
+Piece: Custom Piece 2, Variant: mounted
+Piece: Bishop, Variant: racingchess
+Piece: King, Variant: racingchess
+Piece: Knight, Variant: racingchess
+Piece: Pawn, Variant: racingchess
+Piece: Queen, Variant: racingchess
+Piece: Rook, Variant: racingchess
+Piece: Bishop, Variant: shinobimirror
+Piece: King, Variant: shinobimirror
+Piece: Knight, Variant: shinobimirror
+Piece: Pawn, Variant: shinobimirror
+Piece: Queen, Variant: shinobimirror
+Piece: Rook, Variant: shinobimirror
+Piece: Cannon, Variant: shinobimirror
+Piece: Dragon, Variant: shinobimirror
+Piece: Chancellor, Variant: shinobimirror
+Piece: Horse, Variant: shinobimirror
+Piece: Lance, Variant: shinobimirror
+Piece: promotedPieceType, Variant: shinobimirror
+Piece: Bishop, Variant: twokings2
+Piece: Knight, Variant: twokings2
+Piece: Pawn, Variant: twokings2
+Piece: Queen, Variant: twokings2
+Piece: Rook, Variant: twokings2
+Piece: King, Variant: twokings2
+Piece: Bishop, Variant: antiantichess
+Piece: Commoner, Variant: antiantichess
+Piece: Knight, Variant: antiantichess
+Piece: Pawn, Variant: antiantichess
+Piece: Queen, Variant: antiantichess
+Piece: Rook, Variant: antiantichess
+Piece: Bishop, Variant: antiminishogi
+Piece: Dragon, Variant: antiminishogi
+Piece: Dragon Horse, Variant: antiminishogi
+Piece: Gold, Variant: antiminishogi
+Piece: Rook, Variant: antiminishogi
+Piece: Shogi Pawn, Variant: antiminishogi
+Piece: Silver, Variant: antiminishogi
+Piece: King, Variant: antiminishogi
+Piece: Bishop, Variant: antihouse
+Piece: Commoner, Variant: antihouse
+Piece: Knight, Variant: antihouse
+Piece: Pawn, Variant: antihouse
+Piece: Queen, Variant: antihouse
+Piece: Rook, Variant: antihouse
+Piece: Bishop, Variant: coffeerace
+Piece: King, Variant: coffeerace
+Piece: Knight, Variant: coffeerace
+Piece: Pawn, Variant: coffeerace
+Piece: Queen, Variant: coffeerace
+Piece: Rook, Variant: coffeerace
+Piece: Bishop, Variant: epicatomic
+Piece: Commoner, Variant: epicatomic
+Piece: Knight, Variant: epicatomic
+Piece: Pawn, Variant: epicatomic
+Piece: Queen, Variant: epicatomic
+Piece: Rook, Variant: epicatomic
+Piece: Bishop, Variant: checkmateless
+Piece: King, Variant: checkmateless
+Piece: Knight, Variant: checkmateless
+Piece: Pawn, Variant: checkmateless
+Piece: Queen, Variant: checkmateless
+Piece: Rook, Variant: checkmateless
+Piece: Bishop, Variant: sixthrank
+Piece: King, Variant: sixthrank
+Piece: Knight, Variant: sixthrank
+Piece: Pawn, Variant: sixthrank
+Piece: Queen, Variant: sixthrank
+Piece: Rook, Variant: sixthrank
+Piece: Bishop, Variant: fullmoon
+Piece: King, Variant: fullmoon
+Piece: Knight, Variant: fullmoon
+Piece: Pawn, Variant: fullmoon
+Piece: Queen, Variant: fullmoon
+Piece: Rook, Variant: fullmoon
+Piece: Alfil, Variant: fullmoon
+Piece: Cannon, Variant: fullmoon
+Piece: Cannon, Variant: crowdedxiangqi
+Piece: Fers, Variant: crowdedxiangqi
+Piece: King, Variant: crowdedxiangqi
+Piece: Rook, Variant: crowdedxiangqi
+Piece: Soldier, Variant: crowdedxiangqi
+Piece: Custom Piece 1, Variant: massacre
+Piece: Custom Piece 2, Variant: massacre
+Piece: Custom Piece 3, Variant: massacre
+Piece: Custom Piece 4, Variant: massacre
+Piece: Bishop, Variant: backrank
+Piece: Knight, Variant: backrank
+Piece: Pawn, Variant: backrank
+Piece: Queen, Variant: backrank
+Piece: Rook, Variant: backrank
+Piece: King, Variant: backrank
+Piece: promotedPieceType, Variant: backrank
+Piece: Soldier, Variant: stardust
+Piece: Pawn, Variant: stardust
+Piece: Cannon, Variant: stardust
+Piece: Custom Piece 1, Variant: stardust
+Piece: Custom Piece 2, Variant: stardust
+Piece: Custom Piece 3, Variant: stardust
+Piece: Custom Piece 4, Variant: stardust
+Piece: Custom Piece 5, Variant: stardust
+Piece: Rook, Variant: stardust
+Piece: King, Variant: cetus
+Piece: Custom Piece 1, Variant: cetus
+Piece: Custom Piece 2, Variant: cetus
+Piece: Custom Piece 3, Variant: cetus
+Piece: Custom Piece 4, Variant: cetus
+Piece: Custom Piece 5, Variant: cetus
+Piece: Custom Piece 6, Variant: cetus
+Piece: Bishop, Variant: cetus
+Piece: promotedPieceType, Variant: cetus
+Piece: Bishop, Variant: chessvshp
+Piece: King, Variant: chessvshp
+Piece: Knight, Variant: chessvshp
+Piece: Pawn, Variant: chessvshp
+Piece: Queen, Variant: chessvshp
+Piece: Rook, Variant: chessvshp
+Piece: Silver, Variant: chessvshp
+Piece: Bishop, Variant: ordavsempire
+Piece: King, Variant: ordavsempire
+Piece: Knight, Variant: ordavsempire
+Piece: Pawn, Variant: ordavsempire
+Piece: Queen, Variant: ordavsempire
+Piece: Rook, Variant: ordavsempire
+Piece: Horse, Variant: ordavsempire
+Piece: Alfil, Variant: ordavsempire
+Piece: Lance, Variant: ordavsempire
+Piece: Custom Piece 1, Variant: ordavsempire
+Piece: Custom Piece 2, Variant: ordavsempire
+Piece: Custom Piece 3, Variant: ordavsempire
+Piece: Custom Piece 4, Variant: ordavsempire
+Piece: Custom Piece 5, Variant: ordavsempire
+Piece: Bishop, Variant: atomicduck
+Piece: Commoner, Variant: atomicduck
+Piece: Knight, Variant: atomicduck
+Piece: Pawn, Variant: atomicduck
+Piece: Queen, Variant: atomicduck
+Piece: Rook, Variant: atomicduck
+Piece: Bishop, Variant: forward
+Piece: King, Variant: forward
+Piece: Knight, Variant: forward
+Piece: Pawn, Variant: forward
+Piece: Queen, Variant: forward
+Piece: Rook, Variant: forward
+Piece: Lance, Variant: forward
+Piece: Custom Piece 1, Variant: forward
+Piece: Custom Piece 2, Variant: forward
+Piece: Custom Piece 3, Variant: forward
+Piece: Custom Piece 4, Variant: forward
+Piece: promotedPieceType, Variant: forward
+Piece: Elephant, Variant: kono
+Piece: Custom Piece 1, Variant: kono
+Piece: Pawn, Variant: kono
+Piece: Bishop, Variant: xhess
+Piece: King, Variant: xhess
+Piece: Knight, Variant: xhess
+Piece: Pawn, Variant: xhess
+Piece: Queen, Variant: xhess
+Piece: Rook, Variant: xhess
+Piece: Horse, Variant: xhess
+Piece: Cannon, Variant: xhess
+Piece: Custom Piece 1, Variant: xhess
+Piece: Custom Piece 2, Variant: xhess
+Piece: King, Variant: buffalo
+Piece: Custom Piece 1, Variant: buffalo
+Piece: Custom Piece 2, Variant: buffalo
+Piece: Custom Piece 3, Variant: buffalo
+Piece: Bishop, Variant: buffalo
+Piece: Horse, Variant: knights-halma
+Piece: Custom Piece 1, Variant: knights-halma
+Piece: Knight, Variant: knights-halma
+Piece: Bishop, Variant: allexplodeatomic
+Piece: Commoner, Variant: allexplodeatomic
+Piece: Knight, Variant: allexplodeatomic
+Piece: Queen, Variant: allexplodeatomic
+Piece: Rook, Variant: allexplodeatomic
+Piece: Custom Piece 1, Variant: allexplodeatomic
+Piece: Pawn, Variant: allexplodeatomic
+Piece: Cannon, Variant: hexapawn
+Piece: Pawn, Variant: hexapawn
+Piece: Custom Piece 1, Variant: hexapawn
+Piece: Bishop, Variant: 1d-chess
+Piece: King, Variant: 1d-chess
+Piece: Knight, Variant: 1d-chess
+Piece: Pawn, Variant: 1d-chess
+Piece: Queen, Variant: 1d-chess
+Piece: Rook, Variant: 1d-chess
+Piece: Horse, Variant: 1d-chess
+Piece: Custom Piece 1, Variant: 1d-chess
+Piece: Fers, Variant: tuktuk
+Piece: Custom Piece 1, Variant: tuktuk
+Piece: Cannon, Variant: aralzaa
+Piece: Custom Piece 1, Variant: aralzaa
+Piece: Knight, Variant: aralzaa
+Piece: Fers, Variant: bajr
+Piece: Custom Piece 1, Variant: bajr
+Piece: Pawn, Variant: bajr
+Piece: Elephant, Variant: lewthwaite
+Piece: Custom Piece 1, Variant: lewthwaite
+Piece: Pawn, Variant: picaria
+Piece: Custom Piece 1, Variant: picaria
+Piece: Pawn, Variant: nineholes
+Piece: Custom Piece 1, Variant: nineholes
+Piece: Pawn, Variant: tictacchess
+Piece: Custom Piece 1, Variant: tictacchess
+Piece: Custom Piece 2, Variant: tictacchess
+Piece: Custom Piece 3, Variant: tictacchess
+Piece: Dragon, Variant: asimplegame
+Piece: Custom Piece 1, Variant: asimplegame
+Piece: Bishop, Variant: alapo
+Piece: Knight, Variant: alapo
+Piece: Pawn, Variant: alapo
+Piece: Queen, Variant: alapo
+Piece: Rook, Variant: alapo
+Piece: Fers, Variant: alapo
+Piece: Wazir, Variant: alapo
+Piece: King, Variant: alapo
+Piece: Bishop, Variant: rooksquare
+Piece: King, Variant: rooksquare
+Piece: Knight, Variant: rooksquare
+Piece: Pawn, Variant: rooksquare
+Piece: Queen, Variant: rooksquare
+Piece: Rook, Variant: rooksquare
+Piece: Elephant, Variant: allqueenschess
+Piece: Custom Piece 1, Variant: allqueenschess
+Piece: Queen, Variant: capturethequeen
+Piece: Bishop, Variant: river
+Piece: Knight, Variant: river
+Piece: Pawn, Variant: river
+Piece: Queen, Variant: river
+Piece: Rook, Variant: river
+Piece: King, Variant: river
+Piece: Amazons Queen, Variant: cowboys
+Piece: Gold, Variant: cowboys
+Piece: Custom Piece 1, Variant: cowboys
+Piece: Bishop, Variant: dragon-chess
+Piece: King, Variant: dragon-chess
+Piece: Knight, Variant: dragon-chess
+Piece: Pawn, Variant: dragon-chess
+Piece: Queen, Variant: dragon-chess
+Piece: Rook, Variant: dragon-chess
+Piece: Custom Piece 1, Variant: dragon-chess
+Piece: Custom Piece 2, Variant: dragon-chess
+Piece: Custom Piece 3, Variant: dragon-chess
+Piece: Custom Piece 4, Variant: dragon-chess
+Piece: Immobile, Variant: annexation
+Piece: Bishop, Variant: cannonshogi
+Piece: Dragon, Variant: cannonshogi
+Piece: Dragon Horse, Variant: cannonshogi
+Piece: Gold, Variant: cannonshogi
+Piece: King, Variant: cannonshogi
+Piece: Lance, Variant: cannonshogi
+Piece: Rook, Variant: cannonshogi
+Piece: Shogi Knight, Variant: cannonshogi
+Piece: Shogi Pawn, Variant: cannonshogi
+Piece: Silver, Variant: cannonshogi
+Piece: Pawn, Variant: cannonshogi
+Piece: Janggi Cannon, Variant: cannonshogi
+Piece: Custom Piece 1, Variant: cannonshogi
+Piece: Custom Piece 2, Variant: cannonshogi
+Piece: Custom Piece 3, Variant: cannonshogi
+Piece: Custom Piece 4, Variant: cannonshogi
+Piece: Custom Piece 5, Variant: cannonshogi
+Piece: promotedPieceType, Variant: cannonshogi
+Piece: Bishop, Variant: nuclear
+Piece: Commoner, Variant: nuclear
+Piece: Knight, Variant: nuclear
+Piece: Queen, Variant: nuclear
+Piece: Rook, Variant: nuclear
+Piece: Custom Piece 1, Variant: nuclear
+Piece: Pawn, Variant: nuclear
+Piece: Dragon, Variant: nim
+Piece: Custom Piece 1, Variant: nim
+Piece: Dragon, Variant: roll-ing-to-four
+Piece: Custom Piece 1, Variant: roll-ing-to-four
+Piece: Ataxx Pawn, Variant: quadwrangle
+Piece: Custom Piece 1, Variant: quadwrangle
+Piece: Ataxx Pawn, Variant: quadwrangle7x7
+Piece: Custom Piece 1, Variant: quadwrangle7x7
+Piece: Ataxx Pawn, Variant: crusade
+Piece: Custom Piece 1, Variant: crusade
+Piece: Ataxx Pawn, Variant: snort
+Piece: Pawn, Variant: snort
+Piece: Bishop, Variant: blackletter
+Piece: King, Variant: blackletter
+Piece: Knight, Variant: blackletter
+Piece: Pawn, Variant: blackletter
+Piece: Queen, Variant: blackletter
+Piece: Rook, Variant: blackletter
+Piece: Elephant, Variant: blackletter
+Piece: Chancellor, Variant: blackletter
+Piece: Horse, Variant: blackletter
+Piece: Bishop, Variant: castle
+Piece: King, Variant: castle
+Piece: Knight, Variant: castle
+Piece: Pawn, Variant: castle
+Piece: Queen, Variant: castle
+Piece: Rook, Variant: castle
+Piece: Bishop, Variant: squatter
+Piece: King, Variant: squatter
+Piece: Knight, Variant: squatter
+Piece: Pawn, Variant: squatter
+Piece: Queen, Variant: squatter
+Piece: Rook, Variant: squatter
+Piece: Bishop, Variant: opposite-castling
+Piece: King, Variant: opposite-castling
+Piece: Knight, Variant: opposite-castling
+Piece: Pawn, Variant: opposite-castling
+Piece: Queen, Variant: opposite-castling
+Piece: Rook, Variant: opposite-castling
+Piece: Custom Piece 1, Variant: gethenian
+Piece: Custom Piece 2, Variant: gethenian
+Piece: Custom Piece 3, Variant: gethenian
+Piece: Custom Piece 4, Variant: gethenian
+Piece: Custom Piece 5, Variant: gethenian
+Piece: Custom Piece 6, Variant: gethenian
+Piece: Custom Piece 7, Variant: gethenian
+Piece: Custom Piece 8, Variant: gethenian
+Piece: Custom Piece 9, Variant: gethenian
+Piece: promotedPieceType, Variant: gethenian
+Piece: Ataxx Pawn, Variant: gale
+Piece: Pawn, Variant: gale
+Piece: Bishop, Variant: atlantis
+Piece: King, Variant: atlantis
+Piece: Knight, Variant: atlantis
+Piece: Pawn, Variant: atlantis
+Piece: Queen, Variant: atlantis
+Piece: Rook, Variant: atlantis
+Piece: Bishop, Variant: ajax-orthodox
+Piece: King, Variant: ajax-orthodox
+Piece: Knight, Variant: ajax-orthodox
+Piece: Pawn, Variant: ajax-orthodox
+Piece: Queen, Variant: ajax-orthodox
+Piece: Rook, Variant: ajax-orthodox
+Piece: Custom Piece 1, Variant: ajax-orthodox
+Piece: Custom Piece 2, Variant: ajax-orthodox
+Piece: Custom Piece 3, Variant: ajax-orthodox
+Piece: Custom Piece 4, Variant: ajax-orthodox
+Piece: Bishop, Variant: petty
+Piece: King, Variant: petty
+Piece: Knight, Variant: petty
+Piece: Pawn, Variant: petty
+Piece: Queen, Variant: petty
+Piece: Rook, Variant: petty
+Piece: Pawn, Variant: teeko
+Piece: Custom Piece 1, Variant: teeko
+Piece: Bishop, Variant: haynie
+Piece: King, Variant: haynie
+Piece: Knight, Variant: haynie
+Piece: Pawn, Variant: haynie
+Piece: Queen, Variant: haynie
+Piece: Rook, Variant: haynie
+Piece: Cannon, Variant: haynie
+Piece: Elephant, Variant: haynie
+Piece: Snailtrail Pawn, Variant: la-mancha-squeez
+Piece: Snailtrail Pawn, Variant: la-mancha-duel
+Piece: Custom Piece 1, Variant: la-mancha-duel
+Piece: Bishop, Variant: argess
+Piece: King, Variant: argess
+Piece: Knight, Variant: argess
+Piece: Pawn, Variant: argess
+Piece: Queen, Variant: argess
+Piece: Rook, Variant: argess
+Piece: Custom Piece 1, Variant: argess
+Piece: Bishop, Variant: quasi-shatranj
+Piece: Knight, Variant: quasi-shatranj
+Piece: Pawn, Variant: quasi-shatranj
+Piece: Queen, Variant: quasi-shatranj
+Piece: Rook, Variant: quasi-shatranj
+Piece: King, Variant: quasi-shatranj
+Piece: Custom Piece 1, Variant: quasi-shatranj
+Piece: Custom Piece 2, Variant: quasi-shatranj
+Piece: Custom Piece 3, Variant: quasi-shatranj
+Piece: Custom Piece 4, Variant: quasi-shatranj
+Piece: Custom Piece 5, Variant: quasi-shatranj
+Piece: Custom Piece 6, Variant: quasi-shatranj
+Piece: Pawn, Variant: symphony
+Piece: Custom Piece 1, Variant: symphony
+Piece: Pawn, Variant: cfour-anyside
+Piece: Pawn, Variant: cfour-misere
+Piece: Custom Piece 1, Variant: three-musketeers
+Piece: Custom Piece 2, Variant: three-musketeers
+Piece: Chancellor, Variant: three-musketeers
+Piece: Bishop, Variant: shinobiplus
+Piece: King, Variant: shinobiplus
+Piece: Knight, Variant: shinobiplus
+Piece: Pawn, Variant: shinobiplus
+Piece: Queen, Variant: shinobiplus
+Piece: Rook, Variant: shinobiplus
+Piece: Cannon, Variant: shinobiplus
+Piece: Dragon, Variant: shinobiplus
+Piece: Fers, Variant: shinobiplus
+Piece: Chancellor, Variant: shinobiplus
+Piece: Horse, Variant: shinobiplus
+Piece: Lance, Variant: shinobiplus
+Piece: promotedPieceType, Variant: shinobiplus
+Piece: Bishop, Variant: khans
+Piece: King, Variant: khans
+Piece: Knight, Variant: khans
+Piece: Pawn, Variant: khans
+Piece: Queen, Variant: khans
+Piece: Rook, Variant: khans
+Piece: Horse, Variant: khans
+Piece: Alfil, Variant: khans
+Piece: Lance, Variant: khans
+Piece: Custom Piece 1, Variant: khans
+Piece: Custom Piece 2, Variant: khans
+Piece: Silver, Variant: khans
+Piece: Soldier, Variant: khans
+Piece: Pawn, Variant: muje
+Piece: Knight, Variant: muje
+Piece: Bishop, Variant: muje
+Piece: Rook, Variant: muje
+Piece: Fers, Variant: muje
+Piece: Wazir, Variant: muje
+Piece: King, Variant: muje
+Piece: Custom Piece 1, Variant: muje
+Piece: Custom Piece 2, Variant: muje
+Piece: promotedPieceType, Variant: muje
+Piece: Bishop, Variant: andersgiveaway
+Piece: Commoner, Variant: andersgiveaway
+Piece: Knight, Variant: andersgiveaway
+Piece: Pawn, Variant: andersgiveaway
+Piece: Queen, Variant: andersgiveaway
+Piece: Rook, Variant: andersgiveaway
+Piece: Bishop, Variant: andersanti
+Piece: Commoner, Variant: andersanti
+Piece: Knight, Variant: andersanti
+Piece: Pawn, Variant: andersanti
+Piece: Queen, Variant: andersanti
+Piece: Rook, Variant: andersanti
+Piece: Pawn, Variant: leaperhouse
+Piece: Knight, Variant: leaperhouse
+Piece: Custom Piece 1, Variant: leaperhouse
+Piece: Custom Piece 2, Variant: leaperhouse
+Piece: Custom Piece 3, Variant: leaperhouse
+Piece: Custom Piece 4, Variant: leaperhouse
+Piece: Gold, Variant: leaperhouse
+Piece: King, Variant: leaperhouse
+Piece: promotedPieceType, Variant: leaperhouse

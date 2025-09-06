@@ -2,41 +2,74 @@ import { VariantIniParser } from '../../src/variant_ini_parser';
 import { Piece } from '../../src/types';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 
 describe('VariantIniParser', () => {
-    it('should parse the real variants.ini file content correctly', () => {
-        const iniContent = fs.readFileSync(path.join(__dirname, '..', 'variants.ini'), 'utf-8');
-        const pieceCatalog: Piece[] = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'piece_catalog.json'), 'utf-8'));
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  let fsfCatalog: Piece[];
+  let variantsIni: string;
 
-        const parser = new VariantIniParser(iniContent, pieceCatalog);
-        const pieces: Piece[] = parser.parse();
+  beforeAll(() => {
+    const catalogPath = path.join(__dirname, '../../fsf_built_in_variants_catalog.json');
+    fsfCatalog = JSON.parse(fs.readFileSync(catalogPath, 'utf-8'));
 
-        expect(pieces.length).toBeGreaterThan(0);
+    const iniPath = path.join(__dirname, '../variants.ini');
+    variantsIni = fs.readFileSync(iniPath, 'utf-8');
+  });
 
-        // Test allwayspawns variant which inherits from chess
-        // and has a custom pawn
-        const allways_pawn = pieces.find(p => p.name === "Custom Piece 1" && p.variant === "allwayspawns");
-        expect(allways_pawn).toBeDefined();
-        expect(allways_pawn?.betza).toBe("mWfceFifmnD");
+  it('should parse variants.ini with the FSF catalog', () => {
+    const parser = new VariantIniParser(variantsIni, fsfCatalog);
+    const pieces = parser.parse();
 
-        // It should inherit the king from chess
-        const allways_king = pieces.find(p => p.name === "King" && p.variant === "allwayspawns");
-        expect(allways_king).toBeDefined();
-        expect(allways_king?.betza).toBe("K");
+    expect(pieces.length).toBeGreaterThan(0);
 
-        // Test gothhouse which inherits from capablanca
-        const gothhouse_knight = pieces.find(p => p.name === "Knight" && p.variant === "gothhouse");
-        expect(gothhouse_knight).toBeDefined();
+    // Test allwayspawns variant which inherits from chess
+    const allwaysPawn = pieces.find(p => p.name === 'Custom Piece 1' && p.variant === 'allwayspawns');
+    expect(allwaysPawn).toBeDefined();
+    expect(allwaysPawn?.betza).toBe('mWfceFifmnD');
 
-        const capablanca_knight = pieceCatalog.find(p => p.name === "Knight" && p.variant === "capablanca");
-        expect(capablanca_knight).toBeDefined();
-        expect(gothhouse_knight?.betza).toBe(capablanca_knight?.betza);
+    const allwaysKing = pieces.find(p => p.name === 'King' && p.variant === 'allwayspawns');
+    expect(allwaysKing).toBeDefined();
+    expect(allwaysKing?.betza).toBe('K');
 
-        // and it should also have the chancellor from capablanca
-        const gothhouse_chancellor = pieces.find(p => p.name === "Chancellor" && p.variant === "gothhouse");
-        expect(gothhouse_chancellor).toBeDefined();
-        const capablanca_chancellor = pieceCatalog.find(p => p.name === "Chancellor" && p.variant === "capablanca");
-        expect(capablanca_chancellor).toBeDefined();
-        expect(gothhouse_chancellor?.betza).toBe(capablanca_chancellor?.betza);
-    });
+    // Test 3check-crazyhouse which inherits from crazyhouse
+    const crazyhouseKnight = fsfCatalog.find(p => p.name === 'Knight' && p.variant === 'crazyhouse');
+    expect(crazyhouseKnight).toBeDefined();
+
+    const threecheckKnight = pieces.find(p => p.name === 'Knight' && p.variant === '3check-crazyhouse');
+    expect(threecheckKnight).toBeDefined();
+    expect(threecheckKnight?.betza).toBe(crazyhouseKnight?.betza);
+
+    // Test gothhouse:capablanca
+    const gothhouseKnight = pieces.find(p => p.name === 'Knight' && p.variant === 'gothhouse');
+    expect(gothhouseKnight).toBeDefined();
+
+    const capablancaKnight = fsfCatalog.find(p => p.name === 'Knight' && p.variant === 'capablanca');
+    expect(capablancaKnight).toBeDefined();
+    expect(gothhouseKnight?.betza).toBe(capablancaKnight?.betza);
+
+    const gothhouseChancellor = pieces.find(p => p.name === 'Chancellor' && p.variant === 'gothhouse');
+    expect(gothhouseChancellor).toBeDefined();
+    const capablancaChancellor = fsfCatalog.find(p => p.name === 'Chancellor' && p.variant === 'capablanca');
+    expect(capablancaChancellor).toBeDefined();
+    expect(gothhouseChancellor?.betza).toBe(capablancaChancellor?.betza);
+  });
+
+  it('should handle inheritance from a minimal catalog', () => {
+    const iniContent = `
+[allwayspawns:chess]
+customPiece1 = p:mWfceFifmnD
+`;
+    const pieceCatalog = [
+      { name: 'King', variant: 'chess', betza: 'K' },
+      { name: 'Pawn', variant: 'chess', betza: 'fmWfceF' }
+    ];
+
+    const parser = new VariantIniParser(iniContent, pieceCatalog);
+    const pieces = parser.parse();
+
+    const allwaysKing = pieces.find(p => p.name === 'King' && p.variant === 'allwayspawns');
+    expect(allwaysKing).toBeDefined();
+    expect(allwaysKing?.betza).toBe('K');
+  });
 });

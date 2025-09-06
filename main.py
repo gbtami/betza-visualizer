@@ -6,6 +6,8 @@ from textual.containers import Container
 from textual.reactive import reactive
 from textual.events import Click
 from betza_parser import BetzaParser
+from textual_fspicker import FileOpen
+from variant_ini_parser import VariantIniParser
 
 
 class PieceListItem(ListItem):
@@ -31,7 +33,10 @@ LEGEND_TEXT = "m: Move | x: Capture | X: Move/Capture | ♙: Blocker | H: Captur
 
 class BetzaChessApp(App):
     CSS_PATH = "style.tcss"
-    BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
+    BINDINGS = [
+        ("d", "toggle_dark", "Toggle dark mode"),
+        ("ctrl+l", "load_variants", "Load Variants"),
+    ]
 
     board_size = reactive(DEFAULT_BOARD_SIZE)
     moves = reactive([])
@@ -61,34 +66,41 @@ class BetzaChessApp(App):
 
     def on_mount(self) -> None:
         self.parser = BetzaParser()
+        with open("fsf_built_in_variants_catalog.json", "r") as f:
+            self.fsf_catalog = json.load(f)
+        self.piece_catalog = []
         self.query_one("#board").update(self.render_board())
         self.query_one(Input).focus()
         self.populate_variant_select()
         self.populate_piece_list()
 
+    async def action_load_variants(self) -> None:
+        """Load a variants.ini file."""
+        path = await self.push_screen_wait(FileOpen())
+        if path:
+            try:
+                with open(path, "r") as f:
+                    ini_content = f.read()
+                ini_parser = VariantIniParser(ini_content, self.fsf_catalog)
+                ini_pieces = ini_parser.parse()
+                self.piece_catalog = self.fsf_catalog + ini_pieces
+                self.populate_variant_select()
+                self.populate_piece_list()
+            except Exception as e:
+                self.log(f"Error loading variants file: {e}")
+
     def populate_variant_select(self) -> None:
-        with open("piece_catalog.json", "r") as f:
-            piece_catalog = json.load(f)
-        variants = set()
-        for p in piece_catalog:
-            for v in p["variant"].split(","):
-                variants.add(v.strip())
+        variants = set(p["variant"] for p in self.piece_catalog)
         variant_select = self.query_one("#variant_select", Select)
         variant_select.set_options([("All", "All")] + [(v, v) for v in sorted(list(variants))])
 
     def populate_piece_list(self, filter_variant: str = "All") -> None:
         list_view = self.query_one(ListView)
         list_view.clear()
-        with open("piece_catalog.json", "r") as f:
-            piece_catalog = json.load(f)
 
+        piece_catalog = self.piece_catalog
         if filter_variant != "All":
-            filtered_catalog = []
-            for p in piece_catalog:
-                variants = [v.strip() for v in p["variant"].split(",")]
-                if filter_variant in variants:
-                    filtered_catalog.append(p)
-            piece_catalog = filtered_catalog
+            piece_catalog = [p for p in self.piece_catalog if p["variant"] == filter_variant]
 
         for piece in piece_catalog:
             list_view.append(
@@ -242,15 +254,26 @@ class BetzaChessApp(App):
                 else:
                     # Adjacent-checking for oblique non-jumpers (e.g., nN, nZ)
                     is_valid = True
-                    block_x, block_y = 0, 0
-                    # For a move like (1, 2), the blocker is at (0, 1)
-                    # For a move like (2, 1), the blocker is at (1, 0)
-                    if abs(x) > abs(y):
-                        block_x = sign(x)
-                    elif abs(y) > abs(x):
-                        block_y = sign(y)
-                    if (block_x, block_y) in self.blockers:
-                        is_valid = False
+                    if abs(x) == 1 and abs(y) == 2 or abs(x) == 2 and abs(y) == 1: # nN
+                        block_x, block_y = 0, 0
+                        if abs(x) > abs(y):
+                            block_x = sign(x)
+                        elif abs(y) > abs(x):
+                            block_y = sign(y)
+                        if (block_x, block_y) in self.blockers:
+                            is_valid = False
+                    elif abs(x) == 2 and abs(y) == 3 or abs(x) == 3 and abs(y) == 2: # nZ
+                        path = []
+                        if abs(x) == 2:
+                            path.append((sign(x), 0))
+                            path.append((sign(x) * 2, sign(y)))
+                            path.append((sign(x) * 2, sign(y) * 2))
+                        else: # abs(y) == 2
+                            path.append((0, sign(y)))
+                            path.append((sign(x), sign(y) * 2))
+                            path.append((sign(x) * 2, sign(y) * 2))
+                        if any(p in self.blockers for p in path):
+                            is_valid = False
             else:
                 is_valid = True
                 dx, dy = sign(x), sign(y)

@@ -27,7 +27,7 @@ class CppParser:
             self.piece_defs[enum] = {'name': name, 'betza': betza}
 
         if 'add(JANGGI_ELEPHANT, janggi_elephant_piece());' in piece_cpp_content:
-            self.piece_defs['JANGGI_ELEPHANT'] = {'name': 'janggiElephant', 'betza': 'mafsmafW'}
+            self.piece_defs['JANGGI_ELEPHANT'] = {'name': 'janggiElephant', 'betza': 'nZ'}
 
         # Manually add aliases with their correct names, but copying the betza string.
         fers_betza = self.piece_defs.get('FERS', {}).get('betza')
