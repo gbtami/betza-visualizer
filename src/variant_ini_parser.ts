@@ -1,4 +1,4 @@
-import { Piece } from './types';
+import { Piece } from './types.js';
 
 // A simple INI parser that is sufficient for the variants.ini format.
 // It supports sections, key-value pairs, and comments starting with # or ;.
@@ -119,7 +119,7 @@ export class VariantIniParser {
 
       for (const key in settings) {
         const value = settings[key];
-        if (!value || value.trim() === '-') {
+        if (!value || value.trim() === '-' || key === 'promotedPieceType') {
           continue;
         }
 

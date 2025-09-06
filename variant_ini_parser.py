@@ -70,7 +70,7 @@ class VariantIniParser:
 
             # Handle additions/modifications
             for key, value in settings.items():
-                if not value or value.strip() == '-':
+                if not value or value.strip() == '-' or key == "promotedPieceType":
                     continue
 
                 if ':' in value:

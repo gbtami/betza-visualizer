@@ -57,9 +57,9 @@ class CppParser:
             reset_pieces = 'v->reset_pieces();' in body
             removals = re.findall(r'v->remove_piece\((\w+)\);', body)
             additions = []
-            add_pattern = re.compile(r'v->add_piece\((\w+),\s*\'(\w)\'(?:,\s*"([^"]*)")?\);')
+            add_pattern = re.compile(r'v->add_piece\((\w+),\s*\'(\w)\'(?:,\s*[\'"]([^"\']*)[\'"])?\);')
             for add_match in add_pattern.finditer(body):
-                additions.append({ 'enum': add_match.group(1), 'char': add_match.group(2), 'betza': add_match.group(3) if add_match.group(3) else None })
+                additions.append({ 'enum': add_match.group(1), 'char': add_match.group(2), 'betza': add_match.group(3) if add_match.group(3) and add_match.group(1).startswith("CUSTOM_PIECE_") else None })
             self.raw_variant_defs[func_name] = { 'parent': parent, 'removals': removals, 'additions': additions, 'reset_pieces': reset_pieces }
 
         map_init_body_match = re.search(r'void\s+VariantMap::init\(\)\s*\{([\s\S]*?)\}', variant_cpp_content, re.DOTALL)

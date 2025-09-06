@@ -1,5 +1,6 @@
 import math
 import json
+from textual import work
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
 from textual.containers import Container
@@ -68,12 +69,13 @@ class BetzaChessApp(App):
         self.parser = BetzaParser()
         with open("fsf_built_in_variants_catalog.json", "r") as f:
             self.fsf_catalog = json.load(f)
-        self.piece_catalog = []
+        self.piece_catalog = self.fsf_catalog
         self.query_one("#board").update(self.render_board())
         self.query_one(Input).focus()
         self.populate_variant_select()
         self.populate_piece_list()
 
+    @work
     async def action_load_variants(self) -> None:
         """Load a variants.ini file."""
         path = await self.push_screen_wait(FileOpen())

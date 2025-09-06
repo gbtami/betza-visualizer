@@ -58,33 +58,8 @@ class TestFsfBuiltInVariantsCatalog(unittest.TestCase):
 
         expected_pieces = {
             'Shogi Pawn', 'Lance', 'Shogi Knight', 'Silver', 'Gold', 'Bishop',
-            'Rook', 'King', 'Dragon Horse', 'Bers' # Bers is promoted Rook (Dragon)
+            'Rook', 'King', 'Dragon Horse', 'Dragon'
         }
-
-        # Bers is named Dragon in piece.cpp, my parser names it Bers. Let's check piece.cpp
-        # add(BERS, from_betza("RF", "bers"));
-        # add(DRAGON, from_betza("RF", "dragon")); -> No, there is no DRAGON enum with from_betza.
-        # minishogi_variant_base has: v->add_piece(DRAGON, 'd');
-        # piece.cpp has: add(DRAGON_HORSE, from_betza("BW", "dragonHorse"));
-        # It seems my parser has an issue with DRAGON.
-        # Let's check my parser's alias logic
-        # self.piece_defs['DRAGON'] = self.piece_defs.get('BERS', {})
-        # This is the cause. The name is "bers" from piece.cpp
-
-        # Let's adjust the test for now. I will fix the parser later if needed.
-        # The goal is to test the generated file.
-
-        # Let's check the generated file again for shogi
-        # { "name": "Bers", "variant": "shogi", "betza": "RF" }, -> This is the promoted Rook (Dragon)
-        # { "name": "Bishop", "variant": "shogi", "betza": "B" },
-        # { "name": "Dragon Horse", "variant": "shogi", "betza": "BW" }, -> Promoted Bishop
-        # { "name": "Gold", "variant": "shogi", "betza": "WfF" },
-        # { "name": "King", "variant": "shogi", "betza": "K" },
-        # { "name": "Lance", "variant": "shogi", "betza": "fR" },
-        # { "name": "Rook", "variant": "shogi", "betza": "R" },
-        # { "name": "Shogi Knight", "variant": "shogi", "betza": "fN" },
-        # { "name": "Shogi Pawn", "variant": "shogi", "betza": "fW" },
-        # { "name": "Silver", "variant": "shogi", "betza": "FfW" }
 
         self.assertEqual(len(pieces), 10)
         self.assertEqual(piece_names, expected_pieces)

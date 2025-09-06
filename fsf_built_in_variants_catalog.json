@@ -1550,9 +1550,19 @@
     "betza": "mK"
   },
   {
+    "name": "Horse",
+    "variant": "janggi",
+    "betza": "nN"
+  },
+  {
     "name": "Janggi Cannon",
     "variant": "janggi",
     "betza": "pR"
+  },
+  {
+    "name": "Janggi Elephant",
+    "variant": "janggi",
+    "betza": "nZ"
   },
   {
     "name": "King",
@@ -1575,9 +1585,19 @@
     "betza": "W"
   },
   {
+    "name": "Horse",
+    "variant": "janggicasual",
+    "betza": "nN"
+  },
+  {
     "name": "Janggi Cannon",
     "variant": "janggicasual",
     "betza": "pR"
+  },
+  {
+    "name": "Janggi Elephant",
+    "variant": "janggicasual",
+    "betza": "nZ"
   },
   {
     "name": "King",
@@ -1600,9 +1620,19 @@
     "betza": "W"
   },
   {
+    "name": "Horse",
+    "variant": "janggimodern",
+    "betza": "nN"
+  },
+  {
     "name": "Janggi Cannon",
     "variant": "janggimodern",
     "betza": "pR"
+  },
+  {
+    "name": "Janggi Elephant",
+    "variant": "janggimodern",
+    "betza": "nZ"
   },
   {
     "name": "King",
@@ -1623,11 +1653,21 @@
     "name": "Wazir",
     "variant": "janggimodern",
     "betza": "W"
+  },
+  {
+    "name": "Horse",
+    "variant": "janggitraditional",
+    "betza": "nN"
   },
   {
     "name": "Janggi Cannon",
     "variant": "janggitraditional",
     "betza": "pR"
+  },
+  {
+    "name": "Janggi Elephant",
+    "variant": "janggitraditional",
+    "betza": "nZ"
   },
   {
     "name": "King",
@@ -2125,9 +2165,19 @@
     "betza": "mRcpR"
   },
   {
+    "name": "Elephant",
+    "variant": "manchu",
+    "betza": "nA"
+  },
+  {
     "name": "Fers",
     "variant": "manchu",
     "betza": "F"
+  },
+  {
+    "name": "Horse",
+    "variant": "manchu",
+    "betza": "nN"
   },
   {
     "name": "King",
@@ -2278,6 +2328,11 @@
     "name": "Cannon",
     "variant": "minixiangqi",
     "betza": "mRcpR"
+  },
+  {
+    "name": "Horse",
+    "variant": "minixiangqi",
+    "betza": "nN"
   },
   {
     "name": "King",
@@ -3355,9 +3410,19 @@
     "betza": "mRcpR"
   },
   {
+    "name": "Elephant",
+    "variant": "supply",
+    "betza": "nA"
+  },
+  {
     "name": "Fers",
     "variant": "supply",
     "betza": "F"
+  },
+  {
+    "name": "Horse",
+    "variant": "supply",
+    "betza": "nN"
   },
   {
     "name": "King",
@@ -3615,9 +3680,19 @@
     "betza": "mRcpR"
   },
   {
+    "name": "Elephant",
+    "variant": "xiangqi",
+    "betza": "nA"
+  },
+  {
     "name": "Fers",
     "variant": "xiangqi",
     "betza": "F"
+  },
+  {
+    "name": "Horse",
+    "variant": "xiangqi",
+    "betza": "nN"
   },
   {
     "name": "King",
