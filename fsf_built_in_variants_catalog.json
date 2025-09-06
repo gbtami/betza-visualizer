@@ -1,0 +1,3677 @@
+[
+  {
+    "name": "Bishop",
+    "variant": "3check",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "3check",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "3check",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "3check",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "3check",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "3check",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "5check",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "5check",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "5check",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "5check",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "5check",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "5check",
+    "betza": "R"
+  },
+  {
+    "name": "Aiwok",
+    "variant": "ai-wok",
+    "betza": "RNF"
+  },
+  {
+    "name": "Khon",
+    "variant": "ai-wok",
+    "betza": "FfW"
+  },
+  {
+    "name": "King",
+    "variant": "ai-wok",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "ai-wok",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "ai-wok",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "ai-wok",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "almost",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "almost",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "almost",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "almost",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "almost",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "almost",
+    "betza": "R"
+  },
+  {
+    "name": "Amazon",
+    "variant": "amazon",
+    "betza": "QN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "amazon",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "amazon",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "amazon",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "amazon",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "amazon",
+    "betza": "R"
+  },
+  {
+    "name": "Amazons Queen",
+    "variant": "amazons",
+    "betza": "mQ"
+  },
+  {
+    "name": "Bishop",
+    "variant": "antichess",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "antichess",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "antichess",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "antichess",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "antichess",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "antichess",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "armageddon",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "armageddon",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "armageddon",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "armageddon",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "armageddon",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "armageddon",
+    "betza": "R"
+  },
+  {
+    "name": "Khon",
+    "variant": "asean",
+    "betza": "FfW"
+  },
+  {
+    "name": "King",
+    "variant": "asean",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "asean",
+    "betza": "N"
+  },
+  {
+    "name": "Met",
+    "variant": "asean",
+    "betza": "F"
+  },
+  {
+    "name": "Pawn",
+    "variant": "asean",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "asean",
+    "betza": "R"
+  },
+  {
+    "name": "Ataxx Pawn",
+    "variant": "ataxx",
+    "betza": "mDmNmA"
+  },
+  {
+    "name": "Bishop",
+    "variant": "atomar",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "atomar",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "atomar",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "atomar",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "atomar",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "atomar",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "atomic",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "atomic",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "atomic",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "atomic",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "atomic",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "atomic",
+    "betza": "R"
+  },
+  {
+    "name": "Berolina Pawn",
+    "variant": "berolina",
+    "betza": "mfFcfeWimfnA"
+  },
+  {
+    "name": "Bishop",
+    "variant": "berolina",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "berolina",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "berolina",
+    "betza": "N"
+  },
+  {
+    "name": "Queen",
+    "variant": "berolina",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "berolina",
+    "betza": "R"
+  },
+  {
+    "name": "Breakthrough",
+    "variant": "breakthrough",
+    "betza": "fmWfF"
+  },
+  {
+    "name": "Bishop",
+    "variant": "bughouse",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "bughouse",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "bughouse",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "bughouse",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "bughouse",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "bughouse",
+    "betza": "R"
+  },
+  {
+    "name": "Khon",
+    "variant": "cambodian",
+    "betza": "FfW"
+  },
+  {
+    "name": "King",
+    "variant": "cambodian",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "cambodian",
+    "betza": "N"
+  },
+  {
+    "name": "Met",
+    "variant": "cambodian",
+    "betza": "F"
+  },
+  {
+    "name": "Pawn",
+    "variant": "cambodian",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "cambodian",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "capablanca",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "capablanca",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "capablanca",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "capablanca",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "capablanca",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "capablanca",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "capablanca",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "capablanca",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "capahouse",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "capahouse",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "capahouse",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "capahouse",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "capahouse",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "capahouse",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "capahouse",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "capahouse",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "caparandom",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "caparandom",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "caparandom",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "caparandom",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "caparandom",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "caparandom",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "caparandom",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "caparandom",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "centaur",
+    "betza": "B"
+  },
+  {
+    "name": "Centaur",
+    "variant": "centaur",
+    "betza": "KN"
+  },
+  {
+    "name": "King",
+    "variant": "centaur",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "centaur",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "centaur",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "centaur",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "centaur",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "chancellor",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "chancellor",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "chancellor",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "chancellor",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "chancellor",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "chancellor",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "chancellor",
+    "betza": "R"
+  },
+  {
+    "name": "Alfil",
+    "variant": "chaturanga",
+    "betza": "A"
+  },
+  {
+    "name": "Fers",
+    "variant": "chaturanga",
+    "betza": "F"
+  },
+  {
+    "name": "King",
+    "variant": "chaturanga",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "chaturanga",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "chaturanga",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "chaturanga",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "checkshogi",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "checkshogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "checkshogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "checkshogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "checkshogi",
+    "betza": "K"
+  },
+  {
+    "name": "Lance",
+    "variant": "checkshogi",
+    "betza": "fR"
+  },
+  {
+    "name": "Rook",
+    "variant": "checkshogi",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Knight",
+    "variant": "checkshogi",
+    "betza": "fN"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "checkshogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "checkshogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "chess",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "chess",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "chess",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "chess",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "chess",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "chess",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "chessgi",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "chessgi",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "chessgi",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "chessgi",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "chessgi",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "chessgi",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "chigorin",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "chigorin",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "chigorin",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "chigorin",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "chigorin",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "chigorin",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "chigorin",
+    "betza": "R"
+  },
+  {
+    "name": "Clobber",
+    "variant": "clobber",
+    "betza": "cW"
+  },
+  {
+    "name": "Clobber",
+    "variant": "clobber10",
+    "betza": "cW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "codrus",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "codrus",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "codrus",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "codrus",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "codrus",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "codrus",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "coregal",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "coregal",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "coregal",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "coregal",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "coregal",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "coregal",
+    "betza": "R"
+  },
+  {
+    "name": "Alfil",
+    "variant": "courier",
+    "betza": "A"
+  },
+  {
+    "name": "Bishop",
+    "variant": "courier",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "courier",
+    "betza": "K"
+  },
+  {
+    "name": "Fers",
+    "variant": "courier",
+    "betza": "F"
+  },
+  {
+    "name": "King",
+    "variant": "courier",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "courier",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "courier",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "courier",
+    "betza": "R"
+  },
+  {
+    "name": "Wazir",
+    "variant": "courier",
+    "betza": "W"
+  },
+  {
+    "name": "Bishop",
+    "variant": "crazyhouse",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "crazyhouse",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "crazyhouse",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "crazyhouse",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "crazyhouse",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "crazyhouse",
+    "betza": "R"
+  },
+  {
+    "name": "Fers",
+    "variant": "dobutsu",
+    "betza": "F"
+  },
+  {
+    "name": "Gold",
+    "variant": "dobutsu",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "dobutsu",
+    "betza": "K"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "dobutsu",
+    "betza": "fW"
+  },
+  {
+    "name": "Wazir",
+    "variant": "dobutsu",
+    "betza": "W"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "dragon",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "dragon",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "dragon",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "dragon",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "dragon",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "dragon",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "dragon",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "duck",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "duck",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "duck",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "duck",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "duck",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "duck",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "embassy",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "embassy",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "embassy",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "embassy",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "embassy",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "embassy",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "embassy",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "embassy",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "euroshogi",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "euroshogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "euroshogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Euroshogi Knight",
+    "variant": "euroshogi",
+    "betza": "fNsW"
+  },
+  {
+    "name": "Gold",
+    "variant": "euroshogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "euroshogi",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "euroshogi",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "euroshogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "euroshogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "extinction",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "extinction",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "extinction",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "extinction",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "extinction",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "extinction",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "fairy",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "fairy",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "fairy",
+    "betza": "RN"
+  },
+  {
+    "name": "Commoner",
+    "variant": "fairy",
+    "betza": "K"
+  },
+  {
+    "name": "Fers",
+    "variant": "fairy",
+    "betza": "F"
+  },
+  {
+    "name": "King",
+    "variant": "fairy",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "fairy",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "fairy",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "fairy",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "fairy",
+    "betza": "R"
+  },
+  {
+    "name": "Silver",
+    "variant": "fairy",
+    "betza": "FfW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "fischerandom",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "fischerandom",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "fischerandom",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "fischerandom",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "fischerandom",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "fischerandom",
+    "betza": "R"
+  },
+  {
+    "name": "Immobile",
+    "variant": "flipello",
+    "betza": ""
+  },
+  {
+    "name": "Immobile",
+    "variant": "flipello10",
+    "betza": ""
+  },
+  {
+    "name": "Immobile",
+    "variant": "flipersi",
+    "betza": ""
+  },
+  {
+    "name": "Fox And Hounds Fers",
+    "variant": "fox-and-hounds",
+    "betza": "mF"
+  },
+  {
+    "name": "Fox And Hounds Horse",
+    "variant": "fox-and-hounds",
+    "betza": "mfF"
+  },
+  {
+    "name": "Bishop",
+    "variant": "gardner",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "gardner",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "gardner",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "gardner",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "gardner",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "gardner",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "giveaway",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "giveaway",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "giveaway",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "giveaway",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "giveaway",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "giveaway",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "gorogoro",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "gorogoro",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "gorogoro",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "gorogoro",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "gorogoro",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "gorogoro",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "gorogoro",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "gorogoro",
+    "betza": "FfW"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "gothic",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "gothic",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "gothic",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "gothic",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "gothic",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "gothic",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "gothic",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "gothic",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "grand",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "grand",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "grand",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "grand",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "grand",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "grand",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "grand",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "grand",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "grasshopper",
+    "betza": "B"
+  },
+  {
+    "name": "Grasshopper Gold",
+    "variant": "grasshopper",
+    "betza": "gQ"
+  },
+  {
+    "name": "King",
+    "variant": "grasshopper",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "grasshopper",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "grasshopper",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "grasshopper",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "grasshopper",
+    "betza": "R"
+  },
+  {
+    "name": "Amazon",
+    "variant": "gustav3",
+    "betza": "QN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "gustav3",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "gustav3",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "gustav3",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "gustav3",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "gustav3",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "gustav3",
+    "betza": "R"
+  },
+  {
+    "name": "Biskni",
+    "variant": "hoppelpoppel",
+    "betza": "mBcN"
+  },
+  {
+    "name": "King",
+    "variant": "hoppelpoppel",
+    "betza": "K"
+  },
+  {
+    "name": "Knibis",
+    "variant": "hoppelpoppel",
+    "betza": "mNcB"
+  },
+  {
+    "name": "Pawn",
+    "variant": "hoppelpoppel",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "hoppelpoppel",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "hoppelpoppel",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "horde",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "horde",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "horde",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "horde",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "horde",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "horde",
+    "betza": "R"
+  },
+  {
+    "name": "Isolation Pawn",
+    "variant": "isolation",
+    "betza": "mK"
+  },
+  {
+    "name": "Isolation Pawn",
+    "variant": "isolation7x7",
+    "betza": "mK"
+  },
+  {
+    "name": "Janggi Cannon",
+    "variant": "janggi",
+    "betza": "pR"
+  },
+  {
+    "name": "King",
+    "variant": "janggi",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "janggi",
+    "betza": "R"
+  },
+  {
+    "name": "Soldier",
+    "variant": "janggi",
+    "betza": "fsW"
+  },
+  {
+    "name": "Wazir",
+    "variant": "janggi",
+    "betza": "W"
+  },
+  {
+    "name": "Janggi Cannon",
+    "variant": "janggicasual",
+    "betza": "pR"
+  },
+  {
+    "name": "King",
+    "variant": "janggicasual",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "janggicasual",
+    "betza": "R"
+  },
+  {
+    "name": "Soldier",
+    "variant": "janggicasual",
+    "betza": "fsW"
+  },
+  {
+    "name": "Wazir",
+    "variant": "janggicasual",
+    "betza": "W"
+  },
+  {
+    "name": "Janggi Cannon",
+    "variant": "janggimodern",
+    "betza": "pR"
+  },
+  {
+    "name": "King",
+    "variant": "janggimodern",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "janggimodern",
+    "betza": "R"
+  },
+  {
+    "name": "Soldier",
+    "variant": "janggimodern",
+    "betza": "fsW"
+  },
+  {
+    "name": "Wazir",
+    "variant": "janggimodern",
+    "betza": "W"
+  },
+  {
+    "name": "Janggi Cannon",
+    "variant": "janggitraditional",
+    "betza": "pR"
+  },
+  {
+    "name": "King",
+    "variant": "janggitraditional",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "janggitraditional",
+    "betza": "R"
+  },
+  {
+    "name": "Soldier",
+    "variant": "janggitraditional",
+    "betza": "fsW"
+  },
+  {
+    "name": "Wazir",
+    "variant": "janggitraditional",
+    "betza": "W"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "janus",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "janus",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "janus",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "janus",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "janus",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "janus",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "janus",
+    "betza": "R"
+  },
+  {
+    "name": "Knight",
+    "variant": "jesonmor",
+    "betza": "N"
+  },
+  {
+    "name": "Joust Knight",
+    "variant": "joust",
+    "betza": "mN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "judkins",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "judkins",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "judkins",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "judkins",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "judkins",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "judkins",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Knight",
+    "variant": "judkins",
+    "betza": "fN"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "judkins",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "judkins",
+    "betza": "FfW"
+  },
+  {
+    "name": "Khon",
+    "variant": "karouk",
+    "betza": "FfW"
+  },
+  {
+    "name": "King",
+    "variant": "karouk",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "karouk",
+    "betza": "N"
+  },
+  {
+    "name": "Met",
+    "variant": "karouk",
+    "betza": "F"
+  },
+  {
+    "name": "Pawn",
+    "variant": "karouk",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "karouk",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "kinglet",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "kinglet",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "kinglet",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "kinglet",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "kinglet",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "kinglet",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "kingofthehill",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "kingofthehill",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "kingofthehill",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "kingofthehill",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "kingofthehill",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "kingofthehill",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "knightmate",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "knightmate",
+    "betza": "K"
+  },
+  {
+    "name": "King",
+    "variant": "knightmate",
+    "betza": "K"
+  },
+  {
+    "name": "Pawn",
+    "variant": "knightmate",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "knightmate",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "knightmate",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "koedem",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "koedem",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "koedem",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "koedem",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "koedem",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "koedem",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "kyotoshogi",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "kyotoshogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "kyotoshogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "kyotoshogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "kyotoshogi",
+    "betza": "K"
+  },
+  {
+    "name": "Lance",
+    "variant": "kyotoshogi",
+    "betza": "fR"
+  },
+  {
+    "name": "Rook",
+    "variant": "kyotoshogi",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Knight",
+    "variant": "kyotoshogi",
+    "betza": "fN"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "kyotoshogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "kyotoshogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "legan",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "legan",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "legan",
+    "betza": "N"
+  },
+  {
+    "name": "Legan Pawn",
+    "variant": "legan",
+    "betza": "mflFcflW"
+  },
+  {
+    "name": "Queen",
+    "variant": "legan",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "legan",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "loop",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "loop",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "loop",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "loop",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "loop",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "loop",
+    "betza": "R"
+  },
+  {
+    "name": "King",
+    "variant": "losalamos",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "losalamos",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "losalamos",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "losalamos",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "losalamos",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "losers",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "losers",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "losers",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "losers",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "losers",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "losers",
+    "betza": "R"
+  },
+  {
+    "name": "Khon",
+    "variant": "makpong",
+    "betza": "FfW"
+  },
+  {
+    "name": "King",
+    "variant": "makpong",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "makpong",
+    "betza": "N"
+  },
+  {
+    "name": "Met",
+    "variant": "makpong",
+    "betza": "F"
+  },
+  {
+    "name": "Pawn",
+    "variant": "makpong",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "makpong",
+    "betza": "R"
+  },
+  {
+    "name": "Khon",
+    "variant": "makruk",
+    "betza": "FfW"
+  },
+  {
+    "name": "King",
+    "variant": "makruk",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "makruk",
+    "betza": "N"
+  },
+  {
+    "name": "Met",
+    "variant": "makruk",
+    "betza": "F"
+  },
+  {
+    "name": "Pawn",
+    "variant": "makruk",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "makruk",
+    "betza": "R"
+  },
+  {
+    "name": "Banner",
+    "variant": "manchu",
+    "betza": "RcpRnN"
+  },
+  {
+    "name": "Cannon",
+    "variant": "manchu",
+    "betza": "mRcpR"
+  },
+  {
+    "name": "Fers",
+    "variant": "manchu",
+    "betza": "F"
+  },
+  {
+    "name": "King",
+    "variant": "manchu",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "manchu",
+    "betza": "R"
+  },
+  {
+    "name": "Soldier",
+    "variant": "manchu",
+    "betza": "fsW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "micro",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "micro",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "micro",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "micro",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "micro",
+    "betza": "K"
+  },
+  {
+    "name": "Lance",
+    "variant": "micro",
+    "betza": "fR"
+  },
+  {
+    "name": "Rook",
+    "variant": "micro",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Knight",
+    "variant": "micro",
+    "betza": "fN"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "micro",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "micro",
+    "betza": "FfW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "mini",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "mini",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "mini",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "mini",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "mini",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "mini",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "mini",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "mini",
+    "betza": "FfW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "minishogi",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "minishogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "minishogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "minishogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "minishogi",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "minishogi",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "minishogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "minishogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Cannon",
+    "variant": "minixiangqi",
+    "betza": "mRcpR"
+  },
+  {
+    "name": "King",
+    "variant": "minixiangqi",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "minixiangqi",
+    "betza": "R"
+  },
+  {
+    "name": "Soldier",
+    "variant": "minixiangqi",
+    "betza": "fsW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "misere",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "misere",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "misere",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "misere",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "misere",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "misere",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "modern",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "modern",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "modern",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "modern",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "modern",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "modern",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "modern",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "newzealand",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "newzealand",
+    "betza": "K"
+  },
+  {
+    "name": "Kniroo",
+    "variant": "newzealand",
+    "betza": "mNcR"
+  },
+  {
+    "name": "Pawn",
+    "variant": "newzealand",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "newzealand",
+    "betza": "Q"
+  },
+  {
+    "name": "Rookni",
+    "variant": "newzealand",
+    "betza": "mRcN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "nightrider",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "nightrider",
+    "betza": "K"
+  },
+  {
+    "name": "Nightrider Knight",
+    "variant": "nightrider",
+    "betza": "NN"
+  },
+  {
+    "name": "Pawn",
+    "variant": "nightrider",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "nightrider",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "nightrider",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "nocastle",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "nocastle",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "nocastle",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "nocastle",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "nocastle",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "nocastle",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "nocheckatomic",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "nocheckatomic",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "nocheckatomic",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "nocheckatomic",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "nocheckatomic",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "nocheckatomic",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "normal",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "normal",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "normal",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "normal",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "normal",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "normal",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "okisakishogi",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "okisakishogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "okisakishogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "okisakishogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "okisakishogi",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "okisakishogi",
+    "betza": "N"
+  },
+  {
+    "name": "Okisakishogi Lance",
+    "variant": "okisakishogi",
+    "betza": "vR"
+  },
+  {
+    "name": "Queen",
+    "variant": "okisakishogi",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "okisakishogi",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "okisakishogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "okisakishogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "omicron",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "omicron",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "omicron",
+    "betza": "N"
+  },
+  {
+    "name": "Omicron Chancellor",
+    "variant": "omicron",
+    "betza": "DAW"
+  },
+  {
+    "name": "Omicron Wazir",
+    "variant": "omicron",
+    "betza": "CF"
+  },
+  {
+    "name": "Pawn",
+    "variant": "omicron",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "omicron",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "omicron",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "opulent",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "opulent",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "opulent",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "opulent",
+    "betza": "K"
+  },
+  {
+    "name": "Opulent Knight",
+    "variant": "opulent",
+    "betza": "NW"
+  },
+  {
+    "name": "Opulent Lance",
+    "variant": "opulent",
+    "betza": "FDH"
+  },
+  {
+    "name": "Opulent Wazir",
+    "variant": "opulent",
+    "betza": "CF"
+  },
+  {
+    "name": "Pawn",
+    "variant": "opulent",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "opulent",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "opulent",
+    "betza": "R"
+  },
+  {
+    "name": "King",
+    "variant": "paradigm",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "paradigm",
+    "betza": "N"
+  },
+  {
+    "name": "Paradigm Bishop",
+    "variant": "paradigm",
+    "betza": "BnN"
+  },
+  {
+    "name": "Pawn",
+    "variant": "paradigm",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "paradigm",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "paradigm",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "pawnback",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "pawnback",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "pawnback",
+    "betza": "N"
+  },
+  {
+    "name": "Pawnback Pawn",
+    "variant": "pawnback",
+    "betza": "fbmWfceFifmnD"
+  },
+  {
+    "name": "Queen",
+    "variant": "pawnback",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "pawnback",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "pawnsideways",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "pawnsideways",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "pawnsideways",
+    "betza": "N"
+  },
+  {
+    "name": "Pawnsideways Pawn",
+    "variant": "pawnsideways",
+    "betza": "fsmWfceFifmnD"
+  },
+  {
+    "name": "Queen",
+    "variant": "pawnsideways",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "pawnsideways",
+    "betza": "R"
+  },
+  {
+    "name": "Amazon",
+    "variant": "perfect",
+    "betza": "QN"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "perfect",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "perfect",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "perfect",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "perfect",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "perfect",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "perfect",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "perfect",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "perfect",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "petrified",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "petrified",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "petrified",
+    "betza": "N"
+  },
+  {
+    "name": "Pawnsideways Pawn",
+    "variant": "petrified",
+    "betza": "fsmWfceFifmnD"
+  },
+  {
+    "name": "Queen",
+    "variant": "petrified",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "petrified",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "placement",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "placement",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "placement",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "placement",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "placement",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "placement",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "pocketknight",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "pocketknight",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "pocketknight",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "pocketknight",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "pocketknight",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "pocketknight",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "raazuvaa",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "raazuvaa",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "raazuvaa",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "raazuvaa",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "raazuvaa",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "raazuvaa",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "racingkings",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "racingkings",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "racingkings",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "racingkings",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "racingkings",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "racingkings",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "seirawan",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "seirawan",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "seirawan",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "seirawan",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "seirawan",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "seirawan",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "seirawan",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "seirawan",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "shako",
+    "betza": "B"
+  },
+  {
+    "name": "Cannon",
+    "variant": "shako",
+    "betza": "mRcpR"
+  },
+  {
+    "name": "Fers Alfil",
+    "variant": "shako",
+    "betza": "FA"
+  },
+  {
+    "name": "King",
+    "variant": "shako",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "shako",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "shako",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "shako",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "shako",
+    "betza": "R"
+  },
+  {
+    "name": "Bers",
+    "variant": "shatar",
+    "betza": "RF"
+  },
+  {
+    "name": "Bishop",
+    "variant": "shatar",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "shatar",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "shatar",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "shatar",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "shatar",
+    "betza": "R"
+  },
+  {
+    "name": "Alfil",
+    "variant": "shatranj",
+    "betza": "A"
+  },
+  {
+    "name": "Fers",
+    "variant": "shatranj",
+    "betza": "F"
+  },
+  {
+    "name": "King",
+    "variant": "shatranj",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "shatranj",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "shatranj",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "shatranj",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "shogi",
+    "betza": "B"
+  },
+  {
+    "name": "Dragon",
+    "variant": "shogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "shogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "shogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "King",
+    "variant": "shogi",
+    "betza": "K"
+  },
+  {
+    "name": "Lance",
+    "variant": "shogi",
+    "betza": "fR"
+  },
+  {
+    "name": "Rook",
+    "variant": "shogi",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Knight",
+    "variant": "shogi",
+    "betza": "fN"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "shogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Silver",
+    "variant": "shogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "shoshogi",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "shoshogi",
+    "betza": "K"
+  },
+  {
+    "name": "Dragon",
+    "variant": "shoshogi",
+    "betza": "RF"
+  },
+  {
+    "name": "Dragon Horse",
+    "variant": "shoshogi",
+    "betza": "BW"
+  },
+  {
+    "name": "Gold",
+    "variant": "shoshogi",
+    "betza": "WfF"
+  },
+  {
+    "name": "Lance",
+    "variant": "shoshogi",
+    "betza": "fR"
+  },
+  {
+    "name": "Rook",
+    "variant": "shoshogi",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Knight",
+    "variant": "shoshogi",
+    "betza": "fN"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "shoshogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Shoshogi Elephant",
+    "variant": "shoshogi",
+    "betza": "FsfW"
+  },
+  {
+    "name": "Silver",
+    "variant": "shoshogi",
+    "betza": "FfW"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "shouse",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "shouse",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "shouse",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "shouse",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "shouse",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "shouse",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "shouse",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "shouse",
+    "betza": "R"
+  },
+  {
+    "name": "Khon",
+    "variant": "sittuyin",
+    "betza": "FfW"
+  },
+  {
+    "name": "King",
+    "variant": "sittuyin",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "sittuyin",
+    "betza": "N"
+  },
+  {
+    "name": "Met",
+    "variant": "sittuyin",
+    "betza": "F"
+  },
+  {
+    "name": "Pawn",
+    "variant": "sittuyin",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Rook",
+    "variant": "sittuyin",
+    "betza": "R"
+  },
+  {
+    "name": "Snailtrail Pawn",
+    "variant": "snailtrail",
+    "betza": "mK"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "sortofalmost",
+    "betza": "RN"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "spartan",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "spartan",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "spartan",
+    "betza": "K"
+  },
+  {
+    "name": "Dragon",
+    "variant": "spartan",
+    "betza": "RF"
+  },
+  {
+    "name": "Knight",
+    "variant": "spartan",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "spartan",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "spartan",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "spartan",
+    "betza": "R"
+  },
+  {
+    "name": "Spartan Chancellor",
+    "variant": "spartan",
+    "betza": "WD"
+  },
+  {
+    "name": "Spartan Horse",
+    "variant": "spartan",
+    "betza": "fmFfcWimA"
+  },
+  {
+    "name": "Spartan Lance",
+    "variant": "spartan",
+    "betza": "FAsmW"
+  },
+  {
+    "name": "Bishop",
+    "variant": "suicide",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "suicide",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "suicide",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "suicide",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "suicide",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "suicide",
+    "betza": "R"
+  },
+  {
+    "name": "Cannon",
+    "variant": "supply",
+    "betza": "mRcpR"
+  },
+  {
+    "name": "Fers",
+    "variant": "supply",
+    "betza": "F"
+  },
+  {
+    "name": "King",
+    "variant": "supply",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "supply",
+    "betza": "R"
+  },
+  {
+    "name": "Soldier",
+    "variant": "supply",
+    "betza": "fsW"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "tencubed",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "tencubed",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "tencubed",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "tencubed",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "tencubed",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "tencubed",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "tencubed",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "tencubed",
+    "betza": "R"
+  },
+  {
+    "name": "Tencubed Chancellor",
+    "variant": "tencubed",
+    "betza": "DAW"
+  },
+  {
+    "name": "Tencubed Wazir",
+    "variant": "tencubed",
+    "betza": "CF"
+  },
+  {
+    "name": "Bishop",
+    "variant": "threekings",
+    "betza": "B"
+  },
+  {
+    "name": "Commoner",
+    "variant": "threekings",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "threekings",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "threekings",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "threekings",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "threekings",
+    "betza": "R"
+  },
+  {
+    "name": "King",
+    "variant": "torishogi",
+    "betza": "K"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "torishogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Torishogi Chancellor",
+    "variant": "torishogi",
+    "betza": "FvW"
+  },
+  {
+    "name": "Torishogi Elephant",
+    "variant": "torishogi",
+    "betza": "KbRfBbF2"
+  },
+  {
+    "name": "Torishogi Fers",
+    "variant": "torishogi",
+    "betza": "FsfW"
+  },
+  {
+    "name": "Torishogi Gold",
+    "variant": "torishogi",
+    "betza": "fAbD"
+  },
+  {
+    "name": "Torishogi Lance",
+    "variant": "torishogi",
+    "betza": "fRrbBlbF"
+  },
+  {
+    "name": "Torishogi Pawn",
+    "variant": "torishogi",
+    "betza": "bFfD"
+  },
+  {
+    "name": "Torishogi Rook",
+    "variant": "torishogi",
+    "betza": "fRlbBrbF"
+  },
+  {
+    "name": "Bishop",
+    "variant": "torpedo",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "torpedo",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "torpedo",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "torpedo",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "torpedo",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "torpedo",
+    "betza": "R"
+  },
+  {
+    "name": "Bishop",
+    "variant": "troitzky",
+    "betza": "B"
+  },
+  {
+    "name": "King",
+    "variant": "troitzky",
+    "betza": "K"
+  },
+  {
+    "name": "Knight",
+    "variant": "troitzky",
+    "betza": "N"
+  },
+  {
+    "name": "Pawn",
+    "variant": "troitzky",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "troitzky",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "troitzky",
+    "betza": "R"
+  },
+  {
+    "name": "Archbishop",
+    "variant": "wolf",
+    "betza": "BN"
+  },
+  {
+    "name": "Bishop",
+    "variant": "wolf",
+    "betza": "B"
+  },
+  {
+    "name": "Chancellor",
+    "variant": "wolf",
+    "betza": "RN"
+  },
+  {
+    "name": "King",
+    "variant": "wolf",
+    "betza": "K"
+  },
+  {
+    "name": "Pawn",
+    "variant": "wolf",
+    "betza": "fmWfceF"
+  },
+  {
+    "name": "Queen",
+    "variant": "wolf",
+    "betza": "Q"
+  },
+  {
+    "name": "Rook",
+    "variant": "wolf",
+    "betza": "R"
+  },
+  {
+    "name": "Wolf Elephant",
+    "variant": "wolf",
+    "betza": "NNQ"
+  },
+  {
+    "name": "Wolf Knight",
+    "variant": "wolf",
+    "betza": "NN"
+  },
+  {
+    "name": "Wolf Silver",
+    "variant": "wolf",
+    "betza": "fKifmnD"
+  },
+  {
+    "name": "Cannon",
+    "variant": "xiangqi",
+    "betza": "mRcpR"
+  },
+  {
+    "name": "Fers",
+    "variant": "xiangqi",
+    "betza": "F"
+  },
+  {
+    "name": "King",
+    "variant": "xiangqi",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "xiangqi",
+    "betza": "R"
+  },
+  {
+    "name": "Soldier",
+    "variant": "xiangqi",
+    "betza": "fsW"
+  },
+  {
+    "name": "King",
+    "variant": "yarishogi",
+    "betza": "K"
+  },
+  {
+    "name": "Rook",
+    "variant": "yarishogi",
+    "betza": "R"
+  },
+  {
+    "name": "Shogi Pawn",
+    "variant": "yarishogi",
+    "betza": "fW"
+  },
+  {
+    "name": "Yarishogi Bishop",
+    "variant": "yarishogi",
+    "betza": "fFfR"
+  },
+  {
+    "name": "Yarishogi Gold",
+    "variant": "yarishogi",
+    "betza": "WfFbR"
+  },
+  {
+    "name": "Yarishogi Knight",
+    "variant": "yarishogi",
+    "betza": "fRffN"
+  },
+  {
+    "name": "Yarishogi Rook",
+    "variant": "yarishogi",
+    "betza": "frlR"
+  },
+  {
+    "name": "Yarishogi Silver",
+    "variant": "yarishogi",
+    "betza": "fKbR"
+  }
+]

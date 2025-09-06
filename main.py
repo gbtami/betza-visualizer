@@ -1,10 +1,8 @@
 import math
 import json
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select, Button
+from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
 from textual.containers import Container
-from textual_fspicker import FileOpen
-from variant_ini_parser import VariantIniParser
 from textual.reactive import reactive
 from textual.events import Click
 from betza_parser import BetzaParser
@@ -56,7 +54,6 @@ class BetzaChessApp(App):
                 value=DEFAULT_BOARD_SIZE,
                 id="board_size_select",
             )
-            yield Button("Load variants.ini", id="load_button")
             yield ListView(id="piece_catalog_list")
             yield Static(id="board")
             yield Select([], id="variant_select")
@@ -66,14 +63,14 @@ class BetzaChessApp(App):
         self.parser = BetzaParser()
         self.query_one("#board").update(self.render_board())
         self.query_one(Input).focus()
-        with open("piece_catalog.json", "r") as f:
-            self.piece_catalog = json.load(f)
         self.populate_variant_select()
         self.populate_piece_list()
 
     def populate_variant_select(self) -> None:
+        with open("piece_catalog.json", "r") as f:
+            piece_catalog = json.load(f)
         variants = set()
-        for p in self.piece_catalog:
+        for p in piece_catalog:
             for v in p["variant"].split(","):
                 variants.add(v.strip())
         variant_select = self.query_one("#variant_select", Select)
@@ -82,8 +79,8 @@ class BetzaChessApp(App):
     def populate_piece_list(self, filter_variant: str = "All") -> None:
         list_view = self.query_one(ListView)
         list_view.clear()
-
-        piece_catalog = self.piece_catalog
+        with open("piece_catalog.json", "r") as f:
+            piece_catalog = json.load(f)
 
         if filter_variant != "All":
             filtered_catalog = []
@@ -119,31 +116,6 @@ class BetzaChessApp(App):
             self.query_one("#betza_input").value = ""
             self.blockers = set()
             self.populate_piece_list(str(event.value))
-
-    def on_button_pressed(self, event: Button.Pressed) -> None:
-        if event.button.id == "load_button":
-            self.app.push_screen(FileOpen(), self.on_file_open)
-
-    def on_file_open(self, path: str) -> None:
-        if path:
-            try:
-                with open(path, "r") as f:
-                    content = f.read()
-
-                parser = VariantIniParser(content)
-                new_pieces = parser.parse()
-
-                # Add new pieces to the catalog, avoiding duplicates
-                existing_piece_identifiers = {(p['name'], p['variant']) for p in self.piece_catalog}
-                for piece in new_pieces:
-                    if (piece['name'], piece['variant']) not in existing_piece_identifiers:
-                        self.piece_catalog.append(piece)
-
-                self.populate_variant_select()
-                self.populate_piece_list()
-            except Exception as e:
-                # TODO: Show a proper error dialog to the user
-                print(f"Error loading variants file: {e}")
 
     def on_click(self, event: Click) -> None:
         if event.button != 1:
