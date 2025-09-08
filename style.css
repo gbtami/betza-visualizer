@@ -11,34 +11,63 @@ h1 {
 #grid-container {
     display: grid;
     grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     gap: 10px;
     padding: 10px;
     max-width: 1200px;
     margin: 0 auto;
     grid-template-areas:
-        "left right";
+        "load-variants board-controls"
+        "catalog board"
+        "variant-select legend";
 }
 
-#left-column {
-    grid-area: left;
+.load-variants-container {
+    grid-area: load-variants;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 520px;
-}
-
-#right-column {
-    grid-area: right;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 .board-controls {
+    grid-area: board-controls;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+}
+
+#piece-catalog-container {
+    grid-area: catalog;
+    overflow-y: auto;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #444;
+    height: 520px;
+}
+
+#board-container {
+    grid-area: board;
+}
+
+#variant-select {
+    grid-area: variant-select;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: #eee;
+}
+
+#legend-container {
+    grid-area: legend;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
 }
 
 #betzaInput {
@@ -61,16 +90,6 @@ h1 {
     color: #eee;
 }
 
-#board-container {
-    flex-grow: 1;
-    min-height: 400px;
-}
-
-
-.load-variants-container {
-    display: flex;
-}
-
 #loadVariantsBtn {
     flex-grow: 1;
     padding: 8px;
@@ -84,16 +103,6 @@ h1 {
 
 #loadVariantsBtn:hover {
     background-color: #555;
-}
-
-#piece-catalog-container {
-    flex-grow: 1;
-    overflow-y: auto;
-    border: 1px solid #555;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #444;
-    min-height: 200px;
 }
 
 .piece-catalog-item {
@@ -113,25 +122,6 @@ h1 {
 .piece-catalog-item .variant {
     font-size: 0.9em;
     color: #ccc;
-}
-
-#variant-select {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #444;
-    color: #eee;
-}
-
-#legend-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
 }
 
 .legend-item {
