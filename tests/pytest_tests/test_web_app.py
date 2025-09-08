@@ -12,7 +12,7 @@ def test_xiangqi_elephant_empty_board(page: Page):
     page.goto("http://localhost:8080")
 
     # Select the Xiangqi Elephant from the catalog
-    page.locator("#left-column .piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Elephant", exact=True).click()
+    page.locator(".piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Elephant", exact=True).click()
 
     # Verify the input is updated
     expect(page.locator("#betzaInput")).to_have_value(XIANGQI_ELEPHANT_BETZA)
@@ -32,7 +32,7 @@ def test_xiangqi_elephant_blocked(page: Page):
     page.goto("http://localhost:8080")
 
     # Select the Xiangqi Elephant
-    page.locator("#left-column .piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Elephant", exact=True).click()
+    page.locator(".piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Elephant", exact=True).click()
     expect(page.locator("#betzaInput")).to_have_value(XIANGQI_ELEPHANT_BETZA)
 
     # Get board dimensions
@@ -68,7 +68,7 @@ def test_leaper_unblocked(page: Page):
     page.goto("http://localhost:8080")
 
     # Select the Knight from the catalog
-    page.locator("#left-column .piece-catalog-item", has=page.get_by_text("3check")).get_by_text("Knight", exact=True).click()
+    page.locator(".piece-catalog-item", has=page.get_by_text("3check")).get_by_text("Knight", exact=True).click()
 
     # Verify the input is updated
     expect(page.locator("#betzaInput")).to_have_value("N")
@@ -129,7 +129,7 @@ def test_xiangqi_cannon_two_blockers(page: Page):
     # Select the Cannon from the catalog. We need to find the one for Xiangqi.
     # There are two "Cannon" pieces, one for Xiangqi and one for Janggi (Korean).
     # We can identify it by looking for its parent that contains the variant name.
-    page.locator("#left-column .piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Cannon", exact=True).first.click()
+    page.locator(".piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Cannon", exact=True).first.click()
 
     # Get board dimensions
     board = page.locator("#board-container svg")
@@ -211,7 +211,7 @@ def test_variant_filter_3check(page: Page):
     variant_select = page.locator("#variant-select")
     variant_select.select_option("3check")
 
-    piece_catalog = page.locator("#left-column #piece-catalog-content")
+    piece_catalog = page.locator("#piece-catalog-content")
     expected_count = get_piece_count_for_variant("3check")
     expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(expected_count)
 
@@ -229,7 +229,7 @@ def test_variant_filter_all(page: Page):
     variant_select.select_option("3check")  # First filter
     variant_select.select_option("All")  # Then select all
 
-    piece_catalog = page.locator("#left-column #piece-catalog-content")
+    piece_catalog = page.locator("#piece-catalog-content")
     expected_count = get_piece_count_for_variant("All")
     expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(expected_count)
 
@@ -257,5 +257,5 @@ def test_load_variants_from_ini(page: Page):
 
     # Check that the piece catalog is updated correctly
     # The minishogi variant in the test file has 8 pieces.
-    piece_catalog = page.locator("#left-column #piece-catalog-content")
+    piece_catalog = page.locator("#piece-catalog-content")
     expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(8)
