@@ -1,6 +1,5 @@
 import { BetzaParser } from './betza_parser.js';
-import { VariantIniParser } from './variant_ini_parser.js';
-import { Move, Piece } from './types.js';
+import { Move } from './types.js';
 import {
   CELL_SIZE,
   SVG_NS,
@@ -17,12 +16,6 @@ const boardSizeSelect = document.getElementById(
 const variantSelect = document.getElementById(
   'variant-select'
 ) as HTMLSelectElement;
-const loadVariantsBtn = document.getElementById(
-  'loadVariantsBtn'
-) as HTMLButtonElement;
-const variantsFileInput = document.getElementById(
-  'variantsFileInput'
-) as HTMLInputElement;
 
 let boardSize = Number(boardSizeSelect.value);
 
@@ -322,33 +315,35 @@ function renderLegend() {
   legendContainer.appendChild(createLegendItem(hopIcon, 'Hop'));
 }
 
-function populateVariantFilter(
-  pieceCatalog: Piece[]
-) {
-  const variants = [
-    ...new Set(pieceCatalog.map((p) => p.variant).join(', ').split(', ')),
-  ].sort();
+async function populateVariantFilter() {
+  try {
+    const response = await fetch('/piece_catalog.json');
+    const pieceCatalog: { name: string; variant: string; betza: string }[] =
+      await response.json();
+    const variants = [
+      ...new Set(pieceCatalog.map((p) => p.variant).join(', ').split(', ')),
+    ].sort();
 
-  variantSelect.innerHTML = '';
-  const allOption = document.createElement('option');
-  allOption.value = 'All';
-  allOption.textContent = 'All';
-  variantSelect.appendChild(allOption);
+    variantSelect.innerHTML = '';
+    const allOption = document.createElement('option');
+    allOption.value = 'All';
+    allOption.textContent = 'All';
+    variantSelect.appendChild(allOption);
 
-  variants.forEach((variant) => {
-    if (variant) {
-      const option = document.createElement('option');
-      option.value = variant;
-      option.textContent = variant;
-      variantSelect.appendChild(option);
-    }
-  });
+    variants.forEach((variant) => {
+      if (variant) {
+        const option = document.createElement('option');
+        option.value = variant;
+        option.textContent = variant;
+        variantSelect.appendChild(option);
+      }
+    });
+  } catch (error) {
+    console.error('Error populating variant filter:', error);
+  }
 }
 
-function renderPieceCatalog(
-  pieceCatalog: Piece[],
-  filterVariant = 'All'
-) {
+async function renderPieceCatalog(filterVariant = 'All') {
   const catalogContainer = document.getElementById('piece-catalog-container')!;
   const catalogContent =
     document.getElementById('piece-catalog-content') ||
@@ -356,52 +351,50 @@ function renderPieceCatalog(
   catalogContent.id = 'piece-catalog-content';
   catalogContent.innerHTML = '';
 
-  const filteredPieces =
-    filterVariant === 'All'
-      ? pieceCatalog
-      : pieceCatalog.filter((p: { variant: string }) =>
-          p.variant
-            .split(', ')
-            .map((v) => v.trim())
-            .includes(filterVariant)
-        );
+  try {
+    const response = await fetch('/piece_catalog.json');
+    const pieceCatalog = await response.json();
 
-  filteredPieces.forEach(
-    (piece: { name: string; variant: string; betza: string }) => {
-      const item = document.createElement('div');
-      item.classList.add('piece-catalog-item');
-      item.dataset.betza = piece.betza;
+    const filteredPieces =
+      filterVariant === 'All'
+        ? pieceCatalog
+        : pieceCatalog.filter((p: { variant: string }) =>
+            p.variant.split(', ').map(v => v.trim()).includes(filterVariant)
+          );
 
-      const nameEl = document.createElement('div');
-      nameEl.classList.add('name');
-      nameEl.textContent = piece.name;
+    filteredPieces.forEach(
+      (piece: { name: string; variant: string; betza: string }) => {
+        const item = document.createElement('div');
+        item.classList.add('piece-catalog-item');
+        item.dataset.betza = piece.betza;
 
-      const variantEl = document.createElement('div');
-      variantEl.classList.add('variant');
-      variantEl.textContent = piece.variant;
+        const nameEl = document.createElement('div');
+        nameEl.classList.add('name');
+        nameEl.textContent = piece.name;
 
-      item.appendChild(nameEl);
-      item.appendChild(variantEl);
-      catalogContent.appendChild(item);
+        const variantEl = document.createElement('div');
+        variantEl.classList.add('variant');
+        variantEl.textContent = piece.variant;
+
+        item.appendChild(nameEl);
+        item.appendChild(variantEl);
+        catalogContent.appendChild(item);
+      }
+    );
+    if (!document.getElementById('piece-catalog-content')) {
+      catalogContainer.appendChild(catalogContent);
     }
-  );
-  if (!document.getElementById('piece-catalog-content')) {
-    catalogContainer.appendChild(catalogContent);
+  } catch (error) {
+    console.error('Error loading piece catalog:', error);
+    catalogContent.textContent = 'Error loading piece catalog.';
   }
 }
 
 async function initialize() {
-  let pieceCatalog: Piece[] = [];
   renderBoard([], blockers);
   renderLegend();
-  try {
-    const response = await fetch('/fsf_built_in_variants_catalog.json');
-    pieceCatalog = await response.json();
-    populateVariantFilter(pieceCatalog);
-    renderPieceCatalog(pieceCatalog);
-  } catch (error) {
-    console.error('Error loading piece catalog:', error);
-  }
+  await populateVariantFilter();
+  await renderPieceCatalog();
 
   inputEl.addEventListener('input', updateBoard);
   boardSizeSelect.addEventListener('change', () => {
@@ -414,35 +407,7 @@ async function initialize() {
     inputEl.value = '';
     blockers.clear();
     updateBoard();
-    renderPieceCatalog(pieceCatalog, variantSelect.value);
-  });
-
-  loadVariantsBtn.addEventListener('click', () => {
-    variantsFileInput.click();
-  });
-
-  variantsFileInput.addEventListener('change', (event) => {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) {
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const content = e.target?.result as string;
-      if (content) {
-        try {
-          const iniParser = new VariantIniParser(content, pieceCatalog);
-          const newPieces = iniParser.parse();
-          pieceCatalog.push(...newPieces);
-          populateVariantFilter(pieceCatalog);
-          renderPieceCatalog(pieceCatalog);
-        } catch (error) {
-          console.error('Error parsing variants.ini file:', error);
-        }
-      }
-    };
-    reader.readAsText(file);
+    renderPieceCatalog(variantSelect.value);
   });
 
   document

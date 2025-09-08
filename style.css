@@ -2,9 +2,6 @@ body {
     font-family: sans-serif;
     background-color: #333;
     color: #eee;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 h1 {
@@ -13,12 +10,15 @@ h1 {
 
 #grid-container {
     display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: auto 1fr;
     gap: 10px;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-#betzaInput {
+#betzaInput,
+#boardSizeSelect {
     grid-column: 1 / -1;
     justify-self: center;
     width: 80%;
@@ -31,18 +31,43 @@ h1 {
 }
 
 #boardSizeSelect {
-    grid-column: 1 / -1;
-    justify-self: center;
     width: 50%;
 }
 
-#piece-catalog-container {
+#left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     height: 520px;
+}
+
+.load-variants-container {
+    display: flex;
+}
+
+#loadVariantsBtn {
+    flex-grow: 1;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: #eee;
+    cursor: pointer;
+}
+
+#loadVariantsBtn:hover {
+    background-color: #555;
+}
+
+#piece-catalog-container {
+    flex-grow: 1;
     overflow-y: auto;
     border: 1px solid #555;
     border-radius: 5px;
     padding: 10px;
     background-color: #444;
+    min-height: 200px;
 }
 
 .piece-catalog-item {
@@ -65,14 +90,22 @@ h1 {
 }
 
 #board-container {
-    height: 520px;
+    grid-column: 2;
+    grid-row: 3 / span 2;
 }
 
 #variant-select {
     width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: #eee;
 }
 
 #legend-container {
+    grid-column: 1 / -1;
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
