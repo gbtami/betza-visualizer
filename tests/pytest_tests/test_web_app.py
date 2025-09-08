@@ -2,7 +2,6 @@ import pytest
 import json
 from playwright.sync_api import Page, expect
 
-XIANGQI_ELEPHANT_NAME = "Elephant (Chinese)"
 XIANGQI_ELEPHANT_BETZA = "nA"
 
 
@@ -13,7 +12,7 @@ def test_xiangqi_elephant_empty_board(page: Page):
     page.goto("http://localhost:8080")
 
     # Select the Xiangqi Elephant from the catalog
-    page.get_by_text(XIANGQI_ELEPHANT_NAME).click()
+    page.locator(".piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Elephant", exact=True).click()
 
     # Verify the input is updated
     expect(page.locator("#betzaInput")).to_have_value(XIANGQI_ELEPHANT_BETZA)
@@ -33,7 +32,7 @@ def test_xiangqi_elephant_blocked(page: Page):
     page.goto("http://localhost:8080")
 
     # Select the Xiangqi Elephant
-    page.get_by_text(XIANGQI_ELEPHANT_NAME).click()
+    page.locator(".piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Elephant", exact=True).click()
     expect(page.locator("#betzaInput")).to_have_value(XIANGQI_ELEPHANT_BETZA)
 
     # Get board dimensions
@@ -69,7 +68,7 @@ def test_leaper_unblocked(page: Page):
     page.goto("http://localhost:8080")
 
     # Select the Knight from the catalog
-    page.get_by_text("Knight", exact=True).click()
+    page.locator(".piece-catalog-item", has=page.get_by_text("3check")).get_by_text("Knight", exact=True).click()
 
     # Verify the input is updated
     expect(page.locator("#betzaInput")).to_have_value("N")
@@ -130,7 +129,7 @@ def test_xiangqi_cannon_two_blockers(page: Page):
     # Select the Cannon from the catalog. We need to find the one for Xiangqi.
     # There are two "Cannon" pieces, one for Xiangqi and one for Janggi (Korean).
     # We can identify it by looking for its parent that contains the variant name.
-    page.locator(".piece-catalog-item", has=page.get_by_text("Xiangqi")).get_by_text("Cannon", exact=True).click()
+    page.locator(".piece-catalog-item", has=page.get_by_text("xiangqi")).get_by_text("Cannon", exact=True).first.click()
 
     # Get board dimensions
     board = page.locator("#board-container svg")
@@ -168,7 +167,7 @@ def test_xiangqi_cannon_two_blockers(page: Page):
 
 
 def get_catalog_data():
-    with open("piece_catalog.json", "r") as f:
+    with open("fsf_built_in_variants_catalog.json", "r") as f:
         return json.load(f)
 
 
@@ -204,16 +203,16 @@ def test_variant_filter_population(page: Page):
 
 
 @pytest.mark.e2e
-def test_variant_filter_orthodox(page: Page):
+def test_variant_filter_3check(page: Page):
     """
-    Tests filtering by the 'Orthodox' variant.
+    Tests filtering by the '3check' variant.
     """
     page.goto("http://localhost:8080")
     variant_select = page.locator("#variant-select")
-    variant_select.select_option("Orthodox")
+    variant_select.select_option("3check")
 
     piece_catalog = page.locator("#piece-catalog-content")
-    expected_count = get_piece_count_for_variant("Orthodox")
+    expected_count = get_piece_count_for_variant("3check")
     expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(expected_count)
 
     # Check that the input is cleared
@@ -227,9 +226,36 @@ def test_variant_filter_all(page: Page):
     """
     page.goto("http://localhost:8080")
     variant_select = page.locator("#variant-select")
-    variant_select.select_option("Orthodox")  # First filter
+    variant_select.select_option("3check")  # First filter
     variant_select.select_option("All")  # Then select all
 
     piece_catalog = page.locator("#piece-catalog-content")
     expected_count = get_piece_count_for_variant("All")
     expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(expected_count)
+
+
+@pytest.mark.e2e
+def test_load_variants_from_ini(page: Page):
+    """
+    Tests that loading a variants.ini file updates the catalog and variant filter.
+    """
+    page.goto("http://localhost:8080")
+
+    # Set up a listener for the file chooser
+    with page.expect_file_chooser() as fc_info:
+        page.get_by_role("button", name="Load Variants").click()
+
+    file_chooser = fc_info.value
+    file_chooser.set_files("tests/variants.ini")
+
+    # Wait for the new variant to appear in the dropdown
+    variant_select = page.locator("#variant-select")
+    expect(variant_select.locator('option[value="minishogi"]')).to_have_count(1)
+
+    # Select the new variant
+    variant_select.select_option("minishogi")
+
+    # Check that the piece catalog is updated correctly
+    # The minishogi variant in the test file has 8 pieces.
+    piece_catalog = page.locator("#piece-catalog-content")
+    expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(8)
