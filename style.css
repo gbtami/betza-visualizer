@@ -15,11 +15,15 @@ h1 {
     padding: 10px;
     max-width: 1200px;
     margin: 0 auto;
+    grid-template-areas:
+        "input input"
+        "board-size board-size"
+        "left right"
+        "legend legend";
 }
 
-#betzaInput,
-#boardSizeSelect {
-    grid-column: 1 / -1;
+#betzaInput {
+    grid-area: input;
     justify-self: center;
     width: 80%;
     padding: 8px;
@@ -31,14 +35,39 @@ h1 {
 }
 
 #boardSizeSelect {
+    grid-area: board-size;
+    justify-self: center;
     width: 50%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: #eee;
 }
 
 #left-column {
+    grid-area: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#right-column {
+    grid-area: right;
     display: flex;
     flex-direction: column;
     gap: 10px;
     height: 520px;
+}
+
+#board-container {
+    flex-grow: 1;
+    min-height: 400px;
+}
+
+#legend-container {
+    grid-area: legend;
 }
 
 .load-variants-container {
@@ -87,11 +116,6 @@ h1 {
 .piece-catalog-item .variant {
     font-size: 0.9em;
     color: #ccc;
-}
-
-#board-container {
-    grid-column: 2;
-    grid-row: 3 / span 2;
 }
 
 #variant-select {
