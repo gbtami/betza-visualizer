@@ -1,3 +1,9 @@
+export interface Piece {
+  name: string;
+  variant: string;
+  betza: string;
+}
+
 export interface Move {
   x: number;
   y: number;
