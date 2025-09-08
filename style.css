@@ -51,6 +51,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 520px;
 }
 
 #right-column {
@@ -66,9 +67,6 @@ h1 {
     min-height: 400px;
 }
 
-#legend-container {
-    grid-area: legend;
-}
 
 .load-variants-container {
     display: flex;
