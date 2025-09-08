@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1>Betza Notation Visualizer</h1>
+    <div class="title-container">
+        <h1>Betza Notation Visualizer</h1>
+        <button id="loadVariantsBtn">Load Variants</button>
+        <input type="file" id="variantsFileInput" style="display: none;" accept=".ini">
+    </div>
     <div id="grid-container">
         <input type="text" id="betzaInput" placeholder="Enter Betza string (e.g., pR0, BN, Q)">
         <select id="boardSizeSelect">
