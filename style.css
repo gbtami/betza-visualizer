@@ -16,16 +16,32 @@ h1 {
     max-width: 1200px;
     margin: 0 auto;
     grid-template-areas:
-        "input input"
-        "board-size board-size"
-        "left right"
-        "legend legend";
+        "left right";
+}
+
+#left-column {
+    grid-area: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#right-column {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.board-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
 #betzaInput {
-    grid-area: input;
-    justify-self: center;
-    width: 80%;
+    flex-grow: 1;
     padding: 8px;
     font-size: 16px;
     border-radius: 5px;
@@ -35,31 +51,13 @@ h1 {
 }
 
 #boardSizeSelect {
-    grid-area: board-size;
-    justify-self: center;
-    width: 50%;
+    width: auto;
     padding: 8px;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #555;
     background-color: #444;
     color: #eee;
-}
-
-#left-column {
-    grid-area: left;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 520px;
-}
-
-#right-column {
-    grid-area: right;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 520px;
 }
 
 #board-container {
