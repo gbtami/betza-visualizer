@@ -1,6 +1,7 @@
 import re
 import json
 import sys
+import requests
 
 def camel_to_title(name):
     """Converts a camelCase string to Title Case."""
@@ -177,11 +178,19 @@ class CppParser:
         return json.dumps(output, indent=2)
 
 if __name__ == '__main__':
+    PIECE_CPP_URL = 'https://raw.githubusercontent.com/fairy-stockfish/Fairy-Stockfish/master/src/piece.cpp'
+    VARIANT_CPP_URL = 'https://raw.githubusercontent.com/fairy-stockfish/Fairy-Stockfish/master/src/variant.cpp'
+
     try:
-        with open('piece.cpp', 'r', encoding='utf-8') as f:
-            piece_cpp = f.read()
-        with open('variant.cpp', 'r', encoding='utf-8') as f:
-            variant_cpp = f.read()
+        print("Downloading piece.cpp...")
+        response = requests.get(PIECE_CPP_URL)
+        response.raise_for_status()
+        piece_cpp = response.text
+
+        print("Downloading variant.cpp...")
+        response = requests.get(VARIANT_CPP_URL)
+        response.raise_for_status()
+        variant_cpp = response.text
 
         parser = CppParser()
         json_output = parser.run(piece_cpp, variant_cpp)
@@ -191,8 +200,8 @@ if __name__ == '__main__':
 
         print("Successfully generated fsf_built_in_variants_catalog.json")
 
-    except FileNotFoundError as e:
-        sys.stderr.write(f"Error: {e.filename} not found. Make sure both piece.cpp and variant.cpp are in the same directory.\n")
+    except requests.exceptions.RequestException as e:
+        sys.stderr.write(f"Error downloading file: {e}\n")
         sys.exit(1)
     except Exception as e:
         sys.stderr.write(f"An error occurred: {e}\n")
