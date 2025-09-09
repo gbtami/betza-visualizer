@@ -144,39 +144,60 @@ class BetzaParser:
         return directions
 
     def _filter_directions(self, directions: Set[Tuple[int, int]], mods: str, atom: str) -> Set[Tuple[int, int]]:
+        # 1. Handle union-style modifiers recursively.
+        # These modifiers expand into a union of moves, so they are handled
+        # by recursively calling this function for each component of the union.
+
+        # `v` (vertical) and `s` (sideways) shorthands.
+        if 'v' in mods:
+            other_mods = mods.replace('v', '', 1)
+            f_dirs = self._filter_directions(directions, 'f' + other_mods, atom)
+            b_dirs = self._filter_directions(directions, 'b' + other_mods, atom)
+            return f_dirs.union(b_dirs)
+
+        if 's' in mods:
+            other_mods = mods.replace('s', '', 1)
+            l_dirs = self._filter_directions(directions, 'l' + other_mods, atom)
+            r_dirs = self._filter_directions(directions, 'r' + other_mods, atom)
+            return l_dirs.union(r_dirs)
+
+        # Union of multiple doubled modifiers (e.g., ffrrN).
+        doubled_mods = re.findall(r"ff|bb|ll|rr", mods)
+        if len(doubled_mods) > 1:
+            total_dirs = set()
+            for d_mod in doubled_mods:
+                total_dirs.update(self._filter_directions(directions, d_mod, atom))
+            return total_dirs
+
+        # 2. Base case: process a modifier string without union-style modifiers.
         x_atom, y_atom = self.atoms[atom]
         is_hippogonal = x_atom != y_atom and x_atom * y_atom != 0
+
+        # For hippogonal pieces, single-letter direction modifiers are doubled.
         if is_hippogonal:
-            # For hippogonal pieces (N, C, Z), single-letter directional modifiers
-            # are treated as if they were doubled, per Fairy-Stockfish's interpretation.
-            # e.g., fN becomes ffN. This is not applied to quadrant modifiers like 'l' in 'ffl'.
-            dir_mod_regex = r"ff|bb|ll|rr|f[lr]|b[lr]|l[fb]|r[fb]|[fblr]"
-            dir_mods_found = re.findall(dir_mod_regex, mods)
-            non_dir_mods = re.sub(dir_mod_regex, "", mods)
+            dir_mods_only = "".join(c for c in mods if c in "fblr")
+            if len(dir_mods_only) == 1:
+                mods = mods.replace(dir_mods_only, dir_mods_only * 2)
 
-            # Detect if we have a combination of a double modifier and a single one (e.g., 'ff' and 'l' in 'ffl')
-            is_quadrant_combo = False
-            if len(dir_mods_found) > 1:
-                has_double = any(len(m) == 2 and m[0] == m[1] for m in dir_mods_found)
-                has_single = any(len(m) == 1 for m in dir_mods_found)
-                if has_double and has_single:
-                    is_quadrant_combo = True
+        # The 'h' (half) modifier expands a direction to all moves with that component.
+        # This is handled by disabling the doubled-modifier constraint logic.
+        has_h = 'h' in mods
+        if has_h:
+            mods = mods.replace('h', '')
 
-            processed_dir_mods = ""
-            for m in dir_mods_found:
-                if len(m) == 1 and not is_quadrant_combo:
-                    processed_dir_mods += m * 2
-                else:
-                    processed_dir_mods += m
+        # The original `fbN` special case is now handled by the `v` recursion.
+        if mods == "fb" and atom == "N":
+            # This case is hit for `vN` -> `fbN`.
+            f_dirs = self._filter_directions(directions, "f", atom)
+            b_dirs = self._filter_directions(directions, "b", atom)
+            return f_dirs.union(b_dirs)
 
-            mods = processed_dir_mods + non_dir_mods
-
-        # The Fibnif special case `fbN` is now generalized by the hippogonal logic above.
-
-        if "s" in mods:
-            mods += "lr"
-        if "v" in mods:
-            mods += "fb"
+        # The `s` and `v` modifiers are handled by recursion now,
+        # so these expansions are no longer needed here.
+        # if "s" in mods:
+        #     mods += "lr"
+        # if "v" in mods:
+        #     mods += "fb"
 
         dir_mods = "".join(c for c in mods if c in "fblr")
         is_orthogonal = x_atom * y_atom == 0
@@ -200,8 +221,8 @@ class BetzaParser:
                     if v_valid and h_valid:
                         filtered.add((x, y))
 
-        constrain_double_vertical = "ff" in mods or "bb" in mods
-        constrain_double_horizontal = "ll" in mods or "rr" in mods
+        constrain_double_vertical = ("ff" in mods or "bb" in mods) and not has_h
+        constrain_double_horizontal = ("ll" in mods or "rr" in mods) and not has_h
 
         if not constrain_double_vertical and not constrain_double_horizontal:
             return filtered
