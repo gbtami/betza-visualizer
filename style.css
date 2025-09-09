@@ -14,7 +14,7 @@ h1 {
     grid-template-rows: auto 1fr auto;
     gap: 10px;
     padding: 10px;
-    max-width: 900px;
+    max-width: 950px;
     margin: 0 auto;
     grid-template-areas:
         "load-variants board-controls"
