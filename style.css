@@ -42,6 +42,7 @@ h1 {
     border-radius: 5px;
     padding: 10px;
     background-color: #444;
+    box-sizing: border-box;
 }
 
 #board-container {

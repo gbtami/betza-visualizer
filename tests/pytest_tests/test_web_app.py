@@ -259,3 +259,18 @@ def test_load_variants_from_ini(page: Page):
     # The minishogi variant in the test file has 8 pieces.
     piece_catalog = page.locator("#piece-catalog-content")
     expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(8)
+
+
+def test_catalog_and_board_height_are_equal(page: Page):
+    """
+    Tests that the piece catalog and the board have the same height.
+    """
+    page.goto("http://localhost:8080")
+    board_container = page.locator("#board-container")
+    catalog_container = page.locator("#piece-catalog-container")
+
+    board_height = board_container.bounding_box()["height"]
+    catalog_height = catalog_container.bounding_box()["height"]
+
+    # Allow for a small tolerance due to subpixel rendering differences
+    assert abs(board_height - catalog_height) < 2
