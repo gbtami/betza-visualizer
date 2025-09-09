@@ -143,9 +143,27 @@ describe('BetzaParser', () => {
             expect(toCoordSet(moves)).toEqual(expected);
         });
 
-        it('should correctly handle doubled forward modifiers like ffN (Shogi Knight)', () => {
-            const moves = parser.parse('ffN');
+        it("should correctly parse 'fN' as a Shogi Knight", () => {
+            const moves = parser.parse('fN');
             const expected = new Set(['-1,2', '1,2']);
+            expect(toCoordSet(moves)).toEqual(expected);
+        });
+
+        it("should parse 'ffN' as equivalent to 'fN' for compatibility", () => {
+            const moves_fN = parser.parse('fN');
+            const moves_ffN = parser.parse('ffN');
+            expect(toCoordSet(moves_fN)).toEqual(toCoordSet(moves_ffN));
+        });
+
+        it("should handle the 'h' modifier to get all forward moves for a Knight", () => {
+            const moves = parser.parse('fhN');
+            const expected = new Set(['-1,2', '1,2', '-2,1', '2,1']);
+            expect(toCoordSet(moves)).toEqual(expected);
+        });
+
+        it("should handle union of doubled modifiers like 'ffrrN'", () => {
+            const moves = parser.parse('ffrrN');
+            const expected = new Set(['-1,2', '1,2', '2,1', '2,-1']);
             expect(toCoordSet(moves)).toEqual(expected);
         });
 
@@ -201,6 +219,18 @@ describe('BetzaParser', () => {
     });
 
     describe('Directional Shorthand Modifiers', () => {
+        it("should correctly handle 'vN' for a hippogonal piece", () => {
+            const moves = parser.parse('vN');
+            const expected = new Set(['-1,2', '1,2', '-1,-2', '1,-2']);
+            expect(toCoordSet(moves)).toEqual(expected);
+        });
+
+        it("should correctly handle 'sN' for a hippogonal piece", () => {
+            const moves = parser.parse('sN');
+            const expected = new Set(['-2,1', '2,1', '-2,-1', '2,-1']);
+            expect(toCoordSet(moves)).toEqual(expected);
+        });
+
         it("should correctly handle the vertical 'v' modifier on a Rook", () => {
             const moves = parser.parse('vR');
             const moveCoords = toCoordSet(moves);

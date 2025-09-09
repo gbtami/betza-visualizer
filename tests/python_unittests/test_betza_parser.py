@@ -119,10 +119,32 @@ class TestAdvancedModifiers(unittest.TestCase):
         move_coords = {(m['x'], m['y']) for m in moves}
         self.assertSetEqual(move_coords, {(-1, 2), (-2, 1)})
 
-    def test_doubled_modifier_ffN_shogi_knight(self):
-        moves = self.parser.parse("ffN")
+    def test_shogi_knight_fN(self):
+        """Tests that 'fN' produces the forward-only Shogi Knight moves."""
+        moves = self.parser.parse("fN")
         move_coords = {(m['x'], m['y']) for m in moves}
         self.assertSetEqual(move_coords, {(-1, 2), (1, 2)})
+
+    def test_doubled_modifier_ffN_is_equivalent_to_fN(self):
+        """Tests that 'ffN' is parsed the same as 'fN' for compatibility."""
+        moves_fN = self.parser.parse("fN")
+        moves_ffN = self.parser.parse("ffN")
+        self.assertSetEqual(
+            {(m['x'], m['y']) for m in moves_fN},
+            {(m['x'], m['y']) for m in moves_ffN},
+        )
+
+    def test_half_modifier_fhN(self):
+        """Tests that 'fhN' produces all 4 forward Knight moves."""
+        moves = self.parser.parse("fhN")
+        move_coords = {(m['x'], m['y']) for m in moves}
+        self.assertSetEqual(move_coords, {(-1, 2), (1, 2), (-2, 1), (2, 1)})
+
+    def test_union_of_doubled_modifiers_ffrrN(self):
+        """Tests that 'ffrrN' produces a union of forward and right moves."""
+        moves = self.parser.parse("ffrrN")
+        move_coords = {(m['x'], m['y']) for m in moves}
+        self.assertSetEqual(move_coords, {(-1, 2), (1, 2), (2, 1), (2, -1)})
 
     def test_doubled_modifier_srrC_sideways_camel(self):
         moves = self.parser.parse("srrC")
@@ -181,6 +203,18 @@ class TestDirectionalShorthand(unittest.TestCase):
 
     def setUp(self):
         self.parser = BetzaParser()
+
+    def test_vertical_modifier_vN_on_hippogonal(self):
+        """Tests that 'vN' produces vertical-only knight moves."""
+        moves = self.parser.parse("vN")
+        move_coords = {(m['x'], m['y']) for m in moves}
+        self.assertSetEqual(move_coords, {(-1, 2), (1, 2), (-1, -2), (1, -2)})
+
+    def test_sideways_modifier_sN_on_hippogonal(self):
+        """Tests that 'sN' produces sideways-only knight moves."""
+        moves = self.parser.parse("sN")
+        move_coords = {(m['x'], m['y']) for m in moves}
+        self.assertSetEqual(move_coords, {(-2, 1), (2, 1), (-2, -1), (2, -1)})
 
     def test_vertical_modifier_vR(self):
         """Tests that 'vR' produces only vertical moves for a Rook."""

@@ -170,59 +170,110 @@ export class BetzaParser {
     mods: string,
     atom: string
   ): Set<{ dx: number; dy: number }> {
-    // Fibnif special case: fbN should be treated as ffN union bbN
-    if (mods === 'fb' && atom === 'N') {
-      const ffDirs = this._filterDirections(directions, 'ff', atom);
-      const bbDirs = this._filterDirections(directions, 'bb', atom);
-      return new Set([...ffDirs, ...bbDirs]);
+    // 1. Handle union-style modifiers recursively.
+    if (mods.includes('v')) {
+      const otherMods = mods.replace('v', '');
+      const fDirs = this._filterDirections(
+        directions,
+        'f' + otherMods,
+        atom
+      );
+      const bDirs = this._filterDirections(
+        directions,
+        'b' + otherMods,
+        atom
+      );
+      return new Set([...fDirs, ...bDirs]);
+    }
+    if (mods.includes('s')) {
+      const otherMods = mods.replace('s', '');
+      const lDirs = this._filterDirections(
+        directions,
+        'l' + otherMods,
+        atom
+      );
+      const rDirs = this._filterDirections(
+        directions,
+        'r' + otherMods,
+        atom
+      );
+      return new Set([...lDirs, ...rDirs]);
     }
 
-    if (mods.includes('s')) mods += 'lr';
-    if (mods.includes('v')) mods += 'fb';
+    const doubledMods = mods.match(/ff|bb|ll|rr/g) || [];
+    if (doubledMods.length > 1) {
+      const totalDirs = new Set<{ dx: number; dy: number }>();
+      for (const dMod of doubledMods) {
+        const filtered = this._filterDirections(directions, dMod, atom);
+        for (const dir of filtered) {
+          totalDirs.add(dir);
+        }
+      }
+      return totalDirs;
+    }
+
+    // 2. Base case: process a modifier string without union-style modifiers.
+    const { x: atomX, y: atomY } = this.atoms.get(atom)!;
+    const isHippogonal = atomX !== atomY && atomX * atomY !== 0;
+
+    if (isHippogonal) {
+      const dirModsOnly = mods.match(/[fblr]/g)?.join('') || '';
+      if (dirModsOnly.length === 1) {
+        mods = mods.replace(dirModsOnly, dirModsOnly.repeat(2));
+      }
+    }
+
+    const has_h = mods.includes('h');
+    if (has_h) {
+      mods = mods.replace('h', '');
+    }
+
+    if (mods === 'fb' && atom === 'N') {
+      const fDirs = this._filterDirections(directions, 'f', atom);
+      const bDirs = this._filterDirections(directions, 'b', atom);
+      return new Set([...fDirs, ...bDirs]);
+    }
 
     const dirMods = mods
       .split('')
       .filter((c) => 'fblr'.includes(c))
       .join('');
-
-    const { x: atomX, y: atomY } = this.atoms.get(atom)!;
     const isOrthogonal = atomX * atomY === 0;
 
-    let filtered: Set<{ dx: number; dy: number }>;
-
     if (!dirMods) {
-      filtered = directions;
-    } else {
-      filtered = new Set();
-      const hasVMod = dirMods.includes('f') || dirMods.includes('b');
-      const hasHMod = dirMods.includes('l') || dirMods.includes('r');
+      return directions;
+    }
 
-      for (const { dx, dy } of directions) {
-        const vValid =
-          !hasVMod ||
-          (dirMods.includes('f') && dy > 0) ||
-          (dirMods.includes('b') && dy < 0);
-        const hValid =
-          !hasHMod ||
-          (dirMods.includes('l') && dx < 0) ||
-          (dirMods.includes('r') && dx > 0);
+    let filtered: Set<{ dx: number; dy: number }> = new Set();
+    const hasVMod = dirMods.includes('f') || dirMods.includes('b');
+    const hasHMod = dirMods.includes('l') || dirMods.includes('r');
 
-        const isUnion = isOrthogonal && hasVMod && hasHMod;
-        if (isUnion) {
-          if (vValid || hValid) {
-            filtered.add({ dx, dy });
-          }
-        } else {
-          if (vValid && hValid) {
-            filtered.add({ dx, dy });
-          }
+    for (const { dx, dy } of directions) {
+      const vValid =
+        !hasVMod ||
+        (dirMods.includes('f') && dy > 0) ||
+        (dirMods.includes('b') && dy < 0);
+      const hValid =
+        !hasHMod ||
+        (dirMods.includes('l') && dx < 0) ||
+        (dirMods.includes('r') && dx > 0);
+
+      const isUnion = isOrthogonal && hasVMod && hasHMod;
+      if (isUnion) {
+        if (vValid || hValid) {
+          filtered.add({ dx, dy });
+        }
+      } else {
+        if (vValid && hValid) {
+          filtered.add({ dx, dy });
         }
       }
     }
 
-    const constrainDoubleVertical = mods.includes('ff') || mods.includes('bb');
+    const constrainDoubleVertical =
+      (mods.includes('ff') || mods.includes('bb')) && !has_h;
     const constrainDoubleHorizontal =
-      mods.includes('ll') || mods.includes('rr');
+      (mods.includes('ll') || mods.includes('rr')) && !has_h;
 
     if (!constrainDoubleVertical && !constrainDoubleHorizontal) {
       return filtered;
