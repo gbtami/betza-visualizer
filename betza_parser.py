@@ -144,11 +144,34 @@ class BetzaParser:
         return directions
 
     def _filter_directions(self, directions: Set[Tuple[int, int]], mods: str, atom: str) -> Set[Tuple[int, int]]:
-        # Fibnif special case: fbN should be treated as ffN union bbN
-        if mods == "fb" and atom == "N":
-            ff_dirs = self._filter_directions(directions, "ff", atom)
-            bb_dirs = self._filter_directions(directions, "bb", atom)
-            return ff_dirs.union(bb_dirs)
+        x_atom, y_atom = self.atoms[atom]
+        is_hippogonal = x_atom != y_atom and x_atom * y_atom != 0
+        if is_hippogonal:
+            # For hippogonal pieces (N, C, Z), single-letter directional modifiers
+            # are treated as if they were doubled, per Fairy-Stockfish's interpretation.
+            # e.g., fN becomes ffN. This is not applied to quadrant modifiers like 'l' in 'ffl'.
+            dir_mod_regex = r"ff|bb|ll|rr|f[lr]|b[lr]|l[fb]|r[fb]|[fblr]"
+            dir_mods_found = re.findall(dir_mod_regex, mods)
+            non_dir_mods = re.sub(dir_mod_regex, "", mods)
+
+            # Detect if we have a combination of a double modifier and a single one (e.g., 'ff' and 'l' in 'ffl')
+            is_quadrant_combo = False
+            if len(dir_mods_found) > 1:
+                has_double = any(len(m) == 2 and m[0] == m[1] for m in dir_mods_found)
+                has_single = any(len(m) == 1 for m in dir_mods_found)
+                if has_double and has_single:
+                    is_quadrant_combo = True
+
+            processed_dir_mods = ""
+            for m in dir_mods_found:
+                if len(m) == 1 and not is_quadrant_combo:
+                    processed_dir_mods += m * 2
+                else:
+                    processed_dir_mods += m
+
+            mods = processed_dir_mods + non_dir_mods
+
+        # The Fibnif special case `fbN` is now generalized by the hippogonal logic above.
 
         if "s" in mods:
             mods += "lr"
@@ -156,7 +179,6 @@ class BetzaParser:
             mods += "fb"
 
         dir_mods = "".join(c for c in mods if c in "fblr")
-        x_atom, y_atom = self.atoms[atom]
         is_orthogonal = x_atom * y_atom == 0
 
         if not dir_mods:

@@ -119,10 +119,20 @@ class TestAdvancedModifiers(unittest.TestCase):
         move_coords = {(m['x'], m['y']) for m in moves}
         self.assertSetEqual(move_coords, {(-1, 2), (-2, 1)})
 
-    def test_doubled_modifier_ffN_shogi_knight(self):
-        moves = self.parser.parse("ffN")
+    def test_shogi_knight_fN(self):
+        """Tests that 'fN' produces the forward-only Shogi Knight moves."""
+        moves = self.parser.parse("fN")
         move_coords = {(m['x'], m['y']) for m in moves}
         self.assertSetEqual(move_coords, {(-1, 2), (1, 2)})
+
+    def test_doubled_modifier_ffN_is_equivalent_to_fN(self):
+        """Tests that 'ffN' is parsed the same as 'fN' for compatibility."""
+        moves_fN = self.parser.parse("fN")
+        moves_ffN = self.parser.parse("ffN")
+        self.assertSetEqual(
+            {(m['x'], m['y']) for m in moves_fN},
+            {(m['x'], m['y']) for m in moves_ffN},
+        )
 
     def test_doubled_modifier_srrC_sideways_camel(self):
         moves = self.parser.parse("srrC")

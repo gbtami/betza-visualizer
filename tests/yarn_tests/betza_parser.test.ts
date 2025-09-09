@@ -143,10 +143,16 @@ describe('BetzaParser', () => {
             expect(toCoordSet(moves)).toEqual(expected);
         });
 
-        it('should correctly handle doubled forward modifiers like ffN (Shogi Knight)', () => {
-            const moves = parser.parse('ffN');
+        it("should correctly parse 'fN' as a Shogi Knight", () => {
+            const moves = parser.parse('fN');
             const expected = new Set(['-1,2', '1,2']);
             expect(toCoordSet(moves)).toEqual(expected);
+        });
+
+        it("should parse 'ffN' as equivalent to 'fN' for compatibility", () => {
+            const moves_fN = parser.parse('fN');
+            const moves_ffN = parser.parse('ffN');
+            expect(toCoordSet(moves_fN)).toEqual(toCoordSet(moves_ffN));
         });
 
         it('should correctly handle doubled sideways modifiers like srrC', () => {

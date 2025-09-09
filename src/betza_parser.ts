@@ -170,12 +170,41 @@ export class BetzaParser {
     mods: string,
     atom: string
   ): Set<{ dx: number; dy: number }> {
-    // Fibnif special case: fbN should be treated as ffN union bbN
-    if (mods === 'fb' && atom === 'N') {
-      const ffDirs = this._filterDirections(directions, 'ff', atom);
-      const bbDirs = this._filterDirections(directions, 'bb', atom);
-      return new Set([...ffDirs, ...bbDirs]);
+    const { x: atomX, y: atomY } = this.atoms.get(atom)!;
+    const isHippogonal = atomX !== atomY && atomX * atomY !== 0;
+
+    if (isHippogonal) {
+      // For hippogonal pieces (N, C, Z), single-letter directional modifiers
+      // are treated as if they were doubled, per Fairy-Stockfish's interpretation.
+      // e.g., fN becomes ffN. This is not applied to quadrant modifiers like 'l' in 'ffl'.
+      const dirModRegex = /ff|bb|ll|rr|f[lr]|b[lr]|l[fb]|r[fb]|[fblr]/g;
+      const dirModsFound = mods.match(dirModRegex) || [];
+      const nonDirMods = mods.replace(dirModRegex, '');
+
+      // Detect if we have a combination of a double modifier and a single one (e.g., 'ff' and 'l' in 'ffl')
+      let isQuadrantCombo = false;
+      if (dirModsFound.length > 1) {
+        const hasDouble = dirModsFound.some(
+          (m) => m.length === 2 && m[0] === m[1]
+        );
+        const hasSingle = dirModsFound.some((m) => m.length === 1);
+        if (hasDouble && hasSingle) {
+          isQuadrantCombo = true;
+        }
+      }
+
+      let processedDirMods = '';
+      for (const m of dirModsFound) {
+        if (m.length === 1 && !isQuadrantCombo) {
+          processedDirMods += m + m;
+        } else {
+          processedDirMods += m;
+        }
+      }
+      mods = processedDirMods + nonDirMods;
     }
+
+    // The Fibnif special case `fbN` is now generalized by the hippogonal logic above.
 
     if (mods.includes('s')) mods += 'lr';
     if (mods.includes('v')) mods += 'fb';
@@ -185,7 +214,6 @@ export class BetzaParser {
       .filter((c) => 'fblr'.includes(c))
       .join('');
 
-    const { x: atomX, y: atomY } = this.atoms.get(atom)!;
     const isOrthogonal = atomX * atomY === 0;
 
     let filtered: Set<{ dx: number; dy: number }>;
