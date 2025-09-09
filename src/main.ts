@@ -260,7 +260,6 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
 
   boardContainer.innerHTML = '';
   boardContainer.appendChild(svg);
-  adjustCatalogHeight();
 }
 
 function updateBoard() {
@@ -398,6 +397,7 @@ function renderPieceCatalog(
   if (!document.getElementById('piece-catalog-content')) {
     catalogContainer.appendChild(catalogContent);
   }
+  adjustCatalogHeight();
 }
 
 async function initialize() {

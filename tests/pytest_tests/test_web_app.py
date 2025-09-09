@@ -266,6 +266,11 @@ def test_catalog_and_board_height_are_equal(page: Page):
     Tests that the piece catalog and the board have the same height.
     """
     page.goto("http://localhost:8080")
+
+    # Wait for the piece catalog to be populated before checking the height.
+    # We can do this by waiting for the first item to be visible.
+    page.locator(".piece-catalog-item").first.wait_for()
+
     board_container = page.locator("#board-container")
     catalog_container = page.locator("#piece-catalog-container")
 
