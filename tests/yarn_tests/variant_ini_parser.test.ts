@@ -76,4 +76,38 @@ customPiece1 = p:mWfceFifmnD
     expect(allwaysPawn).toBeDefined();
     expect(allwaysPawn?.betza).toBe('mWfceFifmnD');
   });
+
+  it('should override the king\'s betza string', () => {
+    const iniContent = `
+[centaurking:chess]
+king = k:KN
+`;
+    const pieceCatalog = [
+      { name: 'King', variant: 'chess', betza: 'K' },
+      { name: 'Pawn', variant: 'chess', betza: 'fmWfceF' },
+    ];
+    const parser = new VariantIniParser(iniContent, pieceCatalog);
+    const pieces = parser.parse();
+
+    const centaurKing = pieces.find(p => p.name === 'King' && p.variant === 'centaurking');
+    expect(centaurKing).toBeDefined();
+    expect(centaurKing?.betza).toBe('KN');
+  });
+
+  it('should handle king override inheritance', () => {
+    const iniContent = `
+[basevariant]
+king = k:N
+
+[childvariant:basevariant]
+pawn = p:fW
+`;
+    const pieceCatalog: Piece[] = [];
+    const parser = new VariantIniParser(iniContent, pieceCatalog);
+    const pieces = parser.parse();
+
+    const childKing = pieces.find(p => p.name === 'King' && p.variant === 'childvariant');
+    expect(childKing).toBeDefined();
+    expect(childKing?.betza).toBe('N');
+  });
 });

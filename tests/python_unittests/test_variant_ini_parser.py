@@ -71,5 +71,38 @@ customPiece1 = p:mWfceFifmnD
         self.assertIsNotNone(allways_pawn)
         self.assertEqual(allways_pawn["betza"], "mWfceFifmnD")
 
+    def test_king_override(self):
+        ini_content = """
+[centaurking:chess]
+king = k:KN
+"""
+        piece_catalog = [
+            {"name": "King", "variant": "chess", "betza": "K"},
+            {"name": "Pawn", "variant": "chess", "betza": "fmWfceF"}
+        ]
+        parser = VariantIniParser(ini_content, piece_catalog)
+        pieces = parser.parse()
+
+        centaur_king = next((p for p in pieces if p['name'] == 'King' and p['variant'] == 'centaurking'), None)
+        self.assertIsNotNone(centaur_king)
+        self.assertEqual(centaur_king['betza'], 'KN')
+
+    def test_king_override_inheritance(self):
+        ini_content = """
+[basevariant]
+king = k:N
+
+[childvariant:basevariant]
+pawn = p:fW
+"""
+        piece_catalog = []
+        parser = VariantIniParser(ini_content, piece_catalog)
+        pieces = parser.parse()
+
+        child_king = next((p for p in pieces if p['name'] == 'King' and p['variant'] == 'childvariant'), None)
+        self.assertIsNotNone(child_king)
+        self.assertEqual(child_king['betza'], 'N')
+
+
 if __name__ == '__main__':
     unittest.main()

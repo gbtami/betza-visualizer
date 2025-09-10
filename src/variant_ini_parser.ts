@@ -129,7 +129,7 @@ export class VariantIniParser {
 
           const isCustom = key.startsWith('customPiece');
           const variantNameTitle = variantName.charAt(0).toUpperCase() + variantName.slice(1);
-          const pieceName = isCustom ? `${variantNameTitle}-${pieceChar}` : key;
+          const pieceName = isCustom ? `${variantNameTitle}-${pieceChar}` : titleCase(key);
 
           let found = false;
           for (const piece of pieces) {
