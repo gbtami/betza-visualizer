@@ -13,7 +13,7 @@ body {
 
 #grid-container {
     display: grid;
-    grid-template-columns: auto var(--board-size);
+    grid-template-columns: calc(var(--board-size) / 4) var(--board-size);
     grid-template-rows: auto 1fr;
     gap: 10px;
     max-width: fit-content;
