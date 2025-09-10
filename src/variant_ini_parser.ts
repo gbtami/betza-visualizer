@@ -124,11 +124,12 @@ export class VariantIniParser {
         }
 
         if (value.includes(':')) {
-          const [, betza] = value.split(':', 2);
+          const [pieceChar, betza] = value.split(':', 2);
           const pieceNameKey = key.toLowerCase().replace(/ /g, '');
 
           const isCustom = key.startsWith('customPiece');
-          const pieceName = isCustom ? `Custom Piece ${key.replace('customPiece', '')}` : key;
+          const variantNameTitle = variantName.charAt(0).toUpperCase() + variantName.slice(1);
+          const pieceName = isCustom ? `${variantNameTitle}-${pieceChar}` : key;
 
           let found = false;
           for (const piece of pieces) {

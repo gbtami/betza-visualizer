@@ -79,7 +79,7 @@ class VariantIniParser:
 
                     is_custom = key.startswith('customPiece')
                     if is_custom:
-                        piece_name = f"Custom Piece {key.replace('customPiece', '')}"
+                        piece_name = f"{variant_name.title()}-{piece_char}"
                     else:
                         piece_name = key
 

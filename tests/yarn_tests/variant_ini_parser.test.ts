@@ -24,7 +24,7 @@ describe('VariantIniParser', () => {
     expect(pieces.length).toBeGreaterThan(0);
 
     // Test allwayspawns variant which inherits from chess
-    const allwaysPawn = pieces.find(p => p.name === 'Custom Piece 1' && p.variant === 'allwayspawns');
+    const allwaysPawn = pieces.find(p => p.name === 'Allwayspawns-p' && p.variant === 'allwayspawns');
     expect(allwaysPawn).toBeDefined();
     expect(allwaysPawn?.betza).toBe('mWfceFifmnD');
 
@@ -71,5 +71,9 @@ customPiece1 = p:mWfceFifmnD
     const allwaysKing = pieces.find(p => p.name === 'King' && p.variant === 'allwayspawns');
     expect(allwaysKing).toBeDefined();
     expect(allwaysKing?.betza).toBe('K');
+
+    const allwaysPawn = pieces.find(p => p.name === 'Allwayspawns-p' && p.variant === 'allwayspawns');
+    expect(allwaysPawn).toBeDefined();
+    expect(allwaysPawn?.betza).toBe('mWfceFifmnD');
   });
 });
