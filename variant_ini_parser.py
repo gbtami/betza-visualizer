@@ -81,7 +81,7 @@ class VariantIniParser:
                     if is_custom:
                         piece_name = f"{variant_name.title()}-{piece_char}"
                     else:
-                        piece_name = key
+                        piece_name = key.title()
 
                     found = False
                     for piece in pieces:
