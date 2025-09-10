@@ -19,7 +19,7 @@ class TestVariantIniParser(unittest.TestCase):
         self.assertGreater(len(pieces), 0)
 
         # Test allwayspawns variant which inherits from chess
-        allways_pawn = next((p for p in pieces if p["name"] == "Custom Piece 1" and p["variant"] == "allwayspawns"), None)
+        allways_pawn = next((p for p in pieces if p["name"] == "Allwayspawns-p" and p["variant"] == "allwayspawns"), None)
         self.assertIsNotNone(allways_pawn)
         self.assertEqual(allways_pawn["betza"], "mWfceFifmnD")
 
@@ -66,6 +66,10 @@ customPiece1 = p:mWfceFifmnD
         allways_king = next((p for p in pieces if p["name"] == "King" and p["variant"] == "allwayspawns"), None)
         self.assertIsNotNone(allways_king)
         self.assertEqual(allways_king["betza"], "K")
+
+        allways_pawn = next((p for p in pieces if p["name"] == "Allwayspawns-p" and p["variant"] == "allwayspawns"), None)
+        self.assertIsNotNone(allways_pawn)
+        self.assertEqual(allways_pawn["betza"], "mWfceFifmnD")
 
 if __name__ == '__main__':
     unittest.main()

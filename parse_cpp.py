@@ -147,8 +147,7 @@ class CppParser:
                     name = self.piece_defs.get(enum, {}).get('name')
                     if not name and enum.startswith('CUSTOM_PIECE_'):
                         variant_name_base = func_name.replace('_variant', '')
-                        piece_name_suffix = self.char_to_name_map.get(char, char)
-                        name = f'{variant_name_base}_{piece_name_suffix}'
+                        name = f'{variant_name_base}-{char}'
 
                     if name:
                         pieces[enum] = {'name': name, 'betza': betza}
@@ -165,6 +164,9 @@ class CppParser:
 
                     if '_' in internal_name:
                         display_name = internal_name.replace('_', ' ').title()
+                    elif '-' in internal_name:
+                        parts = internal_name.split('-', 1)
+                        display_name = parts[0].title() + '-' + parts[1]
                     else:
                         display_name = camel_to_title(internal_name)
 

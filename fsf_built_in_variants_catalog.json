@@ -150,7 +150,7 @@
     "betza": "R"
   },
   {
-    "name": "Amazons Queen",
+    "name": "Amazons-q",
     "variant": "amazons",
     "betza": "mQ"
   },
@@ -245,7 +245,7 @@
     "betza": "R"
   },
   {
-    "name": "Ataxx Pawn",
+    "name": "Ataxx-p",
     "variant": "ataxx",
     "betza": "mDmNmA"
   },
@@ -310,7 +310,7 @@
     "betza": "R"
   },
   {
-    "name": "Berolina Pawn",
+    "name": "Berolina-p",
     "variant": "berolina",
     "betza": "mfFcfeWimfnA"
   },
@@ -1060,7 +1060,7 @@
     "betza": "BW"
   },
   {
-    "name": "Euroshogi Knight",
+    "name": "Euroshogi-n",
     "variant": "euroshogi",
     "betza": "fNsW"
   },
@@ -1220,12 +1220,12 @@
     "betza": ""
   },
   {
-    "name": "Fox And Hounds Fers",
+    "name": "Fox And Hounds-F",
     "variant": "fox-and-hounds",
     "betza": "mF"
   },
   {
-    "name": "Fox And Hounds Horse",
+    "name": "Fox And Hounds-H",
     "variant": "fox-and-hounds",
     "betza": "mfF"
   },
@@ -1415,7 +1415,7 @@
     "betza": "B"
   },
   {
-    "name": "Grasshopper Gold",
+    "name": "Grasshopper-g",
     "variant": "grasshopper",
     "betza": "gQ"
   },
@@ -1540,12 +1540,12 @@
     "betza": "R"
   },
   {
-    "name": "Isolation Pawn",
+    "name": "Isolation-p",
     "variant": "isolation",
     "betza": "mK"
   },
   {
-    "name": "Isolation Pawn",
+    "name": "Isolation-p",
     "variant": "isolation7x7",
     "betza": "mK"
   },
@@ -1730,7 +1730,7 @@
     "betza": "N"
   },
   {
-    "name": "Joust Knight",
+    "name": "Joust-n",
     "variant": "joust",
     "betza": "mN"
   },
@@ -1995,7 +1995,7 @@
     "betza": "N"
   },
   {
-    "name": "Legan Pawn",
+    "name": "Legan-p",
     "variant": "legan",
     "betza": "mflFcflW"
   },
@@ -2455,7 +2455,7 @@
     "betza": "K"
   },
   {
-    "name": "Nightrider Knight",
+    "name": "Nightrider-n",
     "variant": "nightrider",
     "betza": "NN"
   },
@@ -2595,7 +2595,7 @@
     "betza": "N"
   },
   {
-    "name": "Okisakishogi Lance",
+    "name": "Okisakishogi-l",
     "variant": "okisakishogi",
     "betza": "vR"
   },
@@ -2635,12 +2635,12 @@
     "betza": "N"
   },
   {
-    "name": "Omicron Chancellor",
+    "name": "Omicron-c",
     "variant": "omicron",
     "betza": "DAW"
   },
   {
-    "name": "Omicron Wazir",
+    "name": "Omicron-w",
     "variant": "omicron",
     "betza": "CF"
   },
@@ -2680,17 +2680,17 @@
     "betza": "K"
   },
   {
-    "name": "Opulent Knight",
-    "variant": "opulent",
-    "betza": "NW"
-  },
-  {
-    "name": "Opulent Lance",
+    "name": "Opulent-l",
     "variant": "opulent",
     "betza": "FDH"
   },
   {
-    "name": "Opulent Wazir",
+    "name": "Opulent-n",
+    "variant": "opulent",
+    "betza": "NW"
+  },
+  {
+    "name": "Opulent-w",
     "variant": "opulent",
     "betza": "CF"
   },
@@ -2720,7 +2720,7 @@
     "betza": "N"
   },
   {
-    "name": "Paradigm Bishop",
+    "name": "Paradigm-b",
     "variant": "paradigm",
     "betza": "BnN"
   },
@@ -2755,7 +2755,7 @@
     "betza": "N"
   },
   {
-    "name": "Pawnback Pawn",
+    "name": "Pawnback-p",
     "variant": "pawnback",
     "betza": "fbmWfceFifmnD"
   },
@@ -2785,7 +2785,7 @@
     "betza": "N"
   },
   {
-    "name": "Pawnsideways Pawn",
+    "name": "Pawnsideways-p",
     "variant": "pawnsideways",
     "betza": "fsmWfceFifmnD"
   },
@@ -2860,7 +2860,7 @@
     "betza": "N"
   },
   {
-    "name": "Pawnsideways Pawn",
+    "name": "Pawnsideways-p",
     "variant": "petrified",
     "betza": "fsmWfceFifmnD"
   },
@@ -3230,7 +3230,7 @@
     "betza": "fW"
   },
   {
-    "name": "Shoshogi Elephant",
+    "name": "Shoshogi-e",
     "variant": "shoshogi",
     "betza": "FsfW"
   },
@@ -3310,7 +3310,7 @@
     "betza": "R"
   },
   {
-    "name": "Snailtrail Pawn",
+    "name": "Snailtrail-p",
     "variant": "snailtrail",
     "betza": "mK"
   },
@@ -3360,17 +3360,17 @@
     "betza": "R"
   },
   {
-    "name": "Spartan Chancellor",
+    "name": "Spartan-c",
     "variant": "spartan",
     "betza": "WD"
   },
   {
-    "name": "Spartan Horse",
+    "name": "Spartan-h",
     "variant": "spartan",
     "betza": "fmFfcWimA"
   },
   {
-    "name": "Spartan Lance",
+    "name": "Spartan-l",
     "variant": "spartan",
     "betza": "FAsmW"
   },
@@ -3480,12 +3480,12 @@
     "betza": "R"
   },
   {
-    "name": "Tencubed Chancellor",
+    "name": "Tencubed-c",
     "variant": "tencubed",
     "betza": "DAW"
   },
   {
-    "name": "Tencubed Wazir",
+    "name": "Tencubed-w",
     "variant": "tencubed",
     "betza": "CF"
   },
@@ -3530,37 +3530,37 @@
     "betza": "fW"
   },
   {
-    "name": "Torishogi Chancellor",
+    "name": "Torishogi-c",
     "variant": "torishogi",
     "betza": "FvW"
   },
   {
-    "name": "Torishogi Elephant",
+    "name": "Torishogi-e",
     "variant": "torishogi",
     "betza": "KbRfBbF2"
   },
   {
-    "name": "Torishogi Fers",
+    "name": "Torishogi-f",
     "variant": "torishogi",
     "betza": "FsfW"
   },
   {
-    "name": "Torishogi Gold",
+    "name": "Torishogi-g",
     "variant": "torishogi",
     "betza": "fAbD"
   },
   {
-    "name": "Torishogi Lance",
+    "name": "Torishogi-l",
     "variant": "torishogi",
     "betza": "fRrbBlbF"
   },
   {
-    "name": "Torishogi Pawn",
+    "name": "Torishogi-p",
     "variant": "torishogi",
     "betza": "bFfD"
   },
   {
-    "name": "Torishogi Rook",
+    "name": "Torishogi-r",
     "variant": "torishogi",
     "betza": "fRlbBrbF"
   },
@@ -3660,17 +3660,17 @@
     "betza": "R"
   },
   {
-    "name": "Wolf Elephant",
+    "name": "Wolf-e",
     "variant": "wolf",
     "betza": "NNQ"
   },
   {
-    "name": "Wolf Knight",
+    "name": "Wolf-n",
     "variant": "wolf",
     "betza": "NN"
   },
   {
-    "name": "Wolf Silver",
+    "name": "Wolf-s",
     "variant": "wolf",
     "betza": "fKifmnD"
   },
@@ -3725,27 +3725,27 @@
     "betza": "fW"
   },
   {
-    "name": "Yarishogi Bishop",
+    "name": "Yarishogi-b",
     "variant": "yarishogi",
     "betza": "fFfR"
   },
   {
-    "name": "Yarishogi Gold",
+    "name": "Yarishogi-g",
     "variant": "yarishogi",
     "betza": "WfFbR"
   },
   {
-    "name": "Yarishogi Knight",
+    "name": "Yarishogi-n",
     "variant": "yarishogi",
     "betza": "fRffN"
   },
   {
-    "name": "Yarishogi Rook",
+    "name": "Yarishogi-r",
     "variant": "yarishogi",
     "betza": "frlR"
   },
   {
-    "name": "Yarishogi Silver",
+    "name": "Yarishogi-s",
     "variant": "yarishogi",
     "betza": "fKbR"
   }
