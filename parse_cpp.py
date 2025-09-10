@@ -161,8 +161,16 @@ class CppParser:
             if variant_name.endswith('_base'):
                 continue
             if func_name in final_pieces_by_func:
-                variant_info = self.raw_variant_defs[func_name]
-                king_type_enum = variant_info.get('king_type')
+                # Find the effective king_type by traversing the inheritance chain
+                current_func = func_name
+                king_type_enum = None
+                while current_func:
+                    current_variant_info = self.raw_variant_defs.get(current_func, {})
+                    if current_variant_info.get('king_type'):
+                        king_type_enum = current_variant_info['king_type']
+                        break
+                    current_func = current_variant_info.get('parent')
+
                 king_betza = None
                 if king_type_enum and king_type_enum in self.piece_defs:
                     king_betza = self.piece_defs[king_type_enum]['betza']

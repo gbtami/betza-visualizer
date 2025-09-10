@@ -93,4 +93,21 @@ king = k:KN
     expect(centaurKing).toBeDefined();
     expect(centaurKing?.betza).toBe('KN');
   });
+
+  it('should handle king override inheritance', () => {
+    const iniContent = `
+[basevariant]
+king = k:N
+
+[childvariant:basevariant]
+pawn = p:fW
+`;
+    const pieceCatalog: Piece[] = [];
+    const parser = new VariantIniParser(iniContent, pieceCatalog);
+    const pieces = parser.parse();
+
+    const childKing = pieces.find(p => p.name === 'King' && p.variant === 'childvariant');
+    expect(childKing).toBeDefined();
+    expect(childKing?.betza).toBe('N');
+  });
 });

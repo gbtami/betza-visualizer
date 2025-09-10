@@ -1567,7 +1567,7 @@
   {
     "name": "King",
     "variant": "janggi",
-    "betza": "K"
+    "betza": "W"
   },
   {
     "name": "Rook",
@@ -1602,7 +1602,7 @@
   {
     "name": "King",
     "variant": "janggicasual",
-    "betza": "K"
+    "betza": "W"
   },
   {
     "name": "Rook",
@@ -1637,7 +1637,7 @@
   {
     "name": "King",
     "variant": "janggimodern",
-    "betza": "K"
+    "betza": "W"
   },
   {
     "name": "Rook",
@@ -1672,7 +1672,7 @@
   {
     "name": "King",
     "variant": "janggitraditional",
-    "betza": "K"
+    "betza": "W"
   },
   {
     "name": "Rook",
@@ -2182,7 +2182,7 @@
   {
     "name": "King",
     "variant": "manchu",
-    "betza": "K"
+    "betza": "W"
   },
   {
     "name": "Rook",
@@ -3427,7 +3427,7 @@
   {
     "name": "King",
     "variant": "supply",
-    "betza": "K"
+    "betza": "W"
   },
   {
     "name": "Rook",
@@ -3697,7 +3697,7 @@
   {
     "name": "King",
     "variant": "xiangqi",
-    "betza": "K"
+    "betza": "W"
   },
   {
     "name": "Rook",
