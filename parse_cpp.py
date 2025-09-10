@@ -57,11 +57,13 @@ class CppParser:
 
             reset_pieces = 'v->reset_pieces();' in body
             removals = re.findall(r'v->remove_piece\((\w+)\);', body)
+            king_type_match = re.search(r'v->kingType\s*=\s*(\w+);', body)
+            king_type = king_type_match.group(1) if king_type_match else None
             additions = []
             add_pattern = re.compile(r'v->add_piece\((\w+),\s*\'(\w)\'(?:,\s*[\'"]([^"\']*)[\'"])?\);')
             for add_match in add_pattern.finditer(body):
                 additions.append({ 'enum': add_match.group(1), 'char': add_match.group(2), 'betza': add_match.group(3) if add_match.group(3) and add_match.group(1).startswith("CUSTOM_PIECE_") else None })
-            self.raw_variant_defs[func_name] = { 'parent': parent, 'removals': removals, 'additions': additions, 'reset_pieces': reset_pieces }
+            self.raw_variant_defs[func_name] = { 'parent': parent, 'removals': removals, 'additions': additions, 'reset_pieces': reset_pieces, 'king_type': king_type }
 
         map_init_body_match = re.search(r'void\s+VariantMap::init\(\)\s*\{([\s\S]*?)\}', variant_cpp_content, re.DOTALL)
         if map_init_body_match:
@@ -159,8 +161,18 @@ class CppParser:
             if variant_name.endswith('_base'):
                 continue
             if func_name in final_pieces_by_func:
+                variant_info = self.raw_variant_defs[func_name]
+                king_type_enum = variant_info.get('king_type')
+                king_betza = None
+                if king_type_enum and king_type_enum in self.piece_defs:
+                    king_betza = self.piece_defs[king_type_enum]['betza']
+
                 for enum, piece_info in final_pieces_by_func[func_name].items():
                     internal_name = piece_info['name']
+                    betza = piece_info['betza']
+
+                    if enum == 'KING' and king_betza is not None:
+                        betza = king_betza
 
                     if '_' in internal_name:
                         display_name = internal_name.replace('_', ' ').title()
@@ -173,7 +185,7 @@ class CppParser:
                     output.append({
                         'name': display_name,
                         'variant': variant_name,
-                        'betza': piece_info['betza']
+                        'betza': betza
                     })
 
         output.sort(key=lambda x: (x['variant'], x['name']))

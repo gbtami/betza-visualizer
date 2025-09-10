@@ -1882,7 +1882,7 @@
   {
     "name": "King",
     "variant": "knightmate",
-    "betza": "K"
+    "betza": "N"
   },
   {
     "name": "Pawn",
@@ -2337,7 +2337,7 @@
   {
     "name": "King",
     "variant": "minixiangqi",
-    "betza": "K"
+    "betza": "W"
   },
   {
     "name": "Rook",
