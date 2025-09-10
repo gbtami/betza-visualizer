@@ -250,3 +250,51 @@ async def test_xiangqi_elephant_moves(pilot: Pilot):
     await pilot.pause()
 
     assert count_moves_on_board(pilot.app.render_board()) == 3
+
+
+async def test_janggi_elephant_moves(pilot: Pilot):
+    """
+    Test move calculation for the Janggi Elephant with blocker placement.
+    """
+    await pilot.pause()
+    list_view = pilot.app.query_one("#piece_catalog_list")
+    list_view.focus()
+    await pilot.pause()
+
+    # Find and select Janggi Elephant
+    for i, item in enumerate(list_view.children):
+        if item.piece_name == "Janggi Elephant":
+            list_view.index = i
+            break
+    await pilot.press("enter")
+    await pilot.pause()
+
+    assert pilot.app.query_one("#betza_input").value == "nZ"
+    assert count_moves_on_board(pilot.app.render_board()) == 8
+
+    # Place a blocker at (1, 0)
+    center = pilot.app.board_size // 2
+    # Click at col = center + 1, row = center
+    # event.x = (center + 1) * 2 + 1
+    # event.y = center + 2
+    await pilot.click("#board", offset=((center + 1) * 2 + 1, center + 2))
+    await pilot.pause()
+
+    # The two moves that step over (1,0) should be blocked: (3,2) and (3,-2)
+    board_text = pilot.app.render_board()
+    rows = board_text.split('\n')
+    assert rows[center - 2][(center + 3) * 2] == '.'
+    assert rows[center + 2][(center + 3) * 2] == '.'
+
+    # Place a blocker at (0, 1)
+    # Click at col = center, row = center - 1
+    # event.x = center * 2 + 1
+    # event.y = center - 1 + 2
+    await pilot.click("#board", offset=((center) * 2 + 1, center - 1 + 2))
+    await pilot.pause()
+
+    # The two moves that step over (0,1) should be blocked: (2,3) and (-2,3)
+    board_text = pilot.app.render_board()
+    rows = board_text.split('\n')
+    assert rows[center - 3][(center + 2) * 2] == '.'
+    assert rows[center - 3][(center - 2) * 2] == '.'

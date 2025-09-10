@@ -256,26 +256,13 @@ class BetzaChessApp(App):
                 else:
                     # Adjacent-checking for oblique non-jumpers (e.g., nN, nZ)
                     is_valid = True
-                    if abs(x) == 1 and abs(y) == 2 or abs(x) == 2 and abs(y) == 1: # nN
-                        block_x, block_y = 0, 0
-                        if abs(x) > abs(y):
-                            block_x = sign(x)
-                        elif abs(y) > abs(x):
-                            block_y = sign(y)
-                        if (block_x, block_y) in self.blockers:
-                            is_valid = False
-                    elif abs(x) == 2 and abs(y) == 3 or abs(x) == 3 and abs(y) == 2: # nZ
-                        path = []
-                        if abs(x) == 2:
-                            path.append((sign(x), 0))
-                            path.append((sign(x) * 2, sign(y)))
-                            path.append((sign(x) * 2, sign(y) * 2))
-                        else: # abs(y) == 2
-                            path.append((0, sign(y)))
-                            path.append((sign(x), sign(y) * 2))
-                            path.append((sign(x) * 2, sign(y) * 2))
-                        if any(p in self.blockers for p in path):
-                            is_valid = False
+                    block_x, block_y = 0, 0
+                    if abs(x) > abs(y):
+                        block_x = sign(x)
+                    elif abs(y) > abs(x):
+                        block_y = sign(y)
+                    if (block_x, block_y) in self.blockers:
+                        is_valid = False
             else:
                 is_valid = True
                 dx, dy = sign(x), sign(y)
