@@ -29,7 +29,7 @@ class TestFsfBuiltInVariantsCatalog(unittest.TestCase):
         self.assertNotIn('Pawn', piece_names)
 
         # Should have the custom "Berolina Pawn"
-        self.assertIn('Berolina Pawn', piece_names)
+        self.assertIn('Berolina-p', piece_names)
 
         # Check other standard pieces are present
         self.assertIn('Knight', piece_names)
