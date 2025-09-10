@@ -261,6 +261,8 @@ def test_load_variants_from_ini(page: Page):
     expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(8)
 
 
+import time
+
 def test_catalog_and_board_height_are_equal(page: Page):
     """
     Tests that the piece catalog and the board have the same height.
@@ -274,8 +276,17 @@ def test_catalog_and_board_height_are_equal(page: Page):
     board_container = page.locator("#board-container")
     catalog_container = page.locator("#piece-catalog-container")
 
-    board_height = board_container.bounding_box()["height"]
-    catalog_height = catalog_container.bounding_box()["height"]
-
-    # Allow for a small tolerance due to subpixel rendering differences
-    assert abs(board_height - catalog_height) < 2
+    # Poll for up to 5 seconds for the heights to match, as the ResizeObserver
+    # can take a moment to fire.
+    for _ in range(50):
+        board_height = board_container.bounding_box()["height"]
+        catalog_height = catalog_container.bounding_box()["height"]
+        if abs(board_height - catalog_height) < 2:
+            break
+        time.sleep(0.1)
+    else:
+        # The loop finished without the condition being met, so fail the test
+        # with a clear assertion message.
+        board_height = board_container.bounding_box()["height"]
+        catalog_height = catalog_container.bounding_box()["height"]
+        assert abs(board_height - catalog_height) < 2, f"Heights are not equal. Board: {board_height}, Catalog: {catalog_height}"
