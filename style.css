@@ -1,22 +1,25 @@
 body {
+    --board-size: calc(min(75vh, 75vw));
     font-family: sans-serif;
     background-color: #333;
     color: #eee;
 }
 
-h1 {
-    text-align: center;
+.title {
+    font-size: 24px;
+    grid-area: title;
+    justify-self: center;
 }
 
 #grid-container {
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-columns: auto var(--board-size);
+    grid-template-rows: auto 1fr;
     gap: 10px;
-    padding: 10px;
-    max-width: 950px;
+    max-width: fit-content;
     margin: 0 auto;
     grid-template-areas:
+        "title title"
         "load-variants board-controls"
         "catalog board"
         "variant-select legend";
@@ -40,19 +43,18 @@ h1 {
     overflow-y: auto;
     border: 1px solid #555;
     border-radius: 5px;
-    padding: 10px;
     background-color: #444;
-    height: 520px;
+    height: var(--board-size);
 }
 
 #board-container {
     grid-area: board;
+    height: var(--board-size);
 }
 
 #variant-select {
     grid-area: variant-select;
     width: 100%;
-    padding: 8px;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #555;
