@@ -29,6 +29,15 @@ let boardSize = Number(boardSizeSelect.value);
 const sign = (n: number): number => Math.sign(n);
 const blockers = new Set<string>();
 
+function syncCatalogHeight() {
+  const boardContainer = document.getElementById('board-container')!;
+  const catalogContainer = document.getElementById('piece-catalog-container')!;
+  const boardHeight = boardContainer.offsetHeight;
+  if (boardHeight > 0) {
+    catalogContainer.style.height = `${boardHeight}px`;
+  }
+}
+
 function renderBoard(moves: Move[], blockers: Set<string>) {
   const svg = document.createElementNS(SVG_NS, 'svg');
   svg.setAttribute('width', '100%');
@@ -251,6 +260,7 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
 
   boardContainer.innerHTML = '';
   boardContainer.appendChild(svg);
+  syncCatalogHeight();
 }
 
 function updateBoard() {
@@ -394,21 +404,6 @@ async function initialize() {
   let pieceCatalog: Piece[] = [];
   renderBoard([], blockers);
   renderLegend();
-
-  const boardContainer = document.getElementById('board-container')!;
-  const catalogContainer = document.getElementById('piece-catalog-container')!;
-
-  const resizeObserver = new ResizeObserver(entries => {
-      for (let entry of entries) {
-          const boardHeight = entry.contentRect.height;
-          if (boardHeight > 0) {
-              catalogContainer.style.height = `${boardHeight}px`;
-          }
-      }
-  });
-
-  resizeObserver.observe(boardContainer);
-
   try {
     const response = await fetch('/fsf_built_in_variants_catalog.json');
     pieceCatalog = await response.json();
@@ -418,6 +413,7 @@ async function initialize() {
     console.error('Error loading piece catalog:', error);
   }
 
+  window.addEventListener('resize', syncCatalogHeight);
   inputEl.addEventListener('input', updateBoard);
   boardSizeSelect.addEventListener('change', () => {
     boardSize = Number(boardSizeSelect.value);

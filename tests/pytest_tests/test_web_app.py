@@ -276,8 +276,7 @@ def test_catalog_and_board_height_are_equal(page: Page):
     board_container = page.locator("#board-container")
     catalog_container = page.locator("#piece-catalog-container")
 
-    # Poll for up to 5 seconds for the heights to match, as the ResizeObserver
-    # can take a moment to fire.
+    # Poll for up to 5 seconds for the heights to match.
     for _ in range(50):
         board_height = board_container.bounding_box()["height"]
         catalog_height = catalog_container.bounding_box()["height"]
