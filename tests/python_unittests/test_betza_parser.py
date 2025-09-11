@@ -241,6 +241,25 @@ if __name__ == "__main__":
     unittest.main()
 
 
+class TestInitialModifier(unittest.TestCase):
+    """Tests for the 'i' (initial) modifier."""
+
+    def setUp(self):
+        self.parser = BetzaParser()
+
+    def test_initial_modifier_iW(self):
+        """Tests that 'iW' flags moves as initial only."""
+        moves = self.parser.parse("iW")
+        self.assertEqual(len(moves), 4)
+        self.assertTrue(all(m.get("initial_only") for m in moves))
+
+    def test_no_initial_modifier_W(self):
+        """Tests that 'W' does not have the initial_only flag."""
+        moves = self.parser.parse("W")
+        self.assertEqual(len(moves), 4)
+        self.assertTrue(all("initial_only" not in m for m in moves))
+
+
 class TestModifierScope(unittest.TestCase):
     """Tests that modifiers are correctly scoped to their respective atoms."""
 

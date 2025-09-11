@@ -321,4 +321,18 @@ describe('BetzaParser', () => {
       expect(moveCoords).toEqual(expected);
     });
   });
+
+  describe('Initial Modifier', () => {
+    it('should correctly handle the initial "i" modifier', () => {
+        const moves = parser.parse('iW');
+        expect(moves.length).toBe(4);
+        expect(moves.every(m => m.initialOnly === true)).toBe(true);
+    });
+
+    it('should not have the initialOnly flag for a normal piece', () => {
+        const moves = parser.parse('W');
+        expect(moves.length).toBe(4);
+        expect(moves.every(m => m.initialOnly === undefined)).toBe(true);
+    });
+  });
 });

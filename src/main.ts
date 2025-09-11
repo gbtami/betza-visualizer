@@ -234,7 +234,8 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
     if (!isValid) return;
 
     const isSpecialMove = hopType !== null;
-    const moveIndicator = createMoveIndicator(moveType, isSpecialMove);
+    const isInitial = move.initialOnly || false;
+    const moveIndicator = createMoveIndicator(moveType, isSpecialMove, isInitial);
     moveIndicator.setAttribute('transform', `translate(${cx}, ${cy})`);
     svg.appendChild(moveIndicator);
   });
@@ -320,6 +321,13 @@ function renderLegend() {
     createLegendItem(moveCaptureIcon, 'Move or Capture')
   );
   legendContainer.appendChild(createLegendItem(hopIcon, 'Hop'));
+
+  const initialIcon = `<svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="${
+    r * 0.75
+  }" stroke="${
+    COLORS.initial
+  }" stroke-width="${strokeWidth}" fill="none" /></svg>`;
+  legendContainer.appendChild(createLegendItem(initialIcon, 'Initial'));
 }
 
 function populateVariantFilter(
