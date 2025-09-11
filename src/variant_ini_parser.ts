@@ -176,8 +176,8 @@ export class VariantIniParser {
 
     if (props.double_step) {
         for (const piece of pieces) {
-            if (piece.name.toLowerCase() === 'pawn' && !piece.betza.includes('imfnA')) {
-                piece.betza += 'imfnA';
+            if (piece.name.toLowerCase() === 'pawn' && !piece.betza.includes('ifmnD')) {
+                piece.betza += 'ifmnD';
             }
         }
     }

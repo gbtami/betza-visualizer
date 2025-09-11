@@ -208,7 +208,7 @@ class CppParser:
                         betza = king_betza
 
                     if enum == 'PAWN' and double_step:
-                        betza += 'imfnA'
+                        betza += 'ifmnD'
 
                     if '_' in internal_name:
                         display_name = internal_name.replace('_', ' ').title()

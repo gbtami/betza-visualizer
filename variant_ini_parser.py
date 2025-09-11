@@ -110,8 +110,8 @@ class VariantIniParser:
 
         if props.get('double_step'):
             for piece in pieces:
-                if piece['name'].lower() == 'pawn' and 'imfnA' not in piece['betza']:
-                    piece['betza'] += 'imfnA'
+                if piece['name'].lower() == 'pawn' and 'ifmnD' not in piece['betza']:
+                    piece['betza'] += 'ifmnD'
 
         self.parsed_variants_cache[section_name] = (pieces, props)
         return pieces, props

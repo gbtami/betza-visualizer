@@ -141,10 +141,10 @@ doubleStep = false
 
     const pawn1 = pieces.find(p => p.variant === 'withdoublestep' && p.name === 'Pawn');
     expect(pawn1).toBeDefined();
-    expect(pawn1?.betza).toContain('imfnA');
+    expect(pawn1?.betza).toContain('ifmnD');
 
     const pawn2 = pieces.find(p => p.variant === 'withoutdoublestep' && p.name === 'Pawn');
     expect(pawn2).toBeDefined();
-    expect(pawn2?.betza).not.toContain('imfnA');
+    expect(pawn2?.betza).not.toContain('ifmnD');
   });
 });

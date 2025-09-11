@@ -131,11 +131,11 @@ doubleStep = false
 
         pawn1 = next((p for p in pieces if p['variant'] == 'withdoublestep' and p['name'] == 'Pawn'), None)
         self.assertIsNotNone(pawn1)
-        self.assertTrue('imfnA' in pawn1['betza'])
+        self.assertTrue('ifmnD' in pawn1['betza'])
 
         pawn2 = next((p for p in pieces if p['variant'] == 'withoutdoublestep' and p['name'] == 'Pawn'), None)
         self.assertIsNotNone(pawn2)
-        self.assertFalse('imfnA' in pawn2['betza'])
+        self.assertFalse('ifmnD' in pawn2['betza'])
 
 
 if __name__ == '__main__':
