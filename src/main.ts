@@ -1,12 +1,7 @@
 import { BetzaParser } from './betza_parser.js';
 import { VariantIniParser } from './variant_ini_parser.js';
-import { Move, Piece } from './types.js';
-import {
-  CELL_SIZE,
-  SVG_NS,
-  COLORS,
-  createMoveIndicator,
-} from './svg_utils.js';
+import { Move, Piece, VariantProperties } from './types.js';
+import { CELL_SIZE, SVG_NS, COLORS, createMoveIndicator } from './svg_utils.js';
 
 const parser = new BetzaParser();
 const inputEl = document.getElementById('betzaInput') as HTMLInputElement;
@@ -192,7 +187,10 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
         const path: string[] = [];
         const dx = sign(x);
         const dy = sign(y);
-        console.log(`Checking move (${x},${y}) with blockers:`, Array.from(blockers));
+        console.log(
+          `Checking move (${x},${y}) with blockers:`,
+          Array.from(blockers)
+        );
         for (let i = 1; i < Math.max(Math.abs(x), Math.abs(y)); i++) {
           path.push(`${i * dx},${i * dy}`);
         }
@@ -235,7 +233,11 @@ function renderBoard(moves: Move[], blockers: Set<string>) {
 
     const isSpecialMove = hopType !== null;
     const isInitial = move.initialOnly || false;
-    const moveIndicator = createMoveIndicator(moveType, isSpecialMove, isInitial);
+    const moveIndicator = createMoveIndicator(
+      moveType,
+      isSpecialMove,
+      isInitial
+    );
     moveIndicator.setAttribute('transform', `translate(${cx}, ${cy})`);
     svg.appendChild(moveIndicator);
   });
@@ -330,11 +332,14 @@ function renderLegend() {
   legendContainer.appendChild(createLegendItem(initialIcon, 'Initial'));
 }
 
-function populateVariantFilter(
-  pieceCatalog: Piece[]
-) {
+function populateVariantFilter(pieceCatalog: Piece[]) {
   const variants = [
-    ...new Set(pieceCatalog.map((p) => p.variant).join(', ').split(', ')),
+    ...new Set(
+      pieceCatalog
+        .map((p) => p.variant)
+        .join(', ')
+        .split(', ')
+    ),
   ].sort();
 
   variantSelect.innerHTML = '';
@@ -353,10 +358,7 @@ function populateVariantFilter(
   });
 }
 
-function renderPieceCatalog(
-  pieceCatalog: Piece[],
-  filterVariant = 'All'
-) {
+function renderPieceCatalog(pieceCatalog: Piece[], filterVariant = 'All') {
   const catalogContainer = document.getElementById('piece-catalog-container')!;
   const catalogContent =
     document.getElementById('piece-catalog-content') ||
@@ -400,14 +402,16 @@ function renderPieceCatalog(
 
 async function initialize() {
   let pieceCatalog: Piece[] = [];
-  let variantProperties: { [key: string]: any } = {};
+  let variantProperties: { [key: string]: VariantProperties } = {};
   renderBoard([], blockers);
   renderLegend();
   try {
     const catalogResponse = await fetch('/fsf_built_in_variants_catalog.json');
     pieceCatalog = await catalogResponse.json();
 
-    const propertiesResponse = await fetch('/fsf_built_in_variant_properties.json');
+    const propertiesResponse = await fetch(
+      '/fsf_built_in_variant_properties.json'
+    );
     variantProperties = await propertiesResponse.json();
 
     populateVariantFilter(pieceCatalog);
@@ -445,7 +449,11 @@ async function initialize() {
       const content = e.target?.result as string;
       if (content) {
         try {
-          const iniParser = new VariantIniParser(content, pieceCatalog, variantProperties);
+          const iniParser = new VariantIniParser(
+            content,
+            pieceCatalog,
+            variantProperties
+          );
           const newPieces = iniParser.parse();
           pieceCatalog.push(...newPieces);
           populateVariantFilter(pieceCatalog);
@@ -463,7 +471,16 @@ async function initialize() {
     .addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       const item = target.closest('.piece-catalog-item') as HTMLElement | null;
+
       if (item && item.dataset.betza) {
+        const previouslySelected = document.querySelector(
+          '.piece-catalog-item.selected'
+        );
+        if (previouslySelected) {
+          previouslySelected.classList.remove('selected');
+        }
+        item.classList.add('selected');
+
         inputEl.value = item.dataset.betza;
         blockers.clear();
         inputEl.dispatchEvent(new Event('input'));

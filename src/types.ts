@@ -14,3 +14,7 @@ export interface Move {
   atomCoords: { x: number; y: number };
   initialOnly?: boolean;
 }
+
+export interface VariantProperties {
+  double_step: boolean;
+}
