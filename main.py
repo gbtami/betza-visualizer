@@ -1,10 +1,15 @@
 import math
 import json
 from textual import work
+from rich.segment import Segment
+from rich.style import Style
+from textual import work
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
+from textual.widget import Widget
 from textual.containers import Container
 from textual.reactive import reactive
+from textual.strip import Strip
 from textual.events import Click
 from betza_parser import BetzaParser
 from textual_fspicker import FileOpen
@@ -32,146 +37,104 @@ DEFAULT_BOARD_SIZE = 15
 LEGEND_TEXT = "m: Move | x: Capture | X: Move/Capture | i: Initial | ♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
 
 
-class BetzaChessApp(App):
-    CSS_PATH = "style.tcss"
-    BINDINGS = [
-        ("d", "toggle_dark", "Toggle dark mode"),
-        ("ctrl+l", "load_variants", "Load Variants"),
-    ]
+class BoardWidget(Widget):
+    SPRITES = {
+        ".": [
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+        ],
+        "🧚": [
+            "  .::.  ",
+            " (o^^o) ",
+            " /|  |\\ ",
+            "  /\\/\\  ",
+        ],
+        "♙": [
+            "        ",
+            "  (..)  ",
+            "  <||>  ",
+            "  _||_  ",
+        ],
+        "m": [
+            "   __   ",
+            "  /  \\  ",
+            "  \\__/  ",
+            "   ->   ",
+        ],
+        "x": [
+            "        ",
+            "  \\/    ",
+            "  /\\    ",
+            "        ",
+        ],
+        "X": [
+            "   __   ",
+            "  /  \\  ",
+            "  \\__/  ",
+            "  <->   ",
+        ],
+        "i": [
+            "        ",
+            "  .--.  ",
+            " |i  | ",
+            "  '--'  ",
+        ],
+        "c": [
+            "  \\/    ",
+            "  /\\    ",
+            " (cap)  ",
+            "        ",
+        ],
+        "I": [
+            "   __   ",
+            "  /  \\  ",
+            " | I |  ",
+            "  '--'  ",
+        ],
+        "H": [
+            "        ",
+            "  \\/    ",
+            "  /\\    ",
+            " (H)    ",
+        ],
+        "#": [
+            "   __   ",
+            "  /##\\  ",
+            "  \\##/  ",
+            "  <->   ",
+        ],
+    }
+
+    COMPONENT_CLASSES = {
+        "board--white-square",
+        "board--black-square",
+        "board--piece",
+        "board--blocker",
+        "board--move",
+        "board--capture",
+        "board--move-capture",
+        "board--initial",
+    }
 
     board_size = reactive(DEFAULT_BOARD_SIZE)
     moves = reactive([])
     blockers = reactive(set())
 
-    def compose(self) -> ComposeResult:
-        yield Header()
-        yield Footer()
-        with Container(id="main-container"):
-            yield Input(placeholder="Try Xiangqi Horse: nN", id="betza_input")
-            yield Select(
-                [
-                    ("5x5", 5),
-                    ("7x7", 7),
-                    ("9x9", 9),
-                    ("11x11", 11),
-                    ("13x13", 13),
-                    ("15x15", 15),
-                ],
-                value=DEFAULT_BOARD_SIZE,
-                id="board_size_select",
-            )
-            yield ListView(id="piece_catalog_list")
-            yield Static(id="board")
-            yield Select([], id="variant_select")
-            yield Static(LEGEND_TEXT, id="legend")
-
-    def on_mount(self) -> None:
-        self.parser = BetzaParser()
-        with open("fsf_built_in_variants_catalog.json", "r") as f:
-            self.fsf_catalog = json.load(f)
-        with open("fsf_built_in_variant_properties.json", "r") as f:
-            self.fsf_variant_properties = json.load(f)
-        self.piece_catalog = self.fsf_catalog
-        self.query_one("#board").update(self.render_board())
-        self.query_one(Input).focus()
-        self.populate_variant_select()
-        self.populate_piece_list()
-
-    @work
-    async def action_load_variants(self) -> None:
-        """Load a variants.ini file."""
-        path = await self.push_screen_wait(FileOpen())
-        if path:
-            try:
-                with open(path, "r") as f:
-                    ini_content = f.read()
-                ini_parser = VariantIniParser(ini_content, self.fsf_catalog, self.fsf_variant_properties)
-                ini_pieces = ini_parser.parse()
-                self.piece_catalog = self.fsf_catalog + ini_pieces
-                self.populate_variant_select()
-                self.populate_piece_list()
-            except Exception as e:
-                self.log(f"Error loading variants file: {e}")
-
-    def populate_variant_select(self) -> None:
-        variants = set(p["variant"] for p in self.piece_catalog)
-        variant_select = self.query_one("#variant_select", Select)
-        variant_select.set_options([("All", "All")] + [(v, v) for v in sorted(list(variants))])
-
-    def populate_piece_list(self, filter_variant: str = "All") -> None:
-        list_view = self.query_one(ListView)
-        list_view.clear()
-
-        piece_catalog = self.piece_catalog
-        if filter_variant != "All":
-            piece_catalog = [p for p in self.piece_catalog if p["variant"] == filter_variant]
-
-        for piece in piece_catalog:
-            list_view.append(
-                PieceListItem(
-                    piece_name=piece["name"],
-                    piece_variant=piece["variant"],
-                    piece_betza=piece["betza"],
-                )
-            )
-
-    def on_list_view_selected(self, event: ListView.Selected) -> None:
-        if isinstance(event.item, PieceListItem):
-            input_widget = self.query_one("#betza_input")
-            input_widget.value = event.item.piece_betza
-            self.moves = self.parser.parse(input_widget.value, board_size=self.board_size)
-            self.blockers = set()
-
-    def on_input_changed(self, event: Input.Changed) -> None:
-        self.moves = self.parser.parse(event.value, board_size=self.board_size)
-
-    def on_select_changed(self, event: Select.Changed) -> None:
-        if event.select.id == "board_size_select":
-            self.board_size = event.value
-        elif event.select.id == "variant_select":
-            self.query_one("#betza_input").value = ""
-            self.blockers = set()
-            self.populate_piece_list(str(event.value))
-
-    def on_click(self, event: Click) -> None:
-        if event.button != 1:
-            return
-
-        board = self.query_one("#board")
-        if event.control is not board:
-            return
-
-        center = self.board_size // 2
-        # The board characters are space-separated, and we need to account for
-        # padding/border offsets.
-        col = (event.x - 1) // 2
-        row = event.y - 2
-
-        blocker_x = col - center
-        blocker_y = center - row
-
-        if blocker_x == 0 and blocker_y == 0:
-            return
-
-        blocker_coord = (blocker_x, blocker_y)
-        new_blockers = self.blockers.copy()
-        if blocker_coord in new_blockers:
-            new_blockers.remove(blocker_coord)
-        else:
-            new_blockers.add(blocker_coord)
-        self.blockers = new_blockers
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
 
     def watch_board_size(self, new_size: int) -> None:
-        self.blockers = set()
-        self.query_one("#board").update(self.render_board())
+        self.refresh()
 
     def watch_moves(self, new_moves: list) -> None:
-        self.query_one("#board").update(self.render_board())
+        self.refresh()
 
     def watch_blockers(self, new_blockers: set) -> None:
-        self.query_one("#board").update(self.render_board())
+        self.refresh()
 
-    def render_board(self) -> str:
+    def get_board_layout(self) -> list[list[str]]:
         board_size = self.board_size
         moves = self.moves
         center = board_size // 2
@@ -218,7 +181,14 @@ class BetzaChessApp(App):
                         (-atom_y, -atom_x),
                     ]
 
-                    step = next((s for s in possible_steps if s[0] != 0 and s[1] != 0 and x % s[0] == 0 and y % s[1] == 0 and x // s[0] == y // s[1]), None)
+                    step = next(
+                        (
+                            s
+                            for s in possible_steps
+                            if s[0] != 0 and s[1] != 0 and x % s[0] == 0 and y % s[1] == 0 and x // s[0] == y // s[1]
+                        ),
+                        None,
+                    )
 
                     if step:
                         dx, dy = step
@@ -297,14 +267,191 @@ class BetzaChessApp(App):
                     elif char == "X":
                         char = "#"
                 board[display_y][display_x] = char
+        return board
 
-        rendered_rows = []
-        for row in board:
-            row_str = " ".join(row)
-            if "🧚" in row_str:
-                row_str = row_str.replace(" 🧚", "🧚")
-            rendered_rows.append(row_str)
-        return "\n".join(rendered_rows)
+    def render_line(self, y: int) -> Strip:
+        board_layout = self.get_board_layout()
+
+        board_row_index = y // 4
+        sprite_line_index = y % 4
+
+        if board_row_index >= self.board_size:
+            return Strip.blank(self.size.width)
+
+        board_row = board_layout[board_row_index]
+
+        white_square_style = self.get_component_rich_style("board--white-square")
+        black_square_style = self.get_component_rich_style("board--black-square")
+
+        char_to_style_map = {
+            "🧚": "board--piece",
+            "♙": "board--blocker",
+            "m": "board--move",
+            "x": "board--capture",
+            "X": "board--move-capture",
+            "i": "board--initial",
+            "c": "board--initial",
+            "I": "board--initial",
+            "H": "board--capture",
+            "#": "board--move-capture",
+        }
+
+        segments = []
+        for i, char in enumerate(board_row):
+            is_odd_col = i % 2
+            is_odd_row = board_row_index % 2
+
+            bg_style = black_square_style if (is_odd_row + is_odd_col) % 2 else white_square_style
+
+            sprite = self.SPRITES.get(char, self.SPRITES["."])
+            sprite_line = sprite[sprite_line_index]
+
+            fg_style_component = char_to_style_map.get(char)
+            if fg_style_component:
+                final_style = bg_style + self.get_component_rich_style(fg_style_component)
+            else:
+                final_style = bg_style
+
+            segments.append(Segment(sprite_line, final_style))
+
+        return Strip(segments)
+
+    def on_click(self, event: Click) -> None:
+        if event.button != 1:
+            return
+
+        center = self.board_size // 2
+        col = event.x // 8
+        row = event.y // 4
+
+        blocker_x = col - center
+        blocker_y = center - row
+
+        if blocker_x == 0 and blocker_y == 0:
+            return
+
+        blocker_coord = (blocker_x, blocker_y)
+        new_blockers = self.app.blockers.copy()
+        if blocker_coord in new_blockers:
+            new_blockers.remove(blocker_coord)
+        else:
+            new_blockers.add(blocker_coord)
+        self.app.blockers = new_blockers
+
+
+class BetzaChessApp(App):
+    CSS_PATH = "style.tcss"
+    BINDINGS = [
+        ("d", "toggle_dark", "Toggle dark mode"),
+        ("ctrl+l", "load_variants", "Load Variants"),
+    ]
+
+    board_size = reactive(DEFAULT_BOARD_SIZE)
+    moves = reactive([])
+    blockers = reactive(set())
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Footer()
+        with Container(id="main-container"):
+            yield Input(placeholder="Try Xiangqi Horse: nN", id="betza_input")
+            yield Select(
+                [
+                    ("5x5", 5),
+                    ("7x7", 7),
+                    ("9x9", 9),
+                    ("11x11", 11),
+                    ("13x13", 13),
+                    ("15x15", 15),
+                ],
+                value=self.board_size,
+                id="board_size_select",
+            )
+            yield ListView(id="piece_catalog_list")
+            yield BoardWidget(id="board")
+            yield Select([], id="variant_select")
+            yield Static(LEGEND_TEXT, id="legend")
+
+    def on_mount(self) -> None:
+        self.parser = BetzaParser()
+        with open("fsf_built_in_variants_catalog.json", "r") as f:
+            self.fsf_catalog = json.load(f)
+        with open("fsf_built_in_variant_properties.json", "r") as f:
+            self.fsf_variant_properties = json.load(f)
+        self.piece_catalog = self.fsf_catalog
+        self.query_one(Input).focus()
+        self.populate_variant_select()
+        self.populate_piece_list()
+        self.query_one(BoardWidget).board_size = self.board_size
+
+    @work
+    async def action_load_variants(self) -> None:
+        """Load a variants.ini file."""
+        path = await self.push_screen_wait(FileOpen())
+        if path:
+            try:
+                with open(path, "r") as f:
+                    ini_content = f.read()
+                ini_parser = VariantIniParser(ini_content, self.fsf_catalog, self.fsf_variant_properties)
+                ini_pieces = ini_parser.parse()
+                self.piece_catalog = self.fsf_catalog + ini_pieces
+                self.populate_variant_select()
+                self.populate_piece_list()
+            except Exception as e:
+                self.log(f"Error loading variants file: {e}")
+
+    def populate_variant_select(self) -> None:
+        variants = set(p["variant"] for p in self.piece_catalog)
+        variant_select = self.query_one("#variant_select", Select)
+        variant_select.set_options([("All", "All")] + [(v, v) for v in sorted(list(variants))])
+
+    def populate_piece_list(self, filter_variant: str = "All") -> None:
+        list_view = self.query_one(ListView)
+        list_view.clear()
+
+        piece_catalog = self.piece_catalog
+        if filter_variant != "All":
+            piece_catalog = [p for p in self.piece_catalog if p["variant"] == filter_variant]
+
+        for piece in piece_catalog:
+            list_view.append(
+                PieceListItem(
+                    piece_name=piece["name"],
+                    piece_variant=piece["variant"],
+                    piece_betza=piece["betza"],
+                )
+            )
+
+    def on_list_view_selected(self, event: ListView.Selected) -> None:
+        if isinstance(event.item, PieceListItem):
+            input_widget = self.query_one("#betza_input")
+            input_widget.value = event.item.piece_betza
+            self.moves = self.parser.parse(input_widget.value, board_size=self.board_size)
+            self.blockers = set()
+
+    def on_input_changed(self, event: Input.Changed) -> None:
+        self.moves = self.parser.parse(event.value, board_size=self.board_size)
+
+    def on_select_changed(self, event: Select.Changed) -> None:
+        if event.select.id == "board_size_select":
+            self.board_size = event.value
+        elif event.select.id == "variant_select":
+            self.query_one("#betza_input").value = ""
+            self.blockers = set()
+            self.populate_piece_list(str(event.value))
+
+    def watch_board_size(self, new_size: int) -> None:
+        self.blockers = set()
+        if self.is_mounted:
+            self.query_one(BoardWidget).board_size = new_size
+
+    def watch_moves(self, new_moves: list) -> None:
+        if self.is_mounted:
+            self.query_one(BoardWidget).moves = new_moves
+
+    def watch_blockers(self, new_blockers: set) -> None:
+        if self.is_mounted:
+            self.query_one(BoardWidget).blockers = new_blockers
 
     def action_toggle_dark(self) -> None:
         self.dark = not self.dark
