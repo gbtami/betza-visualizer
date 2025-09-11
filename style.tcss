@@ -55,3 +55,35 @@ PieceListItem > .variant {
     text-align: center;
     margin-top: 1;
 }
+
+BoardWidget .board--white-square {
+    background: #A5BAC9;
+}
+
+BoardWidget .board--black-square {
+    background: #004578;
+}
+
+BoardWidget .board--piece {
+    color: #FFFFFF;
+}
+
+BoardWidget .board--blocker {
+    color: #FF0000;
+}
+
+BoardWidget .board--move {
+    color: #00FF00;
+}
+
+BoardWidget .board--capture {
+    color: #FFFF00;
+}
+
+BoardWidget .board--move-capture {
+    color: #FFA500;
+}
+
+BoardWidget .board--initial {
+    color: #FFC0CB;
+}
