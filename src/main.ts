@@ -463,7 +463,16 @@ async function initialize() {
     .addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       const item = target.closest('.piece-catalog-item') as HTMLElement | null;
+
       if (item && item.dataset.betza) {
+        const previouslySelected = document.querySelector(
+          '.piece-catalog-item.selected'
+        );
+        if (previouslySelected) {
+          previouslySelected.classList.remove('selected');
+        }
+        item.classList.add('selected');
+
         inputEl.value = item.dataset.betza;
         blockers.clear();
         inputEl.dispatchEvent(new Event('input'));
