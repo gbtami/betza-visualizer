@@ -178,14 +178,30 @@ export class BetzaParser {
     // 1. Handle union-style modifiers recursively.
     if (mods.includes('v')) {
       const otherMods = mods.replace('v', '');
-      const fDirs = this._filterDirections(directions, 'f' + otherMods, atom);
-      const bDirs = this._filterDirections(directions, 'b' + otherMods, atom);
+      const fDirs = this._filterDirections(
+        directions,
+        'f' + otherMods,
+        atom
+      );
+      const bDirs = this._filterDirections(
+        directions,
+        'b' + otherMods,
+        atom
+      );
       return new Set([...fDirs, ...bDirs]);
     }
     if (mods.includes('s')) {
       const otherMods = mods.replace('s', '');
-      const lDirs = this._filterDirections(directions, 'l' + otherMods, atom);
-      const rDirs = this._filterDirections(directions, 'r' + otherMods, atom);
+      const lDirs = this._filterDirections(
+        directions,
+        'l' + otherMods,
+        atom
+      );
+      const rDirs = this._filterDirections(
+        directions,
+        'r' + otherMods,
+        atom
+      );
       return new Set([...lDirs, ...rDirs]);
     }
 
@@ -233,7 +249,7 @@ export class BetzaParser {
       return directions;
     }
 
-    const filtered: Set<{ dx: number; dy: number }> = new Set();
+    let filtered: Set<{ dx: number; dy: number }> = new Set();
     const hasVMod = dirMods.includes('f') || dirMods.includes('b');
     const hasHMod = dirMods.includes('l') || dirMods.includes('r');
 
