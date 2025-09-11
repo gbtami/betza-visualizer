@@ -59,11 +59,13 @@ class CppParser:
             removals = re.findall(r'v->remove_piece\((\w+)\);', body)
             king_type_match = re.search(r'v->kingType\s*=\s*(\w+);', body)
             king_type = king_type_match.group(1) if king_type_match else None
+            double_step_match = re.search(r'v->doubleStep\s*=\s*(true|false);', body)
+            double_step = double_step_match.group(1) == 'true' if double_step_match else None
             additions = []
             add_pattern = re.compile(r'v->add_piece\((\w+),\s*\'(\w)\'(?:,\s*[\'"]([^"\']*)[\'"])?\);')
             for add_match in add_pattern.finditer(body):
                 additions.append({ 'enum': add_match.group(1), 'char': add_match.group(2), 'betza': add_match.group(3) if add_match.group(3) and add_match.group(1).startswith("CUSTOM_PIECE_") else None })
-            self.raw_variant_defs[func_name] = { 'parent': parent, 'removals': removals, 'additions': additions, 'reset_pieces': reset_pieces, 'king_type': king_type }
+            self.raw_variant_defs[func_name] = { 'parent': parent, 'removals': removals, 'additions': additions, 'reset_pieces': reset_pieces, 'king_type': king_type, 'double_step': double_step }
 
         map_init_body_match = re.search(r'void\s+VariantMap::init\(\)\s*\{([\s\S]*?)\}', variant_cpp_content, re.DOTALL)
         if map_init_body_match:
@@ -115,6 +117,7 @@ class CppParser:
         sorted_variants = self.topological_sort()
 
         final_pieces_by_func = {}
+        variant_properties = {}
 
         for func_name in sorted_variants:
             if func_name not in self.raw_variant_defs: continue
@@ -161,6 +164,28 @@ class CppParser:
             if variant_name.endswith('_base'):
                 continue
             if func_name in final_pieces_by_func:
+                # Determine if the variant is descended from chess_variant_base
+                is_chess_descendant = False
+                curr = func_name
+                while curr:
+                    if curr == 'chess_variant_base':
+                        is_chess_descendant = True
+                        break
+                    curr = self.raw_variant_defs.get(curr, {}).get('parent')
+
+                double_step = is_chess_descendant
+
+                # Find the effective double_step value by traversing the inheritance chain
+                curr = func_name
+                while curr:
+                    current_variant_info = self.raw_variant_defs.get(curr, {})
+                    if current_variant_info.get('double_step') is not None:
+                        double_step = current_variant_info['double_step']
+                        break
+                    curr = current_variant_info.get('parent')
+
+                variant_properties[variant_name] = {'double_step': double_step}
+
                 # Find the effective king_type by traversing the inheritance chain
                 current_func = func_name
                 king_type_enum = None
@@ -182,6 +207,9 @@ class CppParser:
                     if enum == 'KING' and king_betza is not None:
                         betza = king_betza
 
+                    if enum == 'PAWN' and double_step:
+                        betza += 'imfnA'
+
                     if '_' in internal_name:
                         display_name = internal_name.replace('_', ' ').title()
                     elif '-' in internal_name:
@@ -197,7 +225,7 @@ class CppParser:
                     })
 
         output.sort(key=lambda x: (x['variant'], x['name']))
-        return json.dumps(output, indent=2)
+        return json.dumps(output, indent=2), json.dumps(variant_properties, indent=2)
 
 if __name__ == '__main__':
     PIECE_CPP_URL = 'https://raw.githubusercontent.com/fairy-stockfish/Fairy-Stockfish/master/src/piece.cpp'
@@ -215,12 +243,17 @@ if __name__ == '__main__':
         variant_cpp = response.text
 
         parser = CppParser()
-        json_output = parser.run(piece_cpp, variant_cpp)
+        json_output, properties_output = parser.run(piece_cpp, variant_cpp)
 
         with open('fsf_built_in_variants_catalog.json', 'w', encoding='utf-8') as f:
             f.write(json_output)
 
         print("Successfully generated fsf_built_in_variants_catalog.json")
+
+        with open('fsf_built_in_variant_properties.json', 'w', encoding='utf-8') as f:
+            f.write(properties_output)
+
+        print("Successfully generated fsf_built_in_variant_properties.json")
 
     except requests.exceptions.RequestException as e:
         sys.stderr.write(f"Error downloading file: {e}\n")

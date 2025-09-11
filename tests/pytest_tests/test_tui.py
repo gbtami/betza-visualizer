@@ -37,7 +37,7 @@ async def test_piece_catalog_selection(pilot: Pilot):
     await pilot.press("down")
     await pilot.press("enter")
     await pilot.pause()
-    assert input_widget.value == "fmWfceF"
+    assert input_widget.value == "fmWfceFimfnA"
 
 
 def count_moves_on_board(board_text: str) -> int:

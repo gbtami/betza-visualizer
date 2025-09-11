@@ -17,7 +17,7 @@
   {
     "name": "Pawn",
     "variant": "3check",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -47,7 +47,7 @@
   {
     "name": "Pawn",
     "variant": "5check",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -112,7 +112,7 @@
   {
     "name": "Pawn",
     "variant": "almost",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Rook",
@@ -142,7 +142,7 @@
   {
     "name": "Pawn",
     "variant": "amazon",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Rook",
@@ -172,7 +172,7 @@
   {
     "name": "Pawn",
     "variant": "antichess",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -202,7 +202,7 @@
   {
     "name": "Pawn",
     "variant": "armageddon",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -267,7 +267,7 @@
   {
     "name": "Pawn",
     "variant": "atomar",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -297,7 +297,7 @@
   {
     "name": "Pawn",
     "variant": "atomic",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -362,7 +362,7 @@
   {
     "name": "Pawn",
     "variant": "bughouse",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -432,7 +432,7 @@
   {
     "name": "Pawn",
     "variant": "capablanca",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -472,7 +472,7 @@
   {
     "name": "Pawn",
     "variant": "capahouse",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -512,7 +512,7 @@
   {
     "name": "Pawn",
     "variant": "caparandom",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -547,7 +547,7 @@
   {
     "name": "Pawn",
     "variant": "centaur",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -582,7 +582,7 @@
   {
     "name": "Pawn",
     "variant": "chancellor",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -692,7 +692,7 @@
   {
     "name": "Pawn",
     "variant": "chess",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -722,7 +722,7 @@
   {
     "name": "Pawn",
     "variant": "chessgi",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -757,7 +757,7 @@
   {
     "name": "Pawn",
     "variant": "chigorin",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -797,7 +797,7 @@
   {
     "name": "Pawn",
     "variant": "codrus",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -827,7 +827,7 @@
   {
     "name": "Pawn",
     "variant": "coregal",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -902,7 +902,7 @@
   {
     "name": "Pawn",
     "variant": "crazyhouse",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -962,7 +962,7 @@
   {
     "name": "Pawn",
     "variant": "dragon",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -992,7 +992,7 @@
   {
     "name": "Pawn",
     "variant": "duck",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1032,7 +1032,7 @@
   {
     "name": "Pawn",
     "variant": "embassy",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1107,7 +1107,7 @@
   {
     "name": "Pawn",
     "variant": "extinction",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1157,7 +1157,7 @@
   {
     "name": "Pawn",
     "variant": "fairy",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1192,7 +1192,7 @@
   {
     "name": "Pawn",
     "variant": "fischerandom",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1277,7 +1277,7 @@
   {
     "name": "Pawn",
     "variant": "giveaway",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1357,7 +1357,7 @@
   {
     "name": "Pawn",
     "variant": "gothic",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1397,7 +1397,7 @@
   {
     "name": "Pawn",
     "variant": "grand",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1467,7 +1467,7 @@
   {
     "name": "Pawn",
     "variant": "gustav3",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1497,7 +1497,7 @@
   {
     "name": "Pawn",
     "variant": "hoppelpoppel",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1527,7 +1527,7 @@
   {
     "name": "Pawn",
     "variant": "horde",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1712,7 +1712,7 @@
   {
     "name": "Pawn",
     "variant": "janus",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1827,7 +1827,7 @@
   {
     "name": "Pawn",
     "variant": "kinglet",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1857,7 +1857,7 @@
   {
     "name": "Pawn",
     "variant": "kingofthehill",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1887,7 +1887,7 @@
   {
     "name": "Pawn",
     "variant": "knightmate",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -1917,7 +1917,7 @@
   {
     "name": "Pawn",
     "variant": "koedem",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2027,7 +2027,7 @@
   {
     "name": "Pawn",
     "variant": "loop",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2082,7 +2082,7 @@
   {
     "name": "Pawn",
     "variant": "losers",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2367,7 +2367,7 @@
   {
     "name": "Pawn",
     "variant": "misere",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2402,7 +2402,7 @@
   {
     "name": "Pawn",
     "variant": "modern",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2432,7 +2432,7 @@
   {
     "name": "Pawn",
     "variant": "newzealand",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2462,7 +2462,7 @@
   {
     "name": "Pawn",
     "variant": "nightrider",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2492,7 +2492,7 @@
   {
     "name": "Pawn",
     "variant": "nocastle",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2522,7 +2522,7 @@
   {
     "name": "Pawn",
     "variant": "nocheckatomic",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2552,7 +2552,7 @@
   {
     "name": "Pawn",
     "variant": "normal",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2647,7 +2647,7 @@
   {
     "name": "Pawn",
     "variant": "omicron",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2697,7 +2697,7 @@
   {
     "name": "Pawn",
     "variant": "opulent",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2727,7 +2727,7 @@
   {
     "name": "Pawn",
     "variant": "paradigm",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2832,7 +2832,7 @@
   {
     "name": "Pawn",
     "variant": "perfect",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2892,7 +2892,7 @@
   {
     "name": "Pawn",
     "variant": "placement",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2922,7 +2922,7 @@
   {
     "name": "Pawn",
     "variant": "pocketknight",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -2982,7 +2982,7 @@
   {
     "name": "Pawn",
     "variant": "racingkings",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3022,7 +3022,7 @@
   {
     "name": "Pawn",
     "variant": "seirawan",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3062,7 +3062,7 @@
   {
     "name": "Pawn",
     "variant": "shako",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3267,7 +3267,7 @@
   {
     "name": "Pawn",
     "variant": "shouse",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3347,7 +3347,7 @@
   {
     "name": "Pawn",
     "variant": "spartan",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3392,7 +3392,7 @@
   {
     "name": "Pawn",
     "variant": "suicide",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3467,7 +3467,7 @@
   {
     "name": "Pawn",
     "variant": "tencubed",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3507,7 +3507,7 @@
   {
     "name": "Pawn",
     "variant": "threekings",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3582,7 +3582,7 @@
   {
     "name": "Pawn",
     "variant": "torpedo",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3612,7 +3612,7 @@
   {
     "name": "Pawn",
     "variant": "troitzky",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",
@@ -3647,7 +3647,7 @@
   {
     "name": "Pawn",
     "variant": "wolf",
-    "betza": "fmWfceF"
+    "betza": "fmWfceFimfnA"
   },
   {
     "name": "Queen",

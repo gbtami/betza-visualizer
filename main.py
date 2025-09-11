@@ -69,6 +69,8 @@ class BetzaChessApp(App):
         self.parser = BetzaParser()
         with open("fsf_built_in_variants_catalog.json", "r") as f:
             self.fsf_catalog = json.load(f)
+        with open("fsf_built_in_variant_properties.json", "r") as f:
+            self.fsf_variant_properties = json.load(f)
         self.piece_catalog = self.fsf_catalog
         self.query_one("#board").update(self.render_board())
         self.query_one(Input).focus()
@@ -83,7 +85,7 @@ class BetzaChessApp(App):
             try:
                 with open(path, "r") as f:
                     ini_content = f.read()
-                ini_parser = VariantIniParser(ini_content, self.fsf_catalog)
+                ini_parser = VariantIniParser(ini_content, self.fsf_catalog, self.fsf_variant_properties)
                 ini_pieces = ini_parser.parse()
                 self.piece_catalog = self.fsf_catalog + ini_pieces
                 self.populate_variant_select()

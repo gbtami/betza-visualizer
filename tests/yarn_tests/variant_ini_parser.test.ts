@@ -7,18 +7,22 @@ import { fileURLToPath } from 'url';
 describe('VariantIniParser', () => {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   let fsfCatalog: Piece[];
+  let fsfVariantProperties: any;
   let variantsIni: string;
 
   beforeAll(() => {
     const catalogPath = path.join(__dirname, '../../fsf_built_in_variants_catalog.json');
     fsfCatalog = JSON.parse(fs.readFileSync(catalogPath, 'utf-8'));
 
+    const propertiesPath = path.join(__dirname, '../../fsf_built_in_variant_properties.json');
+    fsfVariantProperties = JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
+
     const iniPath = path.join(__dirname, '../variants.ini');
     variantsIni = fs.readFileSync(iniPath, 'utf-8');
   });
 
   it('should parse variants.ini with the FSF catalog', () => {
-    const parser = new VariantIniParser(variantsIni, fsfCatalog);
+    const parser = new VariantIniParser(variantsIni, fsfCatalog, fsfVariantProperties);
     const pieces = parser.parse();
 
     expect(pieces.length).toBeGreaterThan(0);
@@ -64,8 +68,11 @@ customPiece1 = p:mWfceFifmnD
       { name: 'King', variant: 'chess', betza: 'K' },
       { name: 'Pawn', variant: 'chess', betza: 'fmWfceF' }
     ];
+    const variantProperties = {
+        "chess": {"double_step": true}
+    };
 
-    const parser = new VariantIniParser(iniContent, pieceCatalog);
+    const parser = new VariantIniParser(iniContent, pieceCatalog, variantProperties);
     const pieces = parser.parse();
 
     const allwaysKing = pieces.find(p => p.name === 'King' && p.variant === 'allwayspawns');
@@ -86,7 +93,10 @@ king = k:KN
       { name: 'King', variant: 'chess', betza: 'K' },
       { name: 'Pawn', variant: 'chess', betza: 'fmWfceF' },
     ];
-    const parser = new VariantIniParser(iniContent, pieceCatalog);
+    const variantProperties = {
+        "chess": {"double_step": true}
+    };
+    const parser = new VariantIniParser(iniContent, pieceCatalog, variantProperties);
     const pieces = parser.parse();
 
     const centaurKing = pieces.find(p => p.name === 'King' && p.variant === 'centaurking');
@@ -103,11 +113,38 @@ king = k:N
 pawn = p:fW
 `;
     const pieceCatalog: Piece[] = [];
-    const parser = new VariantIniParser(iniContent, pieceCatalog);
+    const variantProperties = {};
+    const parser = new VariantIniParser(iniContent, pieceCatalog, variantProperties);
     const pieces = parser.parse();
 
     const childKing = pieces.find(p => p.name === 'King' && p.variant === 'childvariant');
     expect(childKing).toBeDefined();
     expect(childKing?.betza).toBe('N');
+  });
+
+  it('should handle double step logic', () => {
+    const iniContent = `
+[withdoublestep:chess]
+king = k:K
+
+[withoutdoublestep:chess]
+doubleStep = false
+`;
+    const pieceCatalog = [
+        { name: 'Pawn', variant: 'chess', betza: 'fmWfceF' }
+    ];
+    const variantProperties = {
+        "chess": {"double_step": true}
+    };
+    const parser = new VariantIniParser(iniContent, pieceCatalog, variantProperties);
+    const pieces = parser.parse();
+
+    const pawn1 = pieces.find(p => p.variant === 'withdoublestep' && p.name === 'Pawn');
+    expect(pawn1).toBeDefined();
+    expect(pawn1?.betza).toContain('imfnA');
+
+    const pawn2 = pieces.find(p => p.variant === 'withoutdoublestep' && p.name === 'Pawn');
+    expect(pawn2).toBeDefined();
+    expect(pawn2?.betza).not.toContain('imfnA');
   });
 });

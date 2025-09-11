@@ -400,15 +400,20 @@ function renderPieceCatalog(
 
 async function initialize() {
   let pieceCatalog: Piece[] = [];
+  let variantProperties: { [key: string]: any } = {};
   renderBoard([], blockers);
   renderLegend();
   try {
-    const response = await fetch('/fsf_built_in_variants_catalog.json');
-    pieceCatalog = await response.json();
+    const catalogResponse = await fetch('/fsf_built_in_variants_catalog.json');
+    pieceCatalog = await catalogResponse.json();
+
+    const propertiesResponse = await fetch('/fsf_built_in_variant_properties.json');
+    variantProperties = await propertiesResponse.json();
+
     populateVariantFilter(pieceCatalog);
     renderPieceCatalog(pieceCatalog);
   } catch (error) {
-    console.error('Error loading piece catalog:', error);
+    console.error('Error loading data:', error);
   }
 
   inputEl.addEventListener('input', updateBoard);
@@ -440,7 +445,7 @@ async function initialize() {
       const content = e.target?.result as string;
       if (content) {
         try {
-          const iniParser = new VariantIniParser(content, pieceCatalog);
+          const iniParser = new VariantIniParser(content, pieceCatalog, variantProperties);
           const newPieces = iniParser.parse();
           pieceCatalog.push(...newPieces);
           populateVariantFilter(pieceCatalog);

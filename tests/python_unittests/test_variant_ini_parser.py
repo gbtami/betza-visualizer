@@ -8,12 +8,14 @@ class TestVariantIniParser(unittest.TestCase):
     def setUpClass(cls):
         with open('fsf_built_in_variants_catalog.json', 'r') as f:
             cls.fsf_catalog = json.load(f)
+        with open('fsf_built_in_variant_properties.json', 'r') as f:
+            cls.fsf_variant_properties = json.load(f)
 
     def test_parse_variants_ini_with_fsf_catalog(self):
         with open('tests/variants.ini', 'r') as f:
             ini_content = f.read()
 
-        parser = VariantIniParser(ini_content, self.fsf_catalog)
+        parser = VariantIniParser(ini_content, self.fsf_catalog, self.fsf_variant_properties)
         pieces = parser.parse()
 
         self.assertGreater(len(pieces), 0)
@@ -59,8 +61,11 @@ customPiece1 = p:mWfceFifmnD
             {"name": "King", "variant": "chess", "betza": "K"},
             {"name": "Pawn", "variant": "chess", "betza": "fmWfceF"}
         ]
+        variant_properties = {
+            "chess": {"double_step": True}
+        }
 
-        parser = VariantIniParser(ini_content, piece_catalog)
+        parser = VariantIniParser(ini_content, piece_catalog, variant_properties)
         pieces = parser.parse()
 
         allways_king = next((p for p in pieces if p["name"] == "King" and p["variant"] == "allwayspawns"), None)
@@ -80,7 +85,10 @@ king = k:KN
             {"name": "King", "variant": "chess", "betza": "K"},
             {"name": "Pawn", "variant": "chess", "betza": "fmWfceF"}
         ]
-        parser = VariantIniParser(ini_content, piece_catalog)
+        variant_properties = {
+            "chess": {"double_step": True}
+        }
+        parser = VariantIniParser(ini_content, piece_catalog, variant_properties)
         pieces = parser.parse()
 
         centaur_king = next((p for p in pieces if p['name'] == 'King' and p['variant'] == 'centaurking'), None)
@@ -96,12 +104,38 @@ king = k:N
 pawn = p:fW
 """
         piece_catalog = []
-        parser = VariantIniParser(ini_content, piece_catalog)
+        variant_properties = {}
+        parser = VariantIniParser(ini_content, piece_catalog, variant_properties)
         pieces = parser.parse()
 
         child_king = next((p for p in pieces if p['name'] == 'King' and p['variant'] == 'childvariant'), None)
         self.assertIsNotNone(child_king)
         self.assertEqual(child_king['betza'], 'N')
+
+    def test_double_step_logic(self):
+        ini_content = """
+[withdoublestep:chess]
+king = k:K
+
+[withoutdoublestep:chess]
+doubleStep = false
+"""
+        piece_catalog = [
+            {"name": "Pawn", "variant": "chess", "betza": "fmWfceF"}
+        ]
+        variant_properties = {
+            "chess": {"double_step": True}
+        }
+        parser = VariantIniParser(ini_content, piece_catalog, variant_properties)
+        pieces = parser.parse()
+
+        pawn1 = next((p for p in pieces if p['variant'] == 'withdoublestep' and p['name'] == 'Pawn'), None)
+        self.assertIsNotNone(pawn1)
+        self.assertTrue('imfnA' in pawn1['betza'])
+
+        pawn2 = next((p for p in pieces if p['variant'] == 'withoutdoublestep' and p['name'] == 'Pawn'), None)
+        self.assertIsNotNone(pawn2)
+        self.assertFalse('imfnA' in pawn2['betza'])
 
 
 if __name__ == '__main__':

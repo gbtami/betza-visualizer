@@ -1,8 +1,6 @@
 import { Piece } from './types.js';
 
 // A simple INI parser that is sufficient for the variants.ini format.
-// It supports sections, key-value pairs, and comments starting with # or ;.
-// It does not support multi-line values or other advanced INI features.
 const parseIni = (data: string): Record<string, Record<string, string>> => {
   const result: Record<string, Record<string, string>> = {};
   let currentSection: string | null = null;
@@ -33,6 +31,10 @@ const parseIni = (data: string): Record<string, Record<string, string>> => {
 const titleCase = (s: string) =>
   s.replace(/^_*(.)|_+(.)/g, (s, c, d) => c ? c.toUpperCase() : ' ' + d.toUpperCase());
 
+type VariantProperties = {
+    double_step: boolean;
+};
+
 export class VariantIniParser {
   private static PREDEFINED_PIECES: Record<string, [string, string]> = {
         'p': ["Pawn", "fmWfceF"], 'n': ["Knight", "N"], 'b': ["Bishop", "B"], 'r': ["Rook", "R"],
@@ -45,8 +47,10 @@ export class VariantIniParser {
 
   private config: Record<string, Record<string, string>>;
   private catalogByVariant: Record<string, Piece[]>;
+  private variantProperties: Record<string, VariantProperties>;
+  private parsedVariantsCache: Record<string, [Piece[], VariantProperties]> = {};
 
-  constructor(iniContent: string, pieceCatalog: Piece[]) {
+  constructor(iniContent: string, pieceCatalog: Piece[], variantProperties: Record<string, VariantProperties>) {
     const cleanedContent = this._cleanIniContent(iniContent);
     this.config = parseIni(cleanedContent);
 
@@ -58,6 +62,7 @@ export class VariantIniParser {
       }
       this.catalogByVariant[variant].push(piece);
     }
+    this.variantProperties = variantProperties;
   }
 
   private _cleanIniContent(iniContent: string): string {
@@ -77,110 +82,114 @@ export class VariantIniParser {
     return lines.slice(firstSectionIndex).join('\n');
   }
 
-  private _getInheritedPieces(parentVariantName: string): Piece[] {
-    let parentSectionName: string | null = null;
-    for (const section in this.config) {
-      if (section.split(':', 1)[0] === parentVariantName) {
-        parentSectionName = section;
-        break;
-      }
+  private parseVariant(sectionName: string): [Piece[], VariantProperties] {
+    if (this.parsedVariantsCache[sectionName]) {
+        return this.parsedVariantsCache[sectionName];
     }
 
-    if (parentSectionName) {
-      return this.parseVariant(parentSectionName);
-    }
-
-    return this.catalogByVariant[parentVariantName] || [];
-  }
-
-  private parseVariant(sectionName: string): Piece[] {
     const [variantName, parentName] = sectionName.split(':', 2);
 
-    let pieces: Piece[] = [];
+    let parentPieces: Piece[] = [];
+    let parentProps: VariantProperties = { double_step: false };
+
     if (parentName) {
-      pieces = this._getInheritedPieces(parentName);
-    } else if (this.catalogByVariant[variantName]) {
-      pieces = this.catalogByVariant[variantName];
+        let parentSectionName: string | null = null;
+        for (const section in this.config) {
+            if (section.split(':', 1)[0] === parentName) {
+                parentSectionName = section;
+                break;
+            }
+        }
+
+        if (parentSectionName) {
+            [parentPieces, parentProps] = this.parseVariant(parentSectionName);
+        } else {
+            parentPieces = this.catalogByVariant[parentName] || [];
+            parentProps = this.variantProperties[parentName] || { double_step: false };
+        }
+    } else {
+        parentPieces = this.catalogByVariant[variantName] || [];
+        parentProps = this.variantProperties[variantName] || { double_step: false };
     }
 
-    // Make a copy to avoid modifying the catalog
-    pieces = pieces.map(p => ({ ...p, variant: variantName }));
+    let pieces: Piece[] = parentPieces.map(p => ({ ...p, variant: variantName }));
+    let props: VariantProperties = { ...parentProps };
 
     if (this.config[sectionName]) {
-      const settings = this.config[sectionName];
+        const settings = this.config[sectionName];
 
-      const removals = new Set<string>();
-      for (const key in settings) {
-        if (settings[key]?.trim() === '-') {
-          removals.add(key.toLowerCase().replace(/ /g, ''));
-        }
-      }
-      pieces = pieces.filter(p => !removals.has(p.name.toLowerCase().replace(/ /g, '')));
-
-      for (const key in settings) {
-        const value = settings[key];
-        if (!value || value.trim() === '-' || key === 'promotedPieceType') {
-          continue;
+        if (settings['doubleStep']) {
+            props.double_step = settings['doubleStep'].toLowerCase() === 'true';
         }
 
-        if (value.includes(':')) {
-          const [pieceChar, betza] = value.split(':', 2);
-          const pieceNameKey = key.toLowerCase().replace(/ /g, '');
-
-          const isCustom = key.startsWith('customPiece');
-          const variantNameTitle = variantName.charAt(0).toUpperCase() + variantName.slice(1);
-          const pieceName = isCustom ? `${variantNameTitle}-${pieceChar}` : titleCase(key);
-
-          let found = false;
-          for (const piece of pieces) {
-            if (piece.name.toLowerCase().replace(/ /g, '') === pieceNameKey) {
-              piece.betza = betza;
-              found = true;
-              break;
+        const removals = new Set<string>();
+        for (const key in settings) {
+            if (settings[key]?.trim() === '-') {
+                removals.add(key.toLowerCase().replace(/ /g, ''));
             }
-          }
+        }
+        pieces = pieces.filter(p => !removals.has(p.name.toLowerCase().replace(/ /g, '')));
 
-          if (!found) {
-            pieces.push({
-              name: pieceName,
-              variant: variantName,
-              betza: betza,
-            });
-          }
-        } else {
-            const pieceChar = value.trim();
-            if (pieceChar in VariantIniParser.PREDEFINED_PIECES) {
-                const [officialName, betza] = VariantIniParser.PREDEFINED_PIECES[pieceChar];
-                const pieceName = officialName;
+        for (const key in settings) {
+            const value = settings[key];
+            if (!value || value.trim() === '-' || ['promotedpiecetype', 'doublestep'].includes(key.toLowerCase())) {
+                continue;
+            }
+
+            if (value.includes(':')) {
+                const [pieceChar, betza] = value.split(':', 2);
+                const pieceNameKey = key.toLowerCase().replace(/ /g, '');
+                const isCustom = key.startsWith('customPiece');
+                const variantNameTitle = variantName.charAt(0).toUpperCase() + variantName.slice(1);
+                const pieceName = isCustom ? `${variantNameTitle}-${pieceChar}` : titleCase(key);
 
                 let found = false;
                 for (const piece of pieces) {
-                    if (piece.name.toLowerCase().replace(/ /g, '') === pieceName.toLowerCase().replace(/ /g, '')) {
+                    if (piece.name.toLowerCase().replace(/ /g, '') === pieceNameKey) {
                         piece.betza = betza;
                         found = true;
                         break;
                     }
                 }
-
                 if (!found) {
-                    pieces.push({
-                        name: pieceName,
-                        variant: variantName,
-                        betza: betza,
-                    });
+                    pieces.push({ name: pieceName, variant: variantName, betza: betza });
+                }
+            } else {
+                const pieceChar = value.trim();
+                if (pieceChar in VariantIniParser.PREDEFINED_PIECES) {
+                    const [officialName, betza] = VariantIniParser.PREDEFINED_PIECES[pieceChar];
+                    let found = false;
+                    for (const piece of pieces) {
+                        if (piece.name.toLowerCase().replace(/ /g, '') === officialName.toLowerCase()) {
+                            piece.betza = betza;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        pieces.push({ name: officialName, variant: variantName, betza: betza });
+                    }
                 }
             }
         }
-      }
     }
 
-    return pieces;
+    if (props.double_step) {
+        for (const piece of pieces) {
+            if (piece.name.toLowerCase() === 'pawn' && !piece.betza.includes('imfnA')) {
+                piece.betza += 'imfnA';
+            }
+        }
+    }
+
+    this.parsedVariantsCache[sectionName] = [pieces, props];
+    return [pieces, props];
   }
 
   public parse(): Piece[] {
     let allPieces: Piece[] = [];
     for (const sectionName in this.config) {
-      const pieces = this.parseVariant(sectionName);
+      const [pieces, ] = this.parseVariant(sectionName);
       allPieces.push(...pieces);
     }
 
@@ -195,6 +204,12 @@ export class VariantIniParser {
       }
     }
 
-    return uniquePieces.reverse();
+    return uniquePieces.reverse().sort((a, b) => {
+        if (a.variant < b.variant) return -1;
+        if (a.variant > b.variant) return 1;
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+    });
   }
 }
