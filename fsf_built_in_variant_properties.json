@@ -1,0 +1,362 @@
+{
+  "chess": {
+    "double_step": true
+  },
+  "normal": {
+    "double_step": true
+  },
+  "fischerandom": {
+    "double_step": true
+  },
+  "nocastle": {
+    "double_step": true
+  },
+  "armageddon": {
+    "double_step": true
+  },
+  "torpedo": {
+    "double_step": true
+  },
+  "berolina": {
+    "double_step": true
+  },
+  "pawnsideways": {
+    "double_step": true
+  },
+  "pawnback": {
+    "double_step": true
+  },
+  "legan": {
+    "double_step": false
+  },
+  "fairy": {
+    "double_step": true
+  },
+  "makruk": {
+    "double_step": false
+  },
+  "makpong": {
+    "double_step": false
+  },
+  "cambodian": {
+    "double_step": false
+  },
+  "karouk": {
+    "double_step": false
+  },
+  "asean": {
+    "double_step": false
+  },
+  "ai-wok": {
+    "double_step": false
+  },
+  "shatranj": {
+    "double_step": false
+  },
+  "chaturanga": {
+    "double_step": false
+  },
+  "amazon": {
+    "double_step": true
+  },
+  "nightrider": {
+    "double_step": true
+  },
+  "grasshopper": {
+    "double_step": false
+  },
+  "hoppelpoppel": {
+    "double_step": true
+  },
+  "newzealand": {
+    "double_step": true
+  },
+  "kingofthehill": {
+    "double_step": true
+  },
+  "racingkings": {
+    "double_step": true
+  },
+  "knightmate": {
+    "double_step": true
+  },
+  "misere": {
+    "double_step": true
+  },
+  "losers": {
+    "double_step": true
+  },
+  "giveaway": {
+    "double_step": true
+  },
+  "antichess": {
+    "double_step": true
+  },
+  "suicide": {
+    "double_step": true
+  },
+  "codrus": {
+    "double_step": true
+  },
+  "extinction": {
+    "double_step": true
+  },
+  "kinglet": {
+    "double_step": true
+  },
+  "threekings": {
+    "double_step": true
+  },
+  "horde": {
+    "double_step": true
+  },
+  "petrified": {
+    "double_step": true
+  },
+  "nocheckatomic": {
+    "double_step": true
+  },
+  "atomic": {
+    "double_step": true
+  },
+  "atomar": {
+    "double_step": true
+  },
+  "isolation": {
+    "double_step": true
+  },
+  "isolation7x7": {
+    "double_step": true
+  },
+  "snailtrail": {
+    "double_step": true
+  },
+  "fox-and-hounds": {
+    "double_step": true
+  },
+  "duck": {
+    "double_step": true
+  },
+  "joust": {
+    "double_step": true
+  },
+  "3check": {
+    "double_step": true
+  },
+  "5check": {
+    "double_step": true
+  },
+  "crazyhouse": {
+    "double_step": true
+  },
+  "loop": {
+    "double_step": true
+  },
+  "chessgi": {
+    "double_step": true
+  },
+  "bughouse": {
+    "double_step": true
+  },
+  "koedem": {
+    "double_step": true
+  },
+  "pocketknight": {
+    "double_step": true
+  },
+  "placement": {
+    "double_step": true
+  },
+  "sittuyin": {
+    "double_step": false
+  },
+  "seirawan": {
+    "double_step": true
+  },
+  "shouse": {
+    "double_step": true
+  },
+  "dragon": {
+    "double_step": true
+  },
+  "paradigm": {
+    "double_step": true
+  },
+  "minishogi": {
+    "double_step": false
+  },
+  "mini": {
+    "double_step": false
+  },
+  "kyotoshogi": {
+    "double_step": false
+  },
+  "micro": {
+    "double_step": false
+  },
+  "dobutsu": {
+    "double_step": false
+  },
+  "gorogoro": {
+    "double_step": false
+  },
+  "judkins": {
+    "double_step": false
+  },
+  "torishogi": {
+    "double_step": false
+  },
+  "euroshogi": {
+    "double_step": false
+  },
+  "losalamos": {
+    "double_step": false
+  },
+  "gardner": {
+    "double_step": false
+  },
+  "almost": {
+    "double_step": true
+  },
+  "sortofalmost": {
+    "double_step": false
+  },
+  "chigorin": {
+    "double_step": true
+  },
+  "perfect": {
+    "double_step": true
+  },
+  "spartan": {
+    "double_step": true
+  },
+  "shatar": {
+    "double_step": false
+  },
+  "coregal": {
+    "double_step": true
+  },
+  "clobber": {
+    "double_step": false
+  },
+  "breakthrough": {
+    "double_step": false
+  },
+  "ataxx": {
+    "double_step": false
+  },
+  "flipersi": {
+    "double_step": false
+  },
+  "flipello": {
+    "double_step": false
+  },
+  "minixiangqi": {
+    "double_step": false
+  },
+  "raazuvaa": {
+    "double_step": false
+  },
+  "shogi": {
+    "double_step": false
+  },
+  "checkshogi": {
+    "double_step": false
+  },
+  "shoshogi": {
+    "double_step": false
+  },
+  "yarishogi": {
+    "double_step": false
+  },
+  "okisakishogi": {
+    "double_step": false
+  },
+  "capablanca": {
+    "double_step": true
+  },
+  "capahouse": {
+    "double_step": true
+  },
+  "caparandom": {
+    "double_step": true
+  },
+  "gothic": {
+    "double_step": true
+  },
+  "janus": {
+    "double_step": true
+  },
+  "modern": {
+    "double_step": true
+  },
+  "chancellor": {
+    "double_step": true
+  },
+  "embassy": {
+    "double_step": true
+  },
+  "centaur": {
+    "double_step": true
+  },
+  "gustav3": {
+    "double_step": true
+  },
+  "jesonmor": {
+    "double_step": false
+  },
+  "courier": {
+    "double_step": false
+  },
+  "grand": {
+    "double_step": true
+  },
+  "opulent": {
+    "double_step": true
+  },
+  "tencubed": {
+    "double_step": true
+  },
+  "omicron": {
+    "double_step": true
+  },
+  "troitzky": {
+    "double_step": true
+  },
+  "wolf": {
+    "double_step": true
+  },
+  "shako": {
+    "double_step": true
+  },
+  "clobber10": {
+    "double_step": false
+  },
+  "flipello10": {
+    "double_step": false
+  },
+  "amazons": {
+    "double_step": true
+  },
+  "xiangqi": {
+    "double_step": false
+  },
+  "manchu": {
+    "double_step": false
+  },
+  "supply": {
+    "double_step": false
+  },
+  "janggi": {
+    "double_step": false
+  },
+  "janggitraditional": {
+    "double_step": false
+  },
+  "janggimodern": {
+    "double_step": false
+  },
+  "janggicasual": {
+    "double_step": false
+  }
+}
