@@ -44,7 +44,7 @@ def count_moves_on_board(board_text: str) -> int:
     """
     Counts the number of move indicators on the board.
     """
-    move_chars = {"m", "x", "X", "H", "#"}
+    move_chars = {"m", "x", "X", "H", "#", "i", "I", "c"}
     return sum(1 for char in board_text if char in move_chars)
 
 
@@ -298,3 +298,18 @@ async def test_janggi_elephant_moves(pilot: Pilot):
     rows = board_text.split('\n')
     assert rows[center - 3][(center + 2) * 2] == '.'
     assert rows[center - 3][(center - 2) * 2] == '.'
+
+
+async def test_initial_move_character(pilot: Pilot):
+    """
+    Tests that an initial-only move is rendered with a special character.
+    """
+    await pilot.pause()
+    input_widget = pilot.app.query_one("#betza_input")
+    await pilot.click(input_widget)
+    await pilot.press("i", "W")
+    await pilot.pause()
+
+    board_text = pilot.app.query_one("#board").render()
+    assert "I" in board_text
+    assert "X" not in board_text

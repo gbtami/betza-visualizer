@@ -29,7 +29,7 @@ def sign(n):
 
 DEFAULT_BOARD_SIZE = 15
 
-LEGEND_TEXT = "m: Move | x: Capture | X: Move/Capture | ♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
+LEGEND_TEXT = "m: Move | x: Capture | X: Move/Capture | i: Initial | ♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
 
 
 class BetzaChessApp(App):
@@ -275,7 +275,18 @@ class BetzaChessApp(App):
 
             if is_valid:
                 is_on_blocker = (x, y) in self.blockers
+                is_initial = move.get("initial_only", False)
+
                 char = move_map.get(move_type, "?")
+
+                if is_initial:
+                    if char == "m":
+                        char = "i"
+                    elif char == "x":
+                        char = "c"
+                    elif char == "X":
+                        char = "I"
+
                 if is_on_blocker:
                     if char == "m":
                         char = "M"

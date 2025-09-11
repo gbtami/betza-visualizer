@@ -2,7 +2,7 @@ import { createMoveIndicator, COLORS, CELL_SIZE } from '../../src/svg_utils.js';
 
 describe('createMoveIndicator', () => {
   it('should create a full circle for a "move" type', () => {
-    const indicator = createMoveIndicator('move', false);
+    const indicator = createMoveIndicator('move', false, false);
     expect(indicator.tagName).toBe('g');
     expect(indicator.childNodes.length).toBe(1);
 
@@ -16,7 +16,7 @@ describe('createMoveIndicator', () => {
   });
 
   it('should create a move indicator for a "capture" type', () => {
-    const indicator = createMoveIndicator('capture', false);
+    const indicator = createMoveIndicator('capture', false, false);
     expect(indicator.tagName).toBe('g');
     expect(indicator.childNodes.length).toBe(1);
 
@@ -26,7 +26,7 @@ describe('createMoveIndicator', () => {
   });
 
   it('should create a move indicator for a "move_capture" type', () => {
-    const indicator = createMoveIndicator('move_capture', false);
+    const indicator = createMoveIndicator('move_capture', false, false);
     expect(indicator.tagName).toBe('g');
     expect(indicator.childNodes.length).toBe(2);
 
@@ -40,12 +40,17 @@ describe('createMoveIndicator', () => {
   });
 
   it('should create a move indicator for a special move', () => {
-    const indicator = createMoveIndicator('move_capture', true);
+    const indicator = createMoveIndicator('move_capture', true, false);
     expect(indicator.tagName).toBe('g');
     expect(indicator.childNodes.length).toBe(1);
 
     const path = indicator.childNodes[0] as SVGPathElement;
     expect(path.tagName).toBe('path');
     expect(path.getAttribute('stroke')).toBe(COLORS.hop);
+  });
+
+  it('should add the initial-move class for an initial move', () => {
+    const indicator = createMoveIndicator('move', false, true);
+    expect(indicator.classList.contains('initial-move')).toBe(true);
   });
 });

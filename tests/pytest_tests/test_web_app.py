@@ -259,3 +259,16 @@ def test_load_variants_from_ini(page: Page):
     # The minishogi variant in the test file has 8 pieces.
     piece_catalog = page.locator("#piece-catalog-content")
     expect(piece_catalog.locator(".piece-catalog-item")).to_have_count(8)
+
+
+@pytest.mark.e2e
+def test_initial_move_class(page: Page):
+    """
+    Tests that an initial-only move is rendered with a special class for styling.
+    """
+    page.goto("http://localhost:8080")
+    page.locator("#betzaInput").fill("imW")
+    page.locator("#betzaInput").dispatch_event("input")
+
+    # There should be 4 moves, all with the initial-move class.
+    expect(page.locator("g.initial-move")).to_have_count(4)

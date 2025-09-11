@@ -119,19 +119,22 @@ class BetzaParser:
             base_directions = self._get_directions(x_atom, y_atom)
             allowed_directions = self._filter_directions(base_directions, mods_for_this_atom, atom)
 
+            is_initial_only = "i" in mods_for_this_atom
+
             for i in range(1, max_steps + 1):
                 for dx, dy in allowed_directions:
-                    moves.append(
-                        {
-                            "x": dx * i,
-                            "y": dy * i,
-                            "move_type": move_type,
-                            "hop_type": hop_type,
-                            "jump_type": jump_type,
-                            "atom": atom,
-                            "atom_coords": {"x": x_atom, "y": y_atom},
-                        }
-                    )
+                    move = {
+                        "x": dx * i,
+                        "y": dy * i,
+                        "move_type": move_type,
+                        "hop_type": hop_type,
+                        "jump_type": jump_type,
+                        "atom": atom,
+                        "atom_coords": {"x": x_atom, "y": y_atom},
+                    }
+                    if is_initial_only:
+                        move["initial_only"] = True
+                    moves.append(move)
 
         return moves
 

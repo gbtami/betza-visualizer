@@ -12,4 +12,5 @@ export interface Move {
   jumpType: 'normal' | 'non-jumping' | 'jumping';
   atom: string;
   atomCoords: { x: number; y: number };
+  initialOnly?: boolean;
 }

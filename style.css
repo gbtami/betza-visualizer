@@ -141,3 +141,7 @@ body {
 .legend-icon-emoji {
     font-size: 24px;
 }
+
+.initial-move path {
+    stroke: var(--initial-move-color, #87CEEB); /* Sky Blue */
+}

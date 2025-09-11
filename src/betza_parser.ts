@@ -128,6 +128,8 @@ export class BetzaParser {
         atom
       );
 
+      const isInitialOnly = modsForThisAtom.includes('i');
+
       for (let i = 1; i <= maxSteps; i++) {
         for (const { dx, dy } of allowedDirections) {
           const move: Move = {
@@ -139,6 +141,9 @@ export class BetzaParser {
             atom,
             atomCoords: { x: atomX, y: atomY },
           };
+          if (isInitialOnly) {
+            move.initialOnly = true;
+          }
           moves.push(move);
         }
       }
