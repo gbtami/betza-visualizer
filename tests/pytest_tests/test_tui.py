@@ -6,9 +6,8 @@ from main import BetzaChessApp, BoardWidget
 @pytest.fixture
 async def pilot():
     app = BetzaChessApp()
-    async with app.run_test() as pilot:
-        await pilot.app.query_one("#board_size_select").press("down", "down")
-        await pilot.app.query_one("#board_size_select").press("enter")
+    async with app.run_test(size=(120, 40)) as pilot:
+        await pilot.pause()
         yield pilot
 
 
@@ -156,7 +155,7 @@ async def test_xiangqi_horse_moves(pilot: Pilot):
 
     # Place a blocker 1 square forward (y = 1)
     center = pilot.app.board_size // 2
-    await pilot.click("#board", offset=((center) * 8 + 4, (center - 1) * 4 + 2))
+    await pilot.click("#board", offset=(center * 8 + 4, (center - 1) * 4 + 2))
     await pilot.pause()
 
     assert count_moves_on_board(pilot.app) == 6
@@ -185,7 +184,7 @@ async def test_click_inside_board_toggles_blocker(pilot: Pilot):
 
     # Click on a cell to add a blocker
     center = pilot.app.board_size // 2
-    click_offset = ((center) * 8 + 4, (center - 1) * 4 + 2)
+    click_offset = (center * 8 + 4, (center - 1) * 4 + 2)
     await pilot.click("#board", offset=click_offset)
     await pilot.pause()
 
@@ -218,8 +217,8 @@ async def test_xiangqi_cannon_cannot_jump_two_blockers(pilot: Pilot):
     center = pilot.app.board_size // 2
 
     # Place blockers at (0, 2) and (0, 3)
-    await pilot.click("#board", offset=((center) * 8 + 4, (center - 2) * 4 + 2))
-    await pilot.click("#board", offset=((center) * 8 + 4, (center - 3) * 4 + 2))
+    await pilot.click("#board", offset=(center * 8 + 4, (center - 2) * 4 + 2))
+    await pilot.click("#board", offset=(center * 8 + 4, (center - 3) * 4 + 2))
     await pilot.pause()
 
     board_layout = pilot.app.query_one(BoardWidget).get_board_layout()
