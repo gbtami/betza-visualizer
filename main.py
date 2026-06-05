@@ -115,19 +115,20 @@ class BoardWidget(Container):
     def on_mount(self) -> None:
         self.styles.layout = "grid"
 
-    def setup_board(self):
-        self.remove_children()
+    async def setup_board(self):
+        await self.remove_children()
         self.styles.width = self.board_size * CELL_WIDTH
         self.styles.height = self.board_size * CELL_HEIGHT
         self.styles.grid_size_columns = self.board_size
         self.styles.grid_size_rows = self.board_size
         self.styles.grid_columns = [CELL_WIDTH]
         self.styles.grid_rows = [CELL_HEIGHT]
+        squares = []
         for y in range(self.board_size):
             for x in range(self.board_size):
                 square_id = f"{chr(ord('a') + x)}{self.board_size - y}"
-                square = Square(id=square_id)
-                self.mount(square)
+                squares.append(Square(id=square_id))
+        await self.mount_all(squares)
 
     def on_click(self, event: Click) -> None:
         if event.button != 1:
@@ -210,7 +211,7 @@ class BetzaChessApp(App):
             yield Select([], id="variant_select")
             yield Static(LEGEND_TEXT, id="legend")
 
-    def on_mount(self) -> None:
+    async def on_mount(self) -> None:
         self.parser = BetzaParser()
         with open("fsf_built_in_variants_catalog.json", "r") as f:
             self.fsf_catalog = json.load(f)
@@ -220,6 +221,9 @@ class BetzaChessApp(App):
         self.query_one(Input).focus()
         self.populate_variant_select()
         self.populate_piece_list()
+        board = self.query_one(BoardWidget)
+        board.board_size = self.board_size
+        await board.setup_board()
         self.update_board()
 
     def get_board_layout(self) -> list[list[str]]:
@@ -399,10 +403,10 @@ class BetzaChessApp(App):
             new_blockers.add(blocker_coord)
         self.blockers = new_blockers
 
-    def watch_board_size(self, new_size: int) -> None:
+    async def watch_board_size(self, new_size: int) -> None:
         board = self.query_one(BoardWidget)
         board.board_size = new_size
-        board.setup_board()
+        await board.setup_board()
         self.blockers = set()
         self.update_board()
 

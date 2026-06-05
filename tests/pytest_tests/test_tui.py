@@ -75,6 +75,24 @@ async def test_board_uses_4_by_8_sprite_squares(pilot: Pilot):
     assert [row.cell_length for row in rendered_rows] == [CELL_WIDTH] * CELL_HEIGHT
 
 
+async def test_board_size_select_rebuilds_sprite_board(pilot: Pilot):
+    """
+    Tests that selecting smaller board sizes rebuilds squares without duplicate IDs.
+    """
+    board = pilot.app.query_one(BoardWidget)
+    size_select = pilot.app.query_one("#board_size_select")
+
+    for board_size in [13, 11, 9, 7, 5]:
+        size_select.value = board_size
+        await pilot.pause()
+
+        assert pilot.app.board_size == board_size
+        assert board.board_size == board_size
+        assert len(board.query(Square)) == board_size * board_size
+        assert pilot.app.query_one(f"#a{board_size}", Square)
+        assert not pilot.app.query(f"#a{board_size + 2}")
+
+
 async def test_orthodox_knight_moves(pilot: Pilot):
     """
     Tests that the Orthodox Knight has 8 moves on an empty board.
