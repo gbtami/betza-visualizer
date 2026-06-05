@@ -35,7 +35,7 @@ def sign(n):
     return int(math.copysign(1, n)) if n != 0 else 0
 
 
-DEFAULT_BOARD_SIZE = 15
+DEFAULT_BOARD_SIZE = 11
 CELL_WIDTH = 8
 CELL_HEIGHT = 4
 BOARD_FRAME_WIDTH = 0
