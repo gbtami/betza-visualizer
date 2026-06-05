@@ -6,7 +6,7 @@ from rich.style import Style
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
 from textual.widget import Widget
-from textual.containers import Container
+from textual.containers import Container, Horizontal, Vertical
 from textual.reactive import reactive
 from textual.strip import Strip
 from textual.events import Click
@@ -36,8 +36,8 @@ def sign(n):
 DEFAULT_BOARD_SIZE = 15
 CELL_WIDTH = 8
 CELL_HEIGHT = 4
-BOARD_FRAME_WIDTH = 4
-BOARD_FRAME_HEIGHT = 4
+BOARD_FRAME_WIDTH = 0
+BOARD_FRAME_HEIGHT = 0
 LEGEND_TEXT = (
     "m: Move | x: Capture | X: Move/Capture | i: Initial | "
     "♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
@@ -193,25 +193,31 @@ class BetzaChessApp(App):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield Footer()
         with Container(id="main-container"):
-            yield Input(placeholder="Try Xiangqi Horse: nN", id="betza_input")
-            yield Select(
-                [
-                    ("5x5", 5),
-                    ("7x7", 7),
-                    ("9x9", 9),
-                    ("11x11", 11),
-                    ("13x13", 13),
-                    ("15x15", 15),
-                ],
-                value=DEFAULT_BOARD_SIZE,
-                id="board_size_select",
-            )
-            yield ListView(id="piece_catalog_list")
-            yield BoardWidget(id="board")
-            yield Select([], id="variant_select")
-            yield Static(LEGEND_TEXT, id="legend")
+            with Vertical(id="app-layout"):
+                with Horizontal(id="controls-row"):
+                    yield Select([], id="variant_select")
+                    yield Input(placeholder="Try Xiangqi Horse: nN", id="betza_input")
+                    yield Select(
+                        [
+                            ("5x5", 5),
+                            ("7x7", 7),
+                            ("9x9", 9),
+                            ("11x11", 11),
+                            ("13x13", 13),
+                            ("15x15", 15),
+                        ],
+                        value=DEFAULT_BOARD_SIZE,
+                        id="board_size_select",
+                    )
+
+                with Horizontal(id="workspace-row"):
+                    yield ListView(id="piece_catalog_list")
+                    with Container(id="board-panel"):
+                        yield BoardWidget(id="board")
+
+                yield Static(LEGEND_TEXT, id="legend")
+        yield Footer()
 
     async def on_mount(self) -> None:
         self.parser = BetzaParser()
