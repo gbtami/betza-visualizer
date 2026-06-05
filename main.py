@@ -36,6 +36,8 @@ def sign(n):
 DEFAULT_BOARD_SIZE = 15
 CELL_WIDTH = 8
 CELL_HEIGHT = 4
+BOARD_FRAME_WIDTH = 4
+BOARD_FRAME_HEIGHT = 4
 LEGEND_TEXT = (
     "m: Move | x: Capture | X: Move/Capture | i: Initial | "
     "♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
@@ -117,8 +119,8 @@ class BoardWidget(Container):
 
     async def setup_board(self):
         await self.remove_children()
-        self.styles.width = self.board_size * CELL_WIDTH
-        self.styles.height = self.board_size * CELL_HEIGHT
+        self.styles.width = self.board_size * CELL_WIDTH + BOARD_FRAME_WIDTH
+        self.styles.height = self.board_size * CELL_HEIGHT + BOARD_FRAME_HEIGHT
         self.styles.grid_size_columns = self.board_size
         self.styles.grid_size_rows = self.board_size
         self.styles.grid_columns = [CELL_WIDTH]

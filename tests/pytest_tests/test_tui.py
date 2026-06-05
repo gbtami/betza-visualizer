@@ -1,6 +1,15 @@
 import pytest
 from textual.pilot import Pilot
-from main import BetzaChessApp, BoardWidget, CELL_HEIGHT, CELL_WIDTH, SPRITES, Square
+from main import (
+    BetzaChessApp,
+    BoardWidget,
+    BOARD_FRAME_HEIGHT,
+    BOARD_FRAME_WIDTH,
+    CELL_HEIGHT,
+    CELL_WIDTH,
+    SPRITES,
+    Square,
+)
 
 
 @pytest.fixture
@@ -89,6 +98,28 @@ async def test_board_size_select_rebuilds_sprite_board(pilot: Pilot):
         assert len(board.query(Square)) == board_size * board_size
         assert pilot.app.query_one(f"#a{board_size}", Square)
         assert not pilot.app.query(f"#a{board_size + 2}")
+
+
+async def test_board_content_contains_full_last_column(pilot: Pilot):
+    """
+    Tests that the board frame does not clip the rightmost 8x4 squares.
+    """
+    board = pilot.app.query_one(BoardWidget)
+    size_select = pilot.app.query_one("#board_size_select")
+
+    for board_size in [5, 9, 15]:
+        size_select.value = board_size
+        await pilot.pause()
+
+        last_file = chr(ord("a") + board_size - 1)
+        top_right_square = pilot.app.query_one(f"#{last_file}{board_size}", Square)
+
+        assert board.size.width == board_size * CELL_WIDTH
+        assert board.size.height == board_size * CELL_HEIGHT
+        assert board.region.width == board_size * CELL_WIDTH + BOARD_FRAME_WIDTH
+        assert board.region.height == board_size * CELL_HEIGHT + BOARD_FRAME_HEIGHT
+        assert top_right_square.region.right <= board.content_region.right
+        assert top_right_square.region.bottom <= board.content_region.bottom
 
 
 async def test_board_size_select_reparses_current_piece(pilot: Pilot):
