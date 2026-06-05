@@ -1,6 +1,0 @@
-textual
-pytest
-pytest-asyncio
-pytest-playwright
-textual-fspicker
-requests

@@ -47,21 +47,23 @@ This version is a command-line application that renders the visualization direct
 
 #### Setup and Execution
 
+Python dependencies are managed with `uv`
+
 1.  **Install Dependencies:**
     ```bash
-    pip install -r requirements.txt
+    uv sync --extra dev
     ```
 2.  **Run Tests:**
     ```bash
     # Run unittest tests
-    python -m unittest discover -s tests/python_unittests/
+    uv run python -m unittest discover -s tests/python_unittests/
 
     # Run pytest tests for the TUI
-    python -m pytest tests/pytest_tests/test_tui.py
+    uv run python -m pytest tests/pytest_tests/test_tui.py
     ```
 3.  **Run the Application:**
     ```bash
-    python main.py
+    uv run python main.py
     ```
 #### Development
 
@@ -69,17 +71,17 @@ This project uses `ruff` for linting and formatting.
 
 *   **To check for linting errors, run:**
     ```bash
-    ruff check .
+    uv run ruff check .
     ```
 
 *   **To automatically fix linting errors, run:**
     ```bash
-    ruff check . --fix
+    uv run ruff check . --fix
     ```
 
 *   **To format the code, run:**
     ```bash
-    ruff format .
+    uv run ruff format .
     ```
 
 ### 2. TypeScript (Web Version)
@@ -143,7 +145,12 @@ In addition to the Jest unit tests, the web application has a suite of end-to-en
 1.  **Install Python Dependencies:**
     Ensure you have installed the Python dependencies, including `pytest-playwright`:
     ```bash
-    pip install -r requirements.txt
+    uv sync --extra dev
+    ```
+
+    If Playwright browser binaries are not installed yet, run:
+    ```bash
+    uv run playwright install
     ```
 
 2.  **Build the Web App:**
@@ -153,13 +160,13 @@ In addition to the Jest unit tests, the web application has a suite of end-to-en
     ```
 
 3.  **Run the Web Server:**
-    Before running the tests, you must serve the built application. A simple Python web server can be used:
+    Before running the tests, serve the built application in a separate terminal:
     ```bash
-    python -m http.server 8080 --directory dist &
+    uv run python -m http.server 8080 --directory dist
     ```
 
 4.  **Run E2E Tests:**
     Execute the Playwright tests using `pytest`:
     ```bash
-    python -m pytest tests/pytest_tests/test_web_app.py
+    uv run python -m pytest tests/pytest_tests/test_web_app.py
     ```

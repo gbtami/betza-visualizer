@@ -17,7 +17,9 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+    "requests",
     "textual",
+    "textual-fspicker",
 ]
 
 [project.optional-dependencies]
