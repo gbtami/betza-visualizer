@@ -91,6 +91,22 @@ async def test_board_size_select_rebuilds_sprite_board(pilot: Pilot):
         assert not pilot.app.query(f"#a{board_size + 2}")
 
 
+async def test_board_size_select_reparses_current_piece(pilot: Pilot):
+    """
+    Tests that expanding the board recalculates moves for the current Betza input.
+    """
+    size_select = pilot.app.query_one("#board_size_select")
+
+    size_select.value = 9
+    await pilot.pause()
+    await set_betza(pilot, "R")
+    assert count_moves_on_board(pilot.app) == 16
+
+    size_select.value = 11
+    await pilot.pause()
+    assert count_moves_on_board(pilot.app) == 20
+
+
 async def test_toggle_dark_action_changes_theme(pilot: Pilot):
     """
     Tests that the dark-mode action uses Textual's built-in theme toggle.

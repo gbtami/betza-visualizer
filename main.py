@@ -224,7 +224,7 @@ class BetzaChessApp(App):
         board = self.query_one(BoardWidget)
         board.board_size = self.board_size
         await board.setup_board()
-        self.update_board()
+        self.call_next(self.update_board)
 
     def get_board_layout(self) -> list[list[str]]:
         board_size = self.board_size
@@ -410,7 +410,8 @@ class BetzaChessApp(App):
         board.board_size = new_size
         await board.setup_board()
         self.blockers = set()
-        self.update_board()
+        betza = self.query_one("#betza_input", Input).value
+        self.moves = self.parser.parse(betza, board_size=new_size)
 
     def watch_moves(self, new_moves: list) -> None:
         self.update_board()
