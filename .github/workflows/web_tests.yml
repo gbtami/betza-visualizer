@@ -10,10 +10,10 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Use Node.js 20.x
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: "20.x"
         cache: 'yarn'
@@ -27,21 +27,22 @@ jobs:
   e2e-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8
         with:
-          python-version: '3.13'
+          python-version: "3.13"
+          enable-cache: true
 
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "20.x"
           cache: 'yarn'
 
       - name: Install Python dependencies
-        run: pip install -r requirements.txt
+        run: uv sync --locked --extra dev
 
       - name: Install Node.js dependencies
         run: yarn install
@@ -50,9 +51,9 @@ jobs:
         run: yarn build
 
       - name: Run web server
-        run: python -m http.server 8080 --directory dist &
+        run: uv run python -m http.server 8080 --directory dist &
 
       - name: Install Playwright Browsers and Run Tests
         run: |
-          python -m playwright install --with-deps
-          python -m pytest tests/pytest_tests/test_web_app.py
+          uv run playwright install --with-deps
+          uv run python -m pytest tests/pytest_tests/test_web_app.py
