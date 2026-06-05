@@ -1,12 +1,12 @@
 import pytest
 from textual.pilot import Pilot
-from main import BetzaChessApp, BoardWidget
+from main import BetzaChessApp, BoardWidget, CELL_HEIGHT, CELL_WIDTH, SPRITES, Square
 
 
 @pytest.fixture
 async def pilot():
     app = BetzaChessApp()
-    async with app.run_test(size=(120, 40)) as pilot:
+    async with app.run_test(size=(180, 80)) as pilot:
         await pilot.pause()
         yield pilot
 
@@ -57,6 +57,22 @@ def count_moves_on_board(app: BetzaChessApp) -> int:
     board_text = get_board_string(app)
     move_chars = {"m", "x", "X", "H", "#", "i", "I", "c"}
     return sum(1 for char in board_text if char in move_chars)
+
+
+async def test_board_uses_4_by_8_sprite_squares(pilot: Pilot):
+    """
+    Tests that the TUI board exposes the requested 4x8 sprite cell geometry.
+    """
+    center = pilot.app.board_size // 2
+    square_id = f"#{chr(ord('a') + center)}{center + 1}"
+    center_square = pilot.app.query_one(square_id, Square)
+
+    assert center_square.size.width == CELL_WIDTH
+    assert center_square.size.height == CELL_HEIGHT
+
+    rendered_rows = [center_square.render_line(y) for y in range(CELL_HEIGHT)]
+    assert [row.text for row in rendered_rows] == SPRITES["🧚"]
+    assert [row.cell_length for row in rendered_rows] == [CELL_WIDTH] * CELL_HEIGHT
 
 
 async def test_orthodox_knight_moves(pilot: Pilot):

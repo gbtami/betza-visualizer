@@ -6,7 +6,7 @@ from rich.style import Style
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
 from textual.widget import Widget
-from textual.containers import Container, GridLayout
+from textual.containers import Container
 from textual.reactive import reactive
 from textual.strip import Strip
 from textual.events import Click
@@ -34,7 +34,12 @@ def sign(n):
 
 
 DEFAULT_BOARD_SIZE = 15
-LEGEND_TEXT = "m: Move | x: Capture | X: Move/Capture | i: Initial | ♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
+CELL_WIDTH = 8
+CELL_HEIGHT = 4
+LEGEND_TEXT = (
+    "m: Move | x: Capture | X: Move/Capture | i: Initial | "
+    "♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
+)
 
 SPRITES = {
     ".": ["        ", "        ", "        ", "        "],
@@ -65,10 +70,23 @@ CHAR_TO_STYLE_MAP = {
 
 
 class Square(Widget):
+    COMPONENT_CLASSES = {
+        "board--white-square",
+        "board--black-square",
+        "board--piece",
+        "board--blocker",
+        "board--move",
+        "board--capture",
+        "board--move-capture",
+        "board--initial",
+    }
+
     piece = reactive(".")
 
     class Clicked(Message):
-        pass
+        def __init__(self, square: "Square") -> None:
+            super().__init__()
+            self.square = square
 
     def render_line(self, y: int) -> Strip:
         sprite = SPRITES.get(self.piece, SPRITES["."])
@@ -85,7 +103,8 @@ class Square(Widget):
         return Strip([Segment(sprite_line, bg_style + fg_style)])
 
     def on_click(self, event: Click) -> None:
-        self.post_message(self.Clicked())
+        event.stop()
+        self.post_message(self.Clicked(self))
 
 
 class BoardWidget(Container):
@@ -98,13 +117,38 @@ class BoardWidget(Container):
 
     def setup_board(self):
         self.remove_children()
+        self.styles.width = self.board_size * CELL_WIDTH
+        self.styles.height = self.board_size * CELL_HEIGHT
         self.styles.grid_size_columns = self.board_size
         self.styles.grid_size_rows = self.board_size
+        self.styles.grid_columns = [CELL_WIDTH]
+        self.styles.grid_rows = [CELL_HEIGHT]
         for y in range(self.board_size):
             for x in range(self.board_size):
                 square_id = f"{chr(ord('a') + x)}{self.board_size - y}"
                 square = Square(id=square_id)
                 self.mount(square)
+
+    def on_click(self, event: Click) -> None:
+        if event.button != 1:
+            return
+
+        col = event.x // CELL_WIDTH
+        row = event.y // CELL_HEIGHT
+        if not (0 <= col < self.board_size and 0 <= row < self.board_size):
+            return
+
+        center = self.board_size // 2
+        blocker_coord = (col - center, center - row)
+        if blocker_coord == (0, 0):
+            return
+
+        new_blockers = self.app.blockers.copy()
+        if blocker_coord in new_blockers:
+            new_blockers.remove(blocker_coord)
+        else:
+            new_blockers.add(blocker_coord)
+        self.app.blockers = new_blockers
 
     def get_board_layout(self) -> list[list[str]]:
         squares = self.query(Square)
@@ -151,10 +195,15 @@ class BetzaChessApp(App):
             yield Input(placeholder="Try Xiangqi Horse: nN", id="betza_input")
             yield Select(
                 [
-                    ("5x5", 5), ("7x7", 7), ("9x9", 9),
-                    ("11x11", 11), ("13x13", 13), ("15x15", 15),
+                    ("5x5", 5),
+                    ("7x7", 7),
+                    ("9x9", 9),
+                    ("11x11", 11),
+                    ("13x13", 13),
+                    ("15x15", 15),
                 ],
-                value=DEFAULT_BOARD_SIZE, id="board_size_select",
+                value=DEFAULT_BOARD_SIZE,
+                id="board_size_select",
             )
             yield ListView(id="piece_catalog_list")
             yield BoardWidget(id="board")
@@ -210,18 +259,38 @@ class BetzaChessApp(App):
                 else:
                     atom_x, atom_y = atom_coords["x"], atom_coords["y"]
                     possible_steps = [
-                        (atom_x, atom_y), (-atom_x, atom_y), (atom_x, -atom_y), (-atom_x, -atom_y),
-                        (atom_y, atom_x), (-atom_y, atom_x), (atom_y, -atom_x), (-atom_y, -atom_x),
+                        (atom_x, atom_y),
+                        (-atom_x, atom_y),
+                        (atom_x, -atom_y),
+                        (-atom_x, -atom_y),
+                        (atom_y, atom_x),
+                        (-atom_y, atom_x),
+                        (atom_y, -atom_x),
+                        (-atom_y, -atom_x),
                     ]
-                    step = next((s for s in possible_steps if s[0] != 0 and s[1] != 0 and x % s[0] == 0 and y % s[1] == 0 and x // s[0] == y // s[1]), None)
+                    step = next(
+                        (
+                            s
+                            for s in possible_steps
+                            if s[0] != 0
+                            and s[1] != 0
+                            and x % s[0] == 0
+                            and y % s[1] == 0
+                            and x // s[0] == y // s[1]
+                        ),
+                        None,
+                    )
                     if step:
                         dx, dy = step
                     else:
                         dx, dy = 0, 0
 
-                if dx == 0 and dy == 0: path_len = 0
-                elif dx != 0: path_len = abs(x // dx)
-                else: path_len = abs(y // dy)
+                if dx == 0 and dy == 0:
+                    path_len = 0
+                elif dx != 0:
+                    path_len = abs(x // dx)
+                else:
+                    path_len = abs(y // dy)
 
                 path = [(i * dx, i * dy) for i in range(1, path_len)]
                 blockers_on_path = [p for p in path if p in self.blockers]
@@ -249,8 +318,10 @@ class BetzaChessApp(App):
                 else:
                     is_valid = True
                     block_x, block_y = 0, 0
-                    if abs(x) > abs(y): block_x = sign(x)
-                    elif abs(y) > abs(x): block_y = sign(y)
+                    if abs(x) > abs(y):
+                        block_x = sign(x)
+                    elif abs(y) > abs(x):
+                        block_y = sign(y)
                     if (block_x, block_y) in self.blockers:
                         is_valid = False
             else:
@@ -268,13 +339,19 @@ class BetzaChessApp(App):
                 is_initial = move.get("initial_only", False)
                 char = move_map.get(move_type, "?")
                 if is_initial:
-                    if char == "m": char = "i"
-                    elif char == "x": char = "c"
-                    elif char == "X": char = "I"
+                    if char == "m":
+                        char = "i"
+                    elif char == "x":
+                        char = "c"
+                    elif char == "X":
+                        char = "I"
                 if is_on_blocker:
-                    if char == "m": char = "M"
-                    elif char == "x": char = "H"
-                    elif char == "X": char = "#"
+                    if char == "m":
+                        char = "M"
+                    elif char == "x":
+                        char = "H"
+                    elif char == "X":
+                        char = "#"
                 board[display_y][display_x] = char
         return board
 
@@ -300,7 +377,7 @@ class BetzaChessApp(App):
             self.populate_piece_list(str(event.value))
 
     def on_square_clicked(self, message: Square.Clicked) -> None:
-        square_id = message.sender.id
+        square_id = message.square.id
         x_char = square_id[0]
         y_char = square_id[1:]
 
@@ -311,7 +388,7 @@ class BetzaChessApp(App):
         blocker_x = x - center
         blocker_y = center - y
 
-        if (blocker_x, blocker_y) == (0,0):
+        if (blocker_x, blocker_y) == (0, 0):
             return
 
         blocker_coord = (blocker_x, blocker_y)
@@ -366,7 +443,9 @@ class BetzaChessApp(App):
         if filter_variant != "All":
             piece_catalog = [p for p in self.piece_catalog if p["variant"] == filter_variant]
         for piece in piece_catalog:
-            list_view.append(PieceListItem(piece_name=piece["name"], piece_variant=piece["variant"], piece_betza=piece["betza"]))
+            list_view.append(
+                PieceListItem(piece_name=piece["name"], piece_variant=piece["variant"], piece_betza=piece["betza"])
+            )
 
 if __name__ == "__main__":
     app = BetzaChessApp()

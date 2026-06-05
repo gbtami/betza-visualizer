@@ -29,6 +29,11 @@ Screen {
     height: auto;
 }
 
+Square {
+    width: 8;
+    height: 4;
+}
+
 #piece_catalog_list {
     height: 100%;
     border: thick blue;
