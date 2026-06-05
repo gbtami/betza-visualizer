@@ -404,6 +404,8 @@ class BetzaChessApp(App):
         self.blockers = new_blockers
 
     async def watch_board_size(self, new_size: int) -> None:
+        if not self.is_mounted:
+            return
         board = self.query_one(BoardWidget)
         board.board_size = new_size
         await board.setup_board()
