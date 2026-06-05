@@ -3,7 +3,7 @@ Screen {
 }
 
 #main-container {
-    height: 100%;
+    height: 1fr;
     width: 100%;
     padding: 1;
 }
@@ -79,14 +79,6 @@ PieceListItem > .variant {
     color: #888;
 }
 
-#legend {
-    width: 100%;
-    height: auto;
-    text-align: center;
-    margin-top: 1;
-    padding: 0 1;
-}
-
 BoardWidget .board--white-square {
     background: #A5BAC9;
 }
@@ -117,4 +109,33 @@ BoardWidget .board--move-capture {
 
 BoardWidget .board--initial {
     color: #FFC0CB;
+}
+
+HelpScreen {
+    align: center middle;
+}
+
+#help-dialog {
+    width: 72;
+    height: auto;
+    padding: 1 2;
+    border: thick $accent;
+    background: $panel;
+}
+
+#help-title {
+    text-align: center;
+    text-style: bold;
+    margin-bottom: 1;
+}
+
+#help-legend,
+#help-shortcuts {
+    width: 100%;
+    text-align: center;
+}
+
+#help-shortcuts {
+    margin-top: 1;
+    color: $text-muted;
 }

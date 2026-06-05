@@ -4,6 +4,8 @@ from textual import work
 from rich.segment import Segment
 from rich.style import Style
 from textual.app import App, ComposeResult
+from textual.binding import Binding
+from textual.screen import ModalScreen
 from textual.widgets import Header, Footer, Input, Static, ListView, ListItem, Label, Select
 from textual.widget import Widget
 from textual.containers import Container, Horizontal, Vertical
@@ -180,11 +182,29 @@ class BoardWidget(Container):
                     pass
 
 
+class HelpScreen(ModalScreen[None]):
+    BINDINGS = [
+        Binding("escape", "close", "Close"),
+        Binding("f1", "close", "Close", priority=True),
+        Binding("enter", "close", "Close"),
+    ]
+
+    def compose(self) -> ComposeResult:
+        with Container(id="help-dialog"):
+            yield Static("Betza Visualizer Help", id="help-title")
+            yield Static(LEGEND_TEXT, id="help-legend")
+            yield Static("Click board squares to toggle blockers. Press F1 or Esc to close.", id="help-shortcuts")
+
+    def action_close(self) -> None:
+        self.dismiss()
+
+
 class BetzaChessApp(App):
     CSS_PATH = "style.tcss"
     BINDINGS = [
-        ("d", "toggle_dark", "Toggle dark mode"),
+        Binding("f2", "toggle_dark", "Dark Mode", priority=True),
         ("ctrl+l", "load_variants", "Load Variants"),
+        Binding("f1", "show_help", "Help", priority=True),
     ]
 
     board_size = reactive(DEFAULT_BOARD_SIZE)
@@ -215,8 +235,6 @@ class BetzaChessApp(App):
                     yield ListView(id="piece_catalog_list")
                     with Container(id="board-panel"):
                         yield BoardWidget(id="board")
-
-                yield Static(LEGEND_TEXT, id="legend")
         yield Footer()
 
     async def on_mount(self) -> None:
@@ -442,6 +460,9 @@ class BetzaChessApp(App):
                 self.populate_piece_list()
             except Exception as e:
                 self.log(f"Error loading variants file: {e}")
+
+    def action_show_help(self) -> None:
+        self.push_screen(HelpScreen())
 
     def populate_variant_select(self) -> None:
         variants = set(p["variant"] for p in self.piece_catalog)

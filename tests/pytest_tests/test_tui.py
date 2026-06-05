@@ -177,7 +177,10 @@ async def test_board_move_and_blocker_behaviors(pilot: Pilot):
     assert count_moves_on_board(pilot.app) == 8
 
     initial_blockers = pilot.app.blockers.copy()
-    await pilot.click("#legend")
+    await pilot.press("f1")
+    await pilot.pause()
+    assert pilot.app.query_one("#help-dialog")
+    await pilot.press("escape")
     await pilot.pause()
     assert pilot.app.blockers == initial_blockers
 
