@@ -132,10 +132,15 @@ HelpScreen {
 #help-legend,
 #help-shortcuts {
     width: 100%;
-    text-align: center;
+}
+
+#help-legend {
+    text-align: left;
+    padding-left: 18;
 }
 
 #help-shortcuts {
+    text-align: center;
     margin-top: 1;
     color: $text-muted;
 }

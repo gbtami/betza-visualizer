@@ -41,22 +41,34 @@ CELL_HEIGHT = 4
 BOARD_FRAME_WIDTH = 0
 BOARD_FRAME_HEIGHT = 0
 LEGEND_TEXT = (
-    "m: Move | x: Capture | X: Move/Capture | i: Initial | "
-    "♙: Blocker | H: Capture on Blocker | #: Move/Capture on Blocker"
+    "oo: Move | xx: Capture | **: Move/Capture | (...): Initial | "
+    "[]: Blocker | [xx]: Capture on Blocker | [**]: Move/Capture on Blocker"
 )
+HELP_TEXT = """\
+oo      Move
+xx      Capture
+**      Move or capture
+(oo)    Initial-only move
+(xx)    Initial-only capture
+(**)    Initial-only move or capture
+[]      Blocker
+[oo]    Move onto blocker
+[xx]    Capture on blocker
+[**]    Move or capture on blocker"""
 
 SPRITES = {
     ".": ["        ", "        ", "        ", "        "],
     "🧚": ["  .::.  ", " (o^^o) ", " /|  |\\ ", "  /\\/\\  "],
-    "♙": ["        ", "  (..)  ", "  <||>  ", "  _||_  "],
-    "m": ["   __   ", "  /  \\  ", "  \\__/  ", "   ->   "],
-    "x": ["        ", "  \\/    ", "  /\\    ", "        "],
-    "X": ["   __   ", "  /  \\  ", "  \\__/  ", "  <->   "],
-    "i": ["        ", "  .--.  ", " |i  | ", "  '--'  "],
-    "c": ["  \\/    ", "  /\\    ", " (cap)  ", "        "],
-    "I": ["   __   ", "  /  \\  ", " | I |  ", "  '--'  "],
-    "H": ["        ", "  \\/    ", "  /\\    ", " (H)    "],
-    "#": ["   __   ", "  /##\\  ", "  \\##/  ", "  <->   "],
+    "♙": ["        ", "   []   ", "   []   ", "        "],
+    "m": ["        ", "   oo   ", "   oo   ", "        "],
+    "x": ["        ", "   xx   ", "   xx   ", "        "],
+    "X": ["        ", "   **   ", "   **   ", "        "],
+    "i": ["        ", "  (oo)  ", "  (oo)  ", "        "],
+    "c": ["        ", "  (xx)  ", "  (xx)  ", "        "],
+    "I": ["        ", "  (**)  ", "  (**)  ", "        "],
+    "M": ["        ", "  [oo]  ", "  [oo]  ", "        "],
+    "H": ["        ", "  [xx]  ", "  [xx]  ", "        "],
+    "#": ["        ", "  [**]  ", "  [**]  ", "        "],
 }
 
 CHAR_TO_STYLE_MAP = {
@@ -68,6 +80,7 @@ CHAR_TO_STYLE_MAP = {
     "i": "initial",
     "c": "initial",
     "I": "initial",
+    "M": "move",
     "H": "capture",
     "#": "move-capture",
 }
@@ -192,7 +205,7 @@ class HelpScreen(ModalScreen[None]):
     def compose(self) -> ComposeResult:
         with Container(id="help-dialog"):
             yield Static("Betza Visualizer Help", id="help-title")
-            yield Static(LEGEND_TEXT, id="help-legend")
+            yield Static(HELP_TEXT, id="help-legend")
             yield Static("Click board squares to toggle blockers. Press F1 or Esc to close.", id="help-shortcuts")
 
     def action_close(self) -> None:

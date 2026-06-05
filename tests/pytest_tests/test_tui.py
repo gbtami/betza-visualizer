@@ -1,4 +1,5 @@
 import pytest
+from rich.cells import cell_len
 from textual.pilot import Pilot
 from main import (
     BetzaChessApp,
@@ -62,8 +63,24 @@ def count_moves_on_board(app: BetzaChessApp) -> int:
     Counts the number of move indicators on the board.
     """
     board_text = get_board_string(app)
-    move_chars = {"m", "x", "X", "H", "#", "i", "I", "c"}
+    move_chars = {"m", "x", "X", "M", "H", "#", "i", "I", "c"}
     return sum(1 for char in board_text if char in move_chars)
+
+
+def test_all_sprites_fit_cell_geometry():
+    """
+    Tests that every sprite remains centered within the fixed 8x4 square geometry.
+    """
+    for sprite in SPRITES.values():
+        assert len(sprite) == CELL_HEIGHT
+        assert [cell_len(row) for row in sprite] == [CELL_WIDTH] * CELL_HEIGHT
+        for row in sprite:
+            marker_width = cell_len(row.strip())
+            if marker_width == 0:
+                continue
+            left_padding = cell_len(row) - cell_len(row.lstrip())
+            right_padding = cell_len(row) - cell_len(row.rstrip())
+            assert abs(left_padding - right_padding) <= 1
 
 
 async def test_board_uses_4_by_8_sprite_squares(pilot: Pilot):
