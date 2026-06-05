@@ -91,6 +91,19 @@ async def test_board_size_select_rebuilds_sprite_board(pilot: Pilot):
         assert not pilot.app.query(f"#a{board_size + 2}")
 
 
+async def test_toggle_dark_action_changes_theme(pilot: Pilot):
+    """
+    Tests that the dark-mode action uses Textual's built-in theme toggle.
+    """
+    initial_theme = pilot.app.theme
+
+    assert await pilot.app.run_action("toggle_dark")
+    await pilot.pause()
+
+    assert pilot.app.theme != initial_theme
+    assert pilot.app.theme in {"textual-dark", "textual-light"}
+
+
 async def set_betza(pilot: Pilot, betza: str) -> None:
     input_widget = pilot.app.query_one("#betza_input")
     pilot.app.blockers = set()

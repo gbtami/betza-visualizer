@@ -418,9 +418,6 @@ class BetzaChessApp(App):
     def watch_blockers(self, new_blockers: set) -> None:
         self.update_board()
 
-    def action_toggle_dark(self) -> None:
-        self.dark = not self.dark
-
     @work
     async def action_load_variants(self) -> None:
         """Load a variants.ini file."""
