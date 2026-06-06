@@ -39,14 +39,25 @@ describe('createMoveIndicator', () => {
     expect(path2.getAttribute('stroke')).toBe(COLORS.capture);
   });
 
-  it('should create a move indicator for a special move', () => {
+  it('should preserve move/capture semantics for a hopping move', () => {
     const indicator = createMoveIndicator('move_capture', true, false);
     expect(indicator.tagName).toBe('g');
-    expect(indicator.childNodes.length).toBe(1);
+    expect(indicator.childNodes.length).toBe(2);
+
+    const path1 = indicator.childNodes[0] as SVGPathElement;
+    const path2 = indicator.childNodes[1] as SVGPathElement;
+    expect(path1.tagName).toBe('path');
+    expect(path2.tagName).toBe('path');
+    expect(path1.getAttribute('stroke')).toBe(COLORS.move);
+    expect(path2.getAttribute('stroke')).toBe(COLORS.capture);
+  });
+
+  it('should preserve initial semantics for a hopping move', () => {
+    const indicator = createMoveIndicator('move', true, true);
+    expect(indicator.classList.contains('initial-move')).toBe(true);
 
     const path = indicator.childNodes[0] as SVGPathElement;
-    expect(path.tagName).toBe('path');
-    expect(path.getAttribute('stroke')).toBe(COLORS.hop);
+    expect(path.getAttribute('stroke')).toBe(COLORS.initial);
   });
 
   it('should add the initial-move class for an initial move', () => {

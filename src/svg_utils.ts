@@ -7,7 +7,6 @@ export const COLORS = {
   standard: '#4169E1',
   move: '#FFD700',
   capture: '#DC143C',
-  hop: '#32CD32',
   initial: '#87CEEB', // Sky Blue
   blocker: '#606060',
 };
@@ -25,12 +24,12 @@ function createPath(d: string, color: string, strokeWidth: string): SVGPathEleme
  * Creates an SVG group element containing the move indicator path(s).
  * This approach ensures that all move indicators have a consistent DOM structure.
  * @param moveType - The type of move ('move', 'capture', 'move_capture').
- * @param isSpecialMove - Flag for special moves like hops, which get a different color.
+ * @param _isSpecialMove - Reserved for optional secondary hop styling.
  * @returns An SVGElement representing the move indicator.
  */
 export function createMoveIndicator(
   moveType: Move['moveType'],
-  isSpecialMove: boolean,
+  _isSpecialMove: boolean,
   isInitial: boolean
 ): SVGElement {
   const r = CELL_SIZE * 0.3;
@@ -49,20 +48,15 @@ export function createMoveIndicator(
   const rightSemiCircleD = `M 0,${-r} A ${r},${r} 0 0 1 0,${r}`;
 
   const moveColor = isInitial ? COLORS.initial : COLORS.move;
-
-  if (isSpecialMove) {
-    moveIndicatorGroup.appendChild(createPath(fullCircleD, COLORS.hop, strokeWidth));
-  } else {
-    if (moveType === 'move') {
-      moveIndicatorGroup.appendChild(createPath(fullCircleD, moveColor, strokeWidth));
-    } else if (moveType === 'capture') {
-      const captureColor = isInitial ? COLORS.initial : COLORS.capture;
-      moveIndicatorGroup.appendChild(createPath(fullCircleD, captureColor, strokeWidth));
-    } else if (moveType === 'move_capture') {
-      const captureColor = isInitial ? COLORS.initial : COLORS.capture;
-      moveIndicatorGroup.appendChild(createPath(leftSemiCircleD, moveColor, strokeWidth));
-      moveIndicatorGroup.appendChild(createPath(rightSemiCircleD, captureColor, strokeWidth));
-    }
+  if (moveType === 'move') {
+    moveIndicatorGroup.appendChild(createPath(fullCircleD, moveColor, strokeWidth));
+  } else if (moveType === 'capture') {
+    const captureColor = isInitial ? COLORS.initial : COLORS.capture;
+    moveIndicatorGroup.appendChild(createPath(fullCircleD, captureColor, strokeWidth));
+  } else if (moveType === 'move_capture') {
+    const captureColor = isInitial ? COLORS.initial : COLORS.capture;
+    moveIndicatorGroup.appendChild(createPath(leftSemiCircleD, moveColor, strokeWidth));
+    moveIndicatorGroup.appendChild(createPath(rightSemiCircleD, captureColor, strokeWidth));
   }
 
   return moveIndicatorGroup;

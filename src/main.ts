@@ -309,10 +309,6 @@ function renderLegend() {
           COLORS.capture
         }" stroke-width="${strokeWidth}" fill="none" />
     </svg>`;
-  const hopIcon = `<svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="${
-    r * 0.75
-  }" stroke="${COLORS.hop}" stroke-width="${strokeWidth}" fill="none" /></svg>`;
-
   legendContainer.appendChild(createLegendItem('🧚', 'Piece', true));
   legendContainer.appendChild(createLegendItem('♟️', 'Blocker', true));
   legendContainer.appendChild(createLegendItem(moveIcon, 'Move'));
@@ -320,7 +316,6 @@ function renderLegend() {
   legendContainer.appendChild(
     createLegendItem(moveCaptureIcon, 'Move or Capture')
   );
-  legendContainer.appendChild(createLegendItem(hopIcon, 'Hop'));
 
   const initialIcon = `<svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="${
     r * 0.75

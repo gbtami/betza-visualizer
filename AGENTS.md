@@ -39,6 +39,8 @@ This example demonstrates the required workflow for adding a new feature.
 This version is a command-line application that renders the visualization directly in the terminal.
 
 *   **Framework:** [Textual](https://textual.textualize.io/)
+    *   Local Textual docs are available in `~/textual/docs/` as Markdown files.
+    *   Start with `~/textual/docs/guides/` when working on TUI behavior, devtools, or testing.
 *   **Core Files:**
     *   `main.py`: The entry point for the Textual TUI application.
     *   `betza_parser.py`: The Python implementation of the Betza notation parser.
