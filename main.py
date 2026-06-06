@@ -38,6 +38,8 @@ def sign(n):
 DEFAULT_BOARD_SIZE = 11
 CELL_WIDTH = 8
 CELL_HEIGHT = 4
+SPRITE_WIDTH = 4
+SPRITE_HEIGHT = 2
 BOARD_FRAME_WIDTH = 0
 BOARD_FRAME_HEIGHT = 0
 LEGEND_TEXT = (
@@ -57,18 +59,18 @@ xx      Capture
 [**]    Move or capture on blocker"""
 
 SPRITES = {
-    ".": ["        ", "        ", "        ", "        "],
-    "🧚": ["  .::.  ", " (o^^o) ", " /|  |\\ ", "  /\\/\\  "],
-    "♙": ["        ", "   []   ", "   []   ", "        "],
-    "m": ["        ", "   oo   ", "   oo   ", "        "],
-    "x": ["        ", "   xx   ", "   xx   ", "        "],
-    "X": ["        ", "   **   ", "   **   ", "        "],
-    "i": ["        ", "  (oo)  ", "  (oo)  ", "        "],
-    "c": ["        ", "  (xx)  ", "  (xx)  ", "        "],
-    "I": ["        ", "  (**)  ", "  (**)  ", "        "],
-    "M": ["        ", "  [oo]  ", "  [oo]  ", "        "],
-    "H": ["        ", "  [xx]  ", "  [xx]  ", "        "],
-    "#": ["        ", "  [**]  ", "  [**]  ", "        "],
+    ".": ["    ", "    "],
+    "🧚": ["o^^o", "/||\\"],
+    "♙": [" [] ", " [] "],
+    "m": [" oo ", " oo "],
+    "x": [" xx ", " xx "],
+    "X": [" ** ", " ** "],
+    "i": ["(oo)", "(oo)"],
+    "c": ["(xx)", "(xx)"],
+    "I": ["(**)", "(**)"],
+    "M": ["[oo]", "[oo]"],
+    "H": ["[xx]", "[xx]"],
+    "#": ["[**]", "[**]"],
 }
 
 CHAR_TO_STYLE_MAP = {
@@ -106,8 +108,7 @@ class Square(Widget):
             self.square = square
 
     def render_line(self, y: int) -> Strip:
-        sprite = SPRITES.get(self.piece, SPRITES["."])
-        sprite_line = sprite[y % 4]
+        sprite_line = get_cell_lines(self.piece)[y % CELL_HEIGHT]
 
         is_odd_col = ord(self.id[0]) % 2
         is_odd_row = int(self.id[1:]) % 2
@@ -117,11 +118,54 @@ class Square(Widget):
         fg_style_name = CHAR_TO_STYLE_MAP.get(self.piece)
         fg_style = self.get_component_rich_style(f"board--{fg_style_name}") if fg_style_name else Style()
 
-        return Strip([Segment(sprite_line, bg_style + fg_style)])
+        segments: list[Segment] = []
+        current_text = ""
+        current_style = None
+        for x, char in enumerate(sprite_line):
+            if fg_style_name and is_within_sprite_box(x, y % CELL_HEIGHT):
+                char_style = bg_style + fg_style if char != " " else bg_style + fg_style + Style(reverse=True)
+            else:
+                char_style = bg_style
+            if current_style is None or char_style == current_style:
+                current_text += char
+                current_style = char_style
+                continue
+            segments.append(Segment(current_text, current_style))
+            current_text = char
+            current_style = char_style
+
+        if current_text:
+            segments.append(Segment(current_text, current_style))
+
+        return Strip(segments)
 
     def on_click(self, event: Click) -> None:
         event.stop()
         self.post_message(self.Clicked(self))
+
+
+def get_cell_lines(piece: str) -> list[str]:
+    sprite = SPRITES.get(piece, SPRITES["."])
+    blank_row = " " * CELL_WIDTH
+    left_padding = (CELL_WIDTH - SPRITE_WIDTH) // 2
+    right_padding = CELL_WIDTH - SPRITE_WIDTH - left_padding
+    top_padding = (CELL_HEIGHT - SPRITE_HEIGHT) // 2
+    bottom_padding = CELL_HEIGHT - SPRITE_HEIGHT - top_padding
+
+    return (
+        [blank_row] * top_padding
+        + [(" " * left_padding) + row + (" " * right_padding) for row in sprite]
+        + [blank_row] * bottom_padding
+    )
+
+
+def is_within_sprite_box(x: int, y: int) -> bool:
+    left_padding = (CELL_WIDTH - SPRITE_WIDTH) // 2
+    top_padding = (CELL_HEIGHT - SPRITE_HEIGHT) // 2
+    return (
+        left_padding <= x < left_padding + SPRITE_WIDTH
+        and top_padding <= y < top_padding + SPRITE_HEIGHT
+    )
 
 
 class BoardWidget(Container):

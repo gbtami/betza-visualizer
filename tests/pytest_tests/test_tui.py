@@ -9,8 +9,11 @@ from main import (
     CELL_HEIGHT,
     CELL_WIDTH,
     HelpScreen,
+    SPRITE_HEIGHT,
+    SPRITE_WIDTH,
     SPRITES,
     Square,
+    get_cell_lines,
 )
 
 
@@ -70,23 +73,35 @@ def count_moves_on_board(app: BetzaChessApp) -> int:
 
 def test_all_sprites_fit_cell_geometry():
     """
-    Tests that every sprite remains centered within the fixed 8x4 square geometry.
+    Tests that every sprite fits the compact 4x2 sprite geometry.
     """
     for sprite in SPRITES.values():
-        assert len(sprite) == CELL_HEIGHT
-        assert [cell_len(row) for row in sprite] == [CELL_WIDTH] * CELL_HEIGHT
+        assert len(sprite) == SPRITE_HEIGHT
+        assert [cell_len(row) for row in sprite] == [SPRITE_WIDTH] * SPRITE_HEIGHT
         for row in sprite:
             marker_width = cell_len(row.strip())
             if marker_width == 0:
                 continue
-            left_padding = cell_len(row) - cell_len(row.lstrip())
-            right_padding = cell_len(row) - cell_len(row.rstrip())
-            assert abs(left_padding - right_padding) <= 1
+            assert cell_len(row) == SPRITE_WIDTH
+
+
+def test_compact_sprites_are_centered_inside_board_cells():
+    """
+    Tests that compact 4x2 sprites render centered inside the fixed 8x4 board square.
+    """
+    rendered = get_cell_lines("🧚")
+
+    assert len(rendered) == CELL_HEIGHT
+    assert [cell_len(row) for row in rendered] == [CELL_WIDTH] * CELL_HEIGHT
+    assert rendered[0] == " " * CELL_WIDTH
+    assert rendered[-1] == " " * CELL_WIDTH
+    assert rendered[1] == "  o^^o  "
+    assert rendered[2] == r"  /||\  "
 
 
 async def test_board_uses_4_by_8_sprite_squares(pilot: Pilot):
     """
-    Tests that the TUI board exposes the requested 4x8 sprite cell geometry.
+    Tests that the TUI board keeps 8x4 squares while centering compact sprites inside them.
     """
     center = pilot.app.board_size // 2
     square_id = f"#{chr(ord('a') + center)}{center + 1}"
@@ -96,8 +111,37 @@ async def test_board_uses_4_by_8_sprite_squares(pilot: Pilot):
     assert center_square.size.height == CELL_HEIGHT
 
     rendered_rows = [center_square.render_line(y) for y in range(CELL_HEIGHT)]
-    assert [row.text for row in rendered_rows] == SPRITES["🧚"]
+    assert [row.text for row in rendered_rows] == get_cell_lines("🧚")
     assert [row.cell_length for row in rendered_rows] == [CELL_WIDTH] * CELL_HEIGHT
+    middle_row_segments = list(rendered_rows[1])
+    assert len(middle_row_segments) == 3
+    assert middle_row_segments[0].text == "  "
+    assert middle_row_segments[1].text == "o^^o"
+    assert middle_row_segments[2].text == "  "
+    assert middle_row_segments[0].style == middle_row_segments[2].style
+    assert middle_row_segments[0].style != middle_row_segments[1].style
+
+
+async def test_sprite_internal_spaces_render_as_part_of_sprite_box(pilot: Pilot):
+    """
+    Tests that spaces inside a compact 4x2 sprite stay inside the sprite box visually.
+    """
+    center = pilot.app.board_size // 2
+    square_id = f"#{chr(ord('a') + center + 1)}{center + 1}"
+    move_square = pilot.app.query_one(square_id, Square)
+    move_square.piece = "m"
+    await pilot.pause()
+
+    rendered_row = move_square.render_line(1)
+    segments = list(rendered_row)
+
+    assert rendered_row.text == "   oo   "
+    assert len(segments) == 5
+    assert [segment.text for segment in segments] == ["  ", " ", "oo", " ", "  "]
+    assert segments[0].style == segments[4].style
+    assert segments[1].style == segments[3].style
+    assert segments[0].style != segments[1].style
+    assert segments[1].style != segments[2].style
 
 
 async def test_board_size_select_rebuilds_sprite_board(pilot: Pilot):
