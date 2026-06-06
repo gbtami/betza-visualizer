@@ -8,6 +8,8 @@ from main import (
     BOARD_FRAME_WIDTH,
     CELL_HEIGHT,
     CELL_WIDTH,
+    HELP_LEGEND_ITEMS,
+    HelpLegendSprite,
     HelpScreen,
     SPRITE_HEIGHT,
     SPRITE_WIDTH,
@@ -329,3 +331,19 @@ async def test_board_move_and_blocker_behaviors(pilot: Pilot):
     board_text = get_board_string(pilot.app)
     assert "I" in board_text
     assert "X" not in board_text
+
+
+async def test_help_screen_renders_sprite_previews(pilot: Pilot):
+    """
+    Tests that the help screen uses rendered legend sprite previews instead of plain text glyphs.
+    """
+    await pilot.app.push_screen(HelpScreen())
+    await pilot.pause()
+
+    legend_sprites = pilot.app.screen.query(HelpLegendSprite)
+    assert len(list(legend_sprites)) == len(HELP_LEGEND_ITEMS)
+
+    move_preview = pilot.app.screen.query_one("#help-legend-sprite-0", HelpLegendSprite)
+    rendered_rows = [move_preview.render_line(y) for y in range(SPRITE_HEIGHT)]
+    assert [row.text for row in rendered_rows] == [" " * SPRITE_WIDTH] * SPRITE_HEIGHT
+    assert all(len(list(row)) == 1 for row in rendered_rows)

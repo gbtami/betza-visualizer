@@ -41,19 +41,16 @@ SPRITE_WIDTH = 4
 SPRITE_HEIGHT = 2
 BOARD_FRAME_WIDTH = 0
 BOARD_FRAME_HEIGHT = 0
-LEGEND_TEXT = (
-    "Move | Capture | Move/Capture | Initial | "
-    "Blocker | Move onto Blocker | Capture on Blocker | Move/Capture on Blocker"
-)
-HELP_TEXT = """\
-Move marker
-Capture marker
-Move or capture marker
-Initial-only marker
-Blocker
-Move onto blocker
-Capture on blocker
-Move or capture on blocker"""
+HELP_LEGEND_ITEMS = [
+    ("m", "Move marker"),
+    ("x", "Capture marker"),
+    ("X", "Move or capture marker"),
+    ("i", "Initial-only marker"),
+    ("♙", "Blocker"),
+    ("M", "Move onto blocker"),
+    ("H", "Capture on blocker"),
+    ("#", "Move or capture on blocker"),
+]
 
 SPRITES = {
     ".": ["    ", "    "],
@@ -187,6 +184,52 @@ def get_sprite_fill_style_name(piece: str, x: int, y: int) -> str | None:
     return fills[sprite_y][sprite_x]
 
 
+class HelpLegendSprite(Widget):
+    COMPONENT_CLASSES = {
+        "board--piece",
+        "board--blocker",
+        "board--move",
+        "board--capture",
+        "board--move-capture",
+        "board--initial",
+    }
+
+    def __init__(self, piece: str, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.piece = piece
+
+    def render_line(self, y: int) -> Strip:
+        y = y % SPRITE_HEIGHT
+        segments: list[Segment] = []
+        current_text = ""
+        current_style = None
+        sprite_line = SPRITES.get(self.piece, SPRITES["."])[y]
+
+        for x, char in enumerate(sprite_line):
+            fill_style_name = SPRITE_FILL_MAP.get(self.piece, [[None] * SPRITE_WIDTH] * SPRITE_HEIGHT)[y][x]
+            glyph_style_name = GLYPH_TO_STYLE_MAP.get(self.piece) if char != " " else None
+
+            if fill_style_name:
+                char_style = self.get_component_rich_style(f"board--{fill_style_name}")
+            elif glyph_style_name:
+                char_style = self.get_component_rich_style(f"board--{glyph_style_name}")
+            else:
+                char_style = None
+
+            if current_style is None or char_style == current_style:
+                current_text += char
+                current_style = char_style
+                continue
+            segments.append(Segment(current_text, current_style))
+            current_text = char
+            current_style = char_style
+
+        if current_text:
+            segments.append(Segment(current_text, current_style))
+
+        return Strip(segments)
+
+
 class BoardWidget(Container):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -268,7 +311,11 @@ class HelpScreen(ModalScreen[None]):
     def compose(self) -> ComposeResult:
         with Container(id="help-dialog"):
             yield Static("Betza Visualizer Help", id="help-title")
-            yield Static(HELP_TEXT, id="help-legend")
+            with Vertical(id="help-legend"):
+                for index, (piece, label) in enumerate(HELP_LEGEND_ITEMS):
+                    with Horizontal(classes="help-legend-item"):
+                        yield HelpLegendSprite(piece=piece, id=f"help-legend-sprite-{index}")
+                        yield Label(label, classes="help-legend-label")
             yield Static("Click board squares to toggle blockers. Press F1 or Esc to close.", id="help-shortcuts")
 
     def action_close(self) -> None:

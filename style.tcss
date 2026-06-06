@@ -87,27 +87,33 @@ BoardWidget .board--black-square {
     background: #004578;
 }
 
-BoardWidget .board--piece {
+BoardWidget .board--piece,
+HelpLegendSprite .board--piece {
     color: #FFFFFF;
 }
 
-BoardWidget .board--blocker {
+BoardWidget .board--blocker,
+HelpLegendSprite .board--blocker {
     background: #606060;
 }
 
-BoardWidget .board--move {
+BoardWidget .board--move,
+HelpLegendSprite .board--move {
     background: #FFD700;
 }
 
-BoardWidget .board--capture {
+BoardWidget .board--capture,
+HelpLegendSprite .board--capture {
     background: #DC143C;
 }
 
-BoardWidget .board--move-capture {
+BoardWidget .board--move-capture,
+HelpLegendSprite .board--move-capture {
     background: #FFD700;
 }
 
-BoardWidget .board--initial {
+BoardWidget .board--initial,
+HelpLegendSprite .board--initial {
     background: #87CEEB;
 }
 
@@ -135,8 +141,24 @@ HelpScreen {
 }
 
 #help-legend {
-    text-align: left;
-    padding-left: 18;
+    height: auto;
+    margin: 0 0 1 0;
+}
+
+.help-legend-item {
+    height: 2;
+    width: 100%;
+    align: left middle;
+    margin: 0 0 1 0;
+}
+
+.help-legend-label {
+    margin-left: 2;
+}
+
+HelpLegendSprite {
+    width: 4;
+    height: 2;
 }
 
 #help-shortcuts {
