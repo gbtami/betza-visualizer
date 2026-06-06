@@ -124,7 +124,7 @@ async def test_board_uses_4_by_8_sprite_squares(pilot: Pilot):
 
 async def test_sprite_internal_spaces_render_as_part_of_sprite_box(pilot: Pilot):
     """
-    Tests that spaces inside a compact 4x2 sprite stay inside the sprite box visually.
+    Tests that marker sprites render as filled 4x2 blocks instead of transparent text glyphs.
     """
     center = pilot.app.board_size // 2
     square_id = f"#{chr(ord('a') + center + 1)}{center + 1}"
@@ -135,11 +135,30 @@ async def test_sprite_internal_spaces_render_as_part_of_sprite_box(pilot: Pilot)
     rendered_row = move_square.render_line(1)
     segments = list(rendered_row)
 
-    assert rendered_row.text == "   oo   "
-    assert len(segments) == 5
-    assert [segment.text for segment in segments] == ["  ", " ", "oo", " ", "  "]
-    assert segments[0].style == segments[4].style
-    assert segments[1].style == segments[3].style
+    assert rendered_row.text == " " * CELL_WIDTH
+    assert len(segments) == 3
+    assert [segment.text for segment in segments] == ["  ", "    ", "  "]
+    assert segments[0].style == segments[2].style
+    assert segments[0].style != segments[1].style
+
+
+async def test_move_capture_sprite_splits_fill_colors_inside_sprite_box(pilot: Pilot):
+    """
+    Tests that move/capture targets use separate fill colors for the left and right halves.
+    """
+    center = pilot.app.board_size // 2
+    square_id = f"#{chr(ord('a') + center + 1)}{center + 2}"
+    move_capture_square = pilot.app.query_one(square_id, Square)
+    move_capture_square.piece = "X"
+    await pilot.pause()
+
+    rendered_row = move_capture_square.render_line(1)
+    segments = list(rendered_row)
+
+    assert rendered_row.text == " " * CELL_WIDTH
+    assert len(segments) == 4
+    assert [segment.text for segment in segments] == ["  ", "  ", "  ", "  "]
+    assert segments[0].style == segments[3].style
     assert segments[0].style != segments[1].style
     assert segments[1].style != segments[2].style
 

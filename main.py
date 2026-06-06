@@ -2,7 +2,6 @@ import math
 import json
 from textual import work
 from rich.segment import Segment
-from rich.style import Style
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.screen import ModalScreen
@@ -43,48 +42,49 @@ SPRITE_HEIGHT = 2
 BOARD_FRAME_WIDTH = 0
 BOARD_FRAME_HEIGHT = 0
 LEGEND_TEXT = (
-    "oo: Move | xx: Capture | **: Move/Capture | (...): Initial | "
-    "[]: Blocker | [xx]: Capture on Blocker | [**]: Move/Capture on Blocker"
+    "Move | Capture | Move/Capture | Initial | "
+    "Blocker | Move onto Blocker | Capture on Blocker | Move/Capture on Blocker"
 )
 HELP_TEXT = """\
-oo      Move
-xx      Capture
-**      Move or capture
-(oo)    Initial-only move
-(xx)    Initial-only capture
-(**)    Initial-only move or capture
-[]      Blocker
-[oo]    Move onto blocker
-[xx]    Capture on blocker
-[**]    Move or capture on blocker"""
+Move marker
+Capture marker
+Move or capture marker
+Initial-only marker
+Blocker
+Move onto blocker
+Capture on blocker
+Move or capture on blocker"""
 
 SPRITES = {
     ".": ["    ", "    "],
     "🧚": ["o^^o", "/||\\"],
-    "♙": [" [] ", " [] "],
-    "m": [" oo ", " oo "],
-    "x": [" xx ", " xx "],
-    "X": [" ** ", " ** "],
-    "i": ["(oo)", "(oo)"],
-    "c": ["(xx)", "(xx)"],
-    "I": ["(**)", "(**)"],
-    "M": ["[oo]", "[oo]"],
-    "H": ["[xx]", "[xx]"],
-    "#": ["[**]", "[**]"],
+    "♙": ["    ", "    "],
+    "m": ["    ", "    "],
+    "x": ["    ", "    "],
+    "X": ["    ", "    "],
+    "i": ["    ", "    "],
+    "c": ["    ", "    "],
+    "I": ["    ", "    "],
+    "M": ["    ", "    "],
+    "H": ["    ", "    "],
+    "#": ["    ", "    "],
 }
 
-CHAR_TO_STYLE_MAP = {
+GLYPH_TO_STYLE_MAP = {
     "🧚": "piece",
-    "♙": "blocker",
-    "m": "move",
-    "x": "capture",
-    "X": "move-capture",
-    "i": "initial",
-    "c": "initial",
-    "I": "initial",
-    "M": "move",
-    "H": "capture",
-    "#": "move-capture",
+}
+
+SPRITE_FILL_MAP = {
+    "♙": [["blocker"] * SPRITE_WIDTH for _ in range(SPRITE_HEIGHT)],
+    "m": [["move"] * SPRITE_WIDTH for _ in range(SPRITE_HEIGHT)],
+    "x": [["capture"] * SPRITE_WIDTH for _ in range(SPRITE_HEIGHT)],
+    "X": [["move", "move", "capture", "capture"] for _ in range(SPRITE_HEIGHT)],
+    "i": [["initial"] * SPRITE_WIDTH for _ in range(SPRITE_HEIGHT)],
+    "c": [["initial"] * SPRITE_WIDTH for _ in range(SPRITE_HEIGHT)],
+    "I": [["initial"] * SPRITE_WIDTH for _ in range(SPRITE_HEIGHT)],
+    "M": [["move"] * SPRITE_WIDTH, ["blocker"] * SPRITE_WIDTH],
+    "H": [["capture"] * SPRITE_WIDTH, ["blocker"] * SPRITE_WIDTH],
+    "#": [["move", "move", "capture", "capture"], ["blocker"] * SPRITE_WIDTH],
 }
 
 
@@ -108,22 +108,26 @@ class Square(Widget):
             self.square = square
 
     def render_line(self, y: int) -> Strip:
-        sprite_line = get_cell_lines(self.piece)[y % CELL_HEIGHT]
+        y = y % CELL_HEIGHT
+        sprite_line = get_cell_lines(self.piece)[y]
 
         is_odd_col = ord(self.id[0]) % 2
         is_odd_row = int(self.id[1:]) % 2
         bg_style_name = "black-square" if (is_odd_row + is_odd_col) % 2 else "white-square"
         bg_style = self.get_component_rich_style(f"board--{bg_style_name}")
 
-        fg_style_name = CHAR_TO_STYLE_MAP.get(self.piece)
-        fg_style = self.get_component_rich_style(f"board--{fg_style_name}") if fg_style_name else Style()
-
         segments: list[Segment] = []
         current_text = ""
         current_style = None
         for x, char in enumerate(sprite_line):
-            if fg_style_name and is_within_sprite_box(x, y % CELL_HEIGHT):
-                char_style = bg_style + fg_style if char != " " else bg_style + fg_style + Style(reverse=True)
+            fill_style_name = get_sprite_fill_style_name(self.piece, x, y)
+            glyph_style_name = GLYPH_TO_STYLE_MAP.get(self.piece) if char != " " else None
+
+            if fill_style_name:
+                char_style = self.get_component_rich_style(f"board--{fill_style_name}")
+            elif glyph_style_name:
+                glyph_style = self.get_component_rich_style(f"board--{glyph_style_name}")
+                char_style = bg_style + glyph_style
             else:
                 char_style = bg_style
             if current_style is None or char_style == current_style:
@@ -166,6 +170,21 @@ def is_within_sprite_box(x: int, y: int) -> bool:
         left_padding <= x < left_padding + SPRITE_WIDTH
         and top_padding <= y < top_padding + SPRITE_HEIGHT
     )
+
+
+def get_sprite_fill_style_name(piece: str, x: int, y: int) -> str | None:
+    if not is_within_sprite_box(x, y):
+        return None
+
+    fills = SPRITE_FILL_MAP.get(piece)
+    if fills is None:
+        return None
+
+    left_padding = (CELL_WIDTH - SPRITE_WIDTH) // 2
+    top_padding = (CELL_HEIGHT - SPRITE_HEIGHT) // 2
+    sprite_x = x - left_padding
+    sprite_y = y - top_padding
+    return fills[sprite_y][sprite_x]
 
 
 class BoardWidget(Container):

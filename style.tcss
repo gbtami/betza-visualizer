@@ -92,23 +92,23 @@ BoardWidget .board--piece {
 }
 
 BoardWidget .board--blocker {
-    color: #FF0000;
+    background: #606060;
 }
 
 BoardWidget .board--move {
-    color: #00FF00;
+    background: #FFD700;
 }
 
 BoardWidget .board--capture {
-    color: #FFFF00;
+    background: #DC143C;
 }
 
 BoardWidget .board--move-capture {
-    color: #FFA500;
+    background: #FFD700;
 }
 
 BoardWidget .board--initial {
-    color: #FFC0CB;
+    background: #87CEEB;
 }
 
 HelpScreen {
