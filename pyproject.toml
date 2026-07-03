@@ -6,44 +6,56 @@ build-backend = "setuptools.build_meta"
 name = "betza-visualizer"
 version = "0.1.0"
 authors = [
-  { name="gbtami", email="your@email.com" },
+  { name="gbtami", email="gbtami@gmail.com" },
 ]
-description = "A textual application for visualizing Betza notation for fairy chess pieces."
+description = "Reusable Betza notation parser and movement diagram visualizer."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
-    "Programming Language :: Python :: 3",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Games/Entertainment :: Board Games",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dependencies = [
-    "requests",
+dependencies = []
+
+[project.optional-dependencies]
+tui = [
     "textual",
     "textual-fspicker",
 ]
-
-[project.optional-dependencies]
+catalog-tools = [
+    "requests",
+]
 dev = [
+    "build",
     "ruff",
     "pytest",
     "pytest-asyncio",
     "pytest-playwright",
+    "requests",
+    "textual",
+    "textual-fspicker",
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/gbtami/betza-visualizer"
 "Bug Tracker" = "https://github.com/gbtami/betza-visualizer/issues"
 
+[tool.setuptools.packages.find]
+include = ["betza_visualizer*"]
+
 [tool.ruff]
-# Set the maximum line length to 120 characters.
 line-length = 120
 
 [tool.ruff.lint]
-# Select the rule codes to enable. 'E' and 'F' are enabled by default.
 select = ["E", "F"]
 
 [tool.ruff.format]
-# Use double quotes for strings.
 quote-style = "double"
 
 [tool.pytest.ini_options]

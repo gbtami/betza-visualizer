@@ -13,9 +13,9 @@ from textual.strip import Strip
 from textual.events import Click
 from textual.message import Message
 
-from betza_parser import BetzaParser
+from betza_visualizer.betza_parser import BetzaParser
 from textual_fspicker import FileOpen
-from variant_ini_parser import VariantIniParser
+from betza_visualizer.variant_ini_parser import VariantIniParser
 
 
 class PieceListItem(ListItem):

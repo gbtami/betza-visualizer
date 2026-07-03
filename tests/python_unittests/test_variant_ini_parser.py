@@ -1,6 +1,6 @@
 import unittest
 import json
-from variant_ini_parser import VariantIniParser
+from betza_visualizer.variant_ini_parser import VariantIniParser
 
 class TestVariantIniParser(unittest.TestCase):
 
