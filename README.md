@@ -1,3 +1,9 @@
+[![PyPI version](https://img.shields.io/pypi/v/betza-visualizer)](https://pypi.org/project/betza-visualizer/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/betza-visualizer)](https://pypi.org/project/betza-visualizer/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![TUI Tests](https://github.com/gbtami/betza-visualizer/actions/workflows/tui_tests.yml/badge.svg)](https://github.com/gbtami/betza-visualizer/actions/workflows/tui_tests.yml)
+[![Web App Tests](https://github.com/gbtami/betza-visualizer/actions/workflows/web_tests.yml/badge.svg)](https://github.com/gbtami/betza-visualizer/actions/workflows/web_tests.yml)
+
 # betza-visualizer
 
 Visualizes [fairy chess piece](https://en.wikipedia.org/wiki/List_of_fairy_chess_pieces) movements from their [Betza notation](https://en.wikipedia.org/wiki/Betza%27s_funny_notation).
