@@ -60,6 +60,7 @@ On Windows, activate the virtual environment with:
 
 If you use `uv`, the shorter equivalent is:
 
+```
 uv run --extra tui python main.py
 ```
 
