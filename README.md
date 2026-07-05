@@ -27,14 +27,45 @@ svg = render_betza_svg("BN", BetzaSvgOptions(piece_label="A", title="Archbishop 
 
 The generated SVG string is intended to be embedded directly into documentation pages.
 
-## Optional TUI dependencies
+## Try the web app
 
-The Textual frontend needs optional dependencies:
+The browser frontend is available online:
+
+<https://betza-visualizer.vercel.app/>
+
+## Run the TUI locally
+
+The Textual TUI frontend currently lives in the repository-level `main.py`, so clone the
+repository frst:
 
 ```bash
-pip install 'betza-visualizer[tui]'
+git clone https://github.com/gbtami/betza-visualizer.git
+cd betza-visualizer
+```
+
+Then install the optional TUI dependencies and start the app:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e '.[tui]'
 python main.py
 ```
+
+On Windows, activate the virtual environment with:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+If you use `uv`, the shorter equivalent is:
+
+uv run --extra tui python main.py
+```
+
+Inside the TUI, type a Betza expression, pick a built-in piece from the list, change the
+board size from the selector, or click board squares to toggle blockers. Press `F1` for
+the in-app help and `Ctrl+L` to load pieces from a local `variants.ini` file.
 
 ## Development
 
