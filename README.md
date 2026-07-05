@@ -51,7 +51,7 @@ The package metadata is defined in `pyproject.toml`. A local wheel can be built 
 python -m build
 ```
 
-Almost everything in this repository made by using Google AI tools.
+Almost everything in this repository made by using Google and OpanAI tools.
 
 Google AI Studio, gemini-cli, Google Labs Jules using gemini-2.5-pro, gemini2.5-flash
 
