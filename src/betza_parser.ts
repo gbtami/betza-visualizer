@@ -1,4 +1,10 @@
-import { Move } from './types.js';
+import {
+  BetzaDiagnostic,
+  BetzaMovement,
+  BetzaParseResult,
+  BetzaTerm,
+  Move,
+} from './types.js';
 
 export class BetzaParser {
   private readonly atoms: Map<string, { x: number; y: number }> = new Map([
@@ -23,6 +29,10 @@ export class BetzaParser {
     ['M', 'FC'],
   ]);
   public readonly infinityCap = 12;
+
+  public parseDetailed(notation: string): BetzaParseResult<BetzaMovement> {
+    return parseBetza(notation);
+  }
   private readonly jumpingAtoms: Set<string> = new Set(['N', 'C', 'Z']);
 
   public parse(notation: string, boardSize?: number): Move[] {
@@ -301,4 +311,308 @@ export class BetzaParser {
 
     return finalFiltered;
   }
+}
+
+
+type Direction = { dx: number; dy: number };
+type FsfAtomVector = { forward: number; sideways: number };
+
+const FSF_LEAPER_ATOMS: ReadonlyMap<string, readonly FsfAtomVector[]> = new Map([
+  ['W', [{ forward: 1, sideways: 0 }]],
+  ['F', [{ forward: 1, sideways: 1 }]],
+  ['D', [{ forward: 2, sideways: 0 }]],
+  ['N', [{ forward: 2, sideways: 1 }]],
+  ['A', [{ forward: 2, sideways: 2 }]],
+  ['H', [{ forward: 3, sideways: 0 }]],
+  ['L', [{ forward: 3, sideways: 1 }]],
+  ['C', [{ forward: 3, sideways: 1 }]],
+  ['J', [{ forward: 3, sideways: 2 }]],
+  ['Z', [{ forward: 3, sideways: 2 }]],
+  ['G', [{ forward: 3, sideways: 3 }]],
+  [
+    'K',
+    [
+      { forward: 1, sideways: 0 },
+      { forward: 1, sideways: 1 },
+    ],
+  ],
+]);
+
+const FSF_RIDER_ATOMS: ReadonlyMap<string, readonly FsfAtomVector[]> = new Map([
+  ['R', [{ forward: 1, sideways: 0 }]],
+  ['B', [{ forward: 1, sideways: 1 }]],
+  [
+    'Q',
+    [
+      { forward: 1, sideways: 0 },
+      { forward: 1, sideways: 1 },
+    ],
+  ],
+]);
+
+const FSF_VERTICAL_MODIFIERS = 'fbvh';
+const FSF_HORIZONTAL_MODIFIERS = 'rlsh';
+
+function diagnostic(message: string, index: number, token?: string): BetzaDiagnostic {
+  return { message, index, token };
+}
+
+function uniqueDirections(directions: Iterable<Direction>): Direction[] {
+  const result: Direction[] = [];
+  const seen = new Set<string>();
+  for (const direction of directions) {
+    const key = `${direction.dx},${direction.dy}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push(direction);
+  }
+  return result;
+}
+
+function fsfMoveType(modalities: readonly ('m' | 'c')[]): BetzaTerm['moveType'] {
+  if (!modalities.length) return 'move_capture';
+  const quiet = modalities.includes('m');
+  const capture = modalities.includes('c');
+  if (quiet && capture) return 'move_capture';
+  return quiet ? 'move' : 'capture';
+}
+
+function fsfDirections(
+  atom: FsfAtomVector,
+  sourceDirections: readonly string[],
+  splitOrthogonalDirections: boolean
+): Direction[] {
+  const directions = splitOrthogonalDirections
+    ? sourceDirections.flatMap((value) =>
+        value[0] !== value[1] ? [value[0].repeat(2), value[1].repeat(2)] : [value]
+      )
+    : [...sourceDirections];
+  const hasDirection = (value: string): boolean => directions.includes(value);
+  const unrestricted = directions.length === 0;
+  const { forward, sideways } = atom;
+  const result: Direction[] = [];
+
+  if (
+    unrestricted ||
+    ['ff', 'vv', 'rf', 'rv', 'fh', 'rh', 'hr'].some(hasDirection)
+  ) {
+    result.push({ dx: sideways, dy: forward });
+  }
+  if (
+    unrestricted ||
+    ['bb', 'vv', 'lb', 'lv', 'bh', 'lh', 'hr'].some(hasDirection)
+  ) {
+    result.push({ dx: -sideways, dy: -forward });
+  }
+  if (
+    unrestricted ||
+    ['rr', 'ss', 'br', 'bs', 'bh', 'rh', 'hr'].some(hasDirection)
+  ) {
+    result.push({ dx: forward, dy: -sideways });
+  }
+  if (
+    unrestricted ||
+    ['ll', 'ss', 'fl', 'fs', 'fh', 'lh', 'hr'].some(hasDirection)
+  ) {
+    result.push({ dx: -forward, dy: sideways });
+  }
+  if (
+    unrestricted ||
+    ['rr', 'ss', 'fr', 'fs', 'fh', 'rh', 'hl'].some(hasDirection)
+  ) {
+    result.push({ dx: forward, dy: sideways });
+  }
+  if (
+    unrestricted ||
+    ['ll', 'ss', 'bl', 'bs', 'bh', 'lh', 'hl'].some(hasDirection)
+  ) {
+    result.push({ dx: -forward, dy: -sideways });
+  }
+  if (
+    unrestricted ||
+    ['bb', 'vv', 'rb', 'rv', 'bh', 'rh', 'hl'].some(hasDirection)
+  ) {
+    result.push({ dx: sideways, dy: -forward });
+  }
+  if (
+    unrestricted ||
+    ['ff', 'vv', 'lf', 'lv', 'fh', 'lh', 'hl'].some(hasDirection)
+  ) {
+    result.push({ dx: -sideways, dy: forward });
+  }
+
+  return uniqueDirections(result);
+}
+
+export interface ParseBetzaOptions {
+  /** Return an error when Fairy-Stockfish would ignore any input fragment. */
+  readonly strict?: boolean;
+}
+
+/**
+ * Parse the Betza subset accepted by Fairy-Stockfish's `from_betza()` parser.
+ *
+ * The default mode intentionally mirrors Fairy-Stockfish: unknown characters
+ * are ignored without resetting pending modifiers. Diagnostics are returned as
+ * warnings so callers can explain what the engine ignored. Use
+ * `parseBetzaStrict()` only for authoring or debugging tools.
+ */
+export function parseBetza(
+  notation: string,
+  options: ParseBetzaOptions = {}
+): BetzaParseResult<BetzaMovement> {
+  const terms: BetzaTerm[] = [];
+  const warnings: BetzaDiagnostic[] = [];
+  const modalities: ('m' | 'c')[] = [];
+  const preliminaryDirections: string[] = [];
+  let hopper = false;
+  let lame = false;
+  let initialOnly = false;
+  let distance = 0;
+  let modifiers = '';
+  let pendingStart: number | undefined;
+
+  const markPending = (index: number): void => {
+    if (pendingStart === undefined) pendingStart = index;
+  };
+
+  const resetState = (): void => {
+    modalities.length = 0;
+    preliminaryDirections.length = 0;
+    hopper = false;
+    lame = false;
+    initialOnly = false;
+    distance = 0;
+    modifiers = '';
+    pendingStart = undefined;
+  };
+
+  for (let index = 0; index < notation.length; index += 1) {
+    const char = notation[index];
+
+    if (char === 'm' || char === 'c') {
+      markPending(index);
+      modalities.push(char);
+      modifiers += char;
+      continue;
+    }
+
+    if (char === 'p' || char === 'g') {
+      markPending(index);
+      hopper = true;
+      modifiers += char;
+      if (char === 'g') distance = 1;
+      continue;
+    }
+
+    if (char === 'n') {
+      markPending(index);
+      lame = true;
+      modifiers += char;
+      continue;
+    }
+
+    if (char === 'i') {
+      markPending(index);
+      initialOnly = true;
+      modifiers += char;
+      continue;
+    }
+
+    const vertical = FSF_VERTICAL_MODIFIERS.includes(char);
+    const horizontal = FSF_HORIZONTAL_MODIFIERS.includes(char);
+    if (vertical || horizontal) {
+      markPending(index);
+      const next = notation[index + 1];
+      const nextVertical = next !== undefined && FSF_VERTICAL_MODIFIERS.includes(next);
+      const nextHorizontal = next !== undefined && FSF_HORIZONTAL_MODIFIERS.includes(next);
+      const canCombine =
+        next !== undefined &&
+        (next === char || (vertical && nextHorizontal) || (horizontal && nextVertical));
+
+      if (canCombine) {
+        preliminaryDirections.push(`${char}${next}`);
+        modifiers += `${char}${next}`;
+        index += 1;
+      } else {
+        preliminaryDirections.push(char.repeat(2));
+        modifiers += char;
+      }
+      continue;
+    }
+
+    const leaperAtoms = FSF_LEAPER_ATOMS.get(char);
+    const riderAtoms = FSF_RIDER_ATOMS.get(char);
+    const atoms = riderAtoms ?? leaperAtoms;
+    if (!atoms) {
+      warnings.push(
+        diagnostic(
+          `Ignored by Fairy-Stockfish's Betza parser: "${char}"`,
+          index,
+          char
+        )
+      );
+      continue;
+    }
+
+    let atomIsRider = riderAtoms !== undefined;
+    const next = notation[index + 1];
+    if (next !== undefined && (/\d/.test(next) || next === char)) {
+      atomIsRider = true;
+      if (/\d/.test(next)) {
+        distance = Number(next);
+        index += 1;
+      }
+    }
+
+    if (!atomIsRider && lame) distance = -1;
+    const splitOrthogonalDirections = atoms.length === 1 && atoms[0].sideways === 0;
+    const moveType = fsfMoveType(modalities);
+
+    for (const atom of atoms) {
+      const directions = fsfDirections(
+        atom,
+        preliminaryDirections,
+        splitOrthogonalDirections
+      );
+      const isVectorRider = atomIsRider || hopper;
+      const maxSteps = isVectorRider
+        ? distance > 0
+          ? distance
+          : 'unbounded'
+        : 1;
+      const vectorJumps = Math.max(atom.forward, atom.sideways) > 1;
+
+      terms.push({
+        atom: char,
+        atomCoords: { x: atom.sideways, y: atom.forward },
+        directions,
+        maxSteps,
+        moveType,
+        hopType: hopper ? (modifiers.includes('p') ? 'p' : 'g') : null,
+        jumpType: lame ? 'non-jumping' : vectorJumps ? 'jumping' : 'non-jumping',
+        initialOnly,
+        modifiers,
+      });
+    }
+
+    resetState();
+  }
+
+  if (pendingStart !== undefined) {
+    warnings.push(
+      diagnostic(
+        'Betza modifiers without a following supported atom are ignored by Fairy-Stockfish',
+        pendingStart,
+        notation.slice(pendingStart)
+      )
+    );
+  }
+
+  if (options.strict && warnings.length) return { ok: false, errors: warnings };
+  return { ok: true, value: { notation, terms }, warnings };
+}
+
+export function parseBetzaStrict(notation: string): BetzaParseResult<BetzaMovement> {
+  return parseBetza(notation, { strict: true });
 }

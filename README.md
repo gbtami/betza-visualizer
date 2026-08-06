@@ -88,3 +88,33 @@ Almost everything in this repository made by using Google and OpanAI tools.
 Google AI Studio, gemini-cli, Google Labs Jules using gemini-2.5-pro, gemini2.5-flash
 
 codex-cli using gpt-5.4-codex, gpt-5.5-codex
+
+## TypeScript package
+
+The repository also publishes the DOM-free `@gbtami/betza` package. It keeps
+Betza parsing separate from visual rendering and provides a conservative
+premove movement envelope suitable for chessground-style clients.
+
+```ts
+import { createBetzaPremove } from '@gbtami/betza';
+
+const compiled = createBetzaPremove('fRffN');
+if (compiled.ok) {
+  const destinations = compiled.value({
+    origin: [3, 3],
+    color: 'white',
+    board: { width: 8, height: 8 },
+  });
+}
+```
+
+Premove envelopes intentionally ignore occupancy, capture-only/move-only
+modifiers, blockers, hopper screens, initial-only restrictions, check, and
+variant-level legality. The opponent may change those facts before execution;
+the game server remains authoritative.
+
+`parseBetza()` mirrors Fairy-Stockfish's lenient, stateful parser: characters
+that Fairy-Stockfish ignores are reported as warnings, but the understood
+movement is still returned and used by `createBetzaPremove()`. Authoring tools
+that want to reject ignored fragments can use `parseBetzaStrict()` instead.
+The existing browser visualizer keeps its legacy parser behavior unchanged.

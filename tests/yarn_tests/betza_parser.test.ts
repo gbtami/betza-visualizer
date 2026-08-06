@@ -322,6 +322,25 @@ describe('BetzaParser', () => {
     });
   });
 
+  describe('Fairy-Stockfish package parsing versus legacy visualizer parsing', () => {
+    it('keeps the visualizer lenient for unsupported modifiers', () => {
+      const moves = parser.parse('aN');
+      expect(toCoordSet(moves)).toEqual(toCoordSet(parser.parse('N')));
+    });
+
+    it('keeps supported fragments visible when another atom is unsupported', () => {
+      expect(toCoordSet(parser.parse('WX'))).toEqual(toCoordSet(parser.parse('W')));
+    });
+
+    it('reports ignored syntax while returning Fairy-Stockfish movement', () => {
+      const result = parser.parseDetailed('aN');
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.terms.map((term) => term.atom)).toEqual(['N']);
+      expect(result.warnings.map((warning) => warning.token)).toContain('a');
+    });
+  });
+
   describe('Initial Modifier', () => {
     it('should correctly handle the initial "i" modifier', () => {
         const moves = parser.parse('iW');
@@ -335,4 +354,18 @@ describe('BetzaParser', () => {
         expect(moves.every(m => m.initialOnly === undefined)).toBe(true);
     });
   });
+});
+
+describe('Legacy web visualizer compatibility', () => {
+    const parser = new BetzaParser();
+
+    it('keeps the visualizer quadrant interpretation unchanged', () => {
+        expect(toCoordSet(parser.parse('flN'))).toEqual(new Set(['-1,2', '-2,1']));
+    });
+
+    it('keeps visualizer-only compound aliases unchanged', () => {
+        expect(parser.parse('J').map(move => move.atom)).toEqual(
+            expect.arrayContaining(['A', 'D'])
+        );
+    });
 });

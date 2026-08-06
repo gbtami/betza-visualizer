@@ -1,14 +1,16 @@
 {
-  "name": "betza-web-visualizer",
-  "version": "1.0.0",
+  "name": "@gbtami/betza",
+  "version": "0.1.2",
   "type": "module",
-  "description": "A web app to visualize Betza chess notation.",
+  "description": "Betza notation visualizer with a reusable TypeScript parser and conservative premove generator.",
   "scripts": {
     "lint": "eslint \"src/**/*.ts\"",
     "format": "prettier --write \"src/**/*.ts\"",
     "clean": "rm -rf dist && find tests -name '*.js' -delete && find src -name '*.js' -delete",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "build": "yarn clean && ./node_modules/typescript/bin/tsc && cp index.html style.css fsf_built_in_variants_catalog.json fsf_built_in_variant_properties.json dist/",
+    "build:typescript": "yarn clean && ./node_modules/typescript/bin/tsc",
+    "build": "yarn build:typescript && cp index.html style.css fsf_built_in_variants_catalog.json fsf_built_in_variant_properties.json dist/",
+    "prepack": "yarn build:typescript",
     "start": "python3 -m http.server 8080 --directory dist"
   },
   "devDependencies": {
@@ -25,5 +27,40 @@
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^8.41.0"
-  }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/betza_parser.js",
+    "dist/betza_parser.d.ts",
+    "dist/premove.js",
+    "dist/premove.d.ts",
+    "dist/types.js",
+    "dist/types.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Bajusz Tamás",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gbtami/betza-visualizer.git"
+  },
+  "homepage": "https://github.com/gbtami/betza-visualizer#readme",
+  "bugs": {
+    "url": "https://github.com/gbtami/betza-visualizer/issues"
+  },
+  "sideEffects": false
 }
