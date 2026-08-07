@@ -58,7 +58,7 @@ const COMPOUND_ALIASES: ReadonlyMap<string, string> = new Map([
 ]);
 
 const JUMPING_ATOMS = new Set(['N', 'C', 'L', 'Z', 'J']);
-const KNOWN_MODIFIERS = new Set('mcpgnijfbvhrls'.split(''));
+const KNOWN_MODIFIERS = new Set('mcpgnifbvhrls'.split(''));
 const VERTICAL_MODIFIERS = 'fbvh';
 const HORIZONTAL_MODIFIERS = 'rlsh';
 
@@ -75,6 +75,30 @@ function tokenize(notation: string): WorkToken[] {
     tokens.push({ text: match[0], index: match.index });
   }
   return tokens;
+}
+
+function warningsForUnsupportedCharacters(
+  notation: string,
+  tokens: readonly WorkToken[]
+): BetzaDiagnostic[] {
+  const covered = new Array<boolean>(notation.length).fill(false);
+  for (const token of tokens) {
+    for (let offset = 0; offset < token.text.length; offset += 1) {
+      covered[token.index + offset] = true;
+    }
+  }
+
+  const warnings: BetzaDiagnostic[] = [];
+  for (let index = 0; index < notation.length; index += 1) {
+    const character = notation[index];
+    if (covered[index] || /\s/.test(character)) continue;
+    warnings.push({
+      message: `Unsupported Betza character "${character}" was ignored`,
+      index,
+      token: character,
+    });
+  }
+  return warnings;
 }
 
 function uniqueDirections(directions: Iterable<Direction>): Direction[] {
@@ -227,6 +251,7 @@ export function parseBetza(notation: string): BetzaMovement {
   const terms: BetzaTerm[] = [];
   const warnings: BetzaDiagnostic[] = [];
   const worklist = tokenize(notation);
+  warnings.push(...warningsForUnsupportedCharacters(notation, worklist));
   let currentModifiers = '';
   let currentModifierIndex = 0;
 
@@ -317,7 +342,7 @@ export function parseBetza(notation: string): BetzaMovement {
         hopType,
         jumpType: modifiers.includes('n')
           ? 'non-jumping'
-          : modifiers.includes('j') || JUMPING_ATOMS.has(vector.atom)
+          : JUMPING_ATOMS.has(vector.atom)
             ? 'jumping'
             : rider
               ? 'non-jumping'

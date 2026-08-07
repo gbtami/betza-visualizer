@@ -180,17 +180,23 @@ describe('BetzaParser', () => {
             expect(toCoordSet(moves)).toEqual(expected);
         });
 
-        // --- NEW TESTS FOR n AND j MODIFIERS ---
+        // --- NON-JUMPING MODIFIER AND UNSUPPORTED j DIAGNOSTIC ---
         it('should correctly handle the non-jumping "n" modifier', () => {
             const moves = parser.parse('nN');
             expect(moves.length).toBe(8);
             expect(moves.every(m => m.jumpType === 'non-jumping')).toBe(true);
         });
 
-        it('should correctly handle the jumping "j" modifier', () => {
-            const moves = parser.parse('jD');
-            expect(moves.length).toBe(4);
-            expect(moves.every(m => m.jumpType === 'jumping')).toBe(true);
+        it('should report the unsupported "j" modifier and ignore it', () => {
+            const parsed = parser.parseDetailed('jR');
+            expect(parsed.warnings).toContainEqual({
+                message: 'Unsupported Betza modifier "j" was ignored',
+                index: 0,
+                token: 'j',
+            });
+            const moves = parser.parse('jR');
+            expect(moves.length).toBeGreaterThan(0);
+            expect(moves.every(m => m.jumpType === 'non-jumping')).toBe(true);
         });
 
         it('should default to "jumping" for a leaper without modifiers', () => {
@@ -331,6 +337,17 @@ describe('BetzaParser', () => {
         const moves = parser.parse('W');
         expect(moves.length).toBe(4);
         expect(moves.every(m => m.initialOnly === undefined)).toBe(true);
+    });
+  });
+  describe('Diagnostics', () => {
+    it('reports unsupported punctuation while preserving supported moves', () => {
+      const parsed = parser.parseDetailed('W?N');
+      expect(parsed.warnings).toContainEqual({
+        message: 'Unsupported Betza character "?" was ignored',
+        index: 1,
+        token: '?',
+      });
+      expect(toCoordSet(parser.parse('W?N'))).toEqual(toCoordSet(parser.parse('WN')));
     });
   });
 
