@@ -27,6 +27,34 @@ svg = render_betza_svg("BN", BetzaSvgOptions(piece_label="A", title="Archbishop 
 
 The generated SVG string is intended to be embedded directly into documentation pages.
 
+## TypeScript library usage
+
+The browser parser is also published as `@gbtami/betza`. The visualizer and
+consumers such as premove generators use the same parsed movement model:
+
+```ts
+import { BetzaParser, createBetzaPremove, parseBetza } from "@gbtami/betza";
+
+const movement = parseBetza("fRffN");
+const visualizerMoves = new BetzaParser().parse("fRffN", 8);
+const premove = createBetzaPremove("fRffN");
+const targets = premove({
+  origin: [3, 3],
+  color: "white",
+  board: { width: 8, height: 8 },
+});
+```
+
+Premove targets are intentionally conservative: current blockers, occupancy,
+capture modality, hopper screens, and check legality are ignored because the
+opponent may change the position first. The game server must validate the move
+when it is eventually submitted.
+
+The parser remains permissive and reports unsupported fragments through the
+`warnings` property. This preserves the visualizer's best-effort behavior and
+allows broader original Betza and future XBetza support without adding separate
+consumer-specific parsers.
+
 ## Try the web app
 
 The browser frontend is available online:

@@ -96,11 +96,12 @@ describe('BetzaParser', () => {
             expect(parser.parse('G').length).toBe(4);
         });
 
-        it('should parse an Alibaba (J -> AD)', () => {
-            const moves = parser.parse('J');
-            expect(moves.length).toBe(8);
-            expect(moves).toContainEqual(expect.objectContaining({ atom: 'A' }));
-            expect(moves).toContainEqual(expect.objectContaining({ atom: 'D' }));
+        it('should parse the original Zebra alias (J)', () => {
+            expect(toCoordSet(parser.parse('J'))).toEqual(toCoordSet(parser.parse('Z')));
+        });
+
+        it('should parse the original Camel alias (L)', () => {
+            expect(toCoordSet(parser.parse('L'))).toEqual(toCoordSet(parser.parse('C')));
         });
 
         it('should parse a Berolina Pawn (fmFfceW)', () => {
@@ -139,7 +140,7 @@ describe('BetzaParser', () => {
 
         it('should correctly handle quadrant modifiers like flN', () => {
             const moves = parser.parse('flN');
-            const expected = new Set(['-1,2', '-2,1']);
+            const expected = new Set(['-2,1']);
             expect(toCoordSet(moves)).toEqual(expected);
         });
 
@@ -175,7 +176,7 @@ describe('BetzaParser', () => {
 
         it('should correctly handle combined doubled and quadrant modifiers like fflN', () => {
             const moves = parser.parse('fflN');
-            const expected = new Set(['-1,2']);
+            const expected = new Set(['-2,-1', '-2,1', '-1,2', '1,2']);
             expect(toCoordSet(moves)).toEqual(expected);
         });
 
@@ -278,10 +279,7 @@ describe('BetzaParser', () => {
             const moves = parser.parse('rlbK');
             const moveCoords = toCoordSet(moves);
             const expected = new Set([
-                // Sideways King
-                '1,0', '-1,0', '1,-1', '-1,-1',
-                // Backward King
-                '0,-1', '1,-1', '-1,-1'
+                '-1,-1', '0,-1', '1,-1', '1,0', '1,1'
             ]);
             expect(moveCoords).toEqual(expected);
         });
@@ -292,7 +290,7 @@ describe('BetzaParser', () => {
             const expected = new Set([
                 // Ferz moves
                 '1,1', '1,-1', '-1,1', '-1,-1',
-                // Vertically longest Knight moves (ffN + bbN)
+                // Fairy-Stockfish's fbN directions
                 '1,2', '-1,2', '1,-2', '-1,-2'
             ]);
             expect(moveCoords.size).toBe(8);
@@ -335,4 +333,125 @@ describe('BetzaParser', () => {
         expect(moves.every(m => m.initialOnly === undefined)).toBe(true);
     });
   });
+
+  describe('Fairy-Stockfish supported Betza subset conformance', () => {
+    const infinityCap = new BetzaParser().infinityCap;
+    const coordinates = (notation: string): Set<string> =>
+      toCoordSet(parser.parse(notation));
+
+    test.each([
+      ['W', 4],
+      ['F', 4],
+      ['D', 4],
+      ['N', 8],
+      ['A', 4],
+      ['H', 4],
+      ['L', 8],
+      ['C', 8],
+      ['J', 8],
+      ['Z', 8],
+      ['G', 4],
+      ['K', 8],
+      ['R', 4 * infinityCap],
+      ['B', 4 * infinityCap],
+      ['Q', 8 * infinityCap],
+    ])('supports the FSF base atom %s', (notation, count) => {
+      expect(parser.parse(notation).length).toBe(count);
+    });
+
+    const fsfDirectionCases: readonly [string, Set<string>][] = [
+      ['fW', new Set(['0,1'])],
+      ['bW', new Set(['0,-1'])],
+      ['lW', new Set(['-1,0'])],
+      ['rW', new Set(['1,0'])],
+      ['vW', new Set(['0,1', '0,-1'])],
+      ['sW', new Set(['-1,0', '1,0'])],
+      ['fsW', new Set(['-1,0', '0,1', '1,0'])],
+      ['bsW', new Set(['-1,0', '0,-1', '1,0'])],
+      ['ffN', new Set(['-1,2', '1,2'])],
+      ['bbN', new Set(['-1,-2', '1,-2'])],
+      ['rrN', new Set(['2,-1', '2,1'])],
+      ['llN', new Set(['-2,-1', '-2,1'])],
+      ['vvN', new Set(['-1,-2', '-1,2', '1,-2', '1,2'])],
+      ['ssN', new Set(['-2,-1', '-2,1', '2,-1', '2,1'])],
+      ['rfN', new Set(['1,2'])],
+      ['rvN', new Set(['1,-2', '1,2'])],
+      ['fhN', new Set(['-2,1', '-1,2', '1,2', '2,1'])],
+      ['rhN', new Set(['1,-2', '1,2', '2,-1', '2,1'])],
+      ['hrN', new Set(['-2,1', '-1,-2', '1,2', '2,-1'])],
+      ['lbN', new Set(['-1,-2'])],
+      ['lvN', new Set(['-1,-2', '-1,2'])],
+      ['bhN', new Set(['-2,-1', '-1,-2', '1,-2', '2,-1'])],
+      ['lhN', new Set(['-2,-1', '-1,-2', '-1,2', '-2,1'])],
+      ['brN', new Set(['2,-1'])],
+      ['bsN', new Set(['-2,-1', '2,-1'])],
+      ['flN', new Set(['-2,1'])],
+      ['fsN', new Set(['-2,1', '2,1'])],
+      ['frN', new Set(['2,1'])],
+      ['hlN', new Set(['-2,-1', '-1,2', '1,-2', '2,1'])],
+      ['blN', new Set(['-2,-1'])],
+      ['rbN', new Set(['1,-2'])],
+      ['lfN', new Set(['-1,2'])],
+    ];
+
+    test.each(fsfDirectionCases)(
+      'matches FSF directional semantics for %s',
+      (notation, expected) => {
+        expect(coordinates(notation)).toEqual(expected);
+      }
+    );
+
+    it('supports limited W/R, F/B and N riders', () => {
+      expect(coordinates('W2')).toEqual(
+        new Set(['1,0', '-1,0', '0,1', '0,-1', '2,0', '-2,0', '0,2', '0,-2'])
+      );
+      expect(parser.parse('F3').length).toBe(12);
+      expect(parser.parse('N2').length).toBe(16);
+      expect(coordinates('R2')).toEqual(coordinates('W2'));
+      expect(coordinates('B3')).toEqual(coordinates('F3'));
+    });
+
+    it('supports unlimited W/R, F/B and N riders', () => {
+      expect(coordinates('WW')).toEqual(coordinates('R'));
+      expect(coordinates('FF')).toEqual(coordinates('B'));
+      expect(coordinates('NN')).toEqual(coordinates('N0'));
+    });
+
+    test.each(['pR', 'pB', 'gR', 'gB'])(
+      'marks the supported FSF hopper form %s',
+      notation => {
+        const expectedType = notation.startsWith('p') ? 'p' : 'g';
+        const moves = parser.parse(notation);
+        expect(moves.length).toBeGreaterThan(0);
+        expect(moves.every(move => move.hopType === expectedType)).toBe(true);
+      }
+    );
+
+    test.each(['nN', 'nA', 'nZ', 'nD'])(
+      'marks the supported FSF lame-leaper form %s',
+      notation => {
+        const moves = parser.parse(notation);
+        expect(moves.length).toBeGreaterThan(0);
+        expect(moves.every(move => move.jumpType === 'non-jumping')).toBe(true);
+      }
+    );
+
+    it('preserves FSF move and capture modalities', () => {
+      expect(parser.parse('mW').every(move => move.moveType === 'move')).toBe(true);
+      expect(parser.parse('cW').every(move => move.moveType === 'capture')).toBe(true);
+      expect(parser.parse('mcW').every(move => move.moveType === 'move_capture')).toBe(true);
+      expect(parser.parse('cmW').every(move => move.moveType === 'move_capture')).toBe(true);
+    });
+
+    it('preserves the FSF initial-only modifier', () => {
+      expect(parser.parse('iW').every(move => move.initialOnly)).toBe(true);
+    });
+
+    it('keeps pending modifiers across an unsupported atom', () => {
+      const moves = parser.parse('mXR');
+      expect(moves.length).toBe(4 * parser.infinityCap);
+      expect(moves.every(move => move.moveType === 'move')).toBe(true);
+    });
+  });
+
 });
