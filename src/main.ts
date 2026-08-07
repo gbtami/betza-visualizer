@@ -1,5 +1,8 @@
 import { BetzaParser } from './betza_parser.js';
-import { VariantIniParser } from './variant_ini_parser.js';
+import {
+  VariantIniParser,
+  type VariantProperties,
+} from './variant_ini_parser.js';
 import { Move, Piece } from './types.js';
 import { CELL_SIZE, SVG_NS, COLORS, createMoveIndicator } from './svg_utils.js';
 
@@ -397,7 +400,7 @@ function renderPieceCatalog(pieceCatalog: Piece[], filterVariant = 'All') {
 
 async function initialize() {
   let pieceCatalog: Piece[] = [];
-  let variantProperties: { [key: string]: any } = {};
+  let variantProperties: Record<string, VariantProperties> = {};
   renderBoard([], blockers);
   renderLegend();
   try {

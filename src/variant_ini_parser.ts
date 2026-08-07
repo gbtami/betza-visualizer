@@ -37,7 +37,7 @@ const titleCase = (s: string) =>
     c ? c.toUpperCase() : ' ' + d.toUpperCase()
   );
 
-type VariantProperties = {
+export type VariantProperties = {
   double_step: boolean;
 };
 
