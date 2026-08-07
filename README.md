@@ -29,11 +29,11 @@ The generated SVG string is intended to be embedded directly into documentation 
 
 ## TypeScript library usage
 
-The browser parser is also published as `@gbtami/betza`. The visualizer and
+The browser parser is also published as `@pychess/betza`. The visualizer and
 consumers such as premove generators use the same parsed movement model:
 
 ```ts
-import { BetzaParser, createBetzaPremove, parseBetza } from "@gbtami/betza";
+import { BetzaParser, createBetzaPremove, parseBetza } from "@pychess/betza";
 
 const movement = parseBetza("fRffN");
 const visualizerMoves = new BetzaParser().parse("fRffN", 8);

@@ -1,5 +1,5 @@
 {
-  "name": "@gbtami/betza",
+  "name": "@pychess/betza",
   "version": "0.1.3",
   "type": "module",
   "description": "Betza notation visualizer with a reusable TypeScript parser and conservative premove generator.",
