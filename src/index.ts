@@ -3,10 +3,7 @@ export {
   expandBetzaMovement,
   parseBetza,
 } from './betza_parser.js';
-export {
-  betzaPremoveDestinations,
-  createBetzaPremove,
-} from './premove.js';
+export { betzaPremoveDestinations, createBetzaPremove } from './premove.js';
 export type {
   BetzaBoardDimensions,
   BetzaColor,

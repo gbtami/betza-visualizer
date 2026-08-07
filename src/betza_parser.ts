@@ -1,9 +1,4 @@
-import {
-  BetzaDiagnostic,
-  BetzaMovement,
-  BetzaTerm,
-  Move,
-} from './types.js';
+import { BetzaDiagnostic, BetzaMovement, BetzaTerm, Move } from './types.js';
 
 type Direction = { dx: number; dy: number };
 type AtomVector = {

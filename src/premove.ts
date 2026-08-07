@@ -11,7 +11,9 @@ function isInsideBoard(
   y: number,
   context: BetzaPremoveContext
 ): boolean {
-  return x >= 0 && x < context.board.width && y >= 0 && y < context.board.height;
+  return (
+    x >= 0 && x < context.board.width && y >= 0 && y < context.board.height
+  );
 }
 
 /**

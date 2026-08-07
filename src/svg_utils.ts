@@ -11,7 +11,11 @@ export const COLORS = {
   blocker: '#606060',
 };
 
-function createPath(d: string, color: string, strokeWidth: string): SVGPathElement {
+function createPath(
+  d: string,
+  color: string,
+  strokeWidth: string
+): SVGPathElement {
   const path = document.createElementNS(SVG_NS, 'path');
   path.setAttribute('d', d);
   path.setAttribute('stroke', color);
@@ -49,14 +53,22 @@ export function createMoveIndicator(
 
   const moveColor = isInitial ? COLORS.initial : COLORS.move;
   if (moveType === 'move') {
-    moveIndicatorGroup.appendChild(createPath(fullCircleD, moveColor, strokeWidth));
+    moveIndicatorGroup.appendChild(
+      createPath(fullCircleD, moveColor, strokeWidth)
+    );
   } else if (moveType === 'capture') {
     const captureColor = isInitial ? COLORS.initial : COLORS.capture;
-    moveIndicatorGroup.appendChild(createPath(fullCircleD, captureColor, strokeWidth));
+    moveIndicatorGroup.appendChild(
+      createPath(fullCircleD, captureColor, strokeWidth)
+    );
   } else if (moveType === 'move_capture') {
     const captureColor = isInitial ? COLORS.initial : COLORS.capture;
-    moveIndicatorGroup.appendChild(createPath(leftSemiCircleD, moveColor, strokeWidth));
-    moveIndicatorGroup.appendChild(createPath(rightSemiCircleD, captureColor, strokeWidth));
+    moveIndicatorGroup.appendChild(
+      createPath(leftSemiCircleD, moveColor, strokeWidth)
+    );
+    moveIndicatorGroup.appendChild(
+      createPath(rightSemiCircleD, captureColor, strokeWidth)
+    );
   }
 
   return moveIndicatorGroup;
