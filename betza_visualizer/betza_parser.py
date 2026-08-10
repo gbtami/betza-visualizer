@@ -1,13 +1,13 @@
 import re
-from typing import Dict, List, Tuple, Set, Optional
+from typing import Dict, List, Optional, Set, Tuple
 
 
 class BetzaParser:
-    """
-    Parses a Betza notation string and returns a list of possible moves with their properties.
-    """
+    """Parse Betza notation into possible moves and their properties."""
 
     def __init__(self):
+        # (forward, sideways) vectors.  L/C and J/Z are accepted aliases for
+        # the same Fairy-Stockfish leapers.
         self.atoms: Dict[str, Tuple[int, int]] = {
             "W": (1, 0),
             "F": (1, 1),
@@ -15,29 +15,44 @@ class BetzaParser:
             "N": (2, 1),
             "A": (2, 2),
             "H": (3, 0),
+            "L": (3, 1),
             "C": (3, 1),
+            "J": (3, 2),
             "Z": (3, 2),
             "G": (3, 3),
         }
+        # Compound aliases which expand to more than one independently parsed
+        # Betza atom.  R/B/Q/K are represented below as built-in definitions so
+        # directional modifiers can use the same rules as the TypeScript parser.
         self.compound_aliases: Dict[str, str] = {
-            "B": "F0",
-            "R": "W0",
-            "Q": "W0F0",
-            "K": "W1F1",
             "E": "RN",
-            "J": "AD",
             "M": "FC",
         }
+        self.compound_atoms: Dict[str, Tuple[Tuple[Tuple[str, int, int], ...], bool]] = {
+            "K": (
+                (
+                    ("W", 1, 0),
+                    ("F", 1, 1),
+                ),
+                False,
+            ),
+            "R": ((("W", 1, 0),), True),
+            "B": ((("F", 1, 1),), True),
+            "Q": (
+                (
+                    ("W", 1, 0),
+                    ("F", 1, 1),
+                ),
+                True,
+            ),
+        }
         self.infinity_cap = 12
-        self.jumping_atoms = {"N", "C", "Z"}
+        self.jumping_atoms = {"N", "C", "L", "Z", "J"}
 
-    def parse(
-        self, notation: str, board_size: Optional[int] = None
-    ) -> List[Dict]:
-        """
-        Parses notation. Returns a list of move dictionaries.
-        """
-        moves = []
+    def parse(self, notation: str, board_size: Optional[int] = None) -> List[Dict]:
+        """Parse notation and return a list of move dictionaries."""
+
+        moves: List[Dict] = []
         token_worklist = re.findall(r"[a-z]+|[A-Z]\d*", notation)
         current_mods = ""
 
@@ -49,9 +64,11 @@ class BetzaParser:
                 continue
 
             match = re.match(r"([A-Z])(\d*)", token)
+            if match is None:
+                continue
             letter, suffix = match.groups()
 
-            # Nightrider shorthand: 'NN' -> 'N0'
+            # Original Betza doubled-atom notation denotes an unlimited rider.
             if suffix == "" and token_worklist and token_worklist[0] == letter:
                 token_worklist.pop(0)
                 token_worklist.insert(0, f"{letter}0")
@@ -63,182 +80,169 @@ class BetzaParser:
                     expansion = re.sub(r"([A-Z])\d*", rf"\g<1>{suffix}", expansion)
 
                 new_tokens = re.findall(r"[A-Z]\d*", expansion)
-
                 if current_mods:
                     prefixed_tokens = []
-                    for t in new_tokens:
+                    for expanded_token in new_tokens:
                         prefixed_tokens.append(current_mods)
-                        prefixed_tokens.append(t)
+                        prefixed_tokens.append(expanded_token)
                     new_tokens = prefixed_tokens
 
                 token_worklist[0:0] = new_tokens
                 current_mods = ""
                 continue
 
-            if letter not in self.atoms:
+            definition = self._atom_definition(letter)
+            if definition is None:
+                # Keep pending modifiers, matching the permissive TS parser.
                 continue
 
+            vectors, base_rider = definition
             mods_for_this_atom = current_mods
             current_mods = ""
 
-            atom, count_str = letter, suffix
-
-            # Determine move_type
-            move_type = "move_capture"
-            if "m" in mods_for_this_atom and "c" not in mods_for_this_atom:
-                move_type = "move"
-            elif "c" in mods_for_this_atom and "m" not in mods_for_this_atom:
-                move_type = "capture"
-            elif "m" in mods_for_this_atom and "c" in mods_for_this_atom:
-                move_type = "capture" if mods_for_this_atom.rfind("c") > mods_for_this_atom.rfind("m") else "move"
-
-            # Determine hop_type for riders
-            hop_type = "p" if "p" in mods_for_this_atom else "g" if "g" in mods_for_this_atom else None
-
-            # Determine jump_type based on whether it's a rider or a leaper
-            is_rider = count_str == "0"
+            explicitly_repeated = suffix != ""
+            is_rider = base_rider or explicitly_repeated
             if is_rider:
-                # Rider type depends on the base atom
-                if atom in self.jumping_atoms:
-                    jump_type = "jumping"
+                if suffix and suffix != "0":
+                    max_steps = max(1, int(suffix))
                 else:
-                    jump_type = "non-jumping"
+                    max_steps = board_size // 2 if board_size is not None else self.infinity_cap
             else:
-                # Leapers are jumping by default, unless they are lame (n)
-                jump_type = "jumping"
-                if "n" in mods_for_this_atom:
-                    jump_type = "non-jumping"
-
-            if count_str == "0":
-                max_steps = board_size // 2 if board_size is not None else self.infinity_cap
-            elif count_str == "":
                 max_steps = 1
-            else:
-                max_steps = int(count_str)
-            x_atom, y_atom = self.atoms[atom]
-            base_directions = self._get_directions(x_atom, y_atom)
-            allowed_directions = self._filter_directions(base_directions, mods_for_this_atom, atom)
 
+            move_type = self._move_type(mods_for_this_atom)
+            hop_type = "p" if "p" in mods_for_this_atom else "g" if "g" in mods_for_this_atom else None
+            directional_tokens = self._directional_tokens(mods_for_this_atom)
             is_initial_only = "i" in mods_for_this_atom
 
-            for i in range(1, max_steps + 1):
-                for dx, dy in allowed_directions:
-                    move = {
-                        "x": dx * i,
-                        "y": dy * i,
-                        "move_type": move_type,
-                        "hop_type": hop_type,
-                        "jump_type": jump_type,
-                        "atom": atom,
-                        "atom_coords": {"x": x_atom, "y": y_atom},
-                    }
-                    if is_initial_only:
-                        move["initial_only"] = True
-                    moves.append(move)
+            for atom, forward, sideways in vectors:
+                split_orthogonal_directions = len(vectors) == 1 and sideways == 0
+                allowed_directions = self._directions_for_vector(
+                    forward,
+                    sideways,
+                    directional_tokens,
+                    split_orthogonal_directions,
+                )
+
+                if "n" in mods_for_this_atom:
+                    jump_type = "non-jumping"
+                elif atom in self.jumping_atoms:
+                    jump_type = "jumping"
+                elif is_rider:
+                    jump_type = "non-jumping"
+                else:
+                    jump_type = "jumping"
+
+                for step in range(1, max_steps + 1):
+                    for dx, dy in allowed_directions:
+                        move = {
+                            "x": dx * step,
+                            "y": dy * step,
+                            "move_type": move_type,
+                            "hop_type": hop_type,
+                            "jump_type": jump_type,
+                            "atom": atom,
+                            "atom_coords": {"x": forward, "y": sideways},
+                        }
+                        if is_initial_only:
+                            move["initial_only"] = True
+                        moves.append(move)
 
         return moves
 
-    def _get_directions(self, x: int, y: int) -> Set[Tuple[int, int]]:
-        directions = set()
-        for sx in [-1, 1]:
-            for sy in [-1, 1]:
-                directions.add((x * sx, y * sy))
-                directions.add((y * sx, x * sy))
-        return directions
+    def _atom_definition(self, letter: str) -> Optional[Tuple[Tuple[Tuple[str, int, int], ...], bool]]:
+        compound = self.compound_atoms.get(letter)
+        if compound is not None:
+            return compound
 
-    def _filter_directions(self, directions: Set[Tuple[int, int]], mods: str, atom: str) -> Set[Tuple[int, int]]:
-        # 1. Handle union-style modifiers recursively.
-        # These modifiers expand into a union of moves, so they are handled
-        # by recursively calling this function for each component of the union.
+        coords = self.atoms.get(letter)
+        if coords is None:
+            return None
+        forward, sideways = coords
+        return (((letter, forward, sideways),), False)
 
-        # `v` (vertical) and `s` (sideways) shorthands.
-        if 'v' in mods:
-            other_mods = mods.replace('v', '', 1)
-            f_dirs = self._filter_directions(directions, 'f' + other_mods, atom)
-            b_dirs = self._filter_directions(directions, 'b' + other_mods, atom)
-            return f_dirs.union(b_dirs)
+    @staticmethod
+    def _move_type(mods: str) -> str:
+        quiet = "m" in mods
+        capture = "c" in mods
+        if quiet and not capture:
+            return "move"
+        if capture and not quiet:
+            return "capture"
+        return "move_capture"
 
-        if 's' in mods:
-            other_mods = mods.replace('s', '', 1)
-            l_dirs = self._filter_directions(directions, 'l' + other_mods, atom)
-            r_dirs = self._filter_directions(directions, 'r' + other_mods, atom)
-            return l_dirs.union(r_dirs)
+    @staticmethod
+    def _directional_tokens(mods: str) -> List[str]:
+        """Split original Betza directional modifiers using FSF semantics."""
 
-        # Union of multiple doubled modifiers (e.g., ffrrN).
-        doubled_mods = re.findall(r"ff|bb|ll|rr", mods)
-        if len(doubled_mods) > 1:
-            total_dirs = set()
-            for d_mod in doubled_mods:
-                total_dirs.update(self._filter_directions(directions, d_mod, atom))
-            return total_dirs
+        vertical_modifiers = "fbvh"
+        horizontal_modifiers = "rlsh"
+        result: List[str] = []
+        index = 0
 
-        # 2. Base case: process a modifier string without union-style modifiers.
-        x_atom, y_atom = self.atoms[atom]
-        is_hippogonal = x_atom != y_atom and x_atom * y_atom != 0
+        while index < len(mods):
+            character = mods[index]
+            vertical = character in vertical_modifiers
+            horizontal = character in horizontal_modifiers
+            if not vertical and not horizontal:
+                index += 1
+                continue
 
-        # For hippogonal pieces, single-letter direction modifiers are doubled.
-        if is_hippogonal:
-            dir_mods_only = "".join(c for c in mods if c in "fblr")
-            if len(dir_mods_only) == 1:
-                mods = mods.replace(dir_mods_only, dir_mods_only * 2)
+            next_character = mods[index + 1] if index + 1 < len(mods) else None
+            next_vertical = next_character is not None and next_character in vertical_modifiers
+            next_horizontal = next_character is not None and next_character in horizontal_modifiers
+            can_combine = next_character is not None and (
+                next_character == character or (vertical and next_horizontal) or (horizontal and next_vertical)
+            )
 
-        # The 'h' (half) modifier expands a direction to all moves with that component.
-        # This is handled by disabling the doubled-modifier constraint logic.
-        has_h = 'h' in mods
-        if has_h:
-            mods = mods.replace('h', '')
+            if can_combine:
+                result.append(character + next_character)
+                index += 2
+            else:
+                result.append(character * 2)
+                index += 1
 
-        # The original `fbN` special case is now handled by the `v` recursion.
-        if mods == "fb" and atom == "N":
-            # This case is hit for `vN` -> `fbN`.
-            f_dirs = self._filter_directions(directions, "f", atom)
-            b_dirs = self._filter_directions(directions, "b", atom)
-            return f_dirs.union(b_dirs)
+        return result
 
-        # The `s` and `v` modifiers are handled by recursion now,
-        # so these expansions are no longer needed here.
-        # if "s" in mods:
-        #     mods += "lr"
-        # if "v" in mods:
-        #     mods += "fb"
-
-        dir_mods = "".join(c for c in mods if c in "fblr")
-        is_orthogonal = x_atom * y_atom == 0
-
-        if not dir_mods:
-            filtered = directions
-        else:
-            filtered = set()
-            has_v_mod = any(c in "fb" for c in dir_mods)
-            has_h_mod = any(c in "lr" for c in dir_mods)
-
-            for x, y in directions:
-                v_valid = (not has_v_mod) or (("f" in dir_mods and y > 0) or ("b" in dir_mods and y < 0))
-                h_valid = (not has_h_mod) or (("l" in dir_mods and x < 0) or ("r" in dir_mods and x > 0))
-
-                is_union = is_orthogonal and has_v_mod and has_h_mod
-                if is_union:
-                    if v_valid or h_valid:
-                        filtered.add((x, y))
+    @staticmethod
+    def _directions_for_vector(
+        forward: int,
+        sideways: int,
+        source_directions: List[str],
+        split_orthogonal_directions: bool,
+    ) -> Set[Tuple[int, int]]:
+        if split_orthogonal_directions:
+            directions = []
+            for value in source_directions:
+                if value[0] != value[1]:
+                    directions.extend((value[0] * 2, value[1] * 2))
                 else:
-                    if v_valid and h_valid:
-                        filtered.add((x, y))
+                    directions.append(value)
+        else:
+            directions = list(source_directions)
 
-        constrain_double_vertical = ("ff" in mods or "bb" in mods) and not has_h
-        constrain_double_horizontal = ("ll" in mods or "rr" in mods) and not has_h
+        direction_set = set(directions)
+        unrestricted = not directions
+        result: Set[Tuple[int, int]] = set()
 
-        if not constrain_double_vertical and not constrain_double_horizontal:
-            return filtered
+        def has_any(*values: str) -> bool:
+            return any(value in direction_set for value in values)
 
-        final_filtered = set()
-        for x, y in filtered:
-            is_valid = True
-            if constrain_double_vertical and abs(y) <= abs(x):
-                is_valid = False
-            if constrain_double_horizontal and abs(x) <= abs(y):
-                is_valid = False
+        if unrestricted or has_any("ff", "vv", "rf", "rv", "fh", "rh", "hr"):
+            result.add((sideways, forward))
+        if unrestricted or has_any("bb", "vv", "lb", "lv", "bh", "lh", "hr"):
+            result.add((-sideways, -forward))
+        if unrestricted or has_any("rr", "ss", "br", "bs", "bh", "rh", "hr"):
+            result.add((forward, -sideways))
+        if unrestricted or has_any("ll", "ss", "fl", "fs", "fh", "lh", "hr"):
+            result.add((-forward, sideways))
+        if unrestricted or has_any("rr", "ss", "fr", "fs", "fh", "rh", "hl"):
+            result.add((forward, sideways))
+        if unrestricted or has_any("ll", "ss", "bl", "bs", "bh", "lh", "hl"):
+            result.add((-forward, -sideways))
+        if unrestricted or has_any("bb", "vv", "rb", "rv", "bh", "rh", "hl"):
+            result.add((sideways, -forward))
+        if unrestricted or has_any("ff", "vv", "lf", "lv", "fh", "lh", "hl"):
+            result.add((-sideways, forward))
 
-            if is_valid:
-                final_filtered.add((x, y))
-
-        return final_filtered
+        return result

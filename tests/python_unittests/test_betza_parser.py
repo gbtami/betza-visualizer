@@ -22,9 +22,9 @@ class TestOriginalCases(unittest.TestCase):
 
     def test_stateful_modifiers_on_compound_piece(self):
         moves = self.parser.parse("mRcN")
-        rook_move = next(m for m in moves if (m['x'], m['y']) == (0, 5))
+        rook_move = next(m for m in moves if (m["x"], m["y"]) == (0, 5))
         self.assertEqual(rook_move["move_type"], "move")
-        knight_move = next(m for m in moves if (m['x'], m['y']) == (2, 1))
+        knight_move = next(m for m in moves if (m["x"], m["y"]) == (2, 1))
         self.assertEqual(knight_move["move_type"], "capture")
 
 
@@ -75,7 +75,7 @@ class TestFairyStockfishPieces(unittest.TestCase):
     def test_tripper(self):
         self.assertEqual(len(self.parser.parse("G")), 4)
 
-    def test_alibaba(self):
+    def test_original_zebra_alias(self):
         moves = self.parser.parse("J")
         self.assertEqual(len(moves), 8)
 
@@ -98,7 +98,7 @@ class TestFairyStockfishPieces(unittest.TestCase):
     def test_nightrider_shorthand_NN(self):
         """Tests that 'NN' is parsed as a Nightrider (N0)."""
         moves = self.parser.parse("NN")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         self.assertEqual(len(moves), 8 * self.parser.infinity_cap)
         self.assertIn((4, 2), move_coords)
         self.assertIn((-4, -2), move_coords)
@@ -112,13 +112,13 @@ class TestAdvancedModifiers(unittest.TestCase):
 
     def test_quadrant_modifier_flN(self):
         moves = self.parser.parse("flN")
-        move_coords = {(m['x'], m['y']) for m in moves}
-        self.assertSetEqual(move_coords, {(-1, 2), (-2, 1)})
+        move_coords = {(m["x"], m["y"]) for m in moves}
+        self.assertSetEqual(move_coords, {(-2, 1)})
 
     def test_shogi_knight_fN(self):
         """Tests that 'fN' produces the forward-only Shogi Knight moves."""
         moves = self.parser.parse("fN")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         self.assertSetEqual(move_coords, {(-1, 2), (1, 2)})
 
     def test_doubled_modifier_ffN_is_equivalent_to_fN(self):
@@ -126,62 +126,62 @@ class TestAdvancedModifiers(unittest.TestCase):
         moves_fN = self.parser.parse("fN")
         moves_ffN = self.parser.parse("ffN")
         self.assertSetEqual(
-            {(m['x'], m['y']) for m in moves_fN},
-            {(m['x'], m['y']) for m in moves_ffN},
+            {(m["x"], m["y"]) for m in moves_fN},
+            {(m["x"], m["y"]) for m in moves_ffN},
         )
 
     def test_half_modifier_fhN(self):
         """Tests that 'fhN' produces all 4 forward Knight moves."""
         moves = self.parser.parse("fhN")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         self.assertSetEqual(move_coords, {(-1, 2), (1, 2), (-2, 1), (2, 1)})
 
     def test_union_of_doubled_modifiers_ffrrN(self):
         """Tests that 'ffrrN' produces a union of forward and right moves."""
         moves = self.parser.parse("ffrrN")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         self.assertSetEqual(move_coords, {(-1, 2), (1, 2), (2, 1), (2, -1)})
 
     def test_doubled_modifier_srrC_sideways_camel(self):
         moves = self.parser.parse("srrC")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         self.assertSetEqual(move_coords, {(3, 1), (3, -1), (-3, 1), (-3, -1)})
 
     def test_combined_doubled_and_quadrant_fflN(self):
         moves = self.parser.parse("fflN")
-        move_coords = {(m['x'], m['y']) for m in moves}
-        self.assertSetEqual(move_coords, {(-1, 2)})
+        move_coords = {(m["x"], m["y"]) for m in moves}
+        self.assertSetEqual(move_coords, {(-2, -1), (-2, 1), (-1, 2), (1, 2)})
 
     # --- NEW TESTS FOR n AND j MODIFIERS ---
     def test_non_jumping_modifier_nN(self):
         """Tests that the 'n' modifier correctly flags moves as non-jumping."""
         moves = self.parser.parse("nN")
         self.assertEqual(len(moves), 8)
-        self.assertTrue(all(m['jump_type'] == "non-jumping" for m in moves))
+        self.assertTrue(all(m["jump_type"] == "non-jumping" for m in moves))
 
     def test_jumping_modifier_jD(self):
         """Tests that the 'j' modifier correctly flags moves as jumping."""
         moves = self.parser.parse("jD")
         self.assertEqual(len(moves), 4)
-        self.assertTrue(all(m['jump_type'] == "jumping" for m in moves))
+        self.assertTrue(all(m["jump_type"] == "jumping" for m in moves))
 
     def test_default_leaper_is_jumping(self):
         """Tests that a leaper with no modifiers defaults to jumping."""
         moves = self.parser.parse("N")
         self.assertEqual(len(moves), 8)
-        self.assertTrue(all(m['jump_type'] == "jumping" for m in moves))
+        self.assertTrue(all(m["jump_type"] == "jumping" for m in moves))
 
     def test_default_sliding_rider_is_non_jumping(self):
         """Tests that a sliding rider (e.g., Rook) defaults to non-jumping."""
         moves = self.parser.parse("R")  # R is an alias for W0
         self.assertGreater(len(moves), 0)
-        self.assertTrue(all(m['jump_type'] == "non-jumping" for m in moves))
+        self.assertTrue(all(m["jump_type"] == "non-jumping" for m in moves))
 
     def test_default_jumping_rider_is_jumping(self):
         """Tests that a jumping rider (e.g., Nightrider) defaults to jumping."""
         moves = self.parser.parse("NN")  # NN is an alias for N0
         self.assertGreater(len(moves), 0)
-        self.assertTrue(all(m['jump_type'] == "jumping" for m in moves))
+        self.assertTrue(all(m["jump_type"] == "jumping" for m in moves))
 
     def test_pawn_modifier_pNN(self):
         """Tests that the 'p' modifier works correctly on a Nightrider."""
@@ -190,8 +190,8 @@ class TestAdvancedModifiers(unittest.TestCase):
         # For 'p', the move type is conditional on blockers, so the parser
         # should return the default 'move_capture', and the rendering logic
         # will handle the rest.
-        self.assertTrue(all(m['move_type'] == "move_capture" for m in moves))
-        self.assertTrue(all(m['hop_type'] == "p" for m in moves))
+        self.assertTrue(all(m["move_type"] == "move_capture" for m in moves))
+        self.assertTrue(all(m["hop_type"] == "p" for m in moves))
 
 
 class TestDirectionalShorthand(unittest.TestCase):
@@ -203,19 +203,19 @@ class TestDirectionalShorthand(unittest.TestCase):
     def test_vertical_modifier_vN_on_hippogonal(self):
         """Tests that 'vN' produces vertical-only knight moves."""
         moves = self.parser.parse("vN")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         self.assertSetEqual(move_coords, {(-1, 2), (1, 2), (-1, -2), (1, -2)})
 
     def test_sideways_modifier_sN_on_hippogonal(self):
         """Tests that 'sN' produces sideways-only knight moves."""
         moves = self.parser.parse("sN")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         self.assertSetEqual(move_coords, {(-2, 1), (2, 1), (-2, -1), (2, -1)})
 
     def test_vertical_modifier_vR(self):
         """Tests that 'vR' produces only vertical moves for a Rook."""
         moves = self.parser.parse("vR")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         expected_coords = set()
         for i in range(1, self.parser.infinity_cap + 1):
             expected_coords.add((0, i))
@@ -225,16 +225,12 @@ class TestDirectionalShorthand(unittest.TestCase):
     def test_sideways_modifier_sR(self):
         """Tests that 'sR' produces only horizontal moves for a Rook."""
         moves = self.parser.parse("sR")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         expected_coords = set()
         for i in range(1, self.parser.infinity_cap + 1):
             expected_coords.add((i, 0))
             expected_coords.add((-i, 0))
         self.assertSetEqual(move_coords, expected_coords)
-
-
-if __name__ == "__main__":
-    unittest.main()
 
 
 class TestInitialModifier(unittest.TestCase):
@@ -268,7 +264,7 @@ class TestModifierScope(unittest.TestCase):
         In 'fBW', the 'f' should only apply to 'B', not to 'W'.
         """
         moves = self.parser.parse("fBW")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
 
         # Check that 'W' moves are not restricted by the 'f' modifier
         self.assertIn((0, -1), move_coords)  # Backward Wazir move
@@ -284,7 +280,7 @@ class TestModifierScope(unittest.TestCase):
         to all of its components (W and F).
         """
         moves = self.parser.parse("fK")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
 
         # King moves: (0,1), (1,1), (-1,1)
         expected = {(0, 1), (1, 1), (-1, 1)}
@@ -300,14 +296,14 @@ class TestMultiDirectionalModifiers(unittest.TestCase):
     def test_janggi_pawn_sfW(self):
         """Tests the Janggi pawn 'sfW', which should move forward or sideways."""
         moves = self.parser.parse("sfW")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         # Should have forward (0,1), left (-1,0), and right (1,0) moves.
         self.assertSetEqual(move_coords, {(0, 1), (-1, 0), (1, 0)})
 
     def test_charging_rook_frlR(self):
         """Tests 'frlR', forward and sideways Rook moves."""
         moves = self.parser.parse("frlR")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         expected = set()
         for i in range(1, self.parser.infinity_cap + 1):
             expected.add((0, i))  # Forward
@@ -318,7 +314,7 @@ class TestMultiDirectionalModifiers(unittest.TestCase):
     def test_fibnif_fbNF(self):
         """Tests the Fibnif 'fbNF', which moves as a Ferz or the 4 most vertical Knight moves."""
         moves = self.parser.parse("fbNF")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         expected = {
             # Ferz moves
             (1, 1),
@@ -337,16 +333,99 @@ class TestMultiDirectionalModifiers(unittest.TestCase):
     def test_charging_rook_part_2_rlbK(self):
         """Tests 'rlbK', sideways and backward King moves."""
         moves = self.parser.parse("rlbK")
-        move_coords = {(m['x'], m['y']) for m in moves}
+        move_coords = {(m["x"], m["y"]) for m in moves}
         expected = {
-            # Sideways King
-            (1, 0),
-            (-1, 0),
-            (1, -1),
             (-1, -1),
-            # Backward King
             (0, -1),
             (1, -1),
-            (-1, -1),
+            (1, 0),
+            (1, 1),
         }
         self.assertSetEqual(move_coords, expected)
+
+
+class TestFairyStockfishDirectionalConformance(unittest.TestCase):
+    """Keep the Python parser aligned with the TypeScript/FSF direction rules."""
+
+    def setUp(self):
+        self.parser = BetzaParser()
+
+    def coords(self, notation, board_size=None):
+        return {(move["x"], move["y"]) for move in self.parser.parse(notation, board_size=board_size)}
+
+    def test_original_camel_and_zebra_aliases(self):
+        self.assertSetEqual(self.coords("L"), self.coords("C"))
+        self.assertSetEqual(self.coords("J"), self.coords("Z"))
+
+    def test_fsf_direction_pairing(self):
+        cases = {
+            "fW": {(0, 1)},
+            "bW": {(0, -1)},
+            "lW": {(-1, 0)},
+            "rW": {(1, 0)},
+            "vW": {(0, -1), (0, 1)},
+            "sW": {(-1, 0), (1, 0)},
+            "fsW": {(-1, 0), (0, 1), (1, 0)},
+            "bsW": {(-1, 0), (0, -1), (1, 0)},
+            "ffN": {(-1, 2), (1, 2)},
+            "bbN": {(-1, -2), (1, -2)},
+            "rrN": {(2, -1), (2, 1)},
+            "llN": {(-2, -1), (-2, 1)},
+            "vvN": {(-1, -2), (-1, 2), (1, -2), (1, 2)},
+            "ssN": {(-2, -1), (-2, 1), (2, -1), (2, 1)},
+            "rfN": {(1, 2)},
+            "rvN": {(1, -2), (1, 2)},
+            "fhN": {(-2, 1), (-1, 2), (1, 2), (2, 1)},
+            "rhN": {(1, -2), (1, 2), (2, -1), (2, 1)},
+            "hrN": {(-2, 1), (-1, -2), (1, 2), (2, -1)},
+            "lbN": {(-1, -2)},
+            "lvN": {(-1, -2), (-1, 2)},
+            "bhN": {(-2, -1), (-1, -2), (1, -2), (2, -1)},
+            "lhN": {(-2, -1), (-2, 1), (-1, -2), (-1, 2)},
+            "brN": {(2, -1)},
+            "bsN": {(-2, -1), (2, -1)},
+            "flN": {(-2, 1)},
+            "fsN": {(-2, 1), (2, 1)},
+            "frN": {(2, 1)},
+            "hlN": {(-2, -1), (-1, 2), (1, -2), (2, 1)},
+            "blN": {(-2, -1)},
+            "rbN": {(1, -2)},
+            "lfN": {(-1, 2)},
+            "fflN": {(-2, -1), (-2, 1), (-1, 2), (1, 2)},
+        }
+        for notation, expected in cases.items():
+            with self.subTest(notation=notation):
+                self.assertSetEqual(self.coords(notation), expected)
+
+    def test_move_capture_modifier_order_is_a_union(self):
+        for notation in ("mcW", "cmW"):
+            with self.subTest(notation=notation):
+                self.assertTrue(all(move["move_type"] == "move_capture" for move in self.parser.parse(notation)))
+
+    def test_pending_modifiers_survive_unsupported_atom(self):
+        moves = self.parser.parse("mXR")
+        self.assertEqual(len(moves), 4 * self.parser.infinity_cap)
+        self.assertTrue(all(move["move_type"] == "move" for move in moves))
+
+    def test_simple_snails_lr52_regression(self):
+        expected = {
+            (-4, 4),
+            (-3, 0),
+            (-3, 3),
+            (-2, -2),
+            (-2, 2),
+            (-1, -1),
+            (-1, 1),
+            (0, -3),
+            (0, 1),
+            (1, -1),
+            (1, 2),
+            (2, -2),
+            (2, 1),
+            (3, 0),
+        }
+        self.assertSetEqual(self.coords("fWbFflBrffrNbblAbsHflG", board_size=9), expected)
+
+
+if __name__ == "__main__":
+    unittest.main()
